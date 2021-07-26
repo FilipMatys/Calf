@@ -37,15 +37,6 @@ export class ComGate {
     protected service: RequestService;
 
     /**
-     * Host
-     * @description Host getter
-     */
-    protected get host(): string {
-        // Return host
-        return `${this.config.url}:${this.config.port}/paya`;
-    }
-
-    /**
      * Initialize
      * @param config
      * @param service
@@ -64,7 +55,7 @@ export class ComGate {
      */
     public async info(): Promise<IInfoResponse> {
         // Make get request
-        return this.service.get([this.host, "info"].join("/"));
+        return this.service.get([this.host(), "info"].join("/"));
     }
 
     /**
@@ -77,7 +68,7 @@ export class ComGate {
         payload.secureString = payload.secureString || this.config.password;
 
         // Make post request
-        return this.service.post([this.host, "terminal"].join("/"), payload);
+        return this.service.post([this.host(), "terminal"].join("/"), payload);
     }
 
     /**
@@ -90,7 +81,7 @@ export class ComGate {
         payload.secureString = payload.secureString || this.config.password;
 
         // Make post request
-        return this.service.post([this.host, "payment"].join("/"), payload);
+        return this.service.post([this.host(), "payment"].join("/"), payload);
     }
 
     /**
@@ -103,7 +94,7 @@ export class ComGate {
         payload.secureString = payload.secureString || this.config.password;
 
         // Make post request
-        return this.service.post([this.host, "refund"].join("/"), payload);
+        return this.service.post([this.host(), "refund"].join("/"), payload);
     }
 
     /**
@@ -117,7 +108,7 @@ export class ComGate {
         payload.secureString = payload.secureString || this.config.password;
 
         // Make post request
-        return this.service.post([this.host, "reverse"].join("/"), payload);
+        return this.service.post([this.host(), "reverse"].join("/"), payload);
     }
 
     /**
@@ -131,7 +122,7 @@ export class ComGate {
         payload.secureString = payload.secureString || this.config.password;
 
         // Make post request
-        return this.service.post([this.host, "closing"].join("/"), payload);
+        return this.service.post([this.host(), "closing"].join("/"), payload);
     }
 
     /**
@@ -144,7 +135,7 @@ export class ComGate {
         payload.secureString = payload.secureString || this.config.password;
 
         // Make post request
-        return this.service.post([this.host, "status"].join("/"), payload);
+        return this.service.post([this.host(), "status"].join("/"), payload);
     }
 
     /**
@@ -158,7 +149,7 @@ export class ComGate {
         payload.secureString = payload.secureString || this.config.password;
 
         // Make post request
-        return this.service.post([this.host, "result"].join("/"), payload);
+        return this.service.post([this.host(), "result"].join("/"), payload);
     }
 
     /**
@@ -171,6 +162,15 @@ export class ComGate {
         payload.secureString = payload.secureString || this.config.password;
 
         // Make post request
-        return this.service.post([this.host, "confirm"].join("/"), payload);
+        return this.service.post([this.host(), "confirm"].join("/"), payload);
+    }
+
+    /**
+     * Host
+     * @description Host getter
+     */
+    protected host(): string {
+        // Return host
+        return `${this.config.url}:${this.config.port}/paya`;
     }
 }
