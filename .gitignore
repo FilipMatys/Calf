@@ -26,3 +26,5 @@ packages/gopay/node_modules
 packages/gopay/dist
 packages/comgate/node_modules
 packages/comgate/dist
+packages/geometry/node_modules
+packages/geometry/dist
