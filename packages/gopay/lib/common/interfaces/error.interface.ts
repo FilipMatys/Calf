@@ -9,38 +9,38 @@ export interface IError {
 
     /**
      * Scope
-     * @description 
+     * @description Error range
      */
     scope?: ErrorScope;
 
     /**
     * Field
-    * @description 
+    * @description Which parameter is affected by the error, unless it is a global error
     */
     field?: string;
 
     /**
     * Error code
-    * @description 
+    * @description Numeric designation of the error type
     */
     error_code?: ErrorCode;
 
 
     /**
     * Error name
-    * @description 
+    * @description Technical description of the error
     */
     error_name?: string;
 
     /**
     * Message
-    * @description 
+    * @description Localized message. Localization based on Accept-Language in the header. It is set to en-US by default.
     */
     message?: string;
 
     /**
     * Description
-    * @description 
+    * @description Technical description of the error
     */
     description?: string;
 }
