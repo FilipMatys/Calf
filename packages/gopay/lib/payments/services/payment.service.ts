@@ -7,6 +7,7 @@ import { IChargePaymentPayload } from "../interfaces/charge-payment-payload.inte
 
 // Services
 import { RequestService } from "../../common/services/request.service";
+import { IErrorResponse } from "../../common/interfaces/error-response.interface";
 
 /**
  * Payment service
@@ -25,7 +26,7 @@ export class PaymentService extends RequestService {
      * @param callback 
      * @returns 
      */
-    public async create(payload: IPaymentPayload, callback?: ICallbackFn<IPaymentResponse>): Promise<IPaymentResponse> {
+    public async create(payload: IPaymentPayload, callback?: ICallbackFn<IPaymentResponse | IErrorResponse>): Promise<IPaymentResponse | IErrorResponse> {
         // Make post request
         return this.post([...this.base, "payment"], payload, callback);
     }
@@ -36,7 +37,7 @@ export class PaymentService extends RequestService {
      * @param callback 
      * @returns 
      */
-    public async status(id: number, callback?: ICallbackFn<IPaymentResponse>): Promise<IPaymentResponse> {
+    public async status(id: number, callback?: ICallbackFn<IPaymentResponse | IErrorResponse>): Promise<IPaymentResponse | IErrorResponse> {
         // Make get request
         return this.get([...this.base, "payment", `${id}`], null, callback);
     }
@@ -47,7 +48,7 @@ export class PaymentService extends RequestService {
      * @param amount 
      * @param callback 
      */
-    public async refund(id: number, amount: number, callback?: ICallbackFn<IPaymentModificationResponse>): Promise<IPaymentModificationResponse> {
+    public async refund(id: number, amount: number, callback?: ICallbackFn<IPaymentModificationResponse | IErrorResponse>): Promise<IPaymentModificationResponse | IErrorResponse> {
         // Make post request
         return this.post([...this.base, "payment", `${id}`, "refund"], { amount: amount }, callback);
     }
@@ -59,7 +60,7 @@ export class PaymentService extends RequestService {
      * @param callback 
      * @returns 
      */
-    public async cancel(id: number, callback?: ICallbackFn<IPaymentModificationResponse>): Promise<IPaymentModificationResponse> {
+    public async cancel(id: number, callback?: ICallbackFn<IPaymentModificationResponse | IErrorResponse>): Promise<IPaymentModificationResponse | IErrorResponse> {
         // Make post request
         return this.post([...this.base, "payment", `${id}`, "void-authorization"], null, callback);
     }
@@ -71,7 +72,7 @@ export class PaymentService extends RequestService {
      * @param callback 
      * @returns 
      */
-    public async charge(id: number, payload?: IChargePaymentPayload, callback?: ICallbackFn<IPaymentModificationResponse>): Promise<IPaymentModificationResponse> {
+    public async charge(id: number, payload?: IChargePaymentPayload, callback?: ICallbackFn<IPaymentModificationResponse | IErrorResponse>): Promise<IPaymentModificationResponse | IErrorResponse> {
         // Make post request
         return this.post([...this.base, "payment", `${id}`, "capture"], payload, callback);
     }

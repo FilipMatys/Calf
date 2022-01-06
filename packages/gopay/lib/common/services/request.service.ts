@@ -5,6 +5,7 @@ import { HeadersInit } from "node-fetch";
 // Interfaces
 import { ICallbackFn } from "../interfaces/callback-fn.interface";
 import { IGoPayConfig } from "../interfaces/config.interface";
+import { IErrorResponse } from "../interfaces/error-response.interface";
 
 /**
  * Request service
@@ -110,7 +111,7 @@ export class RequestService {
      * @param payload 
      * @param callback
      */
-    protected async delete<TPayload, TResult>(path: string[], payload: TPayload, callback?: ICallbackFn<TResult>): Promise<TResult> {
+    protected async delete<TPayload, TResult>(path: string[], payload: TPayload, callback?: ICallbackFn<TResult | IErrorResponse>): Promise<TResult | IErrorResponse> {
         try {
             // Create new url
             const url = new URL([this._host, ...path].join("/"));
@@ -150,7 +151,7 @@ export class RequestService {
      * @param payload 
      * @param callback
      */
-    protected async post<TPayload, TResult>(path: string[], payload: TPayload, callback?: ICallbackFn<TResult>): Promise<TResult> {
+    protected async post<TPayload, TResult>(path: string[], payload: TPayload, callback?: ICallbackFn<TResult | IErrorResponse>): Promise<TResult | IErrorResponse> {
         try {
             // Create new url
             const url = new URL([this._host, ...path].join("/"));
@@ -190,7 +191,7 @@ export class RequestService {
      * @param payload 
      * @param callback
      */
-    protected async put<TPayload, TResult>(path: string[], payload: TPayload, callback?: ICallbackFn<TResult>): Promise<TResult> {
+    protected async put<TPayload, TResult>(path: string[], payload: TPayload, callback?: ICallbackFn<TResult | IErrorResponse>): Promise<TResult | IErrorResponse> {
         try {
             // Create new url
             const url = new URL([this._host, ...path].join("/"));
