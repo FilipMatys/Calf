@@ -4,6 +4,7 @@ import { HeliosProcedureParameters } from "../classes/parameters.class";
 
 // Enums
 import { HeliosProcedureParameterType } from "../enums/parameter-type.enum";
+import { MerchandiseManagementDocumentType } from "../../../enums/merchandise-management-document-type.enum";
 
 /**
  * Helios merchandise management documents procedure parameters
@@ -11,9 +12,9 @@ import { HeliosProcedureParameterType } from "../enums/parameter-type.enum";
  */
 export class HeliosMerchandiseManagementDocumentsProcedureParameters extends HeliosProcedureParameters {
 
-    protected druhPohybuZbo: HeliosProcedureParameter<number> = new HeliosProcedureParameter<number>("DruhPohybuZbo", HeliosProcedureParameterType.TINYINT);
-    public get DruhPohybuZbo(): number | undefined | null { return this.druhPohybuZbo.Value; };
-    public set DruhPohybuZbo(value: number | undefined | null) { this.druhPohybuZbo.Value = value; };
+    protected druhPohybuZbo: HeliosProcedureParameter<MerchandiseManagementDocumentType> = new HeliosProcedureParameter<MerchandiseManagementDocumentType>("DruhPohybuZbo", HeliosProcedureParameterType.TINYINT);
+    public get DruhPohybuZbo(): MerchandiseManagementDocumentType | undefined | null { return this.druhPohybuZbo.Value; };
+    public set DruhPohybuZbo(value: MerchandiseManagementDocumentType | undefined | null) { this.druhPohybuZbo.Value = value; };
 
     protected iDSklad: HeliosProcedureParameter<string> = new HeliosProcedureParameter<string>("IDSklad", HeliosProcedureParameterType.NVARCHAR);
     public get IDSklad(): string | undefined | null { return this.iDSklad.Value; };

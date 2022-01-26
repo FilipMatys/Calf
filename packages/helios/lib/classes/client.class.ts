@@ -1,3 +1,6 @@
+// External modules
+import { Observable, Subject } from "rxjs";
+
 // Interfaces
 import { IHeliosConfig } from "../interfaces/configs/config.interface";
 
@@ -38,6 +41,10 @@ export class HeliosClient {
      */
     private static _utility: UtilityService = new UtilityService();
 
+    // Helios client change source
+    private static changeSource: Subject<IHeliosConfig> = new Subject<IHeliosConfig>();
+    public static readonly change$: Observable<IHeliosConfig> = HeliosClient.changeSource.asObservable();
+
     /**
      * eServer
      * @description eServer service
@@ -72,5 +79,8 @@ export class HeliosClient {
     public static initialize(config: IHeliosConfig): void {
         // Initialize config
         HeliosConfig.initialize(config);
+
+        // Emit change
+        this.changeSource.next(config);
     }
 }
