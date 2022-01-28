@@ -1,3 +1,6 @@
+// Enums
+import { RecurrenceCycle } from "../enums/recurrence-cycle.enum";
+
 /**
  * Recurrence
  * @description Setting of recurring payment
@@ -8,7 +11,7 @@ export interface IRecurrence {
      * Recurrence cycle
      * @description Time period of recurring
      */
-    recurrence_cycle?: string;
+    recurrence_cycle?: RecurrenceCycle;
 
     /**
      * Recurrence period

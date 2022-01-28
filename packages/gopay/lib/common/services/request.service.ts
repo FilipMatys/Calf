@@ -43,8 +43,6 @@ export class RequestService {
         this._host = config.host;
         this._clientId = config.clientId;
         this._clientSecret = config.clientSecret;
-
-        console.log(config);
     }
 
     /**
@@ -64,7 +62,7 @@ export class RequestService {
      * @param payload 
      * @param callback
      */
-    protected async get<TParams, TResult>(path: string[], params?: TParams, callback?: ICallbackFn<TResult>): Promise<TResult> {
+    protected async get<TParams, TResult>(path: string[], params?: TParams, callback?: ICallbackFn<TResult>): Promise<TResult | IErrorResponse> {
         try {
             // Create new url
             const url = new URL([this._host, ...path].join("/"));
