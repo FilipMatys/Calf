@@ -4,56 +4,18 @@ import { HeadersInit } from "node-fetch";
 
 // Interfaces
 import { ICallbackFn } from "../interfaces/callback-fn.interface";
-import { IGoPayConfig } from "../interfaces/config.interface";
 import { IErrorResponse } from "../interfaces/error-response.interface";
+
+// Classes
+import { Config } from "../classes/config.class";
+
+// Services
+import { TokenService } from "./token.service";
 
 /**
  * Request service
  */
 export class RequestService {
-
-    /**
-     * Host
-     * @description Request target host
-     */
-    protected _host: string;
-
-    /**
-     * Client id
-     */
-    protected _clientId: string;
-
-    /**
-     * Client secret
-     */
-    protected _clientSecret: string;
-
-    /**
-     * Token
-     * @description Authorization token
-     */
-    protected _token: string;
-
-    /**
-     * Constructor
-     * @param config 
-     */
-    constructor(config: IGoPayConfig) {
-        // Assign host and client config
-        this._host = config.host;
-        this._clientId = config.clientId;
-        this._clientSecret = config.clientSecret;
-    }
-
-    /**
-     * Set token
-     * @description Set authorization token
-     * @param token 
-     */
-    public setToken(token: string): void {
-        // Set token
-        this._token = token;
-    }
 
     /**
      * Get
@@ -65,7 +27,7 @@ export class RequestService {
     protected async get<TParams, TResult>(path: string[], params?: TParams, callback?: ICallbackFn<TResult>): Promise<TResult | IErrorResponse> {
         try {
             // Create new url
-            const url = new URL([this._host, ...path].join("/"));
+            const url = new URL([Config.host, ...path].join("/"));
 
             // Check for params
             if (params) {
@@ -81,7 +43,7 @@ export class RequestService {
                 // Set method
                 method: "get",
                 // Set headers
-                headers: this.getRequestHeaders()
+                headers: await this.getRequestHeaders()
             });
 
             // Get result
@@ -112,7 +74,7 @@ export class RequestService {
     protected async delete<TPayload, TResult>(path: string[], payload: TPayload, callback?: ICallbackFn<TResult | IErrorResponse>): Promise<TResult | IErrorResponse> {
         try {
             // Create new url
-            const url = new URL([this._host, ...path].join("/"));
+            const url = new URL([Config.host, ...path].join("/"));
 
             // Make delete request
             const response = await fetch(url, {
@@ -121,7 +83,7 @@ export class RequestService {
                 // Set body 
                 body: JSON.stringify(payload),
                 // Set headers
-                headers: this.getRequestHeaders()
+                headers: await this.getRequestHeaders()
             });
 
             // Get result
@@ -152,7 +114,7 @@ export class RequestService {
     protected async post<TPayload, TResult>(path: string[], payload: TPayload, callback?: ICallbackFn<TResult | IErrorResponse>): Promise<TResult | IErrorResponse> {
         try {
             // Create new url
-            const url = new URL([this._host, ...path].join("/"));
+            const url = new URL([Config.host, ...path].join("/"));
 
             // Make post request
             const response = await fetch(url, {
@@ -161,7 +123,7 @@ export class RequestService {
                 // Set body 
                 body: JSON.stringify(payload),
                 // Set headers
-                headers: this.getRequestHeaders()
+                headers: await this.getRequestHeaders()
             });
 
             // Get result
@@ -192,7 +154,7 @@ export class RequestService {
     protected async put<TPayload, TResult>(path: string[], payload: TPayload, callback?: ICallbackFn<TResult | IErrorResponse>): Promise<TResult | IErrorResponse> {
         try {
             // Create new url
-            const url = new URL([this._host, ...path].join("/"));
+            const url = new URL([Config.host, ...path].join("/"));
 
             // Make put request
             const response = await fetch(url, {
@@ -201,7 +163,7 @@ export class RequestService {
                 // Set body 
                 body: JSON.stringify(payload),
                 // Set headers
-                headers: this.getRequestHeaders()
+                headers: await this.getRequestHeaders()
             });
 
             // Get result
@@ -226,12 +188,12 @@ export class RequestService {
      * Get request headers
      * @param args 
      */
-    protected getRequestHeaders(...args: any[]): HeadersInit {
+    protected async getRequestHeaders(...args: any[]): Promise<HeadersInit> {
         // Create request headers
         return {
             "Accept": "application/json",
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${this._token}`
+            "Authorization": `Bearer ${await TokenService.getAccessToken()}`
         }
     }
 }

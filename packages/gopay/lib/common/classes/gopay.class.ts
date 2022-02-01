@@ -1,6 +1,9 @@
 // Interfaces
 import { IGoPayConfig } from "../interfaces/config.interface";
 
+// Classes
+import { Config } from "./config.class";
+
 // Services
 import { AuthenticationService } from "../../authentication/services/authentication.service";
 import { PaymentService } from "../../payments/services/payment.service";
@@ -51,17 +54,11 @@ export class GoPay {
      * @param config 
      */
     public static initialize(config: IGoPayConfig): void {
-        // Create services
-        this.authenticationService = new AuthenticationService(config);
-        this.paymentService = new PaymentService(config);
-    }
+        // Initialize config
+        Config.initialize(config);
 
-    /**
-     * Set token
-     * @param token 
-     */
-    public static setToken(token: string): void {
-        // Set token to services
-        this.paymentService.setToken(token);
+        // Create services
+        this.authenticationService = new AuthenticationService();
+        this.paymentService = new PaymentService();
     }
 }
