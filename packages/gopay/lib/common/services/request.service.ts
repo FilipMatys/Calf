@@ -1,10 +1,14 @@
 // External modules
 import fetch from "node-fetch";
-import { HeadersInit } from "node-fetch";
+import { BodyInit } from "node-fetch";
 
 // Interfaces
 import { ICallbackFn } from "../interfaces/callback-fn.interface";
 import { IErrorResponse } from "../interfaces/error-response.interface";
+import { IRequestHeaders } from "../interfaces/headers.interface";
+
+// Enums
+import { RequestContentType } from "../enums/request-content-type.enum";
 
 // Classes
 import { Config } from "../classes/config.class";
@@ -22,9 +26,10 @@ export class RequestService {
      * @description Make get request
      * @param path 
      * @param payload 
+     * @param headers
      * @param callback
      */
-    protected async get<TParams, TResult>(path: string[], params?: TParams, callback?: ICallbackFn<TResult>): Promise<TResult | IErrorResponse> {
+    protected async get<TParams, TResult>(path: string[], params?: TParams, headers: IRequestHeaders = { "Accept": RequestContentType.ApplicationJson }, callback?: ICallbackFn<TResult>): Promise<TResult | IErrorResponse> {
         try {
             // Create new url
             const url = new URL([Config.host, ...path].join("/"));
@@ -43,7 +48,7 @@ export class RequestService {
                 // Set method
                 method: "get",
                 // Set headers
-                headers: await this.getRequestHeaders()
+                headers: await this.appendAuthorizationToHeaders(headers) as any
             });
 
             // Get result
@@ -69,21 +74,43 @@ export class RequestService {
      * @description Make get request
      * @param path 
      * @param payload 
+     * @param headers
      * @param callback
      */
-    protected async delete<TPayload, TResult>(path: string[], payload: TPayload, callback?: ICallbackFn<TResult | IErrorResponse>): Promise<TResult | IErrorResponse> {
+    protected async delete<TPayload, TResult>(path: string[], payload: TPayload, headers: IRequestHeaders, callback?: ICallbackFn<TResult | IErrorResponse>): Promise<TResult | IErrorResponse> {
         try {
             // Create new url
             const url = new URL([Config.host, ...path].join("/"));
+
+            // Init body
+            let body: BodyInit | undefined = undefined;
+
+            // Check for payload
+            if (payload) {
+                // Check content type
+                switch (headers["Content-Type"]) {
+                    // application/json
+                    case RequestContentType.ApplicationJson:
+                        // Stringify object
+                        body = JSON.stringify(payload);
+                        break;
+
+                    // application/x-www-form-urlencoded
+                    case RequestContentType.ApplicationFormUrlencoded:
+                        // Encode payload
+                        body = Object.entries(payload).map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`).join("&");
+                        break;
+                }
+            }
 
             // Make delete request
             const response = await fetch(url, {
                 // Set method
                 method: "delete",
                 // Set body 
-                body: JSON.stringify(payload),
+                body: body,
                 // Set headers
-                headers: await this.getRequestHeaders()
+                headers: await this.appendAuthorizationToHeaders(headers) as any
             });
 
             // Get result
@@ -109,21 +136,43 @@ export class RequestService {
      * @description Make post request
      * @param path 
      * @param payload 
+     * @param headers
      * @param callback
      */
-    protected async post<TPayload, TResult>(path: string[], payload: TPayload, callback?: ICallbackFn<TResult | IErrorResponse>): Promise<TResult | IErrorResponse> {
+    protected async post<TPayload, TResult>(path: string[], payload: TPayload, headers: IRequestHeaders, callback?: ICallbackFn<TResult | IErrorResponse>): Promise<TResult | IErrorResponse> {
         try {
             // Create new url
             const url = new URL([Config.host, ...path].join("/"));
+
+            // Init body
+            let body: BodyInit | undefined = undefined;
+
+            // Check for payload
+            if (payload) {
+                // Check content type
+                switch (headers["Content-Type"]) {
+                    // application/json
+                    case RequestContentType.ApplicationJson:
+                        // Stringify object
+                        body = JSON.stringify(payload);
+                        break;
+
+                    // application/x-www-form-urlencoded
+                    case RequestContentType.ApplicationFormUrlencoded:
+                        // Encode payload
+                        body = Object.entries(payload).map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`).join("&");
+                        break;
+                }
+            }
 
             // Make post request
             const response = await fetch(url, {
                 // Set method
                 method: "post",
                 // Set body 
-                body: JSON.stringify(payload),
+                body: body,
                 // Set headers
-                headers: await this.getRequestHeaders()
+                headers: await this.appendAuthorizationToHeaders(headers) as any
             });
 
             // Get result
@@ -146,24 +195,46 @@ export class RequestService {
 
     /**
      * Put
-     * @description Make put request
      * @param path 
      * @param payload 
-     * @param callback
+     * @param headers 
+     * @param callback 
+     * @returns 
      */
-    protected async put<TPayload, TResult>(path: string[], payload: TPayload, callback?: ICallbackFn<TResult | IErrorResponse>): Promise<TResult | IErrorResponse> {
+    protected async put<TPayload, TResult>(path: string[], payload: TPayload, headers: IRequestHeaders, callback?: ICallbackFn<TResult | IErrorResponse>): Promise<TResult | IErrorResponse> {
         try {
             // Create new url
             const url = new URL([Config.host, ...path].join("/"));
+
+            // Init body
+            let body: BodyInit | undefined = undefined;
+
+            // Check for payload
+            if (payload) {
+                // Check content type
+                switch (headers["Content-Type"]) {
+                    // application/json
+                    case RequestContentType.ApplicationJson:
+                        // Stringify object
+                        body = JSON.stringify(payload);
+                        break;
+
+                    // application/x-www-form-urlencoded
+                    case RequestContentType.ApplicationFormUrlencoded:
+                        // Encode payload
+                        body = Object.entries(payload).map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`).join("&");
+                        break;
+                }
+            }
 
             // Make put request
             const response = await fetch(url, {
                 // Set method
                 method: "put",
                 // Set body 
-                body: JSON.stringify(payload),
+                body: body,
                 // Set headers
-                headers: await this.getRequestHeaders()
+                headers: await this.appendAuthorizationToHeaders(headers) as any
             });
 
             // Get result
@@ -188,12 +259,11 @@ export class RequestService {
      * Get request headers
      * @param args 
      */
-    protected async getRequestHeaders(...args: any[]): Promise<HeadersInit> {
-        // Create request headers
-        return {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${await TokenService.getAccessToken()}`
-        }
+    protected async appendAuthorizationToHeaders(headers: IRequestHeaders): Promise<IRequestHeaders> {
+        // Add authorization to headers
+        headers["Authorization"] = `Bearer ${await TokenService.getAccessToken()}`;
+
+        // Return headers
+        return headers;
     }
 }

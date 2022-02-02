@@ -3,11 +3,15 @@ import { ICallbackFn } from "../../common/interfaces/callback-fn.interface";
 import { IPaymentPayload } from "../interfaces/payment-payload.interface";
 import { IPaymentResponse } from "../interfaces/payment-response.interface";
 import { IPaymentModificationResponse } from "../interfaces/payment-modification-response.interface";
-import { IChargePaymentPayload } from "../interfaces/charge-payment-payload.interface";
+import { ICapturePaymentPayload } from "../interfaces/capture-payment-payload.interface";
+import { IErrorResponse } from "../../common/interfaces/error-response.interface";
+import { IRequestHeaders } from "../../common/interfaces/headers.interface";
+
+// Enums
+import { RequestContentType } from "../../common/enums/request-content-type.enum";
 
 // Services
 import { RequestService } from "../../common/services/request.service";
-import { IErrorResponse } from "../../common/interfaces/error-response.interface";
 
 /**
  * Payment service
@@ -28,7 +32,10 @@ export class PaymentService extends RequestService {
      */
     public async create(payload: IPaymentPayload, callback?: ICallbackFn<IPaymentResponse | IErrorResponse>): Promise<IPaymentResponse | IErrorResponse> {
         // Make post request
-        return this.post([...this.base, "payment"], payload, callback);
+        return this.post([...this.base, "payment"], payload, {
+            "Accept": RequestContentType.ApplicationJson,
+            "Content-Type": RequestContentType.ApplicationJson
+        }, callback);
     }
 
     /**
@@ -39,7 +46,10 @@ export class PaymentService extends RequestService {
      */
     public async status(id: number, callback?: ICallbackFn<IPaymentResponse | IErrorResponse>): Promise<IPaymentResponse | IErrorResponse> {
         // Make get request
-        return this.get([...this.base, "payment", `${id}`], null, callback);
+        return this.get([...this.base, "payment", `${id}`], null, {
+            "Accept": RequestContentType.ApplicationJson,
+            "Content-Type": RequestContentType.ApplicationFormUrlencoded
+        }, callback);
     }
 
     /**
@@ -50,30 +60,42 @@ export class PaymentService extends RequestService {
      */
     public async refund(id: number, amount: number, callback?: ICallbackFn<IPaymentModificationResponse | IErrorResponse>): Promise<IPaymentModificationResponse | IErrorResponse> {
         // Make post request
-        return this.post([...this.base, "payment", `${id}`, "refund"], { amount: amount }, callback);
+        return this.post([...this.base, "payment", `${id}`, "refund"], { amount: amount }, {
+            "Accept": RequestContentType.ApplicationJson,
+            "Content-Type": RequestContentType.ApplicationFormUrlencoded
+        }, callback);
     }
 
     /**
-     * Cancel
-     * @description Cancel pre authorized payment
+     * Void authorization
+     * @description Void pre authorized payment
      * @param id 
      * @param callback 
      * @returns 
      */
-    public async cancel(id: number, callback?: ICallbackFn<IPaymentModificationResponse | IErrorResponse>): Promise<IPaymentModificationResponse | IErrorResponse> {
+    public async voidAuthorization(id: number, callback?: ICallbackFn<IPaymentModificationResponse | IErrorResponse>): Promise<IPaymentModificationResponse | IErrorResponse> {
         // Make post request
-        return this.post([...this.base, "payment", `${id}`, "void-authorization"], null, callback);
+        return this.post([...this.base, "payment", `${id}`, "void-authorization"], null, {
+            "Accept": RequestContentType.ApplicationJson,
+            "Content-Type": RequestContentType.ApplicationFormUrlencoded
+        }, callback);
     }
 
     /**
-     * Charge payment
+     * Capture payment
      * @param id 
      * @param payload 
      * @param callback 
      * @returns 
      */
-    public async charge(id: number, payload?: IChargePaymentPayload, callback?: ICallbackFn<IPaymentModificationResponse | IErrorResponse>): Promise<IPaymentModificationResponse | IErrorResponse> {
+    public async capture(id: number, payload?: ICapturePaymentPayload, callback?: ICallbackFn<IPaymentModificationResponse | IErrorResponse>): Promise<IPaymentModificationResponse | IErrorResponse> {
+        // Init headers
+        const headers: IRequestHeaders = { "Accept": RequestContentType.ApplicationJson };
+
+        // Set content type based on payload
+        headers["Content-Type"] = payload ? RequestContentType.ApplicationJson : RequestContentType.ApplicationFormUrlencoded;
+
         // Make post request
-        return this.post([...this.base, "payment", `${id}`, "capture"], payload, callback);
+        return this.post([...this.base, "payment", `${id}`, "capture"], payload, headers, callback);
     }
 }

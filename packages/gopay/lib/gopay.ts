@@ -43,7 +43,7 @@ export * from "./common/enums/vat-rate.enum";
 export * from "./authentication/interfaces/access-token-request.interface";
 export * from "./authentication/interfaces/access-token-response.interface";
 
-export * from "./payments/interfaces/charge-payment-payload.interface";
+export * from "./payments/interfaces/capture-payment-payload.interface";
 export * from "./payments/interfaces/payment-modification-response.interface";
 export * from "./payments/interfaces/payment-payload.interface";
 export * from "./payments/interfaces/payment-response.interface";

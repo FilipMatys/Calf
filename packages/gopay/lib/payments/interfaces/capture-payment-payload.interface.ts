@@ -3,10 +3,10 @@ import { IEET } from "../../common/interfaces/eet.interface";
 import { IItem } from "../../common/interfaces/item.interface";
 
 /**
- * Charge payment payload
- * @description Interface for charge payment payload
+ * Capture payment payload
+ * @description Interface for capture payment payload
  */
-export interface IChargePaymentPayload {
+export interface ICapturePaymentPayload {
 
     /**
      * Amount
