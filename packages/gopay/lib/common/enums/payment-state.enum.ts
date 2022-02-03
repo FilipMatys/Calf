@@ -1,8 +1,8 @@
 /**
- * Payment status
- * @description Payment can gain values following status
+ * Payment state
+ * @description Possible payment states
  */
-export enum PaymentStatus {
+export enum PaymentState {
     CREATED = "CREATED",
     PAYMENT_METHOD_CHOSEN = "PAYMENT_METHOD_CHOSEN",
     PAID = "PAID",

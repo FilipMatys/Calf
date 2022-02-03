@@ -8,7 +8,7 @@ export interface ITarget {
      * Type
      * @description Description of payee
      */
-    type?: string;
+    type?: "ACCOUNT";
 
     /**
      * Goid

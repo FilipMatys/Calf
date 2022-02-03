@@ -5,6 +5,9 @@ import { IAdditionalParams } from "../../common/interfaces/additional-params.int
 import { IPreAuthorization } from "../../common/interfaces/pre-authorization.interface";
 import { IRecurrence } from "../../common/interfaces/recurrence.interface";
 
+// Enums
+import { PaymentState } from "../../common/enums/payment-state.enum";
+
 /**
  * Payment response
  * @description Payment response
@@ -27,7 +30,7 @@ export interface IPaymentResponse {
      * State
      * @description Payment state
      */
-    state?: string;
+    state?: PaymentState;
 
     /**
      * Sub state

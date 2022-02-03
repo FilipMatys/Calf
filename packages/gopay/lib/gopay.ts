@@ -31,7 +31,7 @@ export * from "./common/enums/format.enum";
 export * from "./common/enums/group-code.enum";
 export * from "./common/enums/language.enum";
 export * from "./common/enums/payment-instrument.enum";
-export * from "./common/enums/payment-status.enum";
+export * from "./common/enums/payment-state.enum";
 export * from "./common/enums/recurrence-cycle.enum";
 export * from "./common/enums/result.enum";
 export * from "./common/enums/scope.enum";
