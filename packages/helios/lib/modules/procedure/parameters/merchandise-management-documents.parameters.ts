@@ -164,9 +164,9 @@ export class HeliosMerchandiseManagementDocumentsProcedureParameters extends Hel
     public get PopisDodavky(): string | undefined | null { return this.popisDodavky.Value; };
     public set PopisDodavky(value: string | undefined | null) { this.popisDodavky.Value = value; };
 
-    protected terminDodavky: HeliosProcedureParameter<string> = new HeliosProcedureParameter<string>("TerminDodavky", HeliosProcedureParameterType.NVARCHAR);
-    public get TerminDodavky(): string | undefined | null { return this.terminDodavky.Value; };
-    public set TerminDodavky(value: string | undefined | null) { this.terminDodavky.Value = value; };
+    protected terminDodavky: HeliosProcedureParameter<Date> = new HeliosProcedureParameter<Date>("TerminDodavky", HeliosProcedureParameterType.DATETIME);
+    public get TerminDodavky(): Date | undefined | null { return this.terminDodavky.Value; };
+    public set TerminDodavky(value: Date | undefined | null) { this.terminDodavky.Value = value; };
 
     protected puvod: HeliosProcedureParameter<string> = new HeliosProcedureParameter<string>("Puvod", HeliosProcedureParameterType.NVARCHAR);
     public get Puvod(): string | undefined | null { return this.puvod.Value; };

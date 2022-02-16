@@ -103,7 +103,7 @@ export abstract class RequestService {
         }
         catch (e) {
             // Emit exception
-            this.exceptionSource.next(e);
+            this.exceptionSource.next(e as any);
 
             // Throw the same exception
             throw e;
@@ -135,12 +135,12 @@ export abstract class RequestService {
         let startDate = new Date();
 
         // Log queue
-        Debug.log(startDate, method, `Queueing request`);
+        Debug.log(startDate, method, `Queueing request: ${url}`);
 
         // Fetch response
         const rResponse = await Queue.enqueue(() => {
             // Log send
-            Debug.log(startDate = new Date(), method, `Sending request`);
+            Debug.log(startDate = new Date(), method, `Sending request: ${url}`);
 
             // Return fetch
             return fetch(url, { method: "get", headers: headers });
@@ -187,12 +187,12 @@ export abstract class RequestService {
         let startDate = new Date();
 
         // Log queue
-        Debug.log(startDate, method, `Queueing request`);
+        Debug.log(startDate, method, `Queueing request: ${url}`);
 
         // Fetch response
         const rResponse = await Queue.enqueue(() => {
             // Log queue
-            Debug.log(startDate = new Date(), method, `Sending request`);
+            Debug.log(startDate = new Date(), method, `Sending request: ${url}`);
 
             // Fetch result
             return fetch(url, { method: "post", body: JSON.stringify(payload), headers: headers });
