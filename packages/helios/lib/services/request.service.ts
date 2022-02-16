@@ -135,12 +135,12 @@ export abstract class RequestService {
         let startDate = new Date();
 
         // Log queue
-        Debug.log(startDate, method, `Queueing request: ${url}`);
+        Debug.log(startDate, method, `Queueing request`);
 
         // Fetch response
         const rResponse = await Queue.enqueue(() => {
             // Log send
-            Debug.log(startDate = new Date(), method, `Sending request: ${url}`);
+            Debug.log(startDate = new Date(), method, `Sending request`);
 
             // Return fetch
             return fetch(url, { method: "get", headers: headers });
@@ -187,12 +187,12 @@ export abstract class RequestService {
         let startDate = new Date();
 
         // Log queue
-        Debug.log(startDate, method, `Queueing request: ${url}`);
+        Debug.log(startDate, method, `Queueing request`);
 
         // Fetch response
         const rResponse = await Queue.enqueue(() => {
             // Log queue
-            Debug.log(startDate = new Date(), method, `Sending request: ${url}`);
+            Debug.log(startDate = new Date(), method, `Sending request`);
 
             // Fetch result
             return fetch(url, { method: "post", body: JSON.stringify(payload), headers: headers });

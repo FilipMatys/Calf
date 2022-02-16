@@ -1,6 +1,6 @@
 {
   "name": "@calf/helios",
-  "version": "0.0.24-alpha",
+  "version": "0.0.25-alpha",
   "description": "Helios module of Calf framework.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
