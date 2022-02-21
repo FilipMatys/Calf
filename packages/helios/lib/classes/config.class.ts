@@ -131,6 +131,18 @@ export class HeliosConfig {
     }
 
     /**
+     * Browse response limit
+     * @description Maximum browse response iterations
+     */
+    public static get browseResponseLimit(): number {
+        // Ensure initialization
+        this.ensureInitialization();
+
+        // Return value
+        return this._instance._browseResponseLimit;
+    }
+
+    /**
      * Instance
      * @description Configuration instance
      */
@@ -147,6 +159,7 @@ export class HeliosConfig {
     private _runtimeTimeout: number;
     private _debug: boolean;
     private _delayBetweenRequests: number;
+    private _browseResponseLimit: number;
 
     /**
      * Constructor
@@ -164,6 +177,7 @@ export class HeliosConfig {
         this._runtimeTimeout = config.runtimeTimeout;
         this._debug = !!config.debug;
         this._delayBetweenRequests = config.delayBetweenRequests || 0;
+        this._browseResponseLimit = config.browseResponseLimit || 1;
     }
 
     /**

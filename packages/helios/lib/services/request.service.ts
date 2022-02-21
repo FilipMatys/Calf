@@ -132,19 +132,13 @@ export abstract class RequestService {
         const headers = await this.parseRequestConfigHeaders(config);
 
         // Init start date
-        let startDate = new Date();
+        const startDate = new Date();
 
-        // Log queue
-        Debug.log(startDate, method, `Queueing request`);
+        // Log we are sending request
+        Debug.log(startDate, method, `Sending request`);
 
         // Fetch response
-        const rResponse = await Queue.enqueue(() => {
-            // Log send
-            Debug.log(startDate = new Date(), method, `Sending request`);
-
-            // Return fetch
-            return fetch(url, { method: "get", headers: headers });
-        });
+        const rResponse = await fetch(url, { method: "get", headers: headers });
 
         // Set end date
         const endDate = new Date();
@@ -153,7 +147,7 @@ export abstract class RequestService {
         const parsedResponse = await this.parseResponse<TResult>(rResponse);
 
         // Debug end
-        Debug.log(endDate, method, `Received ${parsedResponse.fields.IsError ? 'ERROR' : 'SUCCESS'} response in (${endDate.getTime() - startDate.getTime()} ms)${parsedResponse.fields.IsError ? (' !' + parsedResponse.fields.ErrorMessage) : ''}`);
+        Debug.log(endDate, method, `Received ${parsedResponse.fields.IsError ? 'ERROR' : 'SUCCESS'} response ${rResponse.status} ${rResponse.statusText} in (${endDate.getTime() - startDate.getTime()} ms)${parsedResponse.fields.IsError ? (' !' + parsedResponse.fields.ErrorMessage) : ''}`);
 
         // Return response
         return parsedResponse;
@@ -184,19 +178,13 @@ export abstract class RequestService {
         const headers = await this.parseRequestConfigHeaders(config);
 
         // Init start date
-        let startDate = new Date();
+        const startDate = new Date();
 
-        // Log queue
-        Debug.log(startDate, method, `Queueing request`);
+        // Log we are sending request
+        Debug.log(startDate, method, `Sending request`);
 
         // Fetch response
-        const rResponse = await Queue.enqueue(() => {
-            // Log queue
-            Debug.log(startDate = new Date(), method, `Sending request`);
-
-            // Fetch result
-            return fetch(url, { method: "post", body: JSON.stringify(payload), headers: headers });
-        });
+        const rResponse = await fetch(url, { method: "post", body: JSON.stringify(payload), headers: headers });
 
         // Set end date
         const endDate = new Date();
@@ -205,7 +193,7 @@ export abstract class RequestService {
         const parsedResponse = await this.parseResponse<TResult>(rResponse);
 
         // Debug end
-        Debug.log(endDate, method, `Received ${parsedResponse.fields.IsError ? 'ERROR' : 'SUCCESS'} response in (${endDate.getTime() - startDate.getTime()} ms)${parsedResponse.fields.IsError ? (' !' + parsedResponse.fields.ErrorMessage) : ''}`);
+        Debug.log(endDate, method, `Received ${parsedResponse.fields.IsError ? 'ERROR' : 'SUCCESS'} response ${rResponse.status} ${rResponse.statusText} in (${endDate.getTime() - startDate.getTime()} ms)${parsedResponse.fields.IsError ? (' !' + parsedResponse.fields.ErrorMessage) : ''}`);
 
         // Return response
         return parsedResponse;
@@ -312,11 +300,20 @@ export abstract class RequestService {
      * @param response 
      */
     protected async parseResponse<TResult>(response: Response): Promise<TResult> {
-        // First get json
-        const json = await response.json();
+        try {
+            // First get json
+            const json = await response.json();
 
-        // Get actual result from json
-        return json["result"][0];
+            // Get actual result from json
+            return json["result"][0];
+        }
+        catch (e) {
+            // Log error
+            Debug.log(new Date(), "Parse response", `Failed to parse ${JSON.stringify(response)}`);
+
+            // Rethrow error
+            throw e;
+        }
     }
 
     /**

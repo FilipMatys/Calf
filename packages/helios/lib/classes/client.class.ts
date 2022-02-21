@@ -9,6 +9,9 @@ import { ExecuteService } from "../services/execute.service";
 import { EServerService } from "../services/server.service";
 import { UtilityService } from "../services/utility.service";
 
+// Utilities
+import { Queue } from "../utilities/queue.utility";
+
 // Classes
 import { HeliosConfig } from "./config.class";
 

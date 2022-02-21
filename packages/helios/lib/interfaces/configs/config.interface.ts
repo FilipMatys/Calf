@@ -66,4 +66,10 @@ export interface IHeliosConfig {
      * @description Delay between requests in ms
      */
     delayBetweenRequests?: number;
+
+    /**
+     * Browse response limit
+     * @description Maximum browse response iterations
+     */
+    browseResponseLimit?: number;
 }
