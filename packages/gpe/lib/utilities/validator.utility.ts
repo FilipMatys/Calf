@@ -40,6 +40,12 @@ export abstract class Validator {
             case FieldFormat.YN:
                 return this.isValidYN(value);
 
+            // Variable formats
+            case FieldFormat.V:
+            case FieldFormat.VGS:
+            case FieldFormat.VCR:
+                return true;
+
             // Unknown format
             default:
                 return false;

@@ -19,6 +19,8 @@ export abstract class DataField<TData> extends Field<TData> {
      */
     protected _identifier: string;
 
+    public get identifier(): string { return this._identifier }
+
     /**
      * Constructor
      * @param name 
