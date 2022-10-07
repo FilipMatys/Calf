@@ -4,7 +4,15 @@ import { DataField } from "../../classes/data-field.class";
 // Enums
 import { FieldFormat } from "../../enums/field-format.enum";
 
-export class CardNumberField extends DataField<any> {
+// Utilities
+import { DataArray } from "../../utilities/data-array/data-array.class";
+
+/**
+ * Card number field
+ * @description Masked card number.
+ * 
+ */
+export class CardNumberField extends DataField<string> {
 
     /**
      * Constructor
@@ -14,11 +22,22 @@ export class CardNumberField extends DataField<any> {
         super("Card number (PAN)", "P", FieldFormat.V, { min: 9, max: 19 });
     }
 
-    public setValue(...args: any[]): void {
-        throw new Error("Method not implemented.");
+    /**
+     * Update buffer from data
+     */
+    protected updateBufferFromData(): void {
+        // Get masked
+        const masked: string = this._data.replace(this._data.substring(6, 12), "******");
+
+        // Get data array from hex string
+        this._buffer = DataArray.fromString(masked);
     }
 
-    public getValue(): any {
-        throw new Error("Method not implemented.");
+    /**
+     * Update data from buffer
+     */
+    protected updateDataFromBuffer(): void {
+        // Get string from buffer
+        this._data = DataArray.toString(this._buffer);
     }
 }

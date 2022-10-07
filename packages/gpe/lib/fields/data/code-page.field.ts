@@ -4,6 +4,9 @@ import { DataField } from "../../classes/data-field.class";
 // Enums
 import { FieldFormat } from "../../enums/field-format.enum";
 
+// Utilities
+import { DataArray } from "../../utilities/data-array/data-array.class";
+
 /**
  * Code page field
  * @description This code page is used for receipt printing.
@@ -19,22 +22,18 @@ export class CodePageField extends DataField<string> {
     }
 
     /**
-     * Set value
-     * @param code 
+     * Update buffer from data
      */
-    public setValue(code: string): void {
-        // Validate code
-        this.validate(code);
-
-        // Assign value
-        this._value = code;
+    protected updateBufferFromData(): void {
+        // Get data array from hex string
+        this._buffer = DataArray.fromString(this._data);
     }
 
     /**
-     * Get value
+     * Update data from buffer
      */
-    public getValue(): string {
-        // Get code
-        return this._value;
+    protected updateDataFromBuffer(): void {
+        // Get string from buffer
+        this._data = DataArray.toString(this._buffer);
     }
 }

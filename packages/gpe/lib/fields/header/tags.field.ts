@@ -4,6 +4,9 @@ import { HeaderField } from "../../classes/header-field.class";
 // Enums
 import { FieldFormat } from "../../enums/field-format.enum";
 
+// Utilities
+import { DataArray } from "../../utilities/data-array/data-array.class";
+
 /**
  * Tags field data
  * @description Interface for tags field data
@@ -29,34 +32,33 @@ export class TagsField extends HeaderField<ITagsFieldData> {
     }
 
     /**
-     * Set value
-     * @param data 
+     * Update buffer from data
      */
-    public setValue(data: ITagsFieldData): void {
+    protected updateBufferFromData(): void {
         // Initialize two bytes
         const flags: number[] = Array(16).fill(null).map((_) => 0);
 
         // Update flags based on passed arguments
-        flags[0] = data.checkForCardHoldersSignature ? 1 : 0;
-        flags[1] = data.ecrSupportsPartialApproval ? 1 : 0;
-        flags[8] = data.ecrSupportsDeviceMessages ? 1 : 0;
+        flags[0] = this._data.checkForCardHoldersSignature ? 1 : 0;
+        flags[1] = this._data.ecrSupportsPartialApproval ? 1 : 0;
+        flags[8] = this._data.ecrSupportsDeviceMessages ? 1 : 0;
 
         // Revert and parse as hex
         const value = parseInt(flags.reverse().join(""), 2).toString(16).toUpperCase().padStart(4, "0");
 
-        // Validate value
-        this.validate(value);
-
         // Assign parsed flags to value
-        this._value = value;
+        this._buffer = DataArray.fromString(value);
     }
 
     /**
-     * Get value
+     * Update data from buffer
      */
-    public getValue(): ITagsFieldData {
+    protected updateDataFromBuffer(): void {
+        // Get hex from buffer
+        const hex = DataArray.toString(this._buffer);
+
         // Convert hex to flags
-        const flags = parseInt(this._value, 16).toString(2).padStart(16, "0").split("").reverse().map((x) => Number(x));
+        const flags = parseInt(hex, 16).toString(2).padStart(16, "0").split("").reverse().map((x) => Number(x));
 
         // Now init data
         const data: ITagsFieldData = {};
@@ -66,7 +68,7 @@ export class TagsField extends HeaderField<ITagsFieldData> {
         data.ecrSupportsPartialApproval = !!flags[1];
         data.ecrSupportsDeviceMessages = !!flags[8];
 
-        // Return data
-        return data;
+        // Assign data
+        this._data = data;
     }
 }

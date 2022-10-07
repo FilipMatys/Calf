@@ -4,6 +4,9 @@ import { DataField } from "../../classes/data-field.class";
 // Enums
 import { FieldFormat } from "../../enums/field-format.enum";
 
+// Utilities
+import { DataArray } from "../../utilities/data-array/data-array.class";
+
 /**
  * Cashback amount field
  * @description Gives the amount which the customer wishes to withdraw.
@@ -19,26 +22,24 @@ export class CashbackAmountField extends DataField<number> {
     }
 
     /**
-     * Set value
-     * @param amount
+     * Update buffer from data
      */
-    public setValue(amount: number): void {
-        // Get value
-        const sAmount = `${parseInt(((amount || 0) * 100) as any)}`;
+    protected updateBufferFromData(): void {
+        // Get normalized amount
+        const normalized = `${parseInt(((this._data || 0) * 100) as any)}`;
 
-        // Validate value
-        this.validate(sAmount);
-
-        // Assign amount to value
-        this._value = sAmount;
+        // Assign data to buffer
+        this._buffer = DataArray.fromString(normalized);
     }
 
     /**
-     * Get value
-     * @returns 
+     * Update data from buffer
      */
-    public getValue(): number {
-        // Get value
-        return (parseInt(this._value) || 0) / 100;
+    protected updateDataFromBuffer(): void {
+        // Get normalized from buffer
+        const normalized = DataArray.toString(this._buffer);
+
+        // Assign data
+        this._data = (parseInt(normalized) || 0) / 100;
     }
 }

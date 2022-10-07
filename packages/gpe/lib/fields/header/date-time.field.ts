@@ -4,6 +4,9 @@ import { HeaderField } from "../../classes/header-field.class";
 // Enums
 import { FieldFormat } from "../../enums/field-format.enum";
 
+// Utilities
+import { DataArray } from "../../utilities/data-array/data-array.class";
+
 /**
  * Date time field data
  * @description Interface for date time field data
@@ -32,38 +35,36 @@ export class DateTimeField extends HeaderField<IDateTimeFieldData> {
     }
 
     /**
-     * Set value
-     * @param data 
+     * Update buffer from data
      */
-    public setValue(data: IDateTimeFieldData): void {
+    protected updateBufferFromData(): void {
         // Get string values
-        const sYear = `${data.year || 0}`.slice(-2).padStart(2, "0");
-        const sMonth = `${data.month || 0}`.slice(-2).padStart(2, "0");
-        const sDay = `${data.day || 0}`.slice(-2).padStart(2, "0");
-        const sHour = `${data.hour || 0}`.slice(-2).padStart(2, "0");
-        const sMinute = `${data.minute || 0}`.slice(-2).padStart(2, "0");
-        const sSecond = `${data.second || 0}`.slice(-2).padStart(2, "0");
+        const sYear = `${this._data.year || 0}`.slice(-2).padStart(2, "0");
+        const sMonth = `${this._data.month || 0}`.slice(-2).padStart(2, "0");
+        const sDay = `${this._data.day || 0}`.slice(-2).padStart(2, "0");
+        const sHour = `${this._data.hour || 0}`.slice(-2).padStart(2, "0");
+        const sMinute = `${this._data.minute || 0}`.slice(-2).padStart(2, "0");
+        const sSecond = `${this._data.second || 0}`.slice(-2).padStart(2, "0");
 
         // Now create final value
         const value = `${sYear}${sMonth}${sDay}${sHour}${sMinute}${sSecond}`;
 
-        // Validate value
-        this.validate(value);
-
-        // Assign date and time to value
-        this._value = value;
+        // And assign the value to buffer
+        this._buffer = DataArray.fromString(value);
     }
 
     /**
-     * Get value
-     * @returns 
+     * Update data from buffer
      */
-    public getValue(): IDateTimeFieldData {
-        // Split value
-        const [year, month, day, hour, minute, second] = this._value.match(/.{1,2}/g) as string[];
+    protected updateDataFromBuffer(): void {
+        // Get string value of the buffer
+        const value = DataArray.toString(this._buffer);
 
-        // Init data
-        const data: IDateTimeFieldData = {
+        // Split value into segments
+        const [year, month, day, hour, minute, second] = value.match(/.{1,2}/g) as string[];
+
+        // Assign data
+        this._data = {
             year: 2000 + Number(year),
             month: Number(month),
             day: Number(day),
@@ -71,8 +72,5 @@ export class DateTimeField extends HeaderField<IDateTimeFieldData> {
             minute: Number(minute),
             second: Number(second)
         };
-
-        // Return data
-        return data;
     }
 }

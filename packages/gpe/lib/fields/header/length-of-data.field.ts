@@ -4,6 +4,9 @@ import { HeaderField } from "../../classes/header-field.class";
 // Enums
 import { FieldFormat } from "../../enums/field-format.enum";
 
+// Utilities
+import { DataArray } from "../../utilities/data-array/data-array.class";
+
 /**
  * Length of data field
  * @description Length of message data part.
@@ -19,26 +22,24 @@ export class LengthOfDataField extends HeaderField<number> {
     }
 
     /**
-     * Set value
-     * @param length 
+     * Update buffer from data
      */
-    public setValue(length: number): void {
-        // Parse as hex
-        const value = length.toString(16).padStart(4, "0");
+    protected updateBufferFromData(): void {
+        // Get hexadecimal value with 4 places
+        const hex = this._data.toString(16).padStart(4, "0");
 
-        // Validate
-        this.validate(value);
-
-        // Assign value
-        this._value = value;
+        // Get data array from hex string
+        this._buffer = DataArray.fromString(hex);
     }
 
     /**
-     * Get value
-     * @returns 
+     * Update data from buffer
      */
-    public getValue(): number {
-        // Get value
-        return parseInt(this._value, 16);
+    protected updateDataFromBuffer(): void {
+        // Get string from buffer
+        const hex = DataArray.toString(this._buffer);
+
+        // Assign data
+        this._data = parseInt(hex, 16);
     }
 }

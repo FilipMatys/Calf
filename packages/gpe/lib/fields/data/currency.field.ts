@@ -5,6 +5,9 @@ import { DataField } from "../../classes/data-field.class";
 import { Currency } from "../../enums/currency.enum";
 import { FieldFormat } from "../../enums/field-format.enum";
 
+// Utilities
+import { DataArray } from "../../utilities/data-array/data-array.class";
+
 /**
  * Currency field
  * @description Currency of a transaction.
@@ -20,26 +23,24 @@ export class CurrencyField extends DataField<Currency> {
     }
 
     /**
-     * Set value
-     * @param code 
+     * Update buffer from data
      */
-    public setValue(code: Currency): void {
-        // Get value
-        const value = `${code}`;
+    protected updateBufferFromData(): void {
+        // Get normalized value
+        const normalized = `${this._data || 0}`.padStart(3, "0");
 
-        // Validate value
-        this.validate(value);
-
-        // Assign value
-        this._value = `${code}`;
+        // Assign count to value
+        this._buffer = DataArray.fromString(normalized);
     }
 
     /**
-     * Get value
-     * @returns 
+     * Update data from buffer
      */
-    public getValue(): Currency {
-        // Parse value
-        return parseInt(this._value);
+    protected updateDataFromBuffer(): void {
+        // Get normalized value
+        const normalized = DataArray.toString(this._buffer);
+
+        // Assign data
+        this._data = (parseInt(normalized) || 0);
     }
 }

@@ -4,11 +4,14 @@ import { HeaderField } from "../../classes/header-field.class";
 // Enums
 import { FieldFormat } from "../../enums/field-format.enum";
 
+// Utilities
+import { DataArray } from "../../utilities/data-array/data-array.class";
+
 /**
  * Protocol version field
  * @description Information on protocol version.
  */
-export class ProtocolVersionField extends HeaderField<string> {
+export class ProtocolVersionField extends HeaderField<number> {
 
     /**
      * Constructor
@@ -19,23 +22,24 @@ export class ProtocolVersionField extends HeaderField<string> {
     }
 
     /**
-     * Set value
-     * @param version
+     * Update buffer from data
      */
-    public setValue(version: string): void {
-        // Validate value
-        this.validate(version);
+    protected updateBufferFromData(): void {
+        // Get normalized value
+        const normalized = `${this._data || 0}`.padStart(2, "0");
 
-        // Assign version to value
-        this._value = version;
+        // Get data array from normalized string
+        this._buffer = DataArray.fromString(normalized);
     }
 
     /**
-     * Get value
-     * @returns 
+     * Update data from buffer
      */
-    public getValue(): string {
-        // Get value
-        return this._value;
+    protected updateDataFromBuffer(): void {
+        // Get normalized string from buffer
+        const normalized = DataArray.toString(this._buffer);
+
+        // Assign data
+        this._data = parseInt(normalized);
     }
 }

@@ -5,6 +5,9 @@ import { DataField } from "../../classes/data-field.class";
 import { FieldFormat } from "../../enums/field-format.enum";
 import { TransactionType } from "../../enums/transaction-type.enum";
 
+// Utilities
+import { DataArray } from "../../utilities/data-array/data-array.class";
+
 /**
  * Transaction type
  * @description Defines the type of transaction that is to be processed.
@@ -20,25 +23,24 @@ export class TransactionTypeField extends DataField<TransactionType> {
     }
 
     /**
-     * Set value
-     * @param type 
+     * Update buffer from data
      */
-    public setValue(type: TransactionType): void {
+    protected updateBufferFromData(): void {
         // Get normalized value
-        const value = `${type}`.padStart(2, "0");
+        const normalized = `${this._data || 0}`.padStart(2, "0");
 
-        // Validate value
-        this.validate(value);
-
-        // Assign value
-        this._value = value;
+        // Get data array from normalized string
+        this._buffer = DataArray.fromString(normalized);
     }
 
     /**
-     * Get value
+     * Update data from buffer
      */
-    public getValue(): TransactionType {
-        // Get code
-        return parseInt(this._value);
+    protected updateDataFromBuffer(): void {
+        // Get normalized string from buffer
+        const normalized = DataArray.toString(this._buffer);
+
+        // Assign data
+        this._data = parseInt(normalized);
     }
 }

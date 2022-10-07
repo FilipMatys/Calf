@@ -5,6 +5,9 @@ import { DataField } from "../../classes/data-field.class";
 import { FieldFormat } from "../../enums/field-format.enum";
 import { PrintedInformation } from "../../enums/printed-information.enum";
 
+// Utilities
+import { DataArray } from "../../utilities/data-array/data-array.class";
+
 /**
  * Id of printed information field
  * @description 
@@ -20,26 +23,24 @@ export class IdOfPrintedInformationField extends DataField<number> {
     }
 
     /**
-     * Set value
-     * @param information 
+     * Update buffer from data
      */
-    public setValue(information: PrintedInformation): void {
-        // Get value
-        const value = `${information}`.padStart(2, "0");
+    protected updateBufferFromData(): void {
+        // Get normalized value
+        const normalized = `${this._data || 0}`.padStart(2, "0");
 
-        // Validate value
-        this.validate(value);
-
-        // Assign value
-        this._value = value;
+        // Get data array from normalized string
+        this._buffer = DataArray.fromString(normalized);
     }
 
     /**
-     * Get value
-     * @returns 
+     * Update data from buffer
      */
-    public getValue(): PrintedInformation {
-        // Parse value
-        return parseInt(this._value);
+    protected updateDataFromBuffer(): void {
+        // Get normalized string from buffer
+        const normalized = DataArray.toString(this._buffer);
+
+        // Assign data
+        this._data = parseInt(normalized);
     }
 }

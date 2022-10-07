@@ -22,21 +22,45 @@ export abstract class Field<TData> {
 
     protected _length: IFieldLength;
 
-    protected _value: string;
+    protected _data: TData;
+
+    protected _buffer: Uint8Array;
 
     /**
-     * Value getter
-     * @description Returns raw field value. Use getValue
-     * to get parsed end user-friendly value.
+     * Buffer setter
+     * @description Sets field buffer
      */
-    public get value(): string { return this._value }
+    public set buffer(buffer: Uint8Array) {
+        // Assign buffer
+        this._buffer = buffer;
+
+        // Update data from buffer
+        this.updateDataFromBuffer();
+    }
 
     /**
-     * Value setter
-     * @description Assigns raw value. Use setValue
-     * when working with the field as an end user.
+     * Buffer getter
+     * @description Gets field buffer
      */
-    public set value(value: string) { this._value = value }
+    public get buffer(): Uint8Array { return this._buffer; }
+
+    /**
+     * Data setter
+     * @description Sets field data
+     */
+    public set data(data: TData) {
+        // Assign data
+        this._data = data;
+
+        // Update buffer from data
+        this.updateBufferFromData();
+    }
+
+    /**
+     * Data getter
+     * @description Gets field data
+     */
+    public get data(): TData { return this._data; }
 
     /**
      * Constructor
@@ -52,29 +76,30 @@ export abstract class Field<TData> {
     }
 
     /**
-     * Set value
-     * @description Set value of the field.
-     * @param data
-     */
-    public abstract setValue(data: TData): void;
-
-    /**
-     * Get value
-     * @description Get parsed of value of the field.
-     */
-    public abstract getValue(): TData;
-
-    /**
      * Validate
      * @description Validated given value. If value 
      * was not provided, validate current value instead.
-     * @param value 
+     * @param buffer 
      */
-    public validate(value?: string): void {
+    public validate(buffer?: Uint8Array): void {
         // Validate value
-        if (!Validator.isValid(this._format, this._length, value || this._value)) {
+        if (!Validator.isValid(this._format, this._length, buffer || this._buffer)) {
             // Throw invalid field value error
-            throw new InvalidFieldValueError(this._name, this._format, this._length, value || this._value);
+            throw new InvalidFieldValueError(this._name, this._format, this._length, buffer || this._buffer);
         }
     }
+
+    /**
+     * Update buffer from data
+     * @description Update current buffer value from
+     * data
+     */
+    protected abstract updateBufferFromData(): void;
+
+    /**
+     * Update data from buffer
+     * @description Update current data value from
+     * buffer
+     */
+    protected abstract updateDataFromBuffer(): void;
 }

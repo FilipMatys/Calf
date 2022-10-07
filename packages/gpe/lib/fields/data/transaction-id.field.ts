@@ -4,6 +4,9 @@ import { DataField } from "../../classes/data-field.class";
 // Enums
 import { FieldFormat } from "../../enums/field-format.enum";
 
+// Utilities
+import { DataArray } from "../../utilities/data-array/data-array.class";
+
 /**
  * Transaction ID field
  * @description Fixed 12 numeric unique identifier of the financial transaction.
@@ -19,23 +22,18 @@ export class TransactionIDField extends DataField<string> {
     }
 
     /**
-     * Set value
-     * @param identifier
+     * Update buffer from data
      */
-    public setValue(identifier: string): void {
-        // Validate value
-        this.validate(identifier);
-
-        // Assign identifier to value
-        this._value = identifier;
+    protected updateBufferFromData(): void {
+        // Get data array from hex string
+        this._buffer = DataArray.fromString(this._data);
     }
 
     /**
-     * Get value
-     * @returns 
+     * Update data from buffer
      */
-    public getValue(): string {
-        // Get value
-        return this._value;
+    protected updateDataFromBuffer(): void {
+        // Get string from buffer
+        this._data = DataArray.toString(this._buffer);
     }
 }

@@ -28,3 +28,5 @@ packages/comgate/node_modules
 packages/comgate/dist
 packages/geometry/node_modules
 packages/geometry/dist
+packages/gpe/node_modules
+packages/gpe/dist

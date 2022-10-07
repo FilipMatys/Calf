@@ -4,6 +4,9 @@ import { HeaderField } from "../../classes/header-field.class";
 // Enums
 import { FieldFormat } from "../../enums/field-format.enum";
 
+// Utilities
+import { DataArray } from "../../utilities/data-array/data-array.class";
+
 /**
  * Protocol type
  * @description Information on protocol type.
@@ -19,23 +22,18 @@ export class ProtocolTypeField extends HeaderField<string> {
     }
 
     /**
-     * Set value
-     * @param type 
+     * Update buffer from data
      */
-    public setValue(type: string): void {
-        // Validate value
-        this.validate(type);
-
-        // Assign type to value
-        this._value = type;
+    protected updateBufferFromData(): void {
+        // Get data array from hex string
+        this._buffer = DataArray.fromString(this._data);
     }
 
     /**
-     * Get value
-     * @returns 
+     * Update data from buffer
      */
-    public getValue(): string {
-        // Get value
-        return this._value;
+    protected updateDataFromBuffer(): void {
+        // Get string from buffer
+        this._data = DataArray.toString(this._buffer);
     }
 }

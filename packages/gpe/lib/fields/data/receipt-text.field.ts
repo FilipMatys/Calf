@@ -7,6 +7,9 @@ import { Controls } from "../../constants/controls.constant";
 // Enums
 import { FieldFormat } from "../../enums/field-format.enum";
 
+// Utilities
+import { DataArray } from "../../utilities/data-array/data-array.class";
+
 /**
  * Receipt text field
  * @description Field contains preformatted text for the printing
@@ -19,29 +22,27 @@ export class ReceiptTextField extends DataField<string[]> {
      */
     constructor() {
         // Call super
-        super("Text for printing of receipt", "t", FieldFormat.AN, { min: 1, max: 3072 });
+        super("Text for printing of receipt", "t", FieldFormat.V, { min: 1, max: 3072 });
     }
 
     /**
-     * Set value
-     * @param lines 
+     * Update buffer from data
      */
-    public setValue(lines: string[]): void {
-        // Get line separator code
-        const separator = String.fromCharCode(Controls.LF);
+    protected updateBufferFromData(): void {
+        // Init array of buffers
+        const buffers: Uint8Array[] = [];
 
-        // Assign value
-        this._value = lines.join(separator) + separator;
+        // Iterate lines
+        (this._data || []).forEach((x) => buffers.push(DataArray.fromString(x), new Uint8Array(Controls.LF)));
+
+        // Assign to buffer
+        this._buffer = DataArray.concat(buffers);
     }
 
     /**
-     * Get value
+     * Update data from buffer
      */
-    public getValue(): string[] {
-        // Get line separator code
-        const separator = String.fromCharCode(Controls.LF);
-
-        // Return lines
-        return this._value.split(separator).slice(0, -1);
+    protected updateDataFromBuffer(): void {
+        throw new Error("Method not implemented.");
     }
 }

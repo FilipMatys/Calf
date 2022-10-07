@@ -5,7 +5,7 @@ import { ProtocolVersionField } from "../fields/header/protocol-version.fields";
 import { TerminalIDField } from "../fields/header/terminal-id.field";
 import { LengthOfDataField } from "../fields/header/length-of-data.field";
 import { TagsField } from "../fields/header/tags.field";
-import { CRC16Field } from "../fields/header/crc16.field";
+import { CRC16Field } from "../fields/header/crc-16.field";
 
 /**
  * Header

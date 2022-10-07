@@ -7,6 +7,9 @@ import { Controls } from "../../constants/controls.constant";
 // Enums
 import { FieldFormat } from "../../enums/field-format.enum";
 
+// Utilities
+import { DataArray } from "../../utilities/data-array/data-array.class";
+
 /**
  * Identification numbers field data
  * @description Interface for identification numbers field data
@@ -32,18 +35,21 @@ export class IdentificationNumbersField extends DataField<IIdentificationNumbers
     }
 
     /**
-     * Set value
-     * @param data 
+     * Update buffer from data
      */
-    public setValue(data: IIdentificationNumbersFieldData): void {
-        // Get group separator code
-        const separator = String.fromCharCode(Controls.GS);
-
-        // Assign value
-        this._value = `${separator}${data.variableSymbol || ""}${separator}${data.specificSymbol || ""}${separator}${data.constantSymbol || ""}`;
+    protected updateBufferFromData(): void {
+        // Assign buffer
+        this._buffer = DataArray.concat([
+            new Uint8Array(Controls.GS),
+            DataArray.fromString(this._data.variableSymbol || ""),
+            new Uint8Array(Controls.GS),
+            DataArray.fromString(this._data.specificSymbol || ""),
+            new Uint8Array(Controls.GS),
+            DataArray.fromString(this._data.constantSymbol || "")
+        ]);
     }
 
-    public getValue(): IIdentificationNumbersFieldData {
+    public updateDataFromBuffer(): IIdentificationNumbersFieldData {
         throw new Error("Method not implemented.");
     }
 }

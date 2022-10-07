@@ -4,6 +4,9 @@ import { DataField } from "../../classes/data-field.class";
 // Enums
 import { FieldFormat } from "../../enums/field-format.enum";
 
+// Utilities
+import { DataArray } from "../../utilities/data-array/data-array.class";
+
 /**
  * Card's expiration date field data interface
  * @description Interface for card's expiration date field
@@ -29,38 +32,34 @@ export class CardsExpirationDateField extends DataField<ICardsExpirationDateFiel
     }
 
     /**
-     * Set value
-     * @param data 
+     * Update buffer from data
      */
-    public setValue(data: ICardsExpirationDateFieldData): void {
+    protected updateBufferFromData(): void {
         // Get string values
-        const sYear = `${data.year || 0}`.slice(-2).padStart(2, "0");
-        const sMonth = `${data.month || 0}`.slice(-2).padStart(2, "0");
+        const sYear = `${this._data.year || 0}`.slice(-2).padStart(2, "0");
+        const sMonth = `${this._data.month || 0}`.slice(-2).padStart(2, "0");
 
         // Now create final value
         const value = `${sMonth}${sYear}`;
 
-        // Validate value
-        this.validate(value);
-
-        // Assign expiration to value
-        this._value = value;
+        // Assign expiration to buffer
+        this._buffer = DataArray.fromString(value);
     }
 
     /**
-     * Get value
+     * Update data from buffer
      */
-    public getValue(): ICardsExpirationDateFieldData {
+    protected updateDataFromBuffer(): void {
+        // Get value
+        const value = DataArray.toString(this._buffer);
+
         // Split value
-        const [month, year] = this._value.match(/.{1,2}/g) as string[];
+        const [month, year] = value.match(/.{1,2}/g) as string[];
 
         // Init data
-        const data: ICardsExpirationDateFieldData = {
+        this._data = {
             year: 2000 + Number(year),
             month: Number(month)
         };
-
-        // Return data
-        return data;
     }
 }

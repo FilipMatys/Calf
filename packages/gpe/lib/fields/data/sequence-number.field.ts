@@ -4,6 +4,9 @@ import { DataField } from "../../classes/data-field.class";
 // Enums
 import { FieldFormat } from "../../enums/field-format.enum";
 
+// Utilities
+import { DataArray } from "../../utilities/data-array/data-array.class";
+
 /**
  * Sequence number
  * @description Fix 9 numeric unique identifier of each transaction.
@@ -19,22 +22,18 @@ export class SequenceNumberField extends DataField<string> {
     }
 
     /**
-     * Set value
-     * @param sequence 
+     * Update buffer from data
      */
-    public setValue(sequence: string): void {
-        // Validate sequence
-        this.validate(sequence);
-
-        // Assign value
-        this._value = sequence;
+    protected updateBufferFromData(): void {
+        // Get data array from hex string
+        this._buffer = DataArray.fromString(this._data);
     }
 
     /**
-     * Get value
+     * Update data from buffer
      */
-    public getValue(): string {
-        // Get sequence
-        return this._value;
+    protected updateDataFromBuffer(): void {
+        // Get string from buffer
+        this._data = DataArray.toString(this._buffer);
     }
 }

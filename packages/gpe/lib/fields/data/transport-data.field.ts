@@ -4,6 +4,9 @@ import { DataField } from "../../classes/data-field.class";
 // Enums
 import { FieldFormat } from "../../enums/field-format.enum";
 
+// Utilities
+import { DataArray } from "../../utilities/data-array/data-array.class";
+
 /**
  * Transport data field
  * @description Field containing addition information/data related to transport. 
@@ -19,23 +22,18 @@ export class TransportDataField extends DataField<string> {
     }
 
     /**
-     * Set value
-     * @param data
+     * Update buffer from data
      */
-    public setValue(data: string): void {
-        // Validate value
-        this.validate(data);
-
-        // Assign data to value
-        this._value = data;
+    protected updateBufferFromData(): void {
+        // Get data array from hex string
+        this._buffer = DataArray.fromString(this._data);
     }
 
     /**
-     * Get value
-     * @returns 
+     * Update data from buffer
      */
-    public getValue(): string {
-        // Get value
-        return this._value;
+    protected updateDataFromBuffer(): void {
+        // Get string from buffer
+        this._data = DataArray.toString(this._buffer);
     }
 }

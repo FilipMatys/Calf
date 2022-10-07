@@ -10,14 +10,14 @@ import { FieldFormat } from "../../enums/field-format.enum";
 export abstract class Validator {
 
     /**
-     * Check whether value is valid
+     * Check whether buffer is valid
      * @param format 
      * @param length
-     * @param value 
+     * @param buffer 
      */
-    public static isValid(format: FieldFormat, length: IFieldLength, value: string): boolean {
+    public static isValid(format: FieldFormat, length: IFieldLength, buffer: Uint8Array): boolean {
         // Check value length
-        if (value.length < length.min || value.length > length.max) {
+        if (buffer.length < length.min || buffer.length > length.max) {
             return false;
         }
 
@@ -26,19 +26,19 @@ export abstract class Validator {
         switch (format) {
             // Format A
             case FieldFormat.A:
-                return this.isValidA(value);
+                return this.isValidA(buffer);
 
             // Format N
             case FieldFormat.N:
-                return this.isValidN(value);
+                return this.isValidN(buffer);
 
             // Format AN
             case FieldFormat.AN:
-                return this.isValidAN(value);
+                return this.isValidAN(buffer);
 
             // Format YN
             case FieldFormat.YN:
-                return this.isValidYN(value);
+                return this.isValidYN(buffer);
 
             // Variable formats
             case FieldFormat.V:
@@ -54,38 +54,37 @@ export abstract class Validator {
 
     /**
      * Is valid A
-     * @param value 
+     * @param buffer 
      * @returns 
      */
-    private static isValidA(value: string): boolean {
-        return !!value.match(/^[a-z]+$/i);
+    private static isValidA(buffer: Uint8Array): boolean {
+        return buffer.every((x) => (x >= 65 && x <= 90) || (x >= 97 && x <= 122));
     }
 
     /**
      * Is valid N
-     * @param value
+     * @param buffer
      * @returns 
      */
-    private static isValidN(value: string): boolean {
-        return !!value.match(/^[0-9]+$/);
+    private static isValidN(buffer: Uint8Array): boolean {
+        return buffer.every((x) => (x >= 48 && x <= 57));
     }
 
     /**
      * Is valid AN
-     * @param value 
+     * @param buffer 
      * @returns 
      */
-    private static isValidAN(value: string): boolean {
-        return !!value.match(/^[0-9a-z]+$/i);
+    private static isValidAN(buffer: Uint8Array): boolean {
+        return buffer.every((x) => (x >= 65 && x <= 90) || (x >= 97 && x <= 122) || (x >= 48 && x <= 57));
     }
 
     /**
-     * Is valid V
-     * @param value 
+     * Is valid YN
+     * @param buffer 
      * @returns 
      */
-    private static isValidYN(value: string): boolean {
-        // Check allowed values
-        return value === "Y" || value === "N";
+    private static isValidYN(buffer: Uint8Array): boolean {
+        return buffer.every((x) => x === 89 || x === 78);
     }
 }

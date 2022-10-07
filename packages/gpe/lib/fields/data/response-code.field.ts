@@ -5,6 +5,9 @@ import { DataField } from "../../classes/data-field.class";
 import { FieldFormat } from "../../enums/field-format.enum";
 import { ResponseCode } from "../../enums/response-code.enum";
 
+// Utilities
+import { DataArray } from "../../utilities/data-array/data-array.class";
+
 /**
  * Response code field
  * @description The field informs about processing result of transaction or message.
@@ -20,28 +23,27 @@ export class ResponseCodeField extends DataField<ResponseCode> {
     }
 
     /**
-     * Set value
-     * @param code 
+     * Update buffer from data
      */
-    public setValue(code: ResponseCode): void {
+    protected updateBufferFromData(): void {
         // Get normalized value
-        const value = `${code}`.padStart(3, "0");
+        const normalized = `${this._data || 0}`.padStart(3, "0");
 
-        // Validate value
-        this.validate(value);
-
-        // Assign value
-        this._value = value;
+        // Assign count to value
+        this._buffer = DataArray.fromString(normalized);
     }
 
     /**
-     * Get value
+     * Update data from buffer
      */
-    public getValue(): ResponseCode {
-        // Get code
-        const code = parseInt(this._value);
+    protected updateDataFromBuffer(): void {
+        // Get normalized value
+        const normalized = DataArray.toString(this._buffer);
 
-        // Return code
-        return (code > 0 && code < 10) ? ResponseCode.Accepted : code;
+        // Get code
+        const code = parseInt(normalized);
+
+        // Assign code
+        this._data = (code > 0 && code < 10) ? ResponseCode.Accepted : code;
     }
 }

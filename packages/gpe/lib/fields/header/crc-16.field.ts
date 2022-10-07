@@ -8,26 +8,28 @@ import { FieldFormat } from "../../enums/field-format.enum";
 import { DataArray } from "../../utilities/data-array/data-array.class";
 
 /**
- * Terminal ID field
- * @description Terminal logical identifier on which the 
- * transaction will be made.
+ * CRC16 field
+ * @description CRC16 of message data part.
  */
-export class TerminalIDField extends HeaderField<string> {
+export class CRC16Field extends HeaderField<number> {
 
     /**
      * Constructor
      */
     constructor() {
         // Call super
-        super("Terminal ID", FieldFormat.AN, { min: 8, max: 8 });
+        super("CRC16", FieldFormat.AN, { min: 4, max: 4 });
     }
 
     /**
      * Update buffer from data
      */
     protected updateBufferFromData(): void {
+        // Get hexadecimal value with 4 places
+        const hex = this._data.toString(16).padStart(4, "0");
+
         // Get data array from hex string
-        this._buffer = DataArray.fromString(this._data);
+        this._buffer = DataArray.fromString(hex);
     }
 
     /**
@@ -35,6 +37,9 @@ export class TerminalIDField extends HeaderField<string> {
      */
     protected updateDataFromBuffer(): void {
         // Get string from buffer
-        this._data = DataArray.toString(this._buffer);
+        const hex = DataArray.toString(this._buffer);
+
+        // Assign data
+        this._data = parseInt(hex, 16);
     }
 }
