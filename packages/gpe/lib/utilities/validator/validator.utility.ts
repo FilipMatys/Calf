@@ -1,8 +1,8 @@
 // Interfaces
-import { IFieldLength } from "../interfaces/field-length.interface";
+import { IFieldLength } from "../../interfaces/field-length.interface";
 
 // Enums
-import { FieldFormat } from "../enums/field-format.enum";
+import { FieldFormat } from "../../enums/field-format.enum";
 
 /**
  * Validator

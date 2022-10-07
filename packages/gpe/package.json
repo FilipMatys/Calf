@@ -1,0 +1,30 @@
+{
+  "name": "@calf/gpe",
+  "version": "0.0.1-alpha",
+  "description": "GPE module of Calf framework.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "mocha -r ts-node/register test/test.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FilipMatys/Calf.git"
+  },
+  "keywords": [
+    "calf",
+    "framework",
+    "gpe"
+  ],
+  "author": "Filip Matys <matysfilip@gmail.com> (https://github.com/FilipMatys)",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "^4.1.4",
+    "@types/mocha": "^5.2.5",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "ts-node": "~7.0.0",
+    "typescript": "^4.0.0"
+  }
+}

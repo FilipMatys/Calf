@@ -8,7 +8,7 @@ import { FieldFormat } from "../enums/field-format.enum";
 import { InvalidFieldValueError } from "../errors/invalid-field-value.error";
 
 // Utilities
-import { Validator } from "../utilities/validator.utility";
+import { Validator } from "../utilities/validator/validator.utility";
 
 /**
  * Field
