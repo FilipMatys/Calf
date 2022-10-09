@@ -4,6 +4,9 @@ import { DataField } from "../../classes/data-field.class";
 // Enums
 import { FieldFormat } from "../../enums/field-format.enum";
 
+// Utilities
+import { DataArray } from "../../utilities/data-array/data-array.class";
+
 interface IExtraTextFieldItem {
     id?: string;
     text?: string;
@@ -30,26 +33,25 @@ export class ExtraTextField extends DataField<IExtraTextFieldData> {
     }
 
     /**
-     * Set value
-     * @param data 
+     * Update buffer from data
      */
-    public setValue(data: IExtraTextFieldData): void {
-        // Process data
-        const value = data.map((x) => `${x.id}:${x.text}`).join(";");
+    protected updateBufferFromData(): void {
+        // Process data into single value
+        const value = this._data.map((x) => `${x.id}:${x.text}`).join(";") + ";";
 
-        // Validate
-        this.validate(value);
-
-        // Assign value
-        this._value = value;
+        // Get data array from the string
+        this._buffer = DataArray.fromString(value);
     }
 
     /**
-     * Get value
+     * Update data from buffer
      */
-    public getValue(): IExtraTextFieldData {
-        // Parse value
-        const data = this._value.split(";").map((x) => {
+    protected updateDataFromBuffer(): void {
+        // Get string from buffer
+        const value = DataArray.toString(this._buffer);
+
+        // Parse value into data
+        this._data = value.split(";").map((x) => {
             // Init item
             const item: IExtraTextFieldItem = {};
 
@@ -63,8 +65,5 @@ export class ExtraTextField extends DataField<IExtraTextFieldData> {
             // Return item
             return item;
         });
-
-        // Return data
-        return data;
     }
 }

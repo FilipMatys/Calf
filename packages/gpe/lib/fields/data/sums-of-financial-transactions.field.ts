@@ -4,6 +4,9 @@ import { DataField } from "../../classes/data-field.class";
 // Enums
 import { FieldFormat } from "../../enums/field-format.enum";
 
+// Utilities
+import { DataArray } from "../../utilities/data-array/data-array.class";
+
 /**
  * Sums of financial transactions field
  * @description Field is a summary of transactions made since the last
@@ -19,11 +22,19 @@ export class SumsOfFinancialTransactionsField extends DataField<any> {
         super("Sums of financial transactions", "L", FieldFormat.V, { min: 75, max: 75 });
     }
 
-    public setValue(...args: any[]): void {
-        throw new Error("Method not implemented.");
+    /**
+     * Update buffer from data
+     */
+    protected updateBufferFromData(): void {
+        // Get data array from hex string
+        this._buffer = DataArray.fromString(this._data);
     }
 
-    public getValue(): any {
-        throw new Error("Method not implemented.");
+    /**
+     * Update data from buffer
+     */
+    protected updateDataFromBuffer(): void {
+        // Get string from buffer
+        this._data = DataArray.toString(this._buffer);
     }
 }
