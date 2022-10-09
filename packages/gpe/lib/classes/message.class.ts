@@ -41,7 +41,7 @@ export class Message {
      * and validates all fields.
      */
     public finalize(): void {
-
+        // TODO
     }
 
     /**
@@ -50,6 +50,16 @@ export class Message {
      * that can be sent through available connection.
      */
     public toBuffer(): Uint8Array {
+        // TODO
         return new Uint8Array();
+    }
+
+    /**
+     * From buffer
+     * @description Create message from buffer 
+     * @param buffer 
+     */
+    public static fromBuffer(buffer: Uint8Array): void {
+        // TODO
     }
 }

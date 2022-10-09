@@ -26,6 +26,7 @@ export class SumsOfFinancialTransactionsField extends DataField<any> {
      * Update buffer from data
      */
     protected updateBufferFromData(): void {
+        // TODO structured data
         // Get data array from hex string
         this._buffer = DataArray.fromString(this._data);
     }
