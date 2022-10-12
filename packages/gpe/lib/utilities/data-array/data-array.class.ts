@@ -64,10 +64,51 @@ export abstract class DataArray {
         const result = new Uint8Array(length);
 
         // Iterate arrays
-        for (let index = 0, offset = 0; index < arrays.length; index++, offset = arrays[index - 1].length) {
+        for (let index = 0, offset = 0; index < arrays.length; index++, offset += arrays[index - 1].length) {
             // Add processed array to result
             result.set(arrays[index], offset);
         }
+
+        // Return result
+        return result;
+    }
+
+    /**
+     * Split array
+     * @param array 
+     * @param splitter 
+     * @returns 
+     */
+    public static split(array: Uint8Array, splitter: number): Uint8Array[] {
+        // Init result
+        const result: Uint8Array[] = [];
+
+        // Init item
+        let item: number[] = [];
+
+        // Iterate array
+        for (let index = 0; index < array.length; index++) {
+            // Get value
+            const value = array[index];
+
+            // Check if value is splitter
+            if (value === splitter) {
+                // Add item to result
+                item.length && result.push(new Uint8Array(item));
+
+                // Reset item
+                item = [];
+
+                // Skip value
+                continue;
+            }
+
+            // Add value to item
+            item.push(value);
+        }
+
+        // Add item to result if there is some data
+        item.length && result.push(new Uint8Array(item));
 
         // Return result
         return result;

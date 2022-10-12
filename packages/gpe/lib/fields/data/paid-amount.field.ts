@@ -15,10 +15,11 @@ export class PaidAmountField extends DataField<number> {
 
     /**
      * Constructor
+     * @param data
      */
-    constructor() {
+    constructor(data?: number) {
         // Call super
-        super("Paid amount", "B", FieldFormat.N, { min: 1, max: 18 });
+        super("Paid amount", "B", FieldFormat.N, { min: 1, max: 18 }, data);
     }
 
     /**

@@ -16,10 +16,11 @@ export class TransactionTypeField extends DataField<TransactionType> {
 
     /**
      * Constructor
+     * @param data
      */
-    constructor() {
+    constructor(data?: TransactionType) {
         // Call super
-        super("Transaction type", "T", FieldFormat.N, { min: 2, max: 2 });
+        super("Transaction type", "T", FieldFormat.N, { min: 2, max: 2 }, data);
     }
 
     /**

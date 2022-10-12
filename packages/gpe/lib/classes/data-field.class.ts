@@ -27,12 +27,19 @@ export abstract class DataField<TData> extends Field<TData> {
      * @param identifier 
      * @param format 
      * @param length 
+     * @param data
      */
-    constructor(name: string, identifier: string, format: FieldFormat, length: IFieldLength) {
+    constructor(name: string, identifier: string, format: FieldFormat, length: IFieldLength, data?: TData) {
         // Call super
         super(name, format, length);
 
         // Assign identifier
         this._identifier = identifier;
+
+        // Check if data is defined
+        if (typeof data !== "undefined") {
+            // Assign data
+            this.data = data;
+        }
     }
 }

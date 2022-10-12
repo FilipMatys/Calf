@@ -26,7 +26,7 @@ export class InvalidFieldValueError extends Error {
      */
     constructor(field: string, format: FieldFormat, length: IFieldLength, value: any) {
         // Call super
-        super("Invalid field value.");
+        super(`Invalid field value for [${field}].`);
 
         // Set name
         this.name = `InvalidFieldValueError`;
