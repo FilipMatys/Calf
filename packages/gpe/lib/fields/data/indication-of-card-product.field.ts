@@ -5,7 +5,7 @@ import { DataField } from "../../classes/data-field.class";
 import { FieldFormat } from "../../enums/field-format.enum";
 
 // Utilities
-import { DataArray } from "../../utilities/data-array/data-array.class";
+import { DataArray } from "../../utilities/data-array/data-array.utility";
 
 /**
  * Indication of card product field

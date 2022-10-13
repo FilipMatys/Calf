@@ -6,7 +6,7 @@ import { Currency } from "../../enums/currency.enum";
 import { FieldFormat } from "../../enums/field-format.enum";
 
 // Utilities
-import { DataArray } from "../../utilities/data-array/data-array.class";
+import { DataArray } from "../../utilities/data-array/data-array.utility";
 
 /**
  * Currency field

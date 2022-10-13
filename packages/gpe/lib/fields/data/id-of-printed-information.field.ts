@@ -6,7 +6,7 @@ import { FieldFormat } from "../../enums/field-format.enum";
 import { PrintedInformation } from "../../enums/printed-information.enum";
 
 // Utilities
-import { DataArray } from "../../utilities/data-array/data-array.class";
+import { DataArray } from "../../utilities/data-array/data-array.utility";
 
 /**
  * Id of printed information field

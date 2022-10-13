@@ -5,7 +5,7 @@ import { HeaderField } from "../../classes/header-field.class";
 import { FieldFormat } from "../../enums/field-format.enum";
 
 // Utilities
-import { DataArray } from "../../utilities/data-array/data-array.class";
+import { DataArray } from "../../utilities/data-array/data-array.utility";
 
 /**
  * Terminal ID field
@@ -20,6 +20,9 @@ export class TerminalIDField extends HeaderField<string> {
     constructor() {
         // Call super
         super("Terminal ID", FieldFormat.AN, { min: 8, max: 8 });
+
+        // Set default data
+        this.data = Array(8).fill(null).map((_) => " ").join("");
     }
 
     /**

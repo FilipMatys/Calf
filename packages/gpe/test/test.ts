@@ -67,16 +67,14 @@ describe("Protocol", () => {
         message.header.tags.data = {};
 
         // Add paid amount field
-        message.appendData(new PaidAmountField(153.15));
+        message.appendDataField(new PaidAmountField(153.15));
         // Add transaction type
-        message.appendData(new TransactionTypeField(TransactionType.Sale));
+        message.appendDataField(new TransactionTypeField(TransactionType.Sale));
 
         // Finalize
         message.finalize();
 
         // Convert to buffer
         const buffer = message.toBuffer();
-
-        Message.fromBuffer(buffer);
     });
 });

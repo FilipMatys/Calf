@@ -8,7 +8,7 @@ import { Controls } from "../../constants/controls.constant";
 import { FieldFormat } from "../../enums/field-format.enum";
 
 // Utilities
-import { DataArray } from "../../utilities/data-array/data-array.class";
+import { DataArray } from "../../utilities/data-array/data-array.utility";
 
 /**
  * Receipt text field

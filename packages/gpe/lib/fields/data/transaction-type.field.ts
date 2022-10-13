@@ -6,7 +6,7 @@ import { FieldFormat } from "../../enums/field-format.enum";
 import { TransactionType } from "../../enums/transaction-type.enum";
 
 // Utilities
-import { DataArray } from "../../utilities/data-array/data-array.class";
+import { DataArray } from "../../utilities/data-array/data-array.utility";
 
 /**
  * Transaction type

@@ -6,7 +6,7 @@ import { FieldFormat } from "../../enums/field-format.enum";
 import { ResponseCode } from "../../enums/response-code.enum";
 
 // Utilities
-import { DataArray } from "../../utilities/data-array/data-array.class";
+import { DataArray } from "../../utilities/data-array/data-array.utility";
 
 /**
  * Response code field

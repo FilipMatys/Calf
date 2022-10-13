@@ -9,7 +9,7 @@ import { Header } from "./header.class";
 import { DataFieldMap } from "../maps/data-field.map";
 
 // Utilities
-import { DataArray } from "../utilities/data-array/data-array.class";
+import { DataArray } from "../utilities/data-array/data-array.utility";
 import { CRC16 } from "../utilities/crc/crc-16.utility";
 
 /**
@@ -40,9 +40,30 @@ export class Message {
      * Append data
      * @param field 
      */
-    public appendData(field: DataField<any>): void {
+    public appendDataField(field: DataField<any>): void {
         // Add data field
         this._data.push(field);
+    }
+
+    /**
+     * Get data field by identifier
+     * @param identifier 
+     */
+    public getDataFieldByIdentifier<TField extends DataField<any>>(identifier: string): TField | undefined {
+        // Iterate fields until the one we are looking for is found
+        for (let index = 0; index < this._data.length; index++) {
+            // Get field
+            const field = this._data[index];
+
+            // Check identifiers
+            if (field.identifier === identifier) {
+                // Return field
+                return field as TField;
+            }
+        }
+
+        // Return undefined
+        return undefined;
     }
 
     /**
@@ -166,7 +187,7 @@ export class Message {
             field.buffer = data;
 
             // Add field to data array
-            message.appendData(field);
+            message.appendDataField(field);
         }
 
         // Return message
