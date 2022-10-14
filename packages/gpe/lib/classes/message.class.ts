@@ -79,7 +79,7 @@ export class Message {
         const dataQueue: Uint8Array[] = [];
 
         // Iterate data
-        this._data.forEach((field) => dataQueue.push(new Uint8Array(Controls.FS), field.buffer));
+        this._data.forEach((field) => dataQueue.push(new Uint8Array(Controls.FS), DataArray.fromString(field.identifier), field.buffer));
 
         // Now concat data into one buffer
         const dataBuffer = DataArray.concat(dataQueue);

@@ -16,10 +16,11 @@ export class InvoiceNumberField extends DataField<string> {
 
     /**
      * Constructor
+     * @param value
      */
-    constructor() {
+    constructor(value?: string) {
         // Call super
-        super("Invoice number", "S", FieldFormat.N, { min: 1, max: 10 });
+        super("Invoice number", "S", FieldFormat.N, { min: 1, max: 10 }, value);
     }
 
     /**

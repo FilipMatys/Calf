@@ -19,7 +19,7 @@ export class TerminalIDField extends HeaderField<string> {
      */
     constructor() {
         // Call super
-        super("Terminal ID", FieldFormat.AN, { min: 8, max: 8 });
+        super("Terminal ID", FieldFormat.VGS, { min: 8, max: 8 });
 
         // Set default data
         this.data = Array(8).fill(null).map((_) => " ").join("");
