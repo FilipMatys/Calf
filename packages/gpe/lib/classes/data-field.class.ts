@@ -19,8 +19,6 @@ export abstract class DataField<TData> extends Field<TData> {
      */
     protected _identifier: string;
 
-    public get identifier(): string { return this._identifier }
-
     /**
      * Constructor
      * @param name 
@@ -39,7 +37,16 @@ export abstract class DataField<TData> extends Field<TData> {
         // Check if data is defined
         if (typeof data !== "undefined") {
             // Assign data
-            this.data = data;
+            this.setData(data);
         }
+    }
+
+    /**
+     * Get identifier
+     * @returns 
+     */
+    public getIdentifier(): string {
+        // Return identifier
+        return this._identifier;
     }
 }

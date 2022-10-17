@@ -31,18 +31,29 @@ export class Message {
     private _data: DataField<any>[] = [];
 
     /**
-     * Header
-     * @description Message header
-     */
-    public get header(): Header { return this._header }
-
-    /**
      * Append data
      * @param field 
      */
     public appendDataField(field: DataField<any>): void {
         // Add data field
         this._data.push(field);
+    }
+
+    /**
+     * Clear data
+     */
+    public clearData(): void {
+        // Clear data
+        this._data = [];
+    }
+
+    /**
+     * Get header
+     * @returns 
+     */
+    public getHeader(): Header {
+        // Return header
+        return this._header;
     }
 
     /**
@@ -56,7 +67,7 @@ export class Message {
             const field = this._data[index];
 
             // Check identifiers
-            if (field.identifier === identifier) {
+            if (field.getIdentifier() === identifier) {
                 // Return field
                 return field as TField;
             }
@@ -79,22 +90,22 @@ export class Message {
         const dataQueue: Uint8Array[] = [];
 
         // Iterate data
-        this._data.forEach((field) => dataQueue.push(new Uint8Array(Controls.FS), DataArray.fromString(field.identifier), field.buffer));
+        this._data.forEach((field) => dataQueue.push(new Uint8Array(Controls.FS), DataArray.fromString(field.getIdentifier()), field.getBuffer()));
 
         // Now concat data into one buffer
         const dataBuffer = DataArray.concat(dataQueue);
 
         // Assign length of the data into header field
-        this._header.lengthOfData.data = dataBuffer.length;
+        this._header.lengthOfData.setData(dataBuffer.length);
 
         // Check data length
         if (!this._data.length) {
             // Assign default value for empty message
-            this._header.CRC16.data = 0xA5A5;
+            this._header.CRC16.setData(0xA5A5);
         }
         else {
             // Calculate crc16 from data
-            this._header.CRC16.data = CRC16.calculate(dataBuffer);
+            this._header.CRC16.setData(CRC16.calculate(dataBuffer));
         }
 
         // Now validate header fields
@@ -108,6 +119,30 @@ export class Message {
     }
 
     /**
+     * Clone
+     * @description Clone message
+     */
+    public clone(): Message {
+        // Create new message
+        const message = new Message();
+
+        // Set header values
+        message.getHeader().protocolType.setData(this._header.protocolType.getData());
+        message.getHeader().protocolVersion.setData(this._header.protocolVersion.getData());
+        message.getHeader().terminalID.setData(this._header.terminalID.getData());
+        message.getHeader().dateTime.setData(this._header.dateTime.getData());
+        message.getHeader().tags.setData(this._header.tags.getData());
+        message.getHeader().lengthOfData.setData(this._header.lengthOfData.getData());
+        message.getHeader().CRC16.setData(this._header.CRC16.getData());
+
+        // Iterate data
+        this._data.forEach((field) => message.appendDataField(field));
+
+        // Return message
+        return message;
+    }
+
+    /**
      * To buffer
      * @description Convert message to buffer
      * that can be sent through available connection.
@@ -117,16 +152,16 @@ export class Message {
         const queue: Uint8Array[] = [new Uint8Array(Controls.STX)];
 
         // Add header fields
-        queue.push(this._header.protocolType.buffer);
-        queue.push(this._header.protocolVersion.buffer);
-        queue.push(this._header.terminalID.buffer);
-        queue.push(this._header.dateTime.buffer);
-        queue.push(this._header.tags.buffer);
-        queue.push(this._header.lengthOfData.buffer);
-        queue.push(this._header.CRC16.buffer);
+        queue.push(this._header.protocolType.getBuffer());
+        queue.push(this._header.protocolVersion.getBuffer());
+        queue.push(this._header.terminalID.getBuffer());
+        queue.push(this._header.dateTime.getBuffer());
+        queue.push(this._header.tags.getBuffer());
+        queue.push(this._header.lengthOfData.getBuffer());
+        queue.push(this._header.CRC16.getBuffer());
 
         // Add data fields
-        this._data.forEach((field) => queue.push(new Uint8Array(Controls.FS), DataArray.fromString(field.identifier), field.buffer));
+        this._data.forEach((field) => queue.push(new Uint8Array(Controls.FS), DataArray.fromString(field.getIdentifier()), field.getBuffer()));
 
         // Close queue
         queue.push(new Uint8Array(Controls.ETX));
@@ -151,13 +186,13 @@ export class Message {
         const message = new Message();
 
         // Fill message header
-        message.header.protocolType.buffer = headerBuffer.slice(0, 2);
-        message.header.protocolVersion.buffer = headerBuffer.slice(2, 4);
-        message.header.terminalID.buffer = headerBuffer.slice(4, 12);
-        message.header.dateTime.buffer = headerBuffer.slice(12, 24);
-        message.header.tags.buffer = headerBuffer.slice(24, 28);
-        message.header.lengthOfData.buffer = headerBuffer.slice(28, 32);
-        message.header.CRC16.buffer = headerBuffer.slice(32, 36);
+        message.getHeader().protocolType.setBuffer(headerBuffer.slice(0, 2));
+        message.getHeader().protocolVersion.setBuffer(headerBuffer.slice(2, 4));
+        message.getHeader().terminalID.setBuffer(headerBuffer.slice(4, 12));
+        message.getHeader().dateTime.setBuffer(headerBuffer.slice(12, 24));
+        message.getHeader().tags.setBuffer(headerBuffer.slice(24, 28));
+        message.getHeader().lengthOfData.setBuffer(headerBuffer.slice(28, 32));
+        message.getHeader().CRC16.setBuffer(headerBuffer.slice(32, 36));
 
         // Now process data buffer, so split it into chunks
         const bufferChunks = DataArray.split(dataBuffer, Controls.FS[0]);
@@ -184,7 +219,7 @@ export class Message {
             const field = new DataFieldMap[identifier]();
 
             // Assign data part of the chunk
-            field.buffer = data;
+            field.setBuffer(data);
 
             // Add field to data array
             message.appendDataField(field);

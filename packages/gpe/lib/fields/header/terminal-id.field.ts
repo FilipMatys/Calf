@@ -22,7 +22,7 @@ export class TerminalIDField extends HeaderField<string> {
         super("Terminal ID", FieldFormat.VGS, { min: 8, max: 8 });
 
         // Set default data
-        this.data = Array(8).fill(null).map((_) => " ").join("");
+        this.setData(Array(8).fill(null).map((_) => " ").join(""));
     }
 
     /**

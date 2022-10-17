@@ -27,42 +27,6 @@ export abstract class Field<TData> {
     protected _buffer: Uint8Array;
 
     /**
-     * Buffer setter
-     * @description Sets field buffer
-     */
-    public set buffer(buffer: Uint8Array) {
-        // Assign buffer
-        this._buffer = buffer;
-
-        // Update data from buffer
-        this.updateDataFromBuffer();
-    }
-
-    /**
-     * Buffer getter
-     * @description Gets field buffer
-     */
-    public get buffer(): Uint8Array { return this._buffer; }
-
-    /**
-     * Data setter
-     * @description Sets field data
-     */
-    public set data(data: TData) {
-        // Assign data
-        this._data = data;
-
-        // Update buffer from data
-        this.updateBufferFromData();
-    }
-
-    /**
-     * Data getter
-     * @description Gets field data
-     */
-    public get data(): TData { return this._data; }
-
-    /**
      * Constructor
      * @param name
      * @param format 
@@ -73,6 +37,48 @@ export abstract class Field<TData> {
         this._name = name;
         this._format = format;
         this._length = length;
+    }
+
+    /**
+     * Set buffer
+     * @param buffer 
+     */
+    public setBuffer(buffer: Uint8Array): void {
+        // Assign buffer
+        this._buffer = buffer;
+
+        // Update data from buffer
+        this.updateDataFromBuffer();
+    }
+
+    /**
+     * Get buffer
+     * @returns 
+     */
+    public getBuffer(): Uint8Array {
+        // Return buffer
+        return this._buffer;
+    }
+
+    /**
+     * Set data
+     * @param data 
+     */
+    public setData(data: TData): void {
+        // Assign data
+        this._data = data;
+
+        // Update buffer from data
+        this.updateBufferFromData();
+    }
+
+    /**
+     * Get data
+     * @returns 
+     */
+    public getData(): TData {
+        // Return data
+        return this._data;
     }
 
     /**
