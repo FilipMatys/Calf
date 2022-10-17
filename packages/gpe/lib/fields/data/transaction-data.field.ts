@@ -6,6 +6,7 @@ import { FieldFormat } from "../../enums/field-format.enum";
 
 // Utilities
 import { DataArray } from "../../utilities/data-array/data-array.utility";
+import { Strings } from "../../utilities/strings/strings.utility";
 
 /**
  * Transaction data field data
@@ -38,9 +39,9 @@ export class TransactionDataField extends DataField<ITransactionDataFieldData> {
      */
     protected updateBufferFromData(): void {
         // Get date string values
-        const sYear = `${this._data.date?.year || 0}`.slice(-2).padStart(2, "0");
-        const sMonth = `${this._data.date?.month || 0}`.slice(-2).padStart(2, "0");
-        const sDay = `${this._data.date?.day || 0}`.slice(-2).padStart(2, "0");
+        const sYear = Strings.padStart(`${this._data.date?.year || 0}`.slice(-2), 2, "0");
+        const sMonth = Strings.padStart(`${this._data.date?.month || 0}`.slice(-2), 2, "0");
+        const sDay = Strings.padStart(`${this._data.date?.day || 0}`.slice(-2), 2, "0");
 
         // Assign buffer
         this._buffer = DataArray.fromString([

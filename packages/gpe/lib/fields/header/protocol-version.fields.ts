@@ -6,6 +6,7 @@ import { FieldFormat } from "../../enums/field-format.enum";
 
 // Utilities
 import { DataArray } from "../../utilities/data-array/data-array.utility";
+import { Strings } from "../../utilities/strings/strings.utility";
 
 /**
  * Protocol version field
@@ -26,7 +27,7 @@ export class ProtocolVersionField extends HeaderField<number> {
      */
     protected updateBufferFromData(): void {
         // Get normalized value
-        const normalized = `${this._data || 0}`.padStart(2, "0");
+        const normalized = Strings.padStart(`${this._data || 0}`, 2, "0");
 
         // Get data array from normalized string
         this._buffer = DataArray.fromString(normalized);

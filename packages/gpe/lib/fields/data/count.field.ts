@@ -6,6 +6,7 @@ import { FieldFormat } from "../../enums/field-format.enum";
 
 // Utilities
 import { DataArray } from "../../utilities/data-array/data-array.utility";
+import { Strings } from "../../utilities/strings/strings.utility";
 
 /**
  * Count field
@@ -27,7 +28,7 @@ export class CountField extends DataField<number> {
      */
     protected updateBufferFromData(): void {
         // Get normalized value
-        const normalized = `${this._data || 0}`.padStart(3, "0");
+        const normalized = Strings.padStart(`${this._data || 0}`, 3, "0");
 
         // Assign count to value
         this._buffer = DataArray.fromString(normalized);

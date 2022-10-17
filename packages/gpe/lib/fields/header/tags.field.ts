@@ -6,6 +6,7 @@ import { FieldFormat } from "../../enums/field-format.enum";
 
 // Utilities
 import { DataArray } from "../../utilities/data-array/data-array.utility";
+import { Strings } from "../../utilities/strings/strings.utility";
 
 /**
  * Tags field data
@@ -44,7 +45,7 @@ export class TagsField extends HeaderField<ITagsFieldData> {
         flags[8] = this._data.ecrSupportsDeviceMessages ? 1 : 0;
 
         // Revert and parse as hex
-        const value = parseInt(flags.reverse().join(""), 2).toString(16).toUpperCase().padStart(4, "0");
+        const value = Strings.padStart(parseInt(flags.reverse().join(""), 2).toString(16).toUpperCase(), 4, "0");
 
         // Assign parsed flags to value
         this._buffer = DataArray.fromString(value);
@@ -58,7 +59,7 @@ export class TagsField extends HeaderField<ITagsFieldData> {
         const hex = DataArray.toString(this._buffer);
 
         // Convert hex to flags
-        const flags = parseInt(hex, 16).toString(2).padStart(16, "0").split("").reverse().map((x) => Number(x));
+        const flags = Strings.padStart(parseInt(hex, 16).toString(2), 16, "0").split("").reverse().map((x) => Number(x));
 
         // Now init data
         const data: ITagsFieldData = {};

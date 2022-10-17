@@ -6,6 +6,7 @@ import { FieldFormat } from "../../enums/field-format.enum";
 
 // Utilities
 import { DataArray } from "../../utilities/data-array/data-array.utility";
+import { Strings } from "../../utilities/strings/strings.utility";
 
 /**
  * CRC16 field
@@ -26,7 +27,7 @@ export class CRC16Field extends HeaderField<number> {
      */
     protected updateBufferFromData(): void {
         // Get hexadecimal value with 4 places
-        const hex = this._data.toString(16).padStart(4, "0");
+        const hex = Strings.padStart(this._data.toString(16), 4, "0");
 
         // Get data array from hex string
         this._buffer = DataArray.fromString(hex);

@@ -44,3 +44,4 @@ export * from "./fields/data/transport-data.field";
 // Utilities
 export * from "./utilities/data-array/data-array.utility";
 export * from "./utilities/crc/crc-16.utility";
+export * from "./utilities/strings/strings.utility";

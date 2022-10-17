@@ -6,6 +6,7 @@ import { FieldFormat } from "../../enums/field-format.enum";
 
 // Utilities
 import { DataArray } from "../../utilities/data-array/data-array.utility";
+import { Strings } from "../../utilities/strings/strings.utility";
 
 /**
  * Date time field data
@@ -39,12 +40,12 @@ export class DateTimeField extends HeaderField<IDateTimeFieldData> {
      */
     protected updateBufferFromData(): void {
         // Get string values
-        const sYear = `${this._data.year || 0}`.slice(-2).padStart(2, "0");
-        const sMonth = `${this._data.month || 0}`.slice(-2).padStart(2, "0");
-        const sDay = `${this._data.day || 0}`.slice(-2).padStart(2, "0");
-        const sHour = `${this._data.hour || 0}`.slice(-2).padStart(2, "0");
-        const sMinute = `${this._data.minute || 0}`.slice(-2).padStart(2, "0");
-        const sSecond = `${this._data.second || 0}`.slice(-2).padStart(2, "0");
+        const sYear = Strings.padStart(`${this._data.year || 0}`.slice(-2), 2, "0");
+        const sMonth = Strings.padStart(`${this._data.month || 0}`.slice(-2), 2, "0");
+        const sDay = Strings.padStart(`${this._data.day || 0}`.slice(-2), 2, "0");
+        const sHour = Strings.padStart(`${this._data.hour || 0}`.slice(-2), 2, "0");
+        const sMinute = Strings.padStart(`${this._data.minute || 0}`.slice(-2), 2, "0");
+        const sSecond = Strings.padStart(`${this._data.second || 0}`.slice(-2), 2, "0");
 
         // Now create final value
         const value = `${sYear}${sMonth}${sDay}${sHour}${sMinute}${sSecond}`;

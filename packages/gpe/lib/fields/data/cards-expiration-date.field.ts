@@ -6,6 +6,7 @@ import { FieldFormat } from "../../enums/field-format.enum";
 
 // Utilities
 import { DataArray } from "../../utilities/data-array/data-array.utility";
+import { Strings } from "../../utilities/strings/strings.utility";
 
 /**
  * Card's expiration date field data interface
@@ -37,8 +38,8 @@ export class CardsExpirationDateField extends DataField<ICardsExpirationDateFiel
      */
     protected updateBufferFromData(): void {
         // Get string values
-        const sYear = `${this._data.year || 0}`.slice(-2).padStart(2, "0");
-        const sMonth = `${this._data.month || 0}`.slice(-2).padStart(2, "0");
+        const sYear = Strings.padStart(`${this._data.year || 0}`.slice(-2), 2, "0");
+        const sMonth = Strings.padStart(`${this._data.month || 0}`.slice(-2), 2, "0");
 
         // Now create final value
         const value = `${sMonth}${sYear}`;

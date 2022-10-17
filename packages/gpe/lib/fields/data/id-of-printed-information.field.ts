@@ -7,6 +7,7 @@ import { PrintedInformation } from "../../enums/printed-information.enum";
 
 // Utilities
 import { DataArray } from "../../utilities/data-array/data-array.utility";
+import { Strings } from "../../utilities/strings/strings.utility";
 
 /**
  * Id of printed information field
@@ -28,7 +29,7 @@ export class IdOfPrintedInformationField extends DataField<PrintedInformation> {
      */
     protected updateBufferFromData(): void {
         // Get normalized value
-        const normalized = `${this._data || 0}`.padStart(2, "0");
+        const normalized = Strings.padStart(`${this._data || 0}`, 2, "0");
 
         // Get data array from normalized string
         this._buffer = DataArray.fromString(normalized);
