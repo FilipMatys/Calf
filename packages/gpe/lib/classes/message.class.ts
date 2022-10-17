@@ -57,6 +57,33 @@ export class Message {
     }
 
     /**
+     * Is confirmation message
+     * @description Check whether message is confirmation
+     * @returns 
+     */
+    public isConfirmationMessage(): boolean {
+        return !(this._data || []).length && this._header.CRC16.getData() === 0xa5a5;
+    }
+
+    /**
+     * Is activity message
+     * @description Check whether message is activity message
+     * @returns 
+     */
+    public isActivityMessage(): boolean {
+        return !(this._data || []).length && this._header.CRC16.getData() === 0;
+    }
+
+    /**
+     * Has data
+     * @description Checks whether message contains any data
+     * @returns 
+     */
+    public hasData(): boolean {
+        return !!(this._data || []).length;
+    }
+
+    /**
      * Get data field by identifier
      * @param identifier 
      */
