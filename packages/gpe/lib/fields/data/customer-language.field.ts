@@ -15,10 +15,11 @@ export class CustomerLanguageField extends DataField<string> {
 
     /**
      * Constructor
+     * @param language
      */
-    constructor() {
+    constructor(language?: string) {
         // Call super
-        super("Customer Language", "A", FieldFormat.A, { min: 2, max: 2 });
+        super("Customer Language", "A", FieldFormat.A, { min: 2, max: 2 }, language);
     }
 
     /**

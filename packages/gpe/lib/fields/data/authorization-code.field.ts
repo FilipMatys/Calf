@@ -14,10 +14,11 @@ export class AuthorizationCodeField extends DataField<any> {
 
     /**
      * Constructor
+     * @param code 
      */
-    constructor() {
+    constructor(code?: string) {
         // Call super
-        super("Authorization code", "F", FieldFormat.V, { min: 8, max: 8 });
+        super("Authorization code", "F", FieldFormat.V, { min: 8, max: 8 }, code);
     }
 
     /**

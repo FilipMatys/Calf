@@ -25,10 +25,11 @@ export class CardsExpirationDateField extends DataField<ICardsExpirationDateFiel
 
     /**
      * Constructor
+     * @param expiration 
      */
-    constructor() {
+    constructor(expiration?: ICardsExpirationDateFieldData) {
         // Call super
-        super("Card's expiration date", "E", FieldFormat.N, { min: 4, max: 4 });
+        super("Card's expiration date", "E", FieldFormat.N, { min: 4, max: 4 }, expiration);
     }
 
     /**

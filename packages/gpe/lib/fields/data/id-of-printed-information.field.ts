@@ -12,14 +12,15 @@ import { DataArray } from "../../utilities/data-array/data-array.utility";
  * Id of printed information field
  * @description 
  */
-export class IdOfPrintedInformationField extends DataField<number> {
+export class IdOfPrintedInformationField extends DataField<PrintedInformation> {
 
     /**
      * Constructor
+     * @param identifier
      */
-    constructor() {
+    constructor(identifier?: PrintedInformation) {
         // Call super
-        super("Id of printed information", "K", FieldFormat.N, { min: 2, max: 2 });
+        super("Id of printed information", "K", FieldFormat.N, { min: 2, max: 2 }, identifier);
     }
 
     /**

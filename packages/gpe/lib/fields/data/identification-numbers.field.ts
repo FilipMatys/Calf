@@ -28,10 +28,11 @@ export class IdentificationNumbersField extends DataField<IIdentificationNumbers
 
     /**
      * Constructor
+     * @param data
      */
-    constructor() {
+    constructor(data?: IIdentificationNumbersFieldData) {
         // Call super
-        super("Identification numbers", "Z", FieldFormat.VGS, { min: 3, max: 27 });
+        super("Identification numbers", "Z", FieldFormat.VGS, { min: 3, max: 27 }, data);
     }
 
     /**

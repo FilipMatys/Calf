@@ -15,10 +15,11 @@ export class CodeOfRegionField extends DataField<string> {
 
     /**
      * Constructor
+     * @param code
      */
-    constructor() {
+    constructor(code?: string) {
         // Call super
-        super("Code of Region", "U", FieldFormat.AN, { min: 4, max: 4 });
+        super("Code of Region", "U", FieldFormat.AN, { min: 4, max: 4 }, code);
     }
 
     /**

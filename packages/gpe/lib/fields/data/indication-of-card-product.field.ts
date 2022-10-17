@@ -10,14 +10,15 @@ import { DataArray } from "../../utilities/data-array/data-array.utility";
 /**
  * Indication of card product field
  */
-export class IndicationOfCardProductField extends DataField<any> {
+export class IndicationOfCardProductField extends DataField<string> {
 
     /**
      * Constructor
+     * @param identification
      */
-    constructor() {
+    constructor(identification?: string) {
         // Call super
-        super("Indication of card product", "J", FieldFormat.V, { min: 2, max: 10 });
+        super("Indication of card product", "J", FieldFormat.V, { min: 2, max: 10 }, identification);
     }
 
     /**

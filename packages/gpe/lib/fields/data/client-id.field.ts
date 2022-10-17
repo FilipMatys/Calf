@@ -16,10 +16,11 @@ export class ClientIDField extends DataField<string> {
 
     /**
      * Constructor
+     * @param identifier
      */
-    constructor() {
+    constructor(identifier?: string) {
         // Call super
-        super("Client ID", "n", FieldFormat.N, { min: 12, max: 10 });
+        super("Client ID", "n", FieldFormat.N, { min: 12, max: 10 }, identifier);
     }
 
     /**

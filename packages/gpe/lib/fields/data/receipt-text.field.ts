@@ -19,10 +19,11 @@ export class ReceiptTextField extends DataField<string[]> {
 
     /**
      * Constructor
+     * @param lines
      */
-    constructor() {
+    constructor(lines?: string[]) {
         // Call super
-        super("Text for printing of receipt", "t", FieldFormat.V, { min: 1, max: 3072 });
+        super("Text for printing of receipt", "t", FieldFormat.V, { min: 1, max: 3072 }, lines);
     }
 
     /**

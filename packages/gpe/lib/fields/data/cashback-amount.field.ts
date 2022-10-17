@@ -15,10 +15,11 @@ export class CashbackAmountField extends DataField<number> {
 
     /**
      * Constructor
+     * @param amount 
      */
-    constructor() {
+    constructor(amount?: number) {
         // Call super
-        super("Cashback amount", "b", FieldFormat.N, { min: 1, max: 18 });
+        super("Cashback amount", "b", FieldFormat.N, { min: 1, max: 18 }, amount);
     }
 
     /**

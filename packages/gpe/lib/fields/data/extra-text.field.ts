@@ -26,10 +26,11 @@ export class ExtraTextField extends DataField<IExtraTextFieldData> {
 
     /**
      * Constructor
+     * @param data
      */
-    constructor() {
+    constructor(data?: IExtraTextFieldData) {
         // Call super
-        super("Extra Text", "q", FieldFormat.V, { min: 1, max: 100 });
+        super("Extra Text", "q", FieldFormat.V, { min: 1, max: 100 }, data);
     }
 
     /**

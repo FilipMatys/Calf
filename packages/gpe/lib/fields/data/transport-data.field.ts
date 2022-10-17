@@ -15,10 +15,11 @@ export class TransportDataField extends DataField<string> {
 
     /**
      * Constructor
+     * @param data
      */
-    constructor() {
+    constructor(data?: string) {
         // Call super
-        super("Transport data", "D", FieldFormat.AN, { min: 0, max: 1000 });
+        super("Transport data", "D", FieldFormat.AN, { min: 0, max: 1000 }, data);
     }
 
     /**

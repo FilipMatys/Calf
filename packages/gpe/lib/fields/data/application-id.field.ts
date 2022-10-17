@@ -15,10 +15,11 @@ export class ApplicationIDField extends DataField<string> {
 
     /**
      * Constructor
+     * @param identifier 
      */
-    constructor() {
+    constructor(identifier?: string) {
         // Call super
-        super("Application ID (AID)", "a", FieldFormat.AN, { min: 12, max: 24 });
+        super("Application ID (AID)", "a", FieldFormat.AN, { min: 12, max: 24 }, identifier);
     }
 
     /**

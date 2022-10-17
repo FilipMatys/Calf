@@ -16,10 +16,11 @@ export class ReferenceNumberField extends DataField<string> {
 
     /**
      * Constructor
+     * @param number
      */
-    constructor() {
+    constructor(number?: string) {
         // Call super
-        super("Reference number (transaction identifier)", "N", FieldFormat.AN, { min: 1, max: 20 });
+        super("Reference number (transaction identifier)", "N", FieldFormat.AN, { min: 1, max: 20 }, number);
     }
 
     /**

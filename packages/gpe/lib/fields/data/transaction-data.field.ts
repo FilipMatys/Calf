@@ -26,10 +26,11 @@ export class TransactionDataField extends DataField<ITransactionDataFieldData> {
 
     /**
      * Constructor
+     * @param data
      */
-    constructor() {
+    constructor(data?: ITransactionDataFieldData) {
         // Call super
-        super("Transaction data", "d", FieldFormat.V, { min: 21, max: 32 });
+        super("Transaction data", "d", FieldFormat.V, { min: 21, max: 32 }, data);
     }
 
     /**

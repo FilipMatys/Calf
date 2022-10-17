@@ -15,10 +15,11 @@ export class CodePageField extends DataField<string> {
 
     /**
      * Constructor
+     * @param page
      */
-    constructor() {
+    constructor(page?: string) {
         // Call super
-        super("CodePage", "f", FieldFormat.AN, { min: 10, max: 10 });
+        super("CodePage", "f", FieldFormat.AN, { min: 10, max: 10 }, page);
     }
 
     /**

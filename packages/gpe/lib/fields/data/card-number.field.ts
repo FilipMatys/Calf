@@ -16,10 +16,11 @@ export class CardNumberField extends DataField<string> {
 
     /**
      * Constructor
+     * @param number 
      */
-    constructor() {
+    constructor(number?: string) {
         // Call super
-        super("Card number (PAN)", "P", FieldFormat.V, { min: 9, max: 19 });
+        super("Card number (PAN)", "P", FieldFormat.V, { min: 9, max: 19 }, number);
     }
 
     /**

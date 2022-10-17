@@ -16,10 +16,11 @@ export class ResponseCodeField extends DataField<ResponseCode> {
 
     /**
      * Constructor
+     * @param code
      */
-    constructor() {
+    constructor(code?: ResponseCode) {
         // Call super
-        super("Response Code", "R", FieldFormat.N, { min: 3, max: 3 });
+        super("Response Code", "R", FieldFormat.N, { min: 3, max: 3 }, code);
     }
 
     /**

@@ -15,10 +15,11 @@ export class SequenceNumberField extends DataField<string> {
 
     /**
      * Constructor
+     * @param number
      */
-    constructor() {
+    constructor(number?: string) {
         // Call super
-        super("Sequence number", "i", FieldFormat.N, { min: 9, max: 9 });
+        super("Sequence number", "i", FieldFormat.N, { min: 9, max: 9 }, number);
     }
 
     /**

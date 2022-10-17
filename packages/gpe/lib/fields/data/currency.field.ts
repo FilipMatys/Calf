@@ -16,10 +16,11 @@ export class CurrencyField extends DataField<Currency> {
 
     /**
      * Constructor
+     * @param currency
      */
-    constructor() {
+    constructor(currency?: Currency) {
         // Call super
-        super("Currency", "I", FieldFormat.N, { min: 3, max: 3 });
+        super("Currency", "I", FieldFormat.N, { min: 3, max: 3 }, currency);
     }
 
     /**

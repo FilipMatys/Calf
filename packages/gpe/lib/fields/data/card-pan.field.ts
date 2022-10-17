@@ -15,10 +15,11 @@ export class CardPANField extends DataField<string> {
 
     /**
      * Constructor
+     * @param pan 
      */
-    constructor() {
+    constructor(pan?: string) {
         // Call super
-        super("Token, HASH of Card PAN", "H", FieldFormat.V, { min: 16, max: 66 });
+        super("Token, HASH of Card PAN", "H", FieldFormat.V, { min: 16, max: 66 }, pan);
     }
 
     /**

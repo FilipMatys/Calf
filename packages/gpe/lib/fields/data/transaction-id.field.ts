@@ -15,10 +15,11 @@ export class TransactionIDField extends DataField<string> {
 
     /**
      * Constructor
+     * @param identifier
      */
-    constructor() {
+    constructor(identifier?: string) {
         // Call super
-        super("Transaction ID", "n", FieldFormat.N, { min: 12, max: 12 });
+        super("Transaction ID", "n", FieldFormat.N, { min: 12, max: 12 }, identifier);
     }
 
     /**

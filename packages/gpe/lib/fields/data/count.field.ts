@@ -15,10 +15,11 @@ export class CountField extends DataField<number> {
 
     /**
      * Constructor
+     * @param count
      */
-    constructor() {
+    constructor(count?: number) {
         // Call super
-        super("Count", "C", FieldFormat.N, { min: 3, max: 3 });
+        super("Count", "C", FieldFormat.N, { min: 3, max: 3 }, count);
     }
 
     /**
