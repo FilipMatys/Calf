@@ -30,6 +30,9 @@ export class TagsField extends HeaderField<ITagsFieldData> {
     constructor() {
         // Call super
         super("Tags", FieldFormat.AN, { min: 4, max: 4 });
+
+        // Init data
+        this.setData({});
     }
 
     /**

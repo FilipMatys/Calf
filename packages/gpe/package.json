@@ -19,6 +19,9 @@
   ],
   "author": "Filip Matys <matysfilip@gmail.com> (https://github.com/FilipMatys)",
   "license": "MIT",
+  "peerDependencies": {
+    "rxjs": "^5.5.2"
+  },
   "devDependencies": {
     "@types/chai": "^4.1.4",
     "@types/mocha": "^5.2.5",

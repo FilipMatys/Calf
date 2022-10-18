@@ -36,6 +36,22 @@ export class DateTimeField extends HeaderField<IDateTimeFieldData> {
     }
 
     /**
+     * Set data from date
+     * @param date 
+     */
+    public setDataFromDate(date: Date): void {
+        // Assign date time
+        this.setData({
+            year: date.getFullYear(),
+            month: date.getMonth() + 1,
+            day: date.getDate(),
+            hour: date.getHours(),
+            minute: date.getUTCMinutes(),
+            second: date.getUTCSeconds()
+        });
+    }
+
+    /**
      * Update buffer from data
      */
     protected updateBufferFromData(): void {

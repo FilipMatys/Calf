@@ -41,7 +41,13 @@ export * from "./fields/data/transaction-id.field";
 export * from "./fields/data/transaction-type.field";
 export * from "./fields/data/transport-data.field";
 
+// Operations
+export * from "./operations/sale/sale.operation";
+export * from "./operations/sale/interfaces/request.interface";
+export * from "./operations/sale/interfaces/response.interface";
+
 // Utilities
 export * from "./utilities/data-array/data-array.utility";
 export * from "./utilities/crc/crc-16.utility";
 export * from "./utilities/strings/strings.utility";
+export * from "./utilities/socket/socket.utility";
