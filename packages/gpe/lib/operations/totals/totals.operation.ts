@@ -1,36 +1,31 @@
-// Interfaces
-import { ISaleRequest } from "./interfaces/request.interface";
-import { ISaleResponse } from "./interfaces/response.interface";
-
 // Enums
 import { TransactionType } from "../../enums/transaction-type.enum";
+
+// Interfaces
+import { ITotalsResponse } from "./interfaces/response.interface";
 
 // Classes
 import { Message } from "../../classes/message.class";
 
 // Fields
-import { PaidAmountField } from "../../fields/data/paid-amount.field";
 import { TransactionTypeField } from "../../fields/data/transaction-type.field";
-import { ReferenceNumberField } from "../../fields/data/reference-number.field";
-import { AuthorizationCodeField } from "../../fields/data/authorization-code.field";
 import { ResponseCodeField } from "../../fields/data/response-code.field";
 
 // Operations
 import { CommonOperation } from "../common/common.operation";
 
 /**
- * Sale operation
- * @description Operation for basic sale
+ * Totals operation
  */
-export class SaleOperation extends CommonOperation<ISaleRequest, ISaleResponse> {
+export class TotalsOperation extends CommonOperation<void, ITotalsResponse> {
 
     /**
-     * Execute sale
-     * @param request 
+     * Execute
+     * @description Execute totals
      */
-    public async execute(request: ISaleRequest): Promise<ISaleResponse> {
+    public async execute(): Promise<ITotalsResponse> {
         // Init result
-        const result: ISaleResponse = { timestamp: new Date() };
+        const result: ITotalsResponse = { timestamp: new Date() };
 
         // First init message
         const message = new Message();
@@ -43,15 +38,7 @@ export class SaleOperation extends CommonOperation<ISaleRequest, ISaleResponse> 
         message.getHeader().dateTime.setDataFromDate(result.timestamp);
 
         // Add transaction type
-        message.appendDataField(new TransactionTypeField(TransactionType.Sale));
-        // Add paid amount field
-        message.appendDataField(new PaidAmountField(request.amount));
-
-        // Check for reference number
-        if (request.referenceNumber) {
-            // Append reference number field
-            message.appendDataField(new ReferenceNumberField(request.referenceNumber));
-        }
+        message.appendDataField(new TransactionTypeField(TransactionType.CloseTotals));
 
         // Finalize
         message.finalize();
@@ -80,27 +67,13 @@ export class SaleOperation extends CommonOperation<ISaleRequest, ISaleResponse> 
         // Response
         const response = await this.processResponse(message);
 
-        // Get response fields
-        const paidAmountField = response.getDataFieldByIdentifier<PaidAmountField>("B");
+        // Check response data
         const responseCodeField = response.getDataFieldByIdentifier<ResponseCodeField>("R");
-        const authorizationCodeField = response.getDataFieldByIdentifier<AuthorizationCodeField>("F");
 
         // Check response code
         if (responseCodeField) {
             // Get field data
             result.code = responseCodeField.getData();
-        }
-
-        // Check authorization code
-        if (authorizationCodeField) {
-            // Get field data
-            result.authorizationCode = authorizationCodeField.getData();
-        }
-
-        // Check paid amount
-        if (paidAmountField) {
-            // Get field data
-            result.amount = paidAmountField.getData();
         }
 
         // Shutdown connection

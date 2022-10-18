@@ -18,7 +18,7 @@ export class AuthorizationCodeField extends DataField<any> {
      */
     constructor(code?: string) {
         // Call super
-        super("Authorization code", "F", FieldFormat.V, { min: 8, max: 8 }, code);
+        super("Authorization code", "F", FieldFormat.V, { min: 6, max: 8 }, code);
     }
 
     /**

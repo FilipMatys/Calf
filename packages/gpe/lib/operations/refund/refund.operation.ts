@@ -1,6 +1,6 @@
 // Interfaces
-import { ISaleRequest } from "./interfaces/request.interface";
-import { ISaleResponse } from "./interfaces/response.interface";
+import { IRefundRequest } from "./interfaces/request.interface";
+import { IRefundResponse } from "./interfaces/response.interface";
 
 // Enums
 import { TransactionType } from "../../enums/transaction-type.enum";
@@ -19,18 +19,19 @@ import { ResponseCodeField } from "../../fields/data/response-code.field";
 import { CommonOperation } from "../common/common.operation";
 
 /**
- * Sale operation
- * @description Operation for basic sale
+ * Refund operation
+ * @description Operation for refund
  */
-export class SaleOperation extends CommonOperation<ISaleRequest, ISaleResponse> {
+export class RefundOperation extends CommonOperation<IRefundRequest, IRefundResponse> {
 
     /**
-     * Execute sale
-     * @param request 
+     * Execute refund
+     * @param request
+     * @returns 
      */
-    public async execute(request: ISaleRequest): Promise<ISaleResponse> {
+    public async execute(request: IRefundRequest): Promise<IRefundResponse> {
         // Init result
-        const result: ISaleResponse = { timestamp: new Date() };
+        const result: IRefundResponse = { timestamp: new Date() };
 
         // First init message
         const message = new Message();
@@ -43,7 +44,7 @@ export class SaleOperation extends CommonOperation<ISaleRequest, ISaleResponse> 
         message.getHeader().dateTime.setDataFromDate(result.timestamp);
 
         // Add transaction type
-        message.appendDataField(new TransactionTypeField(TransactionType.Sale));
+        message.appendDataField(new TransactionTypeField(TransactionType.Refund));
         // Add paid amount field
         message.appendDataField(new PaidAmountField(request.amount));
 
@@ -80,8 +81,7 @@ export class SaleOperation extends CommonOperation<ISaleRequest, ISaleResponse> 
         // Response
         const response = await this.processResponse(message);
 
-        // Get response fields
-        const paidAmountField = response.getDataFieldByIdentifier<PaidAmountField>("B");
+        // Check response data
         const responseCodeField = response.getDataFieldByIdentifier<ResponseCodeField>("R");
         const authorizationCodeField = response.getDataFieldByIdentifier<AuthorizationCodeField>("F");
 
@@ -95,12 +95,6 @@ export class SaleOperation extends CommonOperation<ISaleRequest, ISaleResponse> 
         if (authorizationCodeField) {
             // Get field data
             result.authorizationCode = authorizationCodeField.getData();
-        }
-
-        // Check paid amount
-        if (paidAmountField) {
-            // Get field data
-            result.amount = paidAmountField.getData();
         }
 
         // Shutdown connection

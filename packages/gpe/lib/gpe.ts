@@ -45,6 +45,14 @@ export * from "./fields/data/transport-data.field";
 export * from "./operations/sale/sale.operation";
 export * from "./operations/sale/interfaces/request.interface";
 export * from "./operations/sale/interfaces/response.interface";
+export * from "./operations/totals/totals.operation";
+export * from "./operations/totals/interfaces/response.interface";
+export * from "./operations/reversal/reversal.operation";
+export * from "./operations/reversal/interfaces/request.interface"
+export * from "./operations/reversal/interfaces/response.interface";
+export * from "./operations/refund/refund.operation";
+export * from "./operations/refund/interfaces/request.interface";
+export * from "./operations/refund/interfaces/response.interface";
 
 // Utilities
 export * from "./utilities/data-array/data-array.utility";

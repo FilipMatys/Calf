@@ -49,7 +49,7 @@ export abstract class CommonOperation<TRequest, TResponse> {
      * @description Execute given operation
      * @param request 
      */
-    public abstract execute(request: TRequest): Promise<TResponse>;
+    public abstract execute(request?: TRequest): Promise<TResponse>;
 
     /**
      * Process request
