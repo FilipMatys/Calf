@@ -36,6 +36,18 @@ export class TagsField extends HeaderField<ITagsFieldData> {
     }
 
     /**
+     * Is equal
+     * @param value 
+     * @returns 
+     */
+    public isEqual(value: ITagsFieldData): boolean {
+        return !!value && !!this._data
+            && value.checkForCardHoldersSignature === this._data.checkForCardHoldersSignature
+            && value.ecrSupportsDeviceMessages === this._data.ecrSupportsDeviceMessages
+            && value.ecrSupportsPartialApproval === this._data.ecrSupportsPartialApproval;
+    }
+
+    /**
      * Update buffer from data
      */
     protected updateBufferFromData(): void {

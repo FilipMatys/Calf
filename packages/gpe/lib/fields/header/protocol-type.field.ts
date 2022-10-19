@@ -22,6 +22,15 @@ export class ProtocolTypeField extends HeaderField<string> {
     }
 
     /**
+     * Is equal
+     * @param value 
+     * @returns 
+     */
+    public isEqual(value: string): boolean {
+        return value === this._data;
+    }
+
+    /**
      * Update buffer from data
      */
     protected updateBufferFromData(): void {

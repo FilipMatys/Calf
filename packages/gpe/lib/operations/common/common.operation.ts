@@ -1,6 +1,9 @@
 // External modules
 import { retry, timeout } from "rxjs/operators";
 
+// Enums
+import { ResponseCode } from "../../enums/response-code.enum";
+
 // Classes
 import { Message } from "../../classes/message.class";
 
@@ -57,6 +60,9 @@ export abstract class CommonOperation<TRequest, TResponse> {
      * @returns 
      */
     protected async processRequest(message: Message): Promise<Message> {
+        // Init retry counter
+        let retryCnt: number = 1;
+
         // Create new promise
         return new Promise<Message>((resolve, reject) => {
             // Set time out to retry the message
@@ -69,6 +75,36 @@ export abstract class CommonOperation<TRequest, TResponse> {
 
                 // Parse data response
                 const response = Message.fromBuffer(data);
+
+                // Check if message is valid response
+                if (!message.isValidResponse(response)) {
+                    // Check retry count
+                    if (!retryCnt--) {
+                        // Unsubscribe from further messages
+                        subscription && subscription.unsubscribe();
+
+                        // Reject further processing
+                        return reject();
+                    }
+
+                    // Send error message and do nothing else
+                    return this._socket.write(message.toErrorMessage(response, ResponseCode.ErrorInMessageFormat).toBuffer());
+                }
+
+                // Now check crc16
+                if (!response.isCRC16Valid()) {
+                    // Check retry count
+                    if (!retryCnt--) {
+                        // Unsubscribe from further messages
+                        subscription && subscription.unsubscribe();
+
+                        // Reject further processing
+                        return reject();
+                    }
+
+                    // Send error message and do nothing else
+                    return this._socket.write(message.toErrorMessage(response, ResponseCode.ErrorInMessageCRC).toBuffer());
+                }
 
                 // Check for activity message
                 if (response.isActivityMessage()) {
@@ -91,8 +127,12 @@ export abstract class CommonOperation<TRequest, TResponse> {
     /**
      * Process response
      * @param message 
+     * @param requiredFields
      */
-    protected async processResponse(message: Message): Promise<Message> {
+    protected async processResponse(message: Message, requiredFields: string[] = []): Promise<Message> {
+        // Init retry counter
+        let retryCnt: number = 1;
+
         // Create new promise
         return new Promise<Message>((resolve, reject) => {
             // Subscribe to received data
@@ -100,22 +140,62 @@ export abstract class CommonOperation<TRequest, TResponse> {
                 // Parse data response
                 const response = Message.fromBuffer(data);
 
+                // Check if message is valid response
+                if (!message.isValidResponse(response)) {
+                    // Check retry count
+                    if (!retryCnt--) {
+                        // Unsubscribe from further messages
+                        subscription && subscription.unsubscribe();
+
+                        // Reject further processing
+                        return reject();
+                    }
+
+                    // Send error message and do nothing else
+                    return this._socket.write(message.toErrorMessage(response, ResponseCode.ErrorInMessageFormat).toBuffer());
+                }
+
+                // Now check crc16
+                if (!response.isCRC16Valid()) {
+                    // Check retry count
+                    if (!retryCnt--) {
+                        // Unsubscribe from further messages
+                        subscription && subscription.unsubscribe();
+
+                        // Reject further processing
+                        return reject();
+                    }
+
+                    // Send error message and do nothing else
+                    return this._socket.write(message.toErrorMessage(response, ResponseCode.ErrorInMessageCRC).toBuffer());
+                }
+
                 // Check if is activity message
                 if (response.isActivityMessage()) {
                     // Do nothing
                     return;
                 }
 
+                // Now check if is error message
+                if (!response.isErrorMessage() && !response.hasValidData(requiredFields)) {
+                    // Check retry count
+                    if (!retryCnt--) {
+                        // Unsubscribe from further messages
+                        subscription && subscription.unsubscribe();
+
+                        // Reject further processing
+                        return reject();
+                    }
+
+                    // Send error message and do nothing else
+                    return this._socket.write(message.toErrorMessage(response, ResponseCode.ErrorInMessageFormat).toBuffer());
+                }
+
                 // Unsubscribe from further messages
                 subscription && subscription.unsubscribe();
 
-                // Generate confirmation message
-                const confirmation = response.clone();
-                confirmation.clearData();
-                confirmation.finalize();
-
                 // Send confirmation
-                this._socket.write(confirmation.toBuffer());
+                this._socket.write(message.toConfirmationMessage(response).toBuffer());
 
                 // Resolve the response
                 return resolve(response);

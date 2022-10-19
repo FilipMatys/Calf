@@ -5,8 +5,14 @@ import { Controls } from "../constants/controls.constant";
 import { DataField } from "./data-field.class";
 import { Header } from "./header.class";
 
+// Enums
+import { ResponseCode } from "../enums/response-code.enum";
+
 // Maps
 import { DataFieldMap } from "../maps/data-field.map";
+
+// Fields
+import { ResponseCodeField } from "../fields/data/response-code.field";
 
 // Utilities
 import { DataArray } from "../utilities/data-array/data-array.utility";
@@ -57,6 +63,15 @@ export class Message {
     }
 
     /**
+     * Get data
+     * @returns 
+     */
+    public getData(): DataField<any>[] {
+        // Return data
+        return this._data;
+    }
+
+    /**
      * Is confirmation message
      * @description Check whether message is confirmation
      * @returns 
@@ -72,6 +87,30 @@ export class Message {
      */
     public isActivityMessage(): boolean {
         return !(this._data || []).length && this._header.CRC16.getData() === 0;
+    }
+
+    /**
+     * Is error message
+     * @returns 
+     */
+    public isErrorMessage(): boolean {
+        // Check if message has data
+        if (!this.hasData()) {
+            // No response code
+            return false;
+        }
+
+        // Now try to get response code field
+        const field = this.getDataFieldByIdentifier<ResponseCodeField>("R");
+
+        // Check if field was found
+        if (!field) {
+            // No response code
+            return false;
+        }
+
+        // Check  field value
+        return field.getData() >= ResponseCode.GeneralProcessingError;
     }
 
     /**
@@ -195,6 +234,163 @@ export class Message {
 
         // Return final array
         return DataArray.concat(queue);
+    }
+
+    /**
+     * Has valid data
+     * @param requiredFields 
+     * @returns 
+     */
+    public hasValidData(requiredFields: string[]): boolean {
+        try {
+            // Validate each field
+            this._data.forEach((field) => field.validate());
+        }
+        catch (_) {
+            // Return false
+            return false;
+        }
+
+        // Get data fields identifiers
+        const dataFieldsIdentifiers: string[] = this._data.map((field) => field.getIdentifier());
+
+        // Try to find field that is not present
+        return !requiredFields.some((required) => dataFieldsIdentifiers.indexOf(required) === -1);
+    }
+
+    /**
+     * Is valid response
+     * @description Check whether the response is valid
+     * @param response 
+     */
+    public isValidResponse(response: Message): boolean {
+        try {
+            // First validate header and fields
+            response.getHeader().protocolType.validate();
+            response.getHeader().protocolVersion.validate();
+            response.getHeader().terminalID.validate();
+            response.getHeader().dateTime.validate();
+            response.getHeader().tags.validate();
+            response.getHeader().lengthOfData.validate();
+            response.getHeader().CRC16.validate();
+        }
+        catch (e) {
+            console.log(e);
+            // Return false
+            return false;
+        }
+
+
+        // Now compare header values
+        if (!response.getHeader().terminalID.getData().trim()) {
+            console.log("invalid terminal id");
+            // Return false
+            return false;
+        }
+
+        // Compare timestamp
+        if (!this._header.dateTime.isEqual(response.getHeader().dateTime.getData())) {
+            console.log("invalid dates");
+            // Return false
+            return false;
+        }
+
+        // Now compare protocol
+        if (!this._header.protocolType.isEqual(response.getHeader().protocolType.getData())) {
+            console.log("invalid protocol type");
+            // Return false
+            return false;
+        }
+
+        // Now compare protocol version
+        if (!this._header.protocolVersion.isEqual(response.getHeader().protocolVersion.getData())) {
+            console.log("invalid protocol version");
+            // Return false
+            return false;
+        }
+
+        // Return true
+        return true;
+    }
+
+    /**
+     * Is CRC16 valid
+     * @description Check whether CRC16 is valid
+     */
+    public isCRC16Valid(): boolean {
+        // Check for confirmation or activity message
+        if (this.isConfirmationMessage() || this.isActivityMessage()) {
+            // Return true
+            return true;
+        }
+
+        // Init data queue
+        const dataQueue: Uint8Array[] = [];
+
+        // Iterate data
+        this._data.forEach((field) => dataQueue.push(new Uint8Array(Controls.FS), DataArray.fromString(field.getIdentifier()), field.getBuffer()));
+
+        // Now concat data into one buffer
+        const dataBuffer = DataArray.concat(dataQueue);
+
+        // Compare CRC16
+        if (this._header.CRC16.getData() !== CRC16.calculate(dataBuffer)) {
+            // Return false
+            return false;
+        }
+
+        // Return true
+        return true;
+    }
+
+    /**
+     * To error message
+     * @description Use message header to create new
+     * error message
+     * @param response
+     * @param error 
+     */
+    public toErrorMessage(response: Message, error: ResponseCode): Message {
+        // Clone message
+        const message = this.clone();
+
+        // Clear data
+        message.clearData();
+
+        // Set terminal id
+        message._header.terminalID.setData(response.getHeader().terminalID.getData());
+
+        // Append error response code
+        message.appendDataField(new ResponseCodeField(error));
+
+        // Finalize message
+        message.finalize();
+
+        // Return message
+        return message;
+    }
+
+    /**
+     * To confirmation message
+     * @default Use message header and response to generate
+     * new confirmation message
+     * @param response 
+     */
+    public toConfirmationMessage(response: Message): Message {
+        // Clone message
+        const message = this.clone();
+
+        // Clear data
+        message.clearData();
+
+        // Set terminal id
+        message._header.terminalID.setData(response.getHeader().terminalID.getData());
+
+        // Finalize message
+        message.finalize();
+
+        // Return message
+        return message;
     }
 
     /**

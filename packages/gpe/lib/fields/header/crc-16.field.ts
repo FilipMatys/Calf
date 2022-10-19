@@ -23,6 +23,15 @@ export class CRC16Field extends HeaderField<number> {
     }
 
     /**
+     * Is equal
+     * @param value 
+     * @returns 
+     */
+    public isEqual(value: number): boolean {
+        return this._data === value;
+    }
+
+    /**
      * Update buffer from data
      */
     protected updateBufferFromData(): void {

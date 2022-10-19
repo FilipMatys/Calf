@@ -23,6 +23,15 @@ export class LengthOfDataField extends HeaderField<number> {
     }
 
     /**
+     * Is equal
+     * @param value 
+     * @returns 
+     */
+    public isEqual(value: number): boolean {
+        return value === this._data;
+    }
+
+    /**
      * Update buffer from data
      */
     protected updateBufferFromData(): void {

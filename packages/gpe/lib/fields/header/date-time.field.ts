@@ -36,6 +36,20 @@ export class DateTimeField extends HeaderField<IDateTimeFieldData> {
     }
 
     /**
+     * Is equal
+     * @param value 
+     */
+    public isEqual(value: IDateTimeFieldData): boolean {
+        return !!value && !!this._data
+            && value.year === this._data.year
+            && value.month === this._data.month
+            && value.day === this._data.day
+            && value.hour === this._data.hour
+            && value.minute === this._data.minute
+            && value.second === this._data.second;
+    }
+
+    /**
      * Set data from date
      * @param date 
      */
