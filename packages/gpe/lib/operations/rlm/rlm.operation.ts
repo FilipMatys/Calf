@@ -1,6 +1,6 @@
 // Interfaces
-import { IRefundRequest } from "./interfaces/request.interface";
-import { IRefundResponse } from "./interfaces/response.interface";
+import { IRepeatLastMessageRequest } from "./interfaces/request.interface";
+import { IRepeatLastMessageResponse } from "./interfaces/response.interface";
 
 // Enums
 import { TransactionType } from "../../enums/transaction-type.enum";
@@ -9,9 +9,8 @@ import { TransactionType } from "../../enums/transaction-type.enum";
 import { Message } from "../../classes/message.class";
 
 // Fields
-import { PaidAmountField } from "../../fields/data/paid-amount.field";
 import { TransactionTypeField } from "../../fields/data/transaction-type.field";
-import { ReferenceNumberField } from "../../fields/data/reference-number.field";
+import { TransactionIDField } from "../../fields/data/transaction-id.field";
 import { AuthorizationCodeField } from "../../fields/data/authorization-code.field";
 import { ResponseCodeField } from "../../fields/data/response-code.field";
 
@@ -19,19 +18,18 @@ import { ResponseCodeField } from "../../fields/data/response-code.field";
 import { CommonOperation } from "../common/common.operation";
 
 /**
- * Refund operation
- * @description Operation for refund
+ * Repeat last message operation
+ * @description Operation to check past transactions
  */
-export class RefundOperation extends CommonOperation<IRefundRequest, IRefundResponse> {
+export class RepeatLastMessageOperation extends CommonOperation<IRepeatLastMessageRequest, IRepeatLastMessageResponse> {
 
     /**
-     * Execute refund
-     * @param request
-     * @returns 
+     * Execute
+     * @param request 
      */
-    public async execute(request: IRefundRequest): Promise<IRefundResponse> {
+    public async execute(request: IRepeatLastMessageRequest): Promise<IRepeatLastMessageResponse> {
         // Init result
-        const result: IRefundResponse = { timestamp: new Date() };
+        const result: IRepeatLastMessageResponse = { timestamp: new Date() };
 
         // First init message
         const message = new Message();
@@ -44,14 +42,12 @@ export class RefundOperation extends CommonOperation<IRefundRequest, IRefundResp
         message.getHeader().dateTime.setDataFromDate(result.timestamp);
 
         // Add transaction type
-        message.appendDataField(new TransactionTypeField(TransactionType.Refund));
-        // Add paid amount field
-        message.appendDataField(new PaidAmountField(request.amount));
+        message.appendDataField(new TransactionTypeField(TransactionType.RepeatLastTransaction));
 
-        // Check for reference number
-        if (request.referenceNumber) {
-            // Append reference number field
-            message.appendDataField(new ReferenceNumberField(request.referenceNumber));
+        // Check for timestamp
+        if (request.timestamp) {
+            // Append transaction id field
+            message.appendDataField(new TransactionIDField(request.timestamp));
         }
 
         // Finalize
@@ -81,9 +77,10 @@ export class RefundOperation extends CommonOperation<IRefundRequest, IRefundResp
         // Response
         const response = await this.processResponse(message);
 
-        // Check response data
+        // Get response fields
         const responseCodeField = response.getDataFieldByIdentifier<ResponseCodeField>("R");
         const authorizationCodeField = response.getDataFieldByIdentifier<AuthorizationCodeField>("F");
+        const transactionTypeField = response.getDataFieldByIdentifier<TransactionTypeField>("T");
 
         // Check response code
         if (responseCodeField) {
@@ -95,6 +92,12 @@ export class RefundOperation extends CommonOperation<IRefundRequest, IRefundResp
         if (authorizationCodeField) {
             // Get field data
             result.authorizationCode = authorizationCodeField.getData();
+        }
+
+        // Check for transaction type
+        if (transactionTypeField) {
+            // Get field data
+            result.transactionType = transactionTypeField.getData();
         }
 
         // Shutdown connection

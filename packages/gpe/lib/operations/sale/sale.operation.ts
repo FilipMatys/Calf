@@ -70,7 +70,7 @@ export class SaleOperation extends CommonOperation<ISaleRequest, ISaleResponse> 
             // Check response code
             if (responseCodeField) {
                 // Get field data
-                result.code = responseCodeField.getData();
+                result.responseCode = responseCodeField.getData();
             }
 
             // Return result
@@ -88,7 +88,7 @@ export class SaleOperation extends CommonOperation<ISaleRequest, ISaleResponse> 
         // Check response code
         if (responseCodeField) {
             // Get field data
-            result.code = responseCodeField.getData();
+            result.responseCode = responseCodeField.getData();
         }
 
         // Check authorization code

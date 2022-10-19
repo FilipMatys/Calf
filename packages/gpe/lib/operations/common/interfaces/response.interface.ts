@@ -6,6 +6,6 @@ import { ResponseCode } from "../../../enums/response-code.enum";
  * @description Interface for common operations response
  */
 export interface ICommonResponse {
-    code?: ResponseCode;
+    responseCode?: ResponseCode;
     timestamp: Date;
 }

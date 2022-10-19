@@ -65,7 +65,7 @@ export class ReversalOperation extends CommonOperation<IReversalRequest, IRevers
             // Check response code
             if (responseCodeField) {
                 // Get field data
-                result.code = responseCodeField.getData();
+                result.responseCode = responseCodeField.getData();
             }
 
             // Return result
@@ -81,7 +81,7 @@ export class ReversalOperation extends CommonOperation<IReversalRequest, IRevers
         // Check response code
         if (responseCodeField) {
             // Get field data
-            result.code = responseCodeField.getData();
+            result.responseCode = responseCodeField.getData();
         }
 
         // Shutdown connection

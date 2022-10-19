@@ -57,7 +57,7 @@ export class TotalsOperation extends CommonOperation<void, ITotalsResponse> {
             // Check response code
             if (responseCodeField) {
                 // Get field data
-                result.code = responseCodeField.getData();
+                result.responseCode = responseCodeField.getData();
             }
 
             // Return result
@@ -73,7 +73,7 @@ export class TotalsOperation extends CommonOperation<void, ITotalsResponse> {
         // Check response code
         if (responseCodeField) {
             // Get field data
-            result.code = responseCodeField.getData();
+            result.responseCode = responseCodeField.getData();
         }
 
         // Shutdown connection
