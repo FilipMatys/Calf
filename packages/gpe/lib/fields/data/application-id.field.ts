@@ -26,7 +26,7 @@ export class ApplicationIDField extends DataField<string> {
      * Update buffer from data
      */
     protected updateBufferFromData(): void {
-        // Get data array from hex string
+        // Get data array string
         this._buffer = DataArray.fromString(this._data);
     }
 

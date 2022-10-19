@@ -27,7 +27,7 @@ export class LengthOfDataField extends HeaderField<number> {
      */
     protected updateBufferFromData(): void {
         // Get hexadecimal value with 4 places
-        const hex = Strings.padStart(this._data.toString(16), 4, "0");
+        const hex = Strings.padStart(this._data.toString(16), 4, "0").toUpperCase();
 
         // Get data array from hex string
         this._buffer = DataArray.fromString(hex);
