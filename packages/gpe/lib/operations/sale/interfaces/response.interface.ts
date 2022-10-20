@@ -18,4 +18,10 @@ export interface ISaleResponse extends ICommonResponse {
      * @description Actual charged amount
      */
     amount?: number;
+
+    /**
+     * Is signature required
+     * @description Whether customer signature is required
+     */
+    isSignatureRequired?: boolean;
 }

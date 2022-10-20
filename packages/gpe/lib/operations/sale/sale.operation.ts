@@ -110,6 +110,9 @@ export class SaleOperation extends CommonOperation<ISaleRequest, ISaleResponse> 
                 result.amount = paidAmountField.getData();
             }
 
+            // Set signature requirement flag
+            result.isSignatureRequired = !!response.getHeader().tags.getData().checkForCardHoldersSignature;
+
             // Shutdown connection
             await this._socket.shutdown();
         }
