@@ -108,6 +108,9 @@ export abstract class CommonOperation<TRequest, TResponse> {
 
                 // Check for activity message
                 if (response.isActivityMessage()) {
+                    // Reset retry count
+                    retryCnt = 1;
+
                     // Do nothing
                     return;
                 }
@@ -172,6 +175,9 @@ export abstract class CommonOperation<TRequest, TResponse> {
 
                 // Check if is activity message
                 if (response.isActivityMessage()) {
+                    // Reset retry count
+                    retryCnt = 1;
+
                     // Do nothing
                     return;
                 }

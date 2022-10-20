@@ -75,9 +75,15 @@ export class RefundOperation extends CommonOperation<IRefundRequest, IRefundResp
                     result.responseCode = responseCodeField.getData();
                 }
 
+                // Shutdown connection
+                await this._socket.shutdown();
+
                 // Return result
                 return result;
             }
+
+            // Set result as confirmed
+            result.isConfirmed = true;
 
             // Response
             const response = await this.processResponse(message, ["F", "P", "R", "T"]);

@@ -69,9 +69,15 @@ export class ReversalOperation extends CommonOperation<IReversalRequest, IRevers
                     result.responseCode = responseCodeField.getData();
                 }
 
+                // Shutdown connection
+                await this._socket.shutdown();
+
                 // Return result
                 return result;
             }
+
+            // Set result as confirmed
+            result.isConfirmed = true;
 
             // Response
             const response = await this.processResponse(message, ["R", "T"]);

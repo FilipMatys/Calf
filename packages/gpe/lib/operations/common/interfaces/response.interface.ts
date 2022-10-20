@@ -8,4 +8,5 @@ import { ResponseCode } from "../../../enums/response-code.enum";
 export interface ICommonResponse {
     responseCode?: ResponseCode;
     timestamp: Date;
+    isConfirmed?: boolean;
 }
