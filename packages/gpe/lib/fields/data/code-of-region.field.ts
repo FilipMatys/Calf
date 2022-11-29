@@ -13,13 +13,16 @@ import { DataArray } from "../../utilities/data-array/data-array.utility";
  */
 export class CodeOfRegionField extends DataField<string> {
 
+    // Set identifier
+    public static Identifier = "U";
+
     /**
      * Constructor
      * @param code
      */
     constructor(code?: string) {
         // Call super
-        super("Code of Region", "U", FieldFormat.AN, { min: 4, max: 4 }, code);
+        super("Code of Region", CodeOfRegionField.Identifier, FieldFormat.AN, { min: 4, max: 4 }, code);
     }
 
     /**

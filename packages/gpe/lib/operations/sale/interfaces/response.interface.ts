@@ -24,4 +24,16 @@ export interface ISaleResponse extends ICommonResponse {
      * @description Whether customer signature is required
      */
     isSignatureRequired?: boolean;
+
+    /**
+     * Sequence number
+     * @description Sequence number of the transaction
+     */
+    sequenceNumber?: string;
+
+    /**
+     * Card number
+     * @description Masked number of the card (PAN)
+     */
+    cardNumber?: string;
 }

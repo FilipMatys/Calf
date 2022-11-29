@@ -17,13 +17,16 @@ import { DataArray } from "../../utilities/data-array/data-array.utility";
  */
 export class ReceiptTextField extends DataField<string[]> {
 
+    // Set identifier
+    public static Identifier = "t";
+
     /**
      * Constructor
      * @param lines
      */
     constructor(lines?: string[]) {
         // Call super
-        super("Text for printing of receipt", "t", FieldFormat.V, { min: 1, max: 3072 }, lines);
+        super("Text for printing of receipt", ReceiptTextField.Identifier, FieldFormat.V, { min: 1, max: 3072 }, lines);
     }
 
     /**
@@ -43,7 +46,5 @@ export class ReceiptTextField extends DataField<string[]> {
     /**
      * Update data from buffer
      */
-    protected updateDataFromBuffer(): void {
-        throw new Error("Method not implemented.");
-    }
+    protected updateDataFromBuffer(): void { }
 }

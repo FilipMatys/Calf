@@ -13,13 +13,16 @@ import { DataArray } from "../../utilities/data-array/data-array.utility";
  */
 export class TransportDataField extends DataField<string> {
 
+    // Set identifier
+    public static Identifier = "D";
+
     /**
      * Constructor
      * @param data
      */
     constructor(data?: string) {
         // Call super
-        super("Transport data", "D", FieldFormat.AN, { min: 0, max: 1000 }, data);
+        super("Transport data", TransportDataField.Identifier, FieldFormat.AN, { min: 0, max: 1000 }, data);
     }
 
     /**

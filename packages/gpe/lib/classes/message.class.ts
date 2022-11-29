@@ -90,7 +90,36 @@ export class Message {
     }
 
     /**
+     * Is transport layer error message
+     * @description Check for transport layer error
+     * @returns 
+     */
+    public isTransportLayerErrorMessage(): boolean {
+        // Check if message has data
+        if (!this.hasData()) {
+            // No response code
+            return false;
+        }
+
+        // Now try to get response code field
+        const field = this.getDataFieldByIdentifier<ResponseCodeField>("R");
+
+        // Check if field was found
+        if (!field) {
+            // No response code
+            return false;
+        }
+
+        // Get value
+        const value = field.getData();
+
+        // Check for transport layer error message
+        return [ResponseCode.TerminalBusy, ResponseCode.ErrorInMessageFormat, ResponseCode.ErrorInMessageCRC].indexOf(value) !== -1;
+    }
+
+    /**
      * Is error message
+     * @description Check whether message is error message
      * @returns 
      */
     public isErrorMessage(): boolean {
@@ -275,7 +304,6 @@ export class Message {
             response.getHeader().CRC16.validate();
         }
         catch (e) {
-            console.log(e);
             // Return false
             return false;
         }
@@ -283,28 +311,24 @@ export class Message {
 
         // Now compare header values
         if (!response.getHeader().terminalID.getData().trim()) {
-            console.log("invalid terminal id");
             // Return false
             return false;
         }
 
         // Compare timestamp
         if (!this._header.dateTime.isEqual(response.getHeader().dateTime.getData())) {
-            console.log("invalid dates");
             // Return false
             return false;
         }
 
         // Now compare protocol
         if (!this._header.protocolType.isEqual(response.getHeader().protocolType.getData())) {
-            console.log("invalid protocol type");
             // Return false
             return false;
         }
 
         // Now compare protocol version
         if (!this._header.protocolVersion.isEqual(response.getHeader().protocolVersion.getData())) {
-            console.log("invalid protocol version");
             // Return false
             return false;
         }

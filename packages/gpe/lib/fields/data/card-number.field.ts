@@ -14,24 +14,24 @@ import { DataArray } from "../../utilities/data-array/data-array.utility";
  */
 export class CardNumberField extends DataField<string> {
 
+    // Set identifier
+    public static Identifier = "P";
+
     /**
      * Constructor
      * @param number 
      */
     constructor(number?: string) {
         // Call super
-        super("Card number (PAN)", "P", FieldFormat.V, { min: 9, max: 19 }, number);
+        super("Card number (PAN)", CardNumberField.Identifier, FieldFormat.V, { min: 9, max: 19 }, number);
     }
 
     /**
      * Update buffer from data
      */
     protected updateBufferFromData(): void {
-        // Get masked
-        const masked: string = this._data.replace(this._data.substring(6, 12), "******");
-
         // Get data array from hex string
-        this._buffer = DataArray.fromString(masked);
+        this._buffer = DataArray.fromString(this._data);
     }
 
     /**

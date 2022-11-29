@@ -53,13 +53,10 @@ export class TotalsOperation extends CommonOperation<void, ITotalsResponse> {
             // Check confirmation
             if (!confirmation.isConfirmationMessage()) {
                 // Get response code field
-                const responseCodeField = confirmation.getDataFieldByIdentifier<ResponseCodeField>("R");
+                const responseCodeField = confirmation.getDataFieldByIdentifier<ResponseCodeField>(ResponseCodeField.Identifier);
 
                 // Check response code
-                if (responseCodeField) {
-                    // Get field data
-                    result.responseCode = responseCodeField.getData();
-                }
+                responseCodeField && (result.responseCode = responseCodeField.getData());
 
                 // Shutdown connection
                 await this._socket.shutdown();
@@ -72,16 +69,16 @@ export class TotalsOperation extends CommonOperation<void, ITotalsResponse> {
             result.isConfirmed = true;
 
             // Response
-            const response = await this.processResponse(message, ["R", "T"]);
+            const response = await this.processResponse(message, [
+                ResponseCodeField.Identifier,
+                TransactionTypeField.Identifier
+            ]);
 
             // Check response data
-            const responseCodeField = response.getDataFieldByIdentifier<ResponseCodeField>("R");
+            const responseCodeField = response.getDataFieldByIdentifier<ResponseCodeField>(ResponseCodeField.Identifier);
 
             // Check response code
-            if (responseCodeField) {
-                // Get field data
-                result.responseCode = responseCodeField.getData();
-            }
+            responseCodeField && (result.responseCode = responseCodeField.getData());
 
             // Shutdown connection
             await this._socket.shutdown();

@@ -13,13 +13,16 @@ import { DataArray } from "../../utilities/data-array/data-array.utility";
  */
 export class ApplicationIDField extends DataField<string> {
 
+    // Set identifier
+    public static Identifier = "a";
+
     /**
      * Constructor
      * @param identifier 
      */
     constructor(identifier?: string) {
         // Call super
-        super("Application ID (AID)", "a", FieldFormat.AN, { min: 12, max: 24 }, identifier);
+        super("Application ID (AID)", ApplicationIDField.Identifier, FieldFormat.AN, { min: 12, max: 24 }, identifier);
     }
 
     /**

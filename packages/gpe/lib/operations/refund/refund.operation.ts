@@ -14,6 +14,7 @@ import { TransactionTypeField } from "../../fields/data/transaction-type.field";
 import { ReferenceNumberField } from "../../fields/data/reference-number.field";
 import { AuthorizationCodeField } from "../../fields/data/authorization-code.field";
 import { ResponseCodeField } from "../../fields/data/response-code.field";
+import { CardNumberField } from "../../fields/data/card-number.field";
 
 // Operations
 import { CommonOperation } from "../common/common.operation";
@@ -67,13 +68,10 @@ export class RefundOperation extends CommonOperation<IRefundRequest, IRefundResp
             // Check confirmation
             if (!confirmation.isConfirmationMessage()) {
                 // Get response code field
-                const responseCodeField = confirmation.getDataFieldByIdentifier<ResponseCodeField>("R");
+                const responseCodeField = confirmation.getDataFieldByIdentifier<ResponseCodeField>(ResponseCodeField.Identifier);
 
                 // Check response code
-                if (responseCodeField) {
-                    // Get field data
-                    result.responseCode = responseCodeField.getData();
-                }
+                responseCodeField && (result.responseCode = responseCodeField.getData());
 
                 // Shutdown connection
                 await this._socket.shutdown();
@@ -86,23 +84,22 @@ export class RefundOperation extends CommonOperation<IRefundRequest, IRefundResp
             result.isConfirmed = true;
 
             // Response
-            const response = await this.processResponse(message, ["F", "P", "R", "T"]);
+            const response = await this.processResponse(message, [
+                AuthorizationCodeField.Identifier,
+                CardNumberField.Identifier,
+                ResponseCodeField.Identifier,
+                TransactionTypeField.Identifier
+            ]);
 
             // Check response data
-            const responseCodeField = response.getDataFieldByIdentifier<ResponseCodeField>("R");
-            const authorizationCodeField = response.getDataFieldByIdentifier<AuthorizationCodeField>("F");
+            const responseCodeField = response.getDataFieldByIdentifier<ResponseCodeField>(ResponseCodeField.Identifier);
+            const authorizationCodeField = response.getDataFieldByIdentifier<AuthorizationCodeField>(AuthorizationCodeField.Identifier);
 
             // Check response code
-            if (responseCodeField) {
-                // Get field data
-                result.responseCode = responseCodeField.getData();
-            }
+            responseCodeField && (result.responseCode = responseCodeField.getData());
 
             // Check authorization code
-            if (authorizationCodeField) {
-                // Get field data
-                result.authorizationCode = authorizationCodeField.getData();
-            }
+            authorizationCodeField && (result.authorizationCode = authorizationCodeField.getData());
 
             // Shutdown connection
             await this._socket.shutdown();

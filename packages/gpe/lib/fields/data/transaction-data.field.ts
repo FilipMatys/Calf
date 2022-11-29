@@ -25,13 +25,16 @@ export interface ITransactionDataFieldData {
  */
 export class TransactionDataField extends DataField<ITransactionDataFieldData> {
 
+    // Set identifier
+    public static Identifier = "d";
+
     /**
      * Constructor
      * @param data
      */
     constructor(data?: ITransactionDataFieldData) {
         // Call super
-        super("Transaction data", "d", FieldFormat.V, { min: 21, max: 32 }, data);
+        super("Transaction data", TransactionDataField.Identifier, FieldFormat.V, { min: 21, max: 32 }, data);
     }
 
     /**
@@ -45,8 +48,8 @@ export class TransactionDataField extends DataField<ITransactionDataFieldData> {
 
         // Assign buffer
         this._buffer = DataArray.fromString([
-            this._data.TID,
-            this._data.PAN,
+            this._data.TID ? this._data.TID.trimStart() : "",
+            this._data.PAN ? this._data.PAN.slice(-4) : "",
             this._data.sequenceNumber,
             `${sYear}${sMonth}${sDay}`
         ].join(";"));

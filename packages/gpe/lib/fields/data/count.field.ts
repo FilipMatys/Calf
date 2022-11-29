@@ -14,13 +14,16 @@ import { Strings } from "../../utilities/strings/strings.utility";
  */
 export class CountField extends DataField<number> {
 
+    // Set identifier
+    public static Identifier = "C";
+
     /**
      * Constructor
      * @param count
      */
     constructor(count?: number) {
         // Call super
-        super("Count", "C", FieldFormat.N, { min: 3, max: 3 }, count);
+        super("Count", CountField.Identifier, FieldFormat.N, { min: 3, max: 3 }, count);
     }
 
     /**

@@ -1,3 +1,5 @@
+import { ControlCharactersMap } from "../../maps/control-characters.map";
+
 /**
  * Data array
  * @description Data array representing raw 
@@ -44,6 +46,38 @@ export abstract class DataArray {
 
             // Append character to result
             result += String.fromCharCode(code);
+        }
+
+        // Return result
+        return result;
+    }
+
+    /**
+     * To readable string
+     * @param array 
+     */
+    public static toReadableString(array: Uint8Array): string {
+        // Get array length
+        const length: number = array.length;
+
+        // Init index and result
+        let index: number = 0;
+        let result: string = "";
+
+        // Iterate array
+        while (index < length) {
+            // Get code
+            const code = array[index++];
+
+            // Check if code is device control
+            if ((code >= 0 && code <= 31) || code === 127) {
+                // Map code to control character
+                result += `<${ControlCharactersMap[code]}>`;
+            }
+            else {
+                // Append character to result
+                result += String.fromCharCode(code);
+            }
         }
 
         // Return result

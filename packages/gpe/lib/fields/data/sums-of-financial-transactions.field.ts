@@ -14,12 +14,15 @@ import { DataArray } from "../../utilities/data-array/data-array.utility";
  */
 export class SumsOfFinancialTransactionsField extends DataField<any> {
 
+    // Set identifier
+    public static Identifier = "L";
+
     /**
      * Constructor
      */
     constructor() {
         // Call super
-        super("Sums of financial transactions", "L", FieldFormat.V, { min: 75, max: 75 });
+        super("Sums of financial transactions", SumsOfFinancialTransactionsField.Identifier, FieldFormat.V, { min: 75, max: 75 });
     }
 
     /**

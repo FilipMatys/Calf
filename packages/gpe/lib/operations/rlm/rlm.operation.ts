@@ -13,6 +13,9 @@ import { TransactionTypeField } from "../../fields/data/transaction-type.field";
 import { TransactionIDField } from "../../fields/data/transaction-id.field";
 import { AuthorizationCodeField } from "../../fields/data/authorization-code.field";
 import { ResponseCodeField } from "../../fields/data/response-code.field";
+import { PaidAmountField } from "../../fields/data/paid-amount.field";
+import { SequenceNumberField } from "../../fields/data/sequence-number.field";
+import { CardNumberField } from "../../fields/data/card-number.field";
 
 // Operations
 import { CommonOperation } from "../common/common.operation";
@@ -63,13 +66,10 @@ export class RepeatLastMessageOperation extends CommonOperation<IRepeatLastMessa
             // Check confirmation
             if (!confirmation.isConfirmationMessage()) {
                 // Get response code field
-                const responseCodeField = confirmation.getDataFieldByIdentifier<ResponseCodeField>("R");
+                const responseCodeField = confirmation.getDataFieldByIdentifier<ResponseCodeField>(ResponseCodeField.Identifier);
 
                 // Check response code
-                if (responseCodeField) {
-                    // Get field data
-                    result.responseCode = responseCodeField.getData();
-                }
+                responseCodeField && (result.responseCode = responseCodeField.getData());
 
                 // Shutdown connection
                 await this._socket.shutdown();
@@ -82,30 +82,42 @@ export class RepeatLastMessageOperation extends CommonOperation<IRepeatLastMessa
             result.isConfirmed = true;
 
             // Response
-            const response = await this.processResponse(message, ["R", "T"]);
+            const response = await this.processResponse(message, [
+                ResponseCodeField.Identifier,
+                TransactionTypeField.Identifier
+            ]);
 
             // Get response fields
-            const responseCodeField = response.getDataFieldByIdentifier<ResponseCodeField>("R");
-            const authorizationCodeField = response.getDataFieldByIdentifier<AuthorizationCodeField>("F");
-            const transactionTypeField = response.getDataFieldByIdentifier<TransactionTypeField>("T");
+            const responseCodeField = response.getDataFieldByIdentifier<ResponseCodeField>(ResponseCodeField.Identifier);
+            const authorizationCodeField = response.getDataFieldByIdentifier<AuthorizationCodeField>(AuthorizationCodeField.Identifier);
+            const transactionTypeField = response.getDataFieldByIdentifier<TransactionTypeField>(TransactionTypeField.Identifier);
+            const paidAmountField = response.getDataFieldByIdentifier<PaidAmountField>(PaidAmountField.Identifier);
+            const sequenceNumberField = response.getDataFieldByIdentifier<SequenceNumberField>(SequenceNumberField.Identifier);
+            const cardNumberField = response.getDataFieldByIdentifier<CardNumberField>(CardNumberField.Identifier);
 
             // Check response code
-            if (responseCodeField) {
-                // Get field data
-                result.responseCode = responseCodeField.getData();
-            }
+            responseCodeField && (result.responseCode = responseCodeField.getData());
 
             // Check authorization code
-            if (authorizationCodeField) {
-                // Get field data
-                result.authorizationCode = authorizationCodeField.getData();
-            }
+            authorizationCodeField && (result.authorizationCode = authorizationCodeField.getData());
 
             // Check for transaction type
-            if (transactionTypeField) {
-                // Get field data
-                result.transactionType = transactionTypeField.getData();
-            }
+            transactionTypeField && (result.transactionType = transactionTypeField.getData());
+
+            // Check paid amount
+            paidAmountField && (result.amount = paidAmountField.getData());
+
+            // Check sequence number field
+            sequenceNumberField && (result.sequenceNumber = sequenceNumberField.getData());
+
+            // Check card number
+            cardNumberField && (result.cardNumber = cardNumberField.getData());
+
+            // Set signature requirement flag
+            result.isSignatureRequired = !!response.getHeader().tags.getData().checkForCardHoldersSignature;
+
+            // Set terminal id
+            result.terminalID = response.getHeader().terminalID.getData();
 
             // Shutdown connection
             await this._socket.shutdown();

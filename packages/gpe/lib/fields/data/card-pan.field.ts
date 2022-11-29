@@ -13,13 +13,16 @@ import { DataArray } from "../../utilities/data-array/data-array.utility";
  */
 export class CardPANField extends DataField<string> {
 
+    // Set identifier
+    public static Identifier = "H";
+
     /**
      * Constructor
      * @param pan 
      */
     constructor(pan?: string) {
         // Call super
-        super("Token, HASH of Card PAN", "H", FieldFormat.V, { min: 16, max: 66 }, pan);
+        super("Token, HASH of Card PAN", CardPANField.Identifier, FieldFormat.V, { min: 16, max: 66 }, pan);
     }
 
     /**

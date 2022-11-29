@@ -13,12 +13,15 @@ import { DataArray } from "../../utilities/data-array/data-array.utility";
  */
 export class MultiIDField extends DataField<any> {
 
+    // Set identifier
+    public static Identifier = "M";
+
     /**
      * Constructor
      */
     constructor() {
         // Call super
-        super("Multi-ID", "M", FieldFormat.VGS, { min: 4, max: 480 });
+        super("Multi-ID", MultiIDField.Identifier, FieldFormat.VGS, { min: 4, max: 480 });
     }
 
     /**

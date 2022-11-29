@@ -14,13 +14,16 @@ import { DataArray } from "../../utilities/data-array/data-array.utility";
  */
 export class ClientIDField extends DataField<string> {
 
+    // Set identifier
+    public static Identifier = "n";
+
     /**
      * Constructor
      * @param identifier
      */
     constructor(identifier?: string) {
         // Call super
-        super("Client ID", "n", FieldFormat.N, { min: 12, max: 10 }, identifier);
+        super("Client ID", ClientIDField.Identifier, FieldFormat.N, { min: 12, max: 10 }, identifier);
     }
 
     /**

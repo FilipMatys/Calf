@@ -12,13 +12,16 @@ import { DataArray } from "../../utilities/data-array/data-array.utility";
  */
 export class IndicationOfCardProductField extends DataField<string> {
 
+    // Set identifier
+    public static Identifier = "J";
+
     /**
      * Constructor
      * @param identification
      */
     constructor(identification?: string) {
         // Call super
-        super("Indication of card product", "J", FieldFormat.V, { min: 2, max: 10 }, identification);
+        super("Indication of card product", IndicationOfCardProductField.Identifier, FieldFormat.V, { min: 2, max: 10 }, identification);
     }
 
     /**

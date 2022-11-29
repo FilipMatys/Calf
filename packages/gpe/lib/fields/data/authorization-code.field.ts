@@ -12,13 +12,16 @@ import { DataArray } from "../../utilities/data-array/data-array.utility";
  */
 export class AuthorizationCodeField extends DataField<any> {
 
+    // Set identifier
+    public static Identifier = "F";
+
     /**
      * Constructor
      * @param code 
      */
     constructor(code?: string) {
         // Call super
-        super("Authorization code", "F", FieldFormat.V, { min: 6, max: 8 }, code);
+        super("Authorization code", AuthorizationCodeField.Identifier, FieldFormat.V, { min: 6, max: 8 }, code);
     }
 
     /**

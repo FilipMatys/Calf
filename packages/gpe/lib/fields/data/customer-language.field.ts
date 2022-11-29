@@ -13,13 +13,16 @@ import { DataArray } from "../../utilities/data-array/data-array.utility";
  */
 export class CustomerLanguageField extends DataField<string> {
 
+    // Set identifier
+    public static Identifier = "A";
+
     /**
      * Constructor
      * @param language
      */
     constructor(language?: string) {
         // Call super
-        super("Customer Language", "A", FieldFormat.A, { min: 2, max: 2 }, language);
+        super("Customer Language", CustomerLanguageField.Identifier, FieldFormat.A, { min: 2, max: 2 }, language);
     }
 
     /**

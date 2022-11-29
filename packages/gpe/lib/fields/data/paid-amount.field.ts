@@ -13,13 +13,16 @@ import { DataArray } from "../../utilities/data-array/data-array.utility";
  */
 export class PaidAmountField extends DataField<number> {
 
+    // Set identifier
+    public static Identifier = "B";
+
     /**
      * Constructor
      * @param data
      */
     constructor(data?: number) {
         // Call super
-        super("Paid amount", "B", FieldFormat.N, { min: 1, max: 18 }, data);
+        super("Paid amount", PaidAmountField.Identifier, FieldFormat.N, { min: 1, max: 18 }, data);
     }
 
     /**

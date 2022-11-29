@@ -14,6 +14,8 @@ import { TransactionTypeField } from "../../fields/data/transaction-type.field";
 import { ReferenceNumberField } from "../../fields/data/reference-number.field";
 import { AuthorizationCodeField } from "../../fields/data/authorization-code.field";
 import { ResponseCodeField } from "../../fields/data/response-code.field";
+import { SequenceNumberField } from "../../fields/data/sequence-number.field";
+import { CardNumberField } from "../../fields/data/card-number.field";
 
 // Operations
 import { CommonOperation } from "../common/common.operation";
@@ -49,10 +51,7 @@ export class SaleOperation extends CommonOperation<ISaleRequest, ISaleResponse> 
             message.appendDataField(new PaidAmountField(request.amount));
 
             // Check for reference number
-            if (request.referenceNumber) {
-                // Append reference number field
-                message.appendDataField(new ReferenceNumberField(request.referenceNumber));
-            }
+            request.referenceNumber && message.appendDataField(new ReferenceNumberField(request.referenceNumber));
 
             // Finalize
             message.finalize();
@@ -66,13 +65,10 @@ export class SaleOperation extends CommonOperation<ISaleRequest, ISaleResponse> 
             // Check confirmation
             if (!confirmation.isConfirmationMessage()) {
                 // Get response code field
-                const responseCodeField = confirmation.getDataFieldByIdentifier<ResponseCodeField>("R");
+                const responseCodeField = confirmation.getDataFieldByIdentifier<ResponseCodeField>(ResponseCodeField.Identifier);
 
                 // Check response code
-                if (responseCodeField) {
-                    // Get field data
-                    result.responseCode = responseCodeField.getData();
-                }
+                responseCodeField && (result.responseCode = responseCodeField.getData());
 
                 // Shutdown connection
                 await this._socket.shutdown();
@@ -85,33 +81,40 @@ export class SaleOperation extends CommonOperation<ISaleRequest, ISaleResponse> 
             result.isConfirmed = true;
 
             // Response
-            const response = await this.processResponse(message, ["F", "P", "R", "T"]);
+            const response = await this.processResponse(message, [
+                AuthorizationCodeField.Identifier,
+                CardNumberField.Identifier,
+                ResponseCodeField.Identifier,
+                TransactionTypeField.Identifier
+            ]);
 
             // Get response fields
-            const paidAmountField = response.getDataFieldByIdentifier<PaidAmountField>("B");
-            const responseCodeField = response.getDataFieldByIdentifier<ResponseCodeField>("R");
-            const authorizationCodeField = response.getDataFieldByIdentifier<AuthorizationCodeField>("F");
+            const paidAmountField = response.getDataFieldByIdentifier<PaidAmountField>(PaidAmountField.Identifier);
+            const responseCodeField = response.getDataFieldByIdentifier<ResponseCodeField>(ResponseCodeField.Identifier);
+            const authorizationCodeField = response.getDataFieldByIdentifier<AuthorizationCodeField>(AuthorizationCodeField.Identifier);
+            const sequenceNumberField = response.getDataFieldByIdentifier<SequenceNumberField>(SequenceNumberField.Identifier);
+            const cardNumberField = response.getDataFieldByIdentifier<CardNumberField>(CardNumberField.Identifier);
 
             // Check response code
-            if (responseCodeField) {
-                // Get field data
-                result.responseCode = responseCodeField.getData();
-            }
+            responseCodeField && (result.responseCode = responseCodeField.getData());
 
             // Check authorization code
-            if (authorizationCodeField) {
-                // Get field data
-                result.authorizationCode = authorizationCodeField.getData();
-            }
+            authorizationCodeField && (result.authorizationCode = authorizationCodeField.getData());
 
             // Check paid amount
-            if (paidAmountField) {
-                // Get field data
-                result.amount = paidAmountField.getData();
-            }
+            paidAmountField && (result.amount = paidAmountField.getData());
+
+            // Check sequence number field
+            sequenceNumberField && (result.sequenceNumber = sequenceNumberField.getData());
+
+            // Check card number
+            cardNumberField && (result.cardNumber = cardNumberField.getData());
 
             // Set signature requirement flag
             result.isSignatureRequired = !!response.getHeader().tags.getData().checkForCardHoldersSignature;
+
+            // Set terminal id
+            result.terminalID = response.getHeader().terminalID.getData();
 
             // Shutdown connection
             await this._socket.shutdown();

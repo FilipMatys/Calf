@@ -1,0 +1,38 @@
+/**
+ * Control character map
+ */
+export const ControlCharactersMap: { [code: number]: string } = {
+    [0x00]: "NUL",
+    [0x01]: "SOH",
+    [0x02]: "STX",
+    [0x03]: "ETX",
+    [0x04]: "EOT",
+    [0x05]: "ENQ",
+    [0x06]: "ACK",
+    [0x07]: "BEL",
+    [0x08]: "BS",
+    [0x09]: "HT",
+    [0x0a]: "LF",
+    [0x0b]: "VT",
+    [0x0c]: "FF",
+    [0x0d]: "CR",
+    [0x0e]: "SO",
+    [0x0f]: "SI",
+    [0x10]: "DLE",
+    [0x11]: "DC1",
+    [0x12]: "DC2",
+    [0x13]: "DC3",
+    [0x14]: "DC4",
+    [0x15]: "NAK",
+    [0x16]: "SYN",
+    [0x17]: "ETB",
+    [0x18]: "CAN",
+    [0x19]: "EM",
+    [0x1a]: "SUB",
+    [0x1b]: "ESC",
+    [0x1c]: "FS",
+    [0x1d]: "GS",
+    [0x1e]: "RS",
+    [0x1f]: "US",
+    [0x7f]: "DEL"
+}

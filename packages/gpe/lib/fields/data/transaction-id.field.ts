@@ -27,13 +27,16 @@ export interface ITransactionIDFieldData {
  */
 export class TransactionIDField extends DataField<ITransactionIDFieldData> {
 
+    // Set identifier
+    public static Identifier = "n";
+
     /**
      * Constructor
      * @param date
      */
     constructor(date?: Date) {
         // Call super
-        super("Transaction ID", "n", FieldFormat.N, { min: 12, max: 12 });
+        super("Transaction ID", TransactionIDField.Identifier, FieldFormat.N, { min: 12, max: 12 });
 
         // Initialize data if date is set
         date && this.setDataFromDate(date);

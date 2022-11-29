@@ -13,13 +13,16 @@ import { DataArray } from "../../utilities/data-array/data-array.utility";
  */
 export class SequenceNumberField extends DataField<string> {
 
+    // Set identifier
+    public static Identifier = "i";
+
     /**
      * Constructor
      * @param number
      */
     constructor(number?: string) {
         // Call super
-        super("Sequence number", "i", FieldFormat.N, { min: 9, max: 9 }, number);
+        super("Sequence number", SequenceNumberField.Identifier, FieldFormat.N, { min: 9, max: 9 }, number);
     }
 
     /**

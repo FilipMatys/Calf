@@ -66,7 +66,7 @@ export abstract class CommonOperation<TRequest, TResponse> {
         // Create new promise
         return new Promise<Message>((resolve, reject) => {
             // Set time out to retry the message
-            const retryTimeout = setTimeout(() => this._socket.write(message.toBuffer()), 15000);
+            let retryTimeout = setTimeout(() => this._socket.write(message.toBuffer()), 15000);
 
             // Subscribe to received data
             const subscription = this._socket.data$.pipe(timeout(15000), retry(1)).subscribe((data) => {
@@ -75,6 +75,15 @@ export abstract class CommonOperation<TRequest, TResponse> {
 
                 // Parse data response
                 const response = Message.fromBuffer(data);
+
+                // Check for transport layer error
+                if (response.isTransportLayerErrorMessage() && !!retryCnt--) {
+                    // Set time out to retry the message
+                    retryTimeout = setTimeout(() => this._socket.write(message.toBuffer()), 12000);
+
+                    // Do nothing else
+                    return;
+                }
 
                 // Check if message is valid response
                 if (!message.isValidResponse(response)) {
@@ -111,7 +120,7 @@ export abstract class CommonOperation<TRequest, TResponse> {
                     // Reset retry count
                     retryCnt = 1;
 
-                    // Do nothing
+                    // Do nothing else
                     return;
                 }
 

@@ -15,13 +15,16 @@ import { Strings } from "../../utilities/strings/strings.utility";
  */
 export class TransactionTypeField extends DataField<TransactionType> {
 
+    // Set identifier
+    public static Identifier = "T";
+
     /**
      * Constructor
      * @param data
      */
     constructor(data?: TransactionType) {
         // Call super
-        super("Transaction type", "T", FieldFormat.N, { min: 2, max: 2 }, data);
+        super("Transaction type", TransactionTypeField.Identifier, FieldFormat.N, { min: 2, max: 2 }, data);
     }
 
     /**

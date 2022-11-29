@@ -1,6 +1,7 @@
+
 // Interfaces
-import { IReversalRequest } from "./interfaces/request.interface";
-import { IReversalResponse } from "./interfaces/response.interface";
+import { ICancellationRequest } from "./interfaces/request.interface";
+import { ICancellationResponse } from "./interfaces/response.interface";
 
 // Enums
 import { TransactionType } from "../../enums/transaction-type.enum";
@@ -10,26 +11,27 @@ import { Message } from "../../classes/message.class";
 
 // Fields
 import { TransactionTypeField } from "../../fields/data/transaction-type.field";
-import { ResponseCodeField } from "../../fields/data/response-code.field";
-import { AuthorizationCodeField } from "../../fields/data/authorization-code.field";
+import { SequenceNumberField } from "../../fields/data/sequence-number.field";
+import { TransactionDataField } from "../../fields/data/transaction-data.field";
 import { PaidAmountField } from "../../fields/data/paid-amount.field";
+import { ResponseCodeField } from "../../fields/data/response-code.field";
 
 // Operations
 import { CommonOperation } from "../common/common.operation";
 
 /**
- * Reversal operation
- * @description Operation to reverse past transaction
+ * Cancellation operation
+ * @description 
  */
-export class ReversalOperation extends CommonOperation<IReversalRequest, IReversalResponse> {
+export class CancellationOperation extends CommonOperation<ICancellationRequest, ICancellationResponse> {
 
     /**
-     * Execute reversal
+     * Execute cancellation
      * @param request 
      */
-    public async execute(request: IReversalRequest): Promise<IReversalResponse> {
+    public async execute(request: ICancellationRequest): Promise<ICancellationResponse> {
         // Init result
-        const result: IReversalResponse = { timestamp: new Date() };
+        const result: ICancellationResponse = { timestamp: new Date() };
 
         try {
             // First init message
@@ -43,11 +45,16 @@ export class ReversalOperation extends CommonOperation<IReversalRequest, IRevers
             message.getHeader().dateTime.setDataFromDate(result.timestamp);
 
             // Add transaction type
-            message.appendDataField(new TransactionTypeField(TransactionType.Reversal));
-            // Add paid amount
+            message.appendDataField(new TransactionTypeField(TransactionType.TransactionCancellationEM));
+
+            // Add cancellation data fields
             message.appendDataField(new PaidAmountField(request.amount));
-            // Add authorization code
-            message.appendDataField(new AuthorizationCodeField(request.authorizationCode));
+            message.appendDataField(new TransactionDataField({
+                PAN: request.cardNumber,
+                sequenceNumber: request.sequenceNumber,
+                TID: request.terminalID,
+                date: request.date
+            }));
 
             // Finalize
             message.finalize();
@@ -86,15 +93,13 @@ export class ReversalOperation extends CommonOperation<IReversalRequest, IRevers
             const responseCodeField = response.getDataFieldByIdentifier<ResponseCodeField>(ResponseCodeField.Identifier);
 
             // Check response code
-            if (responseCodeField) {
-                // Get field data
-                result.responseCode = responseCodeField.getData();
-            }
+            responseCodeField && (result.responseCode = responseCodeField.getData());
 
             // Shutdown connection
             await this._socket.shutdown();
         }
         catch (e) {
+            // Log error
             console.error(e);
         }
         finally {

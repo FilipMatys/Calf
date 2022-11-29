@@ -15,13 +15,16 @@ import { Strings } from "../../utilities/strings/strings.utility";
  */
 export class IdOfPrintedInformationField extends DataField<PrintedInformation> {
 
+    // Set identifier
+    public static Identifier = "K";
+
     /**
      * Constructor
      * @param identifier
      */
     constructor(identifier?: PrintedInformation) {
         // Call super
-        super("Id of printed information", "K", FieldFormat.N, { min: 2, max: 2 }, identifier);
+        super("Id of printed information", IdOfPrintedInformationField.Identifier, FieldFormat.N, { min: 2, max: 2 }, identifier);
     }
 
     /**

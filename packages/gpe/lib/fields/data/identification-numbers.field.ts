@@ -26,13 +26,16 @@ export interface IIdentificationNumbersFieldData {
  */
 export class IdentificationNumbersField extends DataField<IIdentificationNumbersFieldData> {
 
+    // Set identifier
+    public static Identifier = "Z";
+
     /**
      * Constructor
      * @param data
      */
     constructor(data?: IIdentificationNumbersFieldData) {
         // Call super
-        super("Identification numbers", "Z", FieldFormat.VGS, { min: 3, max: 27 }, data);
+        super("Identification numbers", IdentificationNumbersField.Identifier, FieldFormat.VGS, { min: 3, max: 27 }, data);
     }
 
     /**

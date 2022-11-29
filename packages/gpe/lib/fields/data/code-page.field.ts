@@ -13,13 +13,16 @@ import { DataArray } from "../../utilities/data-array/data-array.utility";
  */
 export class CodePageField extends DataField<string> {
 
+    // Set identifier
+    public static Identifier = "f";
+
     /**
      * Constructor
      * @param page
      */
     constructor(page?: string) {
         // Call super
-        super("CodePage", "f", FieldFormat.AN, { min: 10, max: 10 }, page);
+        super("CodePage", CodePageField.Identifier, FieldFormat.AN, { min: 10, max: 10 }, page);
     }
 
     /**

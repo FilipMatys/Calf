@@ -24,13 +24,16 @@ export interface IExtraTextFieldData extends Array<IExtraTextFieldItem> { }
  */
 export class ExtraTextField extends DataField<IExtraTextFieldData> {
 
+    // Set identifier
+    public static Identifier = "q";
+
     /**
      * Constructor
      * @param data
      */
     constructor(data?: IExtraTextFieldData) {
         // Call super
-        super("Extra Text", "q", FieldFormat.V, { min: 1, max: 100 }, data);
+        super("Extra Text", ExtraTextField.Identifier, FieldFormat.V, { min: 1, max: 100 }, data);
     }
 
     /**

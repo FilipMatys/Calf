@@ -14,13 +14,16 @@ import { DataArray } from "../../utilities/data-array/data-array.utility";
  */
 export class ReferenceNumberField extends DataField<string> {
 
+    // Set identifier
+    public static Identifier = "N";
+
     /**
      * Constructor
      * @param number
      */
     constructor(number?: string) {
         // Call super
-        super("Reference number (transaction identifier)", "N", FieldFormat.AN, { min: 1, max: 20 }, number);
+        super("Reference number (transaction identifier)", ReferenceNumberField.Identifier, FieldFormat.AN, { min: 1, max: 20 }, number);
     }
 
     /**

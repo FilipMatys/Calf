@@ -14,13 +14,16 @@ import { DataArray } from "../../utilities/data-array/data-array.utility";
  */
 export class InvoiceNumberField extends DataField<string> {
 
+    // Set identifier
+    public static Identifier = "S";
+
     /**
      * Constructor
      * @param value
      */
     constructor(value?: string) {
         // Call super
-        super("Invoice number", "S", FieldFormat.N, { min: 1, max: 10 }, value);
+        super("Invoice number", InvoiceNumberField.Identifier, FieldFormat.N, { min: 1, max: 10 }, value);
     }
 
     /**

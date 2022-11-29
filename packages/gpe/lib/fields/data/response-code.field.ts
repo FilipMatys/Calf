@@ -15,13 +15,16 @@ import { Strings } from "../../utilities/strings/strings.utility";
  */
 export class ResponseCodeField extends DataField<ResponseCode> {
 
+    // Set identifier
+    public static Identifier = "R";
+
     /**
      * Constructor
      * @param code
      */
     constructor(code?: ResponseCode) {
         // Call super
-        super("Response Code", "R", FieldFormat.N, { min: 3, max: 3 }, code);
+        super("Response Code", ResponseCodeField.Identifier, FieldFormat.N, { min: 3, max: 3 }, code);
     }
 
     /**

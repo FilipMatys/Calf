@@ -56,6 +56,9 @@ export * from "./operations/refund/interfaces/response.interface";
 export * from "./operations/rlm/rlm.operation";
 export * from "./operations/rlm/interfaces/request.interface";
 export * from "./operations/rlm/interfaces/response.interface";
+export * from "./operations/cancellation/cancellation.operation";
+export * from "./operations/cancellation/interfaces/request.interface";
+export * from "./operations/cancellation/interfaces/response.interface";
 
 // Utilities
 export * from "./utilities/data-array/data-array.utility";

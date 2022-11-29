@@ -15,13 +15,16 @@ import { Strings } from "../../utilities/strings/strings.utility";
  */
 export class CurrencyField extends DataField<Currency> {
 
+    // Set identifier
+    public static Identifier = "I";
+
     /**
      * Constructor
      * @param currency
      */
     constructor(currency?: Currency) {
         // Call super
-        super("Currency", "I", FieldFormat.N, { min: 3, max: 3 }, currency);
+        super("Currency", CurrencyField.Identifier, FieldFormat.N, { min: 3, max: 3 }, currency);
     }
 
     /**

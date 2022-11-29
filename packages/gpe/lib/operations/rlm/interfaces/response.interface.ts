@@ -10,5 +10,29 @@ import { TransactionType } from "../../../enums/transaction-type.enum";
  */
 export interface IRepeatLastMessageResponse extends ICommonResponse {
     authorizationCode?: string;
-    transactionType?: TransactionType; 
+    transactionType?: TransactionType;
+
+    /**
+     * Amount
+     * @description Actual charged amount
+     */
+    amount?: number;
+
+    /**
+     * Is signature required
+     * @description Whether customer signature is required
+     */
+    isSignatureRequired?: boolean;
+
+    /**
+     * Sequence number
+     * @description Sequence number of the transaction
+     */
+    sequenceNumber?: string;
+
+    /**
+     * Card number
+     * @description Masked number of the card (PAN)
+     */
+    cardNumber?: string;
 }

@@ -24,13 +24,16 @@ export interface ICardsExpirationDateFieldData {
  */
 export class CardsExpirationDateField extends DataField<ICardsExpirationDateFieldData> {
 
+    // Set identifier
+    public static Identifier = "E";
+
     /**
      * Constructor
      * @param expiration 
      */
     constructor(expiration?: ICardsExpirationDateFieldData) {
         // Call super
-        super("Card's expiration date", "E", FieldFormat.N, { min: 4, max: 4 }, expiration);
+        super("Card's expiration date", CardsExpirationDateField.Identifier, FieldFormat.N, { min: 4, max: 4 }, expiration);
     }
 
     /**
