@@ -48,7 +48,7 @@ export class TransactionDataField extends DataField<ITransactionDataFieldData> {
 
         // Assign buffer
         this._buffer = DataArray.fromString([
-            this._data.TID ? this._data.TID.trimStart() : "",
+            this._data.TID ? this._data.TID.replace(/ /g, '') : "",
             this._data.PAN ? this._data.PAN.slice(-4) : "",
             this._data.sequenceNumber,
             `${sYear}${sMonth}${sDay}`
