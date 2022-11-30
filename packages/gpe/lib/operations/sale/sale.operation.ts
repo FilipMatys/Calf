@@ -70,9 +70,6 @@ export class SaleOperation extends CommonOperation<ISaleRequest, ISaleResponse> 
                 // Check response code
                 responseCodeField && (result.responseCode = responseCodeField.getData());
 
-                // Shutdown connection
-                await this._socket.shutdown();
-
                 // Return result
                 return result;
             }
@@ -115,15 +112,15 @@ export class SaleOperation extends CommonOperation<ISaleRequest, ISaleResponse> 
 
             // Set terminal id
             result.terminalID = response.getHeader().terminalID.getData();
-
-            // Shutdown connection
-            await this._socket.shutdown();
         }
         catch (e) {
             // Log error
             console.error(e);
         }
         finally {
+            // Shutdown connection
+            await this._socket.shutdown();
+
             // Return result
             return result;
         }

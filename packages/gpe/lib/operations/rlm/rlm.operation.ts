@@ -71,9 +71,6 @@ export class RepeatLastMessageOperation extends CommonOperation<IRepeatLastMessa
                 // Check response code
                 responseCodeField && (result.responseCode = responseCodeField.getData());
 
-                // Shutdown connection
-                await this._socket.shutdown();
-
                 // Return result
                 return result;
             }
@@ -118,15 +115,15 @@ export class RepeatLastMessageOperation extends CommonOperation<IRepeatLastMessa
 
             // Set terminal id
             result.terminalID = response.getHeader().terminalID.getData();
-
-            // Shutdown connection
-            await this._socket.shutdown();
         }
         catch (e) {
             // Log error
             console.error(e);
         }
         finally {
+            // Shutdown connection
+            await this._socket.shutdown();
+
             // Return result
             return result;
         }

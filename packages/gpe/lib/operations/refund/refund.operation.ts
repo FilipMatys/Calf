@@ -73,9 +73,6 @@ export class RefundOperation extends CommonOperation<IRefundRequest, IRefundResp
                 // Check response code
                 responseCodeField && (result.responseCode = responseCodeField.getData());
 
-                // Shutdown connection
-                await this._socket.shutdown();
-
                 // Return result
                 return result;
             }
@@ -100,15 +97,15 @@ export class RefundOperation extends CommonOperation<IRefundRequest, IRefundResp
 
             // Check authorization code
             authorizationCodeField && (result.authorizationCode = authorizationCodeField.getData());
-
-            // Shutdown connection
-            await this._socket.shutdown();
         }
         catch (e) {
             // Log error
             console.error(e);
         }
         finally {
+            // Shutdown connection
+            await this._socket.shutdown();
+
             // Return result
             return result;
         }

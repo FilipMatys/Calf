@@ -66,9 +66,6 @@ export class ReversalOperation extends CommonOperation<IReversalRequest, IRevers
                 // Check response code
                 responseCodeField && (result.responseCode = responseCodeField.getData());
 
-                // Shutdown connection
-                await this._socket.shutdown();
-
                 // Return result
                 return result;
             }
@@ -90,14 +87,14 @@ export class ReversalOperation extends CommonOperation<IReversalRequest, IRevers
                 // Get field data
                 result.responseCode = responseCodeField.getData();
             }
-
-            // Shutdown connection
-            await this._socket.shutdown();
         }
         catch (e) {
             console.error(e);
         }
         finally {
+            // Shutdown connection
+            await this._socket.shutdown();
+
             // Return result
             return result;
         }

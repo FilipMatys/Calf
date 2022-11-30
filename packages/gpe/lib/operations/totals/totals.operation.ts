@@ -58,9 +58,6 @@ export class TotalsOperation extends CommonOperation<void, ITotalsResponse> {
                 // Check response code
                 responseCodeField && (result.responseCode = responseCodeField.getData());
 
-                // Shutdown connection
-                await this._socket.shutdown();
-
                 // Return result
                 return result;
             }
@@ -79,15 +76,15 @@ export class TotalsOperation extends CommonOperation<void, ITotalsResponse> {
 
             // Check response code
             responseCodeField && (result.responseCode = responseCodeField.getData());
-
-            // Shutdown connection
-            await this._socket.shutdown();
         }
         catch (e) {
             // Log error
             console.error(e);
         }
         finally {
+            // Shutdown connection
+            await this._socket.shutdown();
+
             // Return result
             return result;
         }

@@ -73,9 +73,6 @@ export class CancellationOperation extends CommonOperation<ICancellationRequest,
                 // Check response code
                 responseCodeField && (result.responseCode = responseCodeField.getData());
 
-                // Shutdown connection
-                await this._socket.shutdown();
-
                 // Return result
                 return result;
             }
@@ -94,15 +91,15 @@ export class CancellationOperation extends CommonOperation<ICancellationRequest,
 
             // Check response code
             responseCodeField && (result.responseCode = responseCodeField.getData());
-
-            // Shutdown connection
-            await this._socket.shutdown();
         }
         catch (e) {
             // Log error
             console.error(e);
         }
         finally {
+            // Shutdown connection
+            await this._socket.shutdown();
+
             // Return result
             return result;
         }
