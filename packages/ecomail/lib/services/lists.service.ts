@@ -88,6 +88,18 @@ export class ListsService extends RequestService {
     }
 
     /**
+     * Update subscriber
+     * @param list 
+     * @param payload 
+     * @param callback 
+     * @returns 
+     */
+    public async updateSubscriber<TCustomFields>(list: IList, payload: ISubscribePayload<TCustomFields>, callback?: ICallbackFn<any>): Promise<any> {
+        // Make get request
+        return this.post([...this.base, `${list.id}`, `update-subscriber`], payload, callback);
+    }
+
+    /**
      * Subscribe
      * @description Subscribe to list
      * @param list Needs to have id defined

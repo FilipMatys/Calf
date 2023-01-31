@@ -12,7 +12,7 @@ export interface ISubscribePayload<TCustomFields> {
      * @description Data about subscriber(s)
      */
     subscriber_data: ISubscriber<TCustomFields> | ISubscriber<TCustomFields>[];
-
+    email?: string;
     trigger_autoresponders?: boolean;
     trigger_notification?: boolean;
     update_existing?: boolean;
