@@ -1,5 +1,6 @@
 // External modules
 import { NavigationExtras, ParamMap } from '@angular/router';
+import { Serializable } from "@calf/serializable";
 import { Subject, Observable } from "rxjs";
 
 // Data
@@ -29,7 +30,7 @@ export class Filter {
      * @param value 
      * @param service 
      */
-    public register<TValue>(name: string, type: number, value: TValue, service?: AngularService<TValue, any>): void {
+    public register<TValue extends Serializable>(name: string, type: number, value: TValue, service?: AngularService<TValue, any>): void {
         this.items[name] = new FilterItem(type, value, service);
     }
 

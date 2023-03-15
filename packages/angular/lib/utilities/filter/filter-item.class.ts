@@ -17,7 +17,7 @@ export class FilterItem<TValue> {
     public value: TValue;
 
     // Service
-    private service?: AngularService<TValue, any>;
+    private service?: AngularService<any, any>;
 
     /**
      * Constructor
@@ -25,7 +25,7 @@ export class FilterItem<TValue> {
      * @param value 
      * @param service
      */
-    constructor(type: number, value: TValue, service?: AngularService<TValue, any>) {
+    constructor(type: number, value: TValue, service?: AngularService<any, any>) {
         // Assign type
         this.type = type;
 
@@ -123,14 +123,14 @@ export class FilterItem<TValue> {
                     }
 
                     // Assign data
-                    Object.assign(this.value, validation.data as TValue);
+                    Object.assign(this.value as Object, validation.data as TValue);
                 });
         }
 
         // Also we might need to load serializable in case of array of them
         if (this.type === FilterType.ARRAY_OF_SERIALIZABLE && this.service) {
             // Get each serializable
-            Promise.all((<any>this.value as any[]).map((serializable) => (this.service as AngularService<TValue, any>).get(serializable)))
+            Promise.all((<any>this.value as any[]).map((serializable) => (this.service as AngularService<any, any>).get(serializable)))
                 .then((validations) => {
                     // Process validations
                     (this.value as any) = validations
