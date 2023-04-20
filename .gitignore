@@ -30,3 +30,5 @@ packages/geometry/node_modules
 packages/geometry/dist
 packages/gpe/node_modules
 packages/gpe/dist
+packages/abra/node_modules
+packages/abra/dist
