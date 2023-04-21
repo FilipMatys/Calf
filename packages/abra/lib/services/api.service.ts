@@ -26,9 +26,9 @@ export class ApiService {
     protected readonly exception$: Observable<Error> = this.exceptionSource.asObservable();
 
     /**
-     * Observe communication
+     * Observe results
      */
-    public observe(): Observable<any> {
+    public results(): Observable<any> {
         // Return result source as observable
         return this.result$;
     }
@@ -88,6 +88,53 @@ export class ApiService {
         const response = await fetch([target, module, id].join("/"), { method: "get", headers: headers });
 
         // Parse response as result
+        const result = await this.parseResponse<TResult>(response);
+
+        // Emit result
+        this.resultSource.next(result);
+
+        // Return result
+        return result;
+    }
+
+    /**
+     * Execute
+     * @description Execute custom path
+     * @param method 
+     * @param module 
+     * @param segments 
+     * @param payload 
+     * @param fields 
+     */
+    public async execute<TPayload, TResult>(method: "post" | "get" | "put" | "delete", module: AbraModule, segments: string[], payload?: TPayload, fields: string[] = []): Promise<TResult> {
+        // Get headers
+        const headers = await this.getRequestHeaders();
+
+        // Get target
+        const target = await this.getRequestTarget();
+
+        // Init url
+        let url = [target, module, ...(segments || [])].join("/");
+
+        // Check for fields
+        if ((fields || []).length) {
+            // Add fields as select query
+            url = `${url}?select=${fields.join(",")}`;
+        }
+
+        // Init request option
+        const options: any = { method: method, headers };
+
+        // Check for payload
+        if (typeof payload !== "undefined") {
+            // Set options body
+            options.body = JSON.stringify(payload);
+        }
+
+        // Get response
+        const response = await fetch(url, options);
+
+        // Parse response result
         const result = await this.parseResponse<TResult>(response);
 
         // Emit result
