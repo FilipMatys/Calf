@@ -27,19 +27,25 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
     // Init schema
     protected schema: ISchema<IPropertyDefinition>;
 
+    // Set default oid
+    protected oid: string = "_id";
+
     /**
      * Constructor
      * @param entity 
      */
-    constructor(entity: new () => T) {
+    constructor(entity: new () => T, oid?: string) {
         // Init parser
         const parser = new SchemaParser();
 
         // Get schema
         this.schema = parser.parse(entity);
 
+        // Make sure oid is set
+        this.oid = oid || this.oid;
+
         // Add oid to schema
-        this.schema.properties["_id"] = { type: PropertyType.OID };
+        this.schema.properties[this.oid] = { type: PropertyType.OID };
 
         // Check for timestamps
         if (this.schema.entity.isTimeStamped) {
@@ -95,10 +101,10 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
         // Init db query
         let dbQuery: string;
 
-        // Check if entity has _id set
-        if (!entity._id) {
-            // Assign _id
-            entity._id = (ObjectId as any)();
+        // Check if entity has oid set
+        if (!(entity as any)[this.oid]) {
+            // Assign oid
+            (entity as any)[this.oid] = (ObjectId as any)();
 
             // Check for timestamps
             if (this.schema.entity.isTimeStamped) {
@@ -118,7 +124,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
             }
 
             // Build update query
-            dbQuery = this.builder.update(this.schema, { filter: { _id: entity._id } }, entity);
+            dbQuery = this.builder.update(this.schema, { filter: { [this.oid]: (entity as any)[this.oid] } }, entity);
         }
 
         // Try to execute query
@@ -146,7 +152,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
 
         // Get db query
         const dbQuery: string = this.builder.select(this.schema, {
-            filter: { _id: entity._id },
+            filter: { [this.oid]: (entity as any)[this.oid] },
             limit: 1
         });
 
