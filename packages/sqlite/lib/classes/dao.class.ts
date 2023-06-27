@@ -104,7 +104,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
         // Check if entity has oid set
         if (!(entity as any)[this.oid]) {
             // Assign oid
-            (entity as any)[this.oid] = (ObjectId as any)();
+            (entity as any)[this.oid] = (ObjectId as any)().toString();
 
             // Check for timestamps
             if (this.schema.entity.isTimeStamped) {
