@@ -31,6 +31,14 @@ export class SQLiteParser {
     }
 
     /**
+     * Safe string
+     * @param value
+     */
+    private safeString(value: string): string {
+        return value.replace(/\'/g, "''");
+    }
+
+    /**
      * Safe object
      * @param value 
      */
@@ -127,7 +135,7 @@ export class SQLiteParser {
                 // Integer
                 case PropertyType.INT:
                     return this.safeInteger(value);
-                // Mixed and embeded
+                // Mixed and embedded
                 case PropertyType.MIXED:
                 case PropertyType.EMBEDDED:
                     return this.safeObject(value);
@@ -212,7 +220,7 @@ export class SQLiteParser {
                     }
 
                     // Stringify
-                    return `'${JSON.stringify(value)}'`;
+                    return `'${this.safeString(JSON.stringify(value))}'`;
                 // Reference
                 case PropertyType.REFERENCE:
                     // Check if value is set
@@ -240,7 +248,7 @@ export class SQLiteParser {
                 case PropertyType.OID:
                 case PropertyType.STRING:
                 default:
-                    return value ? `'${value}'` : 'null';
+                    return value ? `'${this.safeString(value)}'` : 'null';
             }
         }
 
