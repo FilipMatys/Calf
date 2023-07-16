@@ -101,7 +101,7 @@ export class QueryBuilder<T> {
                     payload[key].forEach((cond: any) => andConditions.push(parse(cond)));
 
                     // Add conditions
-                    conditions.push(`${andConditions.join(" AND ")}`);
+                    conditions.push(`(${andConditions.join(" AND ")})`);
                 }
                 // Check for $or
                 else if (key === "$or") {
@@ -112,7 +112,7 @@ export class QueryBuilder<T> {
                     payload[key].forEach((cond: any) => orConditions.push(parse(cond)));
 
                     // Add conditions
-                    conditions.push(`${orConditions.join(" OR ")}`);
+                    conditions.push(`(${orConditions.join(" OR ")})`);
                 }
                 // Else
                 else {

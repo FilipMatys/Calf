@@ -254,8 +254,17 @@ export class SQLiteParser {
 
         // Check definition for array
         if (!definition.isArray) {
-            // Parse value
-            return parse(definition, value);
+            try {
+                // Parse value
+                return parse(definition, value);
+            }
+            catch (e) {
+                // Log error
+                console.error(`Failed parse for`, definition, value);
+
+                // Rethrow error
+                throw e;
+            }
         }
 
         // Check if value is set
