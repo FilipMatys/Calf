@@ -32,3 +32,5 @@ packages/gpe/node_modules
 packages/gpe/dist
 packages/abra/node_modules
 packages/abra/dist
+packages/gpwebpay/node_modules
+packages/gpwebpay/dist

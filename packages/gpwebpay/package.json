@@ -1,0 +1,36 @@
+{
+  "name": "@calf/gpwebpay",
+  "version": "0.0.1-alpha",
+  "description": "GpWebpay module of Calf framework.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "mocha -r ts-node/register test/test.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FilipMatys/Calf.git"
+  },
+  "keywords": [
+    "calf",
+    "framework",
+    "gpwebpay"
+  ],
+  "author": "Jiri Kratochvil <kratochviljiri@geph.cz> (https://github.com/KratochvilJ1r1)",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "^4.1.4",
+    "@types/mocha": "^5.2.5",
+    "@types/node-fetch": "^2.5.10",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "rxjs": "^6.6.3",
+    "ts-node": "~7.0.0",
+    "typescript": "^4.0.0",
+    "fs": "^0.0.1-security",
+    "node-fetch": "^2.6.1"
+  },
+  "dependencies": {
+  }
+}

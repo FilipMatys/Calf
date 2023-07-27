@@ -1,0 +1,4 @@
+export enum OperationType {
+     CREATE_ORDER = "CREATE_ORDER",
+     CARD_VERIFICATION = "CARD_VERIFICATION"
+}
