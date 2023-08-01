@@ -58,7 +58,7 @@ export class ApiService {
         const response = await fetch([target, module, "query"].join("/"), { method: "post", body: JSON.stringify(query), headers: headers });
 
         // Parse response as result
-        const result = this.parseResponse<TResult | TResult[]>(response);
+        const result = await this.parseResponse<TResult | TResult[]>(response);
 
         // Normalize result
         const normalized = !(result instanceof Array) ? [result] : result;
