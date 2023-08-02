@@ -7,7 +7,7 @@ import { Config } from "../classes/config.class";
 
 // Interfaces
 import { IRequestHeaders } from "../interfaces/headers.interface";
-import { IPaymentPayload } from "../../gp-webpay";
+import { IPaymentRequest } from "../../gp-webpay";
 
 /**
  * Request service
@@ -20,7 +20,7 @@ export class RequestService {
       * @param payment 
       * @param headers 
       */
-     protected async post(payment: IPaymentPayload, headers: IRequestHeaders): Promise<any> {
+     protected async post(payment: IPaymentRequest, headers: IRequestHeaders): Promise<any> {
           try {
 
                // Assign merchang number if isn't
@@ -58,7 +58,7 @@ export class RequestService {
       * @param payment 
       * @returns 
       */
-     public async getPostData(payment: IPaymentPayload): Promise<string> {
+     private async getPostData(payment: IPaymentRequest): Promise<string> {
 
           // key map of attributes
           const keyMap: Record<string, string> = {
@@ -106,7 +106,7 @@ export class RequestService {
       * @description Get signature base of payment data
       * @returns 
       */
-     private async getSignatureBase(payment: IPaymentPayload): Promise<string> {
+     private async getSignatureBase(payment: IPaymentRequest): Promise<string> {
           // Keys of sign
           const signKeys = [
                'merchantNumber', 'operation', 'orderNumber', 'amount', 'currency',
@@ -141,7 +141,7 @@ export class RequestService {
       * @param privateKeyPass 
       * @returns 
       */
-     private async sign(payment: IPaymentPayload, privateKey: string, privateKeyPass: string): Promise<string> {
+     private async sign(payment: IPaymentRequest, privateKey: string, privateKeyPass: string): Promise<string> {
           // Get base
           const base = await this.getSignatureBase(payment);
 
@@ -157,7 +157,7 @@ export class RequestService {
       * @Description Validate payment data
       * @param payment 
       */
-     validate(payment: IPaymentPayload) {
+     private async validate(payment: IPaymentRequest):Promise<any> {
 
           // Merchant number validation
           if (!payment.merchantNumber) {

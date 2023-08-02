@@ -1,6 +1,8 @@
 // Interfaces
 import { RequestService } from "../../common/services/request.service";
-import { IPaymentPayload } from "../interfaces/payment-payload.interface";
+
+// Interfaces
+import { IPaymentRequest } from "../interfaces/payment-request.interface";
 
 // Enums
 import { RequestContentType } from "../../common/enums/request-content-type.enum";
@@ -17,7 +19,7 @@ export class PaymentService extends RequestService {
       * @param callback 
       * @returns 
       */
-     public async create(payload: IPaymentPayload): Promise<any> {
+     public async create(payload: IPaymentRequest): Promise<any> {
           // Make post request
           return this.post(payload, {
                "Accept": RequestContentType.ApplicationFormUrlencoded,

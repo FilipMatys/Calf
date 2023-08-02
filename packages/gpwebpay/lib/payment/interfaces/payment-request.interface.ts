@@ -4,7 +4,7 @@ import { Currency } from "../../gp-webpay";
  * Gp webpay payment request for payment creation
  * @description Gp webpay payment request for payment creation
  */
-export interface IPaymentPayload {
+export interface IPaymentRequest {
 
      /**
       * Merchant number
