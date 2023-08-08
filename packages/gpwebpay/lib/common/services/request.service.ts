@@ -20,7 +20,7 @@ export class RequestService {
       * @param payment 
       * @param headers 
       */
-     protected async post(payment: IPaymentRequest, headers: IRequestHeaders): Promise<any> {
+     public async post(payment: IPaymentRequest, headers: IRequestHeaders): Promise<any> {
           try {
 
                // Assign merchang number if isn't

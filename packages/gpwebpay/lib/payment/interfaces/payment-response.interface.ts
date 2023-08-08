@@ -1,5 +1,6 @@
 import { Acsres } from "../../common/enums/acsres.enum";
 import { TokenRegistrationStatus } from "../../common/enums/token-registration-status.enum";
+import { OperationType } from "../../gp-webpay";
 
 /**
  * Gp webpay response
@@ -8,124 +9,137 @@ import { TokenRegistrationStatus } from "../../common/enums/token-registration-s
 export interface IPaymentResponse {
 
      /**
-     * Operation
+     * OPERATION
      * @description Operation
      */
-     operation: string;
+     OPERATION: string;
 
      /**
-     * Order number
+     * ORDERNUMBER
      * @description Order number, must be unique for merchant number 
      */
-     orderNumber: number;
+     ORDERNUMBER: number;
 
      /**
-     * Mer order number
+     * MERORDERNUM
      * @description Payment number, if is not set, will be take order number
      */
-     merOrderNum?: number;
+     MERORDERNUM?: number;
 
      /**
-     * Md
+     * MD
      * @description Optional field for merchant data, will be return in response
      */
-     md?: string;
+     MD?: string;
 
      /**
-     * Prcode
+     * PRCODE
      * @description Prcode from response
      */
-     prcode?: string;
+     PRCODE?: string;
 
      /**
-     * Srcode
+     * SRCODE
      * @description Srcode from response
      */
-     srcode?: string;
+     SRCODE?: string;
 
      /**
-     * Result text
+     * RESULTTEXT
      * @description Result text - text description of error
      */
-     resultText?: string;
+     RESULTTEXT?: string;
 
      /**
-     * AddInfo
+     * USERPARAM1
+     * @description Unique hash of credit card
+     */
+     USERPARAM1?: string;
+
+
+     /**
+     * ADDINFO
      * @description Additional info
      */
-     addInfo?: string;
+     ADDINFO?: string;
 
      /**
-     * Token
+     * TOKEN
      * @description Unique identifier of payment card
      */
-     token?: string;
+     TOKEN?: string;
 
      /**
-     * Acsres
+     * EXPIRY
+     * @description Payment card expiration
+     */
+     EXPIRY?: string;
+
+     /**
+     * ACSRES
      * @description Result of card autentication in 3D system
      */
-     acsres?: Acsres;
+     ACSRES?: Acsres;
 
      /**
-     * Accode
+     * ACCODE
      * @description Authorization payment code assigned by authorization center
      */
-     accode?: string;
+     ACCODE?: string;
 
 
      /**
-     * Pan pattern
+     * PANPATTERN
      * @description Masked number of card
      */
-     panPattern?: string;
+     PANPATTERN?: string;
 
      /**
-     * Day to capture 
+     * DAYTOCAPTURE
      * @description Last day of debiting the payment from the account, format: DDMMYYYY
      */
-     dayToCapture?: string;
+     DAYTOCAPTURE?: string;
 
      /**
-     * TokenRegStatus
+     * TOKENREGSTATUS
      * @description Token registration status
      */
-     tokenRegStatus?: TokenRegistrationStatus;
+     TOKENREGSTATUS?: TokenRegistrationStatus;
 
      /**
-     * Acrc
+     * ACRC
      * @description Returning code from authorization center informing about the payment status
      */
-     acrc?: string;
+     ACRC?: string;
 
      /**
      * RRN
      * @description Retrieval Reference Number
      */
-     rrn?: string;
+     RRN?: string;
 
      /**
      * PAR
      * @description Payment Account Reference –
      */
-     par?: string;
+     PAR?: string;
 
      /**
-     * TraceId
+     * TRACEID
      * @description Payment Account Reference –
      */
-     traceId?: string;
+     TRACEID?: string;
 
      /**
-     * Digest
+     * DIGEST
      * @description Security sign of request
      */
-     digest?: string;
+     DIGEST?: string;
 
      /**
-     * Digest
+     * DIGEST1
      * @description Security sign of request
      */
-     digest1?: string;
+     DIGEST1?: string;
 
 }

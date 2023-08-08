@@ -7,27 +7,13 @@ import { Config } from "./config.class";
 // Services
 import { RequestService } from "../services/request.service";
 import { PaymentService } from "../../payment/services/payment.service";
+import { ResponseService } from "../services/response.service";
 
 /**
  * GoPay
  * @description 
  */
 export class GpWebpay {
-
-    /**
-     * Request
-     * @description Request service
-     */
-    public static get Request(): RequestService {
-        // Return request service
-        return this.requestService;
-    }
-
-    /**
-     * Request service
-     * @description Service for request
-     */
-    private static requestService: RequestService;
 
     /**
     * Request
@@ -60,7 +46,6 @@ export class GpWebpay {
         Config.initialize(config);
 
         // Create services
-        this.requestService = new RequestService();
-        this.paymentService = new PaymentService();
+        this.paymentService = new PaymentService(new RequestService(), new ResponseService());
     }
 }

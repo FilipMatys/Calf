@@ -1,4 +1,4 @@
-import { Currency } from "../../gp-webpay";
+import { Currency, OperationType } from "../../gp-webpay";
 
 /**
  * Gp webpay payment request for payment creation
@@ -16,7 +16,7 @@ export interface IPaymentRequest {
      * Operation
      * @description Operation
      */
-     operation: string;
+     operation: OperationType;
 
      /**
      * Order number
