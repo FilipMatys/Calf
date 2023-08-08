@@ -1,5 +1,5 @@
-import { Acsres } from "../../common/enums/acsres.enum";
-import { TokenRegistrationStatus } from "../../common/enums/token-registration-status.enum";
+import { Acsres } from "../enums/acsres.enum";
+import { TokenRegistrationStatus } from "../enums/token-registration-status.enum";
 import { OperationType } from "../../gp-webpay";
 
 /**

@@ -8,9 +8,10 @@ import { Config } from "./config.class";
 import { RequestService } from "../services/request.service";
 import { PaymentService } from "../../payment/services/payment.service";
 import { ResponseService } from "../services/response.service";
+import { AddInfoService } from "../services/add-info.service";
 
 /**
- * GoPay
+ * GpWebpay
  * @description 
  */
 export class GpWebpay {
@@ -46,6 +47,6 @@ export class GpWebpay {
         Config.initialize(config);
 
         // Create services
-        this.paymentService = new PaymentService(new RequestService(), new ResponseService());
+        this.paymentService = new PaymentService(new RequestService(), new ResponseService(), new AddInfoService());
     }
 }

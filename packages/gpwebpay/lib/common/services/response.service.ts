@@ -2,7 +2,7 @@
 import * as crypto from "crypto";
 
 // Interfaces
-import { IPaymentResponse } from "../../payment/interfaces/payment-response.interface";
+import { IPaymentResponse } from "../interfaces/payment-response.interface";
 
 // Config
 import { Config } from "../classes/config.class";
@@ -55,7 +55,7 @@ export class ResponseService {
       * @param payload 
       * @returns 
       */
-     public async validateSignature(payload: IPaymentResponse): Promise<boolean> {
+     public async validate(payload: IPaymentResponse): Promise<boolean> {
 
           // Make sure config is initialized
           if (!Config.publicKey || !Config.merchantNumber) {

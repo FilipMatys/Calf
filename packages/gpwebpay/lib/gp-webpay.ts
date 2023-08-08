@@ -5,7 +5,7 @@ export * from "./common/interfaces/config.interface";
 export * from "./common/interfaces/error-response.interface";
 export * from "./common/interfaces/error.interface";
 export * from "./common/interfaces/headers.interface";
-export * from "./payment/interfaces/payment-request.interface";
+export * from "./common/interfaces/payment-request.interface";
 
 // Common enums
 export * from "./common/enums/currency.enum";
