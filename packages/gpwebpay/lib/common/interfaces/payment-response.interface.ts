@@ -1,6 +1,6 @@
+// Enums
 import { Acsres } from "../enums/acsres.enum";
 import { TokenRegistrationStatus } from "../enums/token-registration-status.enum";
-import { OperationType } from "../../gp-webpay";
 
 /**
  * Gp webpay response
