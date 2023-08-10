@@ -49,7 +49,7 @@ export class RequestService {
                 // Iterate params
                 for (const [key, value] of Object.entries(params)) {
                     // Append search params
-                    url.searchParams.append(key, value);
+                    url.searchParams.append(key, value as string);
                 }
             }
 

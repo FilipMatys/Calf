@@ -1,7 +1,7 @@
 // Interfaces
 import { ICallbackFn } from "../interfaces/callback.interface";
-import { ITransactionalMessage } from "../interfaces/transactional-message.interface";
-import { ITransactionalTemplateMessage } from "../interfaces/transactional-template-message.interface";
+import { ITransactionalMessageRequest } from "../interfaces/transactional-message-request.interface";
+import { ITransactionalTemplateMessageRequest } from "../interfaces/transactional-template-message-request.interface";
 
 // Services
 import { RequestService } from "./request.service";
@@ -22,7 +22,7 @@ export class TransactionalService extends RequestService {
      * @param message 
      * @param callback 
      */
-    public async sendMessage(message: ITransactionalMessage, callback?: ICallbackFn<any>): Promise<any> {
+    public async sendMessage(message: ITransactionalMessageRequest, callback?: ICallbackFn<any>): Promise<any> {
         return this.post([...this.base, "send-message"], message, callback);
     }
 
@@ -31,7 +31,7 @@ export class TransactionalService extends RequestService {
      * @param template 
      * @param callback 
      */
-    public async sendTemplate(template: ITransactionalTemplateMessage, callback?: ICallbackFn<any>): Promise<any> {
+    public async sendTemplate(template: ITransactionalTemplateMessageRequest, callback?: ICallbackFn<any>): Promise<any> {
         return this.post([...this.base, "send-template"], template, callback);
     }
 }
