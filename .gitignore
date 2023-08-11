@@ -34,3 +34,5 @@ packages/abra/node_modules
 packages/abra/dist
 packages/gpwebpay/node_modules
 packages/gpwebpay/dist
+packages/wolt/node_modules
+packages/wolt/dist

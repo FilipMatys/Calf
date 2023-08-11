@@ -2,7 +2,7 @@
 import { expect } from "chai";
 
 // Import library
-import { Property, PropertyType, Entity, Default, Required, Unique, Timestamp, SchemaParser, Extends } from "../lib/serializable";
+import { Property, PropertyType, Entity, Default, Required, Unique, Timestamp, SchemaParser, Extends, Indexes } from "../lib/serializable";
 
 class Human {
     @Property(PropertyType.DOUBLE)
@@ -17,12 +17,15 @@ class Thing {
 
 @Entity("Person")
 @Extends(Thing, Human)
+@Indexes([
+    { fields: { expireAt: 1 }, options: { expireAfterSeconds: 0 } },
+])
 @Timestamp()
 class Person {
 
     @Required()
     @Unique()
-    @Property(PropertyType.DOUBLE)    
+    @Property(PropertyType.DOUBLE)
     public age: number = 0;
 
     @Property("name", PropertyType.TEXT)
