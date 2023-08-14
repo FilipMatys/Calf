@@ -1,5 +1,4 @@
 export enum PrimaryReturnCode {
-
      OK = 0,
      FIELD_TOO_LONG = 1,
      FIELD_TOO_SHORT = 2,
