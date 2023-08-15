@@ -12,6 +12,8 @@ export * from "./common/interfaces/add-info/shipping-detail.interface";
 
 // Common enums
 export * from "./common/enums/acsres.enum";
+export * from "./common/enums/country-number-code.enum";
+export * from "./common/enums/delivery-method.enum";
 export * from "./common/enums/currency.enum";
 export * from "./common/enums/language.enum";
 export * from "./common/enums/operation-type.enum";
