@@ -192,6 +192,9 @@ export class RequestService {
           }
 
           // Currency validation
+          if (!payment.currency) {
+               throw new Error('Currency is required.')
+          }
           if (payment.currency.toString().length !== 3) {
                throw new Error('currency must be in ISO 4217 format.')
           }
@@ -203,7 +206,7 @@ export class RequestService {
 
           // MerOrderNum validation
           if (payment.merOrderNum && payment.merOrderNum.toString().length > 30) {
-               throw new Error('MerOrderNum is required.')
+               throw new Error('MerOrderNum can have maximum of 30 characters.')
           }
 
           // Url validation
