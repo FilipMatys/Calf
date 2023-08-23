@@ -6,16 +6,16 @@ describe("GpWebpay", async () => {
 
 
     // Get private and public key
-    const privateKey = await fs.readFileSync("/Users/jirikratochvil/Documents/Projects/Geph/packages/packages/gpwebpay/test/gpwebpay-pvk.key", { encoding: "utf8" });
-    const publicKey = await fs.readFileSync("/Users/jirikratochvil/Documents/Projects/Geph/packages/packages/gpwebpay/test/gpe.signing_test.pem", { encoding: "utf8" });
+    const privateKey = await fs.readFileSync("", { encoding: "utf8" });
+    const publicKey = await fs.readFileSync("", { encoding: "utf8" });
 
     // Init GpWebpay
     await GpWebpay.initialize({
         privateKey: privateKey,
-        privateKeyPassword: "le6WKksoE1rFM1Fe32Bo",
+        privateKeyPassword: "",
         publicKey: publicKey,
-        host: "https://test.3dsecure.gpwebpay.com/pgw/order.do",
-        merchantNumber: "8888890552"
+        host: "",
+        merchantNumber: ""
     })
 
     const cardHolder = {
@@ -55,7 +55,7 @@ describe("GpWebpay", async () => {
         url: "http://localhost:4200/api/customer/invoice/payment/gw/gpwebpay/result"
     })
 
-    console.log(result)
+    // console.log(result)
 
 
     // Test payment response
