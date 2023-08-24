@@ -1818,9 +1818,9 @@ export interface ICommonWorkPosition extends IAbraModel {
  * @description Interface for Communication type
  */
 export interface ICommunicationType extends IAbraModel {
-    Code?: string;
-    FixedType?: number;
-    Name?: string;
+    Code: number,
+    Name: string,
+    FixedType: number
 }
 
 /**
@@ -1897,4 +1897,481 @@ export interface ICompensation extends IAbraModel {
     Rows?: ICompensationRow[];
     NewRelatedDocument_ID?: string;
     NewRelatedType?: number;
+}
+
+/**
+ * Country
+ * @description Interface for abra country
+ */
+export interface ICountry extends IAbraModel {
+    Rows?: ICountryRow[],
+    Hidden?: boolean,
+    Code?: string,
+    Name?: string,
+    Currency_ID?: string,
+    NumCode?: string,
+    AlternateCode?: string
+}
+
+/**
+ * Country row
+ * @description Interface for abra country row
+ */
+export interface ICountryRow extends IAbraModel {
+    Parent_ID?: string,
+    DateOfChange$DATE?: string,
+    EUMember?: boolean
+}
+
+/**
+ * Currency
+ * @description Interface for abra currency
+ */
+export interface ICurrency {
+    ID?: string,
+    ObjVersion?: 5,
+    Rows?: ICurrencyRow[],
+    Hidden?: false,
+    Code?: string,
+    Name?: string,
+    Symbol?: string,
+    Rounding?: number,
+    Values?: ICurrencyValue[],
+    BankCode?: string,
+    DocRounding?: number,
+    DocCashRounding?: number,
+    DocVATRounding?: number
+}
+
+/**
+ * Currency value
+ * @description Interface for abra currency value
+ */
+export interface ICurrencyValue extends IAbraModel {
+    Parent_ID?: string,
+    NominalValue?: number,
+    Description?: string
+}
+
+/**
+ * Currency row
+ * @description Interface for abra currency row
+ */
+export interface ICurrencyRow extends IAbraModel {
+    Parent_ID?: string,
+    DateOfChange$DATE?: string,
+    Denomination?: boolean,
+    Currency_ID?: string,
+    Coef?: string
+}
+
+/**
+* Employee count category
+* @description Interface for abra Employee count category
+ */
+export interface IEmployeeCountCategory extends IAbraModel {
+    Code?: string,
+    Name?: string,
+    Minimum?: number,
+    Maximum?: number,
+    MeanValue?: number
+}
+
+/**
+ * Financial category
+ * @description Interface for abra Financial category
+ */
+export interface IFinancialCategory extends IAbraModel {
+    Code?: string,
+    Name?: string,
+    Minimum?: number,
+    Maximum?: number,
+    MeanValue?: number
+}
+
+/**
+ * Firm assortment discount
+ * @description Interface for abra firm assortment discount
+ */
+export interface IFirmAssortmentDiscount extends IAbraModel {
+    Discount?: number,
+    Parent_ID?: string,
+    PosIndex?: number,
+    Price_ID?: string,
+    StoreAssortmentGroup_ID?: string
+}
+
+/**
+ * Firm category metadata
+ * @description Interface for abra firm category metadata
+ */
+export interface IFirmCategoryMetadata extends IAbraModel {
+    Parent_ID?: string,
+    CategoryItem_ID?: string,
+    StringValue?: string,
+    CategoryUpdateMode?: number,
+    ChangeDate$DATE?: Date
+}
+
+/**
+ * Firm nace
+ * @description Interface for abra firm nace
+ */
+export interface IFirmNace extends IAbraModel {
+    Parent_ID?: string,
+    PosIndex?: number,
+    Nace_ID?: string,
+    NACEUpdateMode?: number,
+    ChangeDate$DATE?: Date
+}
+
+/**
+ * Firm office
+ * @description Interface for abra firm office
+ */
+export interface IFirmOffice extends IAbraModel {
+    Address_id?: string,
+    Checkcredit?: boolean,
+    Credit?: number,
+    Dealercategory_id?: string,
+    Electronicaddress_id?: string,
+    Hidden?: boolean,
+    Id?: string,
+    Masscorrespondence?: boolean,
+    Name?: string,
+    Objversion?: number,
+    Officeidentnumber?: string,
+    Officeunique_id?: string,
+    Parent_id?: string,
+    Posindex?: number,
+    Store_id?: string,
+    Synchronizeaddress?: boolean
+}
+
+/**
+ * Firm office
+ * @description Interface for abra firm office
+ */
+export interface IFirmPerson extends IAbraModel {
+    Parent_ID?: string,
+    PosIndex?: number,
+    FirmOffice_ID?: string,
+    Person_ID?: string,
+    CommonWorkPosition_ID?: string,
+    Note?: string,
+    Address_ID?: string
+}
+
+/**
+ * Firm office
+ * @description Interface for abra firm office
+ */
+export interface IFirmPicture extends IAbraModel {
+    Parent_ID?: string,
+    PosIndex?: number,
+    Picture_ID?: string
+}
+
+/**
+ * Firm
+ * @description Interface for abra firm
+ */
+export interface IFirm extends IAbraModel {
+    Rows?: IBankAccount[],
+    Hidden?: boolean,
+    Code?: string,
+    Name?: string,
+    ResidenceAddress_ID?: string,
+    OrgIdentNumber?: string,
+    VATIdentNumber?: string,
+    EORIIdentNumber?: string,
+    Firm_ID?: string,
+    PriceList_ID?: string,
+    DueTerm?: number,
+    DueTermForPurchase?: number,
+    DealerCategory_ID?: string,
+    DealerDiscount?: number,
+    Note?: string,
+    Credit?: number,
+    CheckCredit?: boolean,
+    K0?: string,
+    K1?: string,
+    K2?: string,
+    K3?: string,
+    K4?: string,
+    K5?: string,
+    K6?: string,
+    K7?: string,
+    K8?: string,
+    K9?: string,
+    K10?: string,
+    K11?: string,
+    K12?: string,
+    K13?: string,
+    K14?: string,
+    K15?: string,
+    WWWAddress?: string,
+    PenaltyPercent?: number,
+    FirmOffices?: IFirmOffice[],
+    FirmNACEs?: IFirmNace[],
+    CategoriesMetadata?: IFirmCategoryMetadata[],
+    PaymentType_ID?: string,
+    TransportationType_ID?: string,
+    Currency_ID?: string,
+    Price_ID?: string,
+    NPTitle?: string,
+    NPResidencePermitNumber?: string,
+    NPBirthNumber?: string,
+    NPSurname?: string,
+    NPForename?: string,
+    IsRegistered?: boolean,
+    RegisterKeptAt?: string,
+    RegisterFileRef?: string,
+    RegisterDate$DATE?: string,
+    PrefillDiscountKind?: boolean,
+    DealerDiscountKind?: number,
+    QuantityDiscountKind?: number,
+    CommunicationType_ID?: string,
+    AssortmentDiscounts?: IFirmAssortmentDiscount[],
+    TAXIdentNumber?: string,
+    Pictures?: IFirmPicture[],
+    CRMMenuItem_ID?: string,
+    EInvoiceFormat?: number,
+    InvoicingDelivery?: number,
+    ElectronicAddress_ID?: string,
+    ElecPosAgreementRef?: string,
+    ImportDataFromARESAt$DATE?: string,
+    StateConsolidationUnit?: boolean,
+    LegalPerson?: boolean,
+    VATPayor?: boolean,
+    ECDCustomerIdType?: number,
+    GDPRValiditySuspended?: boolean,
+    DebitAccount_ID?: string,
+    CreditAccount_ID?: string,
+    ScontoUsage?: number,
+    ScontoPayLimit?: number,
+    ScontoPattern_ID?: string,
+    ScontoType_ID?: string,
+    Picture_ID?: string,
+    Store_ID?: string,
+    VATCountry_ID?: string,
+    AfterDueTerm?: number,
+    AfterDueTermEnabled?: boolean,
+    EquityCapital_ID?: string,
+    Turnover_ID?: string,
+    Profit_ID?: string,
+    EmployeeCount_ID?: string,
+    LegalStatus_ID?: string,
+    OwnershipType_ID?: string,
+    CommercialsAgreement?: number,
+    MainNACECode_ID?: string,
+    FirmPersons?: IFirmPerson[],
+    CreatedAt$DATE?: string,
+    CorrectedAt$DATE?: string,
+    CreatedBy_ID?: string,
+    CorrectedBy_ID?: string
+}
+
+/**
+ * Ownership type
+ * @description Interface for abra ownership type
+ */
+export interface IOwnershipType extends IAbraModel {
+    Code?: number,
+    Name?: string
+}
+
+/**
+ * Payment type
+ * @description Interface for abra Payment type
+ */
+export interface IPaymentType extends IAbraModel {
+    Hidden?: boolean,
+    Code?: string,
+    Name?: string,
+    PaymentKind?: number,
+    CommentTitle?: string,
+    CommentRequired?: boolean,
+    AuthCodeRequired?: boolean,
+    SummarizeDisabled?: boolean,
+    PrintComment?: boolean,
+    MaximumGiveBackAmount?: number,
+    AnalyticalAccount?: string,
+    MaximumPaymentAmount?: number,
+    EET?: boolean
+}
+
+/**
+ * Period
+ * @description Interface for abra Period
+ */
+export interface IPeriod extends IAbraModel {
+    Code?: boolean,
+    Name?: string,
+    DateFrom$DATE?: string,
+    DateTo$DATE?: string,
+    Closing?: boolean,
+    Beginnings?: boolean,
+    SequenceNumber?: number
+}
+
+/**
+ * Picture
+ * @description Interface for abra Picture
+ */
+export interface IPicture extends IAbraModel {
+    BlobData?: string,
+    PictureTitle?: string,
+    ExternalFile?: boolean,
+    PathAndFileName?: string,
+    RefCount?: number,
+    IsProtected?: boolean,
+    Class_ID?: string
+}
+
+/**
+ * Price definition
+ * @description Interface for abra Price definition
+ */
+export interface IPriceDefinition extends IAbraModel {
+    Hidden?: boolean,
+    Code?: number,
+    Name?: string,
+    Note?: string,
+    Currency_ID?: string,
+    PriceWithVAT?: boolean,
+    Basic?: boolean
+}
+
+/**
+ * Price list rounding
+ * @description Interface for abra price list rounding
+ */
+export interface IPriceListRounding extends IAbraModel {
+    AmountTo?: number,
+    ConstantToAdd?: number,
+    Currency_ID?: string,
+    Parent_ID?: string,
+    PosIndex?: number,
+    PriceRounding?: number
+}
+
+/**
+ * Price list store price
+ * @description Interface for abra Price list store price
+ */
+export interface IPriceListStorePricePrice extends IAbraModel {
+    Amount?: number,
+    Parent_id?: string,
+    Price_id?: string,
+    Qunit?: string,
+    TieredPrice?: boolean,
+    UnitRate?: number
+}
+
+/**
+ * Price list store price
+ * @description Interface for abra Price list store price
+ */
+export interface IPriceListStorePrice extends IAbraModel {
+    StoreCard_ID?: string,
+    PriceRows?: IPriceListStorePricePrice[],
+    PriceList_ID?: string,
+    PriceListValidity_ID?: string,
+    DeletedFromPriceList?: boolean
+}
+
+/**
+ * Price list validity
+ * @description Interface for abra price list validity
+ */
+export interface IPriceListValidity extends IAbraModel {
+    Description?: string,
+    Parent_ID?: string,
+    ValidFromDate$DATE?: string
+}
+
+/**
+ * Price list
+ * @description Interface for abra price list
+ */
+export interface IPriceList extends IAbraModel {
+    Rows?: IPriceListValidity[],
+    Hidden?: boolean,
+    Code?: string,
+    Name?: string,
+    Note?: string,
+    ManagedBy_ID?: string,
+    CreationDate$DATE?: string,
+    DealerDiscountExcluded?: boolean,
+    IndividualDiscountExcluded?: boolean,
+    FinancialDiscountExcluded?: boolean,
+    QuantityDiscountExcluded?: boolean,
+    DocumentDiscountExcluded?: boolean,
+    PriceListRoundings?: IPriceListRounding[]
+}
+
+/**
+ * Security user
+ * @description Security user
+ */
+export interface ISecurityUser extends IAbraModel {
+    Address_ID?: string,
+    AskToNPS?: boolean,
+    BIAccess?: boolean,
+    BI_GID?: string,
+    DPBypass?: boolean,
+    Locked?: boolean,
+    LoginName?: string,
+    Name?: string,
+    Note?: string,
+    OfferToLogin?: boolean,
+    PortalLoginName?: string,
+    PortalSecPassword?: string,
+    SecPassword?: string,
+    SecToken?: string,
+    SecTokenFastLogin?: boolean,
+    ShortName?: string,
+    WebAPIAccess?: boolean
+}
+
+/**
+ * Store
+ * @description Store
+ */
+export interface IStore extends IAbraModel {
+    Hidden?: false,
+    Address_ID?: string,
+    Name?: string,
+    Code?: string,
+    Account_ID?: string,
+    PriceList_ID?: string,
+    InventoryState?: number,
+    MachineName?: string,
+    InvStartedBy_ID?: string,
+    RefundStore_ID?: string,
+    FirstOpenPeriod_ID?: string,
+    LastOpenPeriod_ID?: string,
+    FIFO?: boolean,
+    ToAccount?: boolean,
+    OutOfStockDelivery?: number,
+    OutOfStockBatchDelivery?: number,
+    IntrastatInputStatistic_ID?: string,
+    IntrastatOutputStatistic_ID?: string,
+    IntrastatRegion_ID?: string,
+    IsLogistic?: boolean,
+    IsLogisticFromDate$DATE?: string,
+    RegisterBusOrders?: boolean,
+    IgnoreSCOutOfStockDelivery?: boolean
+}
+
+/**
+ * Transportation type
+ * @description Transportation type
+ */
+export interface ITransportationType extends IAbraModel {
+    Hidden?: boolean,
+    Code?: string,
+    Name?: string,
+    AnalyticalAccount?: string
 }
