@@ -12,6 +12,22 @@ import { AbraModule } from "../enums/module.enum";
 import { AbraConfig } from "../classes/config.class";
 
 /**
+ * Function for attributes normalization, all has to start with upper case char
+ * @param input 
+ * @returns 
+ */
+const normalizeAttributes: any = function (input: any) {
+    if (typeof input !== 'object') return input;
+    if (Array.isArray(input)) return input.map(normalizeAttributes);
+    return Object.keys(input).reduce(function (newObj, key) {
+        let val = input[key];
+        let newVal = (typeof val === 'object') && val !== null ? normalizeAttributes(val) : val;
+        (newObj as any)[key.charAt(0).toUpperCase() + key.slice(1)] = newVal;
+        return newObj;
+    }, {});
+};
+
+/**
  * Api service
  * @description Abra API service
  */
@@ -41,6 +57,7 @@ export class ApiService {
         return this.exception$;
     }
 
+
     /**
      * Get list
      * @param module 
@@ -67,7 +84,7 @@ export class ApiService {
         this.resultSource.next(normalized);
 
         // Return normalized result
-        return normalized as TResult[];
+        return normalizeAttributes(normalized) as TResult[];
     }
 
     /**
@@ -94,7 +111,7 @@ export class ApiService {
         this.resultSource.next(result);
 
         // Return result
-        return result;
+        return normalizeAttributes(result);
     }
 
     /**
@@ -141,7 +158,7 @@ export class ApiService {
         this.resultSource.next(result);
 
         // Return result
-        return result;
+        return normalizeAttributes(result);
     }
 
     /**
@@ -179,7 +196,7 @@ export class ApiService {
         this.resultSource.next(result);
 
         // Return result
-        return result;
+        return normalizeAttributes(result);
     }
 
     /**
@@ -215,7 +232,7 @@ export class ApiService {
         this.resultSource.next(result);
 
         // Return result
-        return result;
+        return normalizeAttributes(result);
     }
 
     /**
