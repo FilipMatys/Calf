@@ -571,7 +571,7 @@ export interface IBankAccountRow extends IAbraModel {
  */
 export interface IBankAccount extends IAbraModel {
     account_id?: string;
-    address_id?: string;
+    address_id?: string | IAddress;
     bankaccount?: string;
     bankcountry_id?: string;
     bankstatement_id?: string;
@@ -2030,11 +2030,11 @@ export interface IFirmNace extends IAbraModel {
  * @description Interface for abra firm office
  */
 export interface IFirmOffice extends IAbraModel {
-    address_id?: string,
+    address_id?: string | IAddress,
     checkcredit?: boolean,
     credit?: number,
     dealercategory_id?: string,
-    electronicaddress_id?: string,
+    electronicaddress_id?: string | IAddress,
     hidden?: boolean,
     id?: string,
     masscorrespondence?: boolean,
@@ -2059,7 +2059,7 @@ export interface IFirmPerson extends IAbraModel {
     person_id?: string,
     commonworkposition_id?: string,
     note?: string,
-    address_id?: string
+    address_id?: string | IAddress;
 }
 
 /**
@@ -2081,7 +2081,7 @@ export interface IFirm extends IAbraModel {
     hidden?: boolean,
     code?: string,
     name?: string,
-    residenceaddress_id?: string,
+    residenceaddress_id?: string | IAddress,
     orgidentnumber?: string,
     vatidentnumber?: string,
     eoriidentnumber?: string,
@@ -2138,7 +2138,7 @@ export interface IFirm extends IAbraModel {
     crmmenuitem_id?: string,
     einvoiceformat?: number,
     invoicingdelivery?: number,
-    electronicaddress_id?: string,
+    electronicaddress_id?: string | IAddress,
     elecposagreementref?: string,
     importdatafromaresat$date?: string,
     stateconsolidationunit?: boolean,
@@ -2341,7 +2341,7 @@ export interface ISecurityUser extends IAbraModel {
  */
 export interface IStore extends IAbraModel {
     hidden?: false,
-    address_id?: string,
+    address_id?: string | IAddress,
     name?: string,
     code?: string,
     account_id?: string,

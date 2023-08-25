@@ -1,6 +1,6 @@
 {
   "name": "@calf/abra",
-  "version": "0.11.0-alpha",
+  "version": "0.12.0-alpha",
   "description": "Abra module of Calf framework.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
