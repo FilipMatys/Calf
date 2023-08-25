@@ -1,1916 +1,1902 @@
-// Models
+// models
 import { IAbraModel } from "./abra.model";
 
 /**
- * Abra Help desk user
- * @description Interface for Abra Help desk user
+ * Abra help desk user
+ * @description interface for abra help desk user
  */
-export interface IAbraHelpDeskUser extends IAbraModel {
-    Email?: string;
-    FirstName?: string;
-    LastName?: string;
-    PhoneNumber?: string;
-    ReqID?: string;
-    ReqUserName?: string;
-    SecUser_ID?: string;
+export interface IAbraHelpdeskUser extends IAbraModel {
+    email?: string;
+    firstname?: string;
+    lastname?: string;
+    phonenumber?: string;
+    reqid?: string;
+    requsername?: string;
+    secuser_id?: string;
 }
 
 /**
  * Accrual row
- * @description Interface for Accrual
+ * @description interface for accrual
  */
-export interface IAccAccrualRow extends IAbraModel {
-    AccDate$DATE?: string;
-    Amount?: number;
-    AmountInCurrency?: number;
-    Parent_ID?: string;
+export interface IAccaccrualRow extends IAbraModel {
+    accdate$date?: string;
+    amount?: number;
+    amountincurrency?: number;
+    parent_id?: string;
 
 }
 
 /**
  * Accrual
- * @description Interface for Accrual
+ * @description interface for Accrual
  */
-export interface IAccAccrual extends IAbraModel {
-    AccrualsDateFrom$DATE?: string;
-    AccrualsDateTo$DATE?: string;
-    PeriodCount?: number;
-    PeriodType?: number;
-    Rows?: IAccAccrualRow[];
-    SourceDocAccDate$DATE?: string;
-    SourceDocRow_ID?: string;
-    SourceDocType?: string;
-    SourceDoc_ID?: string;
-    SourceDocumentAllRows?: boolean;
-    TotalRowAmountInCurrency?: number;
-    TotalRowLocalAmount?: number;
-    UserChange?: boolean;
+export interface IAccaccrual extends IAbraModel {
+    accrualsdatefrom$date?: string;
+    accrualsdateto$date?: string;
+    periodcount?: number;
+    periodtype?: number;
+    rows?: IAccaccrualRow[];
+    sourcedocaccdate$date?: string;
+    sourcedocrow_id?: string;
+    sourcedoctype?: string;
+    sourcedoc_id?: string;
+    sourcedocumentallrows?: boolean;
+    totalrowamountincurrency?: number;
+    totalrowlocalamount?: number;
+    userchange?: boolean;
 }
 
 /**
- * Document queue period
- * @description Interface for Document queue period
+ * dDcument queue period
+ * @description interface for document queue period
  */
 export interface IAccDocQueuePeriod extends IAbraModel {
-    DocQueue_ID?: string;
-    LastNumber?: number;
-    Period_ID?: string;
+    docqueue_id?: string;
+    lastnumber?: number;
+    period_id?: string;
 }
 
 /**
  * Document queue
- * @description Interface for Document queue
+ * @description Interface for document queue
  */
 export interface IAccDocQueue extends IAbraModel {
-    AccountWhere?: boolean;
-    AutoFillHole?: boolean;
-    Code?: string;
-    DocumentType?: string;
-    Hidden?: boolean;
-    LastNumbers?: IAccDocQueuePeriod[];
-    Name?: string;
-    Note?: string;
-    ReverseAccounting?: boolean;
-    ReverseDepositAccounting?: boolean;
-    SummaryAccounted?: boolean;
+    accountwhere?: boolean;
+    autofillhole?: boolean;
+    code?: string;
+    documenttype?: string;
+    hidden?: boolean;
+    lastnumbers?: IAccDocQueuePeriod[];
+    name?: string;
+    note?: string;
+    reverseaccounting?: boolean;
+    reversedepositaccounting?: boolean;
+    summaryaccounted?: boolean;
 }
 
 /**
  * Document queue unused number
- * @description Interface for Document queue unused number
+ * @description Interface for document queue unused number
  */
-export interface IAccDocQueueUnusedNumber extends IAbraModel {
-    CorrectedAt$DATE?: string;
-    CreatedAt$DATE?: string;
-    OrdNumber?: number;
-    Origin?: number;
-    Parent_ID?: string;
-    PriorityUser_ID?: string;
-    Reserved?: boolean;
+export interface IAccDocQueueuUnusedNumber extends IAbraModel {
+    correctedat$date?: string;
+    createdat$date?: string;
+    ordnumber?: number;
+    origin?: number;
+    parent_id?: string;
+    priorityuser_id?: string;
+    reserved?: boolean;
 }
 
 /**
  * Group
- * @description Interface for Group
+ * @description Interface for group
  */
 export interface IAccGroup extends IAbraModel {
-    CustGroup?: string;
+    custgroup?: string;
 }
 
 /**
  * Account
- * @description Interface for Account
+ * @description Interface for account
  */
 export interface IAccount extends IAbraModel {
-    AccountType?: string;
-    AccountTypeIndex?: number;
-    BalanceAccount?: boolean;
-    Code?: string;
-    Hidden?: boolean;
-    IsCostForProjectControl?: boolean;
-    IsIncomplete?: boolean;
-    IsRevenueForProjectControl?: boolean;
-    Name?: string;
-    Parent2_ID?: string;
-    Parent_ID?: string;
-    PrintToAcumulatedStatement?: boolean;
-    Short?: boolean;
-    Taxable?: boolean;
-    Transferable?: boolean;
-    TypeOfActivity?: number;
-    VATIndex_ID?: string;
-    AccountTypeName?: string;
-    ParentCode?: string;
-    ParentCode2?: string;
+    accounttype?: string;
+    accounttypeindex?: number;
+    balanceaccount?: boolean;
+    code?: string;
+    hidden?: boolean;
+    iscostforprojectcontrol?: boolean;
+    isincomplete?: boolean;
+    isrevenueforprojectcontrol?: boolean;
+    name?: string;
+    parent2_id?: string;
+    parent_id?: string;
+    printtoacumulatedstatement?: boolean;
+    short?: boolean;
+    taxable?: boolean;
+    transferable?: boolean;
+    typeofactivity?: number;
+    vatindex_id?: string;
+    accounttypename?: string;
+    parentcode?: string;
+    parentcode2?: string;
 }
 
 /**
  * Account beginning
- * @description Interface for Account beginning
+ * @description Interface for account beginning
  */
 export interface IAccountBeginnings extends IAbraModel {
-    Account_ID?: string;
-    BusOrder_ID?: string;
-    BusProject_ID?: string;
-    BusTransaction_ID?: string;
-    CreditAmount?: number;
-    DebitAmount?: number;
-    Division_ID?: string;
-    Period_ID?: string;
+    account_id?: string;
+    busorder_id?: string;
+    busproject_id?: string;
+    bustransaction_id?: string;
+    creditamount?: number;
+    debitamount?: number;
+    division_id?: string;
+    period_id?: string;
 }
 
 /**
  * Preset definition
- * @description Interface for Preset definition row
+ * @description Interface for preset definition row
  */
 export interface IAccPresetDefinitionRow extends IAbraModel {
-    Condition?: string;
-    ContinueEvaluation?: boolean;
-    CreditAccountExpr?: string;
-    CreditAccount_ID?: string;
-    CreditBusOrderExpr?: string;
-    CreditBusOrder_ID?: string;
-    CreditBusProjectExpr?: string;
-    CreditBusProject_ID?: string;
-    CreditBusTransactionExpr?: string;
-    CreditBusTransaction_ID?: string;
-    CreditDivisionExpr?: string;
-    CreditDivision_ID?: string;
-    DebitAccountExpr?: string;
-    DebitAccount_ID?: string;
-    DebitBusOrderExpr?: string;
-    DebitBusOrder_ID?: string;
-    DebitBusProjectExpr?: string;
-    DebitBusProject_ID?: string;
-    DebitBusTransactionExpr?: string;
-    DebitBusTransaction_ID?: string;
-    DebitDivisionExpr?: string;
-    DebitDivision_ID?: string;
-    Exceptable?: boolean;
-    ExpressionRow?: boolean;
-    Parent_ID?: string;
-    PosIndex?: number;
-    RowType?: number;
-    TextExpr?: string;
+    condition?: string;
+    continueevaluation?: boolean;
+    creditaccountexpr?: string;
+    creditaccount_id?: string;
+    creditbusorderexpr?: string;
+    creditbusorder_id?: string;
+    creditbusprojectexpr?: string;
+    creditbusproject_id?: string;
+    creditbustransactionexpr?: string;
+    creditbustransaction_id?: string;
+    creditdivisionexpr?: string;
+    creditdivision_id?: string;
+    debitaccountexpr?: string;
+    debitaccount_id?: string;
+    debitbusorderexpr?: string;
+    debitbusorder_id?: string;
+    debitbusprojectexpr?: string;
+    debitbusproject_id?: string;
+    debitbustransactionexpr?: string;
+    debitbustransaction_id?: string;
+    debitdivisionexpr?: string;
+    debitdivision_id?: string;
+    exceptable?: boolean;
+    expressionrow?: boolean;
+    parent_id?: string;
+    posindex?: number;
+    rowtype?: number;
+    textexpr?: string;
 }
 
 /**
  * Preset definition split amount row
- * @description Interface for Preset definition split amount row
+ * @description Interface for preset definition split amount row
  */
 export interface IAccPresetDefinitionSplitAmountRow extends IAbraModel {
-    AmountExpr?: string;
-    Condition?: string;
-    CreditAccountExpr?: string;
-    CreditAccount_ID?: string;
-    CreditBusOrderExpr?: string;
-    CreditBusOrder_ID?: string;
-    CreditBusProjectExpr?: string;
-    CreditBusProject_ID?: string;
-    CreditBusTransactionExpr?: string;
-    CreditBusTransaction_ID?: string;
-    CreditDivisionExpr?: string;
-    CreditDivision_ID?: string;
-    DebitAccountExpr?: string;
-    DebitAccount_ID?: string;
-    DebitBusOrderExpr?: string;
-    DebitBusOrder_ID?: string;
-    DebitBusProjectExpr?: string;
-    DebitBusProject_ID?: string;
-    DebitBusTransactionExpr?: string;
-    DebitBusTransaction_ID?: string;
-    DebitDivisionExpr?: string;
-    DebitDivision_ID?: string;
-    ExpressionRow?: boolean;
-    Parent_ID?: string;
-    PosIndex?: number;
-    RowType?: number;
-    TextExpr?: string;
-    Text2?: string;
+    amountexpr?: string;
+    condition?: string;
+    creditaccountexpr?: string;
+    creditaccount_id?: string;
+    creditbusorderexpr?: string;
+    creditbusorder_id?: string;
+    creditbusprojectexpr?: string;
+    creditbusproject_id?: string;
+    creditbustransactionexpr?: string;
+    creditbustransaction_id?: string;
+    creditdivisionexpr?: string;
+    creditdivision_id?: string;
+    debitaccountexpr?: string;
+    debitaccount_id?: string;
+    debitbusorderexpr?: string;
+    debitbusorder_id?: string;
+    debitbusprojectexpr?: string;
+    debitbusproject_id?: string;
+    debitbustransactionexpr?: string;
+    debitbustransaction_id?: string;
+    debitdivisionexpr?: string;
+    debitdivision_id?: string;
+    expressionrow?: boolean;
+    parent_id?: string;
+    posindex?: number;
+    rowtype?: number;
+    textexpr?: string;
+    text2?: string;
 }
 
 /**
  * Preset definition
- * @description Interface for Preset definition
+ * @description Interface for preset definition
  */
 export interface IAccPresetDefinition extends IAbraModel {
-    Basic?: boolean;
-    Code?: string;
-    ComputedDocQueue?: string;
-    DocQueue_ID?: string;
-    DocumentType?: string;
-    Hidden?: boolean;
-    Name?: string;
-    Rows?: IAccPresetDefinitionRow[];
-    SplitAmountDefs?: IAccPresetDefinitionSplitAmountRow[];
+    basic?: boolean;
+    code?: string;
+    computeddocqueue?: string;
+    docqueue_id?: string;
+    documenttype?: string;
+    hidden?: boolean;
+    name?: string;
+    rows?: IAccPresetDefinitionRow[];
+    splitamountdefs?: IAccPresetDefinitionSplitAmountRow[];
 }
 
 /**
  * Price list restriction use
- * @description Interface for Price list restriction use
+ * @description Interface for price list restriction use
  */
-export interface IPriceListRestrictionUse extends IAbraModel {
-    Firm_ID?: string;
-    Parent_ID?: string;
-    RestrictionType?: number;
-    Store_ID?: string;
+export interface IPricelistRestrictionUse extends IAbraModel {
+    firm_id?: string;
+    parent_id?: string;
+    restrictiontype?: number;
+    store_id?: string;
 }
 
 /**
  * Price list rounding
- * @description Interface for Price list rounding
+ * @description Interface for price list rounding
  */
 export interface IPriceListRounding extends IAbraModel {
-    AmountTo?: number;
-    ConstantToAdd?: number;
-    Currency_ID?: string;
-    Parent_ID?: string;
-    PosIndex?: number;
-    PriceRounding?: number;
-    RoundingBase?: number;
-    RoundingType?: number;
+    amountto?: number;
+    constanttoadd?: number;
+    currency_id?: string;
+    parent_id?: string;
+    posindex?: number;
+    pricerounding?: number;
+    roundingbase?: number;
+    roundingtype?: number;
 }
 
 /**
  * Action price list
- * @description Interface for Action price list
+ * @description Interface for action price list
  */
 export interface IActionPriceList extends IAbraModel {
-    ByDateOfWeek?: boolean;
-    ByTime?: boolean;
-    Code?: string;
-    CreationDate$DATE?: string;
-    DateFrom$DATE?: string;
-    DateTo$DATE?: string;
-    DealerDiscountExcluded?: boolean;
-    DocumentDiscountExcluded?: boolean;
-    FinancialDiscountExcluded?: boolean;
-    Friday?: boolean;
-    Hidden?: boolean;
-    IndividualDiscountExcluded?: boolean;
-    ManagedBy_ID?: string;
-    Monday?: boolean;
-    Name?: string;
-    Note?: string;
-    PriceListRoundings?: IPriceListRounding[];
-    Priority?: number;
-    QuantityDiscountExcluded?: boolean;
-    RestrictionUses?: IPriceListRestrictionUse[];
-    Saturday?: boolean;
-    Sunday?: boolean;
-    Thursday?: boolean;
-    TimeFrom?: string;
-    TimeTo?: string;
-    Tuesday?: boolean;
-    Wednesday?: boolean;
-    Comment?: string;
+    bydateofweek?: boolean;
+    bytime?: boolean;
+    code?: string;
+    creationdate$date?: string;
+    datefrom$date?: string;
+    dateto$date?: string;
+    dealerdiscountexcluded?: boolean;
+    documentdiscountexcluded?: boolean;
+    financialdiscountexcluded?: boolean;
+    friday?: boolean;
+    hidden?: boolean;
+    individualdiscountexcluded?: boolean;
+    managedby_id?: string;
+    monday?: boolean;
+    name?: string;
+    note?: string;
+    pricelistroundings?: IPriceListRounding[];
+    priority?: number;
+    quantitydiscountexcluded?: boolean;
+    restrictionuses?: IPricelistRestrictionUse[];
+    saturday?: boolean;
+    sunday?: boolean;
+    thursday?: boolean;
+    timefrom?: string;
+    timeto?: string;
+    tuesday?: boolean;
+    wednesday?: boolean;
+    comment?: string;
 }
 
 /**
  * Action tiered price
- * @description Interface for Action tiered price
+ * @description Interface for action tiered price
  */
 export interface IActionTieredPrice extends IAbraModel {
-    Discount?: number;
-    FirstPrice?: boolean;
-    Parent_ID?: string;
-    PosIndex?: number;
-    PriceFromDiscount?: boolean;
-    QuantityFrom?: number;
-    SellingPrice?: number;
+    discount?: number;
+    firstprice?: boolean;
+    parent_id?: string;
+    posindex?: number;
+    pricefromdiscount?: boolean;
+    quantityfrom?: number;
+    sellingprice?: number;
 }
 
 /**
  * Action store price row
- * @description Interface for Action store price row
+ * @description Interface for action store price row
  */
 export interface IActionStorePriceRow extends IAbraModel {
-    Amount?: number;
-    Parent_ID?: string;
-    Price_ID?: string;
-    QUnit?: string;
-    TieredPrice?: boolean;
-    TieredPrices?: IActionTieredPrice[];
-    UnitRate?: number;
-    OverrateTieredPrices?: boolean;
+    amount?: number;
+    parent_id?: string;
+    price_id?: string;
+    qunit?: string;
+    tieredprice?: boolean;
+    tieredprices?: IActionTieredPrice[];
+    unitrate?: number;
+    overratetieredprices?: boolean;
 }
 
 /**
  * Action store price
- * @description Interface for Action store price
+ * @description Interface for action store price
  */
 export interface IActionStorePrice extends IAbraModel {
-    PriceList_ID?: string;
-    StoreCard_ID?: string;
-    PriceRows?: IActionStorePriceRow[];
+    pricelist_id?: string;
+    storecard_id?: string;
+    pricerows?: IActionStorePriceRow[];
 }
 
 /**
  * Additional cost
- * @description Interface for Additional cost
+ * @description Interface for additional cost
  */
 export interface IAdditionalCost extends IAbraModel {
-    CustomsAmount?: number;
-    CustomsIsLocal?: boolean;
-    CustomsTariff?: number;
-    IntrastatAffectKind?: number;
-    OtherCostAmount?: number;
-    OtherCostIsLocal?: boolean;
-    OtherCostTariff?: number;
-    OtherCostUsed?: boolean;
-    SpendingTaxAmount?: number;
-    SpendingTaxIsLocal?: boolean;
-    SpendingTaxTariff?: number;
-    TransportationAmount?: number;
-    TransportationIsLocal?: boolean;
-    TransportationTariff?: number;
-    TransportationUsed?: boolean;
+    customsamount?: number;
+    customsislocal?: boolean;
+    customstariff?: number;
+    intrastataffectkind?: number;
+    othercostamount?: number;
+    othercostislocal?: boolean;
+    othercosttariff?: number;
+    othercostused?: boolean;
+    spendingtaxamount?: number;
+    spendingtaxislocal?: boolean;
+    spendingtaxtariff?: number;
+    transportationamount?: number;
+    transportationislocal?: boolean;
+    transportationtariff?: number;
+    transportationused?: boolean;
 }
 
 /**
  * Address
- * @description Interface for Address
+ * @description Interface for address
  */
 export interface IAddress extends IAbraModel {
-    City?: string;
-    Country?: string;
-    CountryCode?: string;
-    Databox?: string;
-    EMail?: string;
-    FaxNumber?: string;
-    GPS?: string;
-    Location?: string;
-    PhoneNumber1?: string;
-    PhoneNumber2?: string;
-    PostCode?: string;
-    Recipient?: string;
-    Street?: string;
-    ZIP?: string;
-    OfficialCity?: string;
-    OfficialHouseNumber?: string;
-    OfficialStreet?: string;
-    ShortAddress?: string;
+    city?: string;
+    country?: string;
+    countrycode?: string;
+    databox?: string;
+    email?: string;
+    faxnumber?: string;
+    gps?: string;
+    location?: string;
+    phonenumber1?: string;
+    phonenumber2?: string;
+    postcode?: string;
+    recipient?: string;
+    street?: string;
+    zip?: string;
+    officialcity?: string;
+    officialhousenumber?: string;
+    officialstreet?: string;
+    shortaddress?: string;
 }
 
 /**
  * Auto server queue item recipient
- * @description Interface for Queue item recipient
+ * @description Interface for queue item recipient
  */
 export interface IAutoServerQueueItemRecipient extends IAbraModel {
-    Email?: string;
-    Parent_ID?: string;
-    PosIndex?: number;
-    RecipientType?: number;
-    SecurityGroup_ID?: string;
-    SecurityRole_ID?: string;
-    SecurityUser_ID?: string;
-    SentKind?: number;
+    email?: string;
+    parent_id?: string;
+    posindex?: number;
+    recipienttype?: number;
+    securitygroup_id?: string;
+    securityrole_id?: string;
+    securityuser_id?: string;
+    sentkind?: number;
 }
 
 /**
  * Auto server queue item
- * @description Interface for Queue item
+ * @description Interface for queue item
  */
 export interface IAutoServerQueueItem extends IAbraModel {
-    CorrectedBy_ID?: string;
-    CreatedAt$DATE?: string;
-    CreatedBy_ID?: string;
-    Description?: string;
-    Recipients?: any[];
-    RunAs_ID?: string;
-    SPID?: number;
-    SchedulerItem_ID?: string;
-    StateKind?: number;
-    Subject?: string;
-    TaskCLSID?: string;
-    TaskParameters?: string;
-    RunAsPassword?: string;
-    SchedulerCode?: string;
-    SchedulerName?: string;
-    StateKindStr?: string;
-    TaskDisplayName?: string;
+    correctedby_id?: string;
+    createdat$date?: string;
+    createdby_id?: string;
+    description?: string;
+    recipients?: any[];
+    runas_id?: string;
+    spid?: number;
+    scheduleritem_id?: string;
+    statekind?: number;
+    subject?: string;
+    taskclsid?: string;
+    taskparameters?: string;
+    runaspassword?: string;
+    schedulercode?: string;
+    schedulername?: string;
+    statekindstr?: string;
+    taskdisplayname?: string;
 }
 
 /**
  * Auto server scheduler item recipient
- * @description Interface Auto server scheduler item recipient
+ * @description Interface auto server scheduler item recipient
  */
 export interface IAutoServerSchedulerItemRecipient extends IAbraModel {
-    Email?: string;
-    Parent_ID?: string;
-    PosIndex?: number;
-    RecipientType?: number;
-    SecurityGroup_ID?: string;
-    SecurityRole_ID?: string;
-    SecurityUser_ID?: string;
-    SentKind?: number;
+    email?: string;
+    parent_id?: string;
+    posindex?: number;
+    recipienttype?: number;
+    securitygroup_id?: string;
+    securityrole_id?: string;
+    securityuser_id?: string;
+    sentkind?: number;
 }
 
 /**
  * Auto server scheduler item
- * @description Interface Auto server scheduler item
+ * @description Interface auto server scheduler item
  */
-export interface IAutoServerSchedulerItem extends IAbraModel {
-    Code?: string;
-    CorrectedBy_ID?: string;
-    CreatedBy_ID?: string;
-    Description?: string;
-    ExecutionDateKind?: number;
-    ExecutionLogMaxAge?: number;
-    IsActive?: boolean;
-    IsActiveForTestConnection?: boolean;
-    LastScheduledDateTime$DATE?: string;
-    Name?: string;
-    NotificationKind?: number;
-    Recipients?: IAutoServerSchedulerItemRecipient[];
-    RepeatToDate$DATE?: string;
-    RepetitionCount?: number;
-    RepetitionCounter?: number;
-    RepetitionDay?: number;
-    RepetitionDaysInWeek?: string;
-    RepetitionKind?: number;
-    RepetitionMonth?: number;
-    RepetitionPeriodKind?: number;
-    RepetitionTime$DATE?: string;
-    RepetitionWeek?: number;
-    RunAs_ID?: string;
-    RunSoonAsPossible?: boolean;
-    ScheduledDateTime$DATE?: string;
-    Site?: string;
-    StartDateTime$DATE?: string;
-    Subject?: string;
-    TaskCLSID?: string;
-    TaskContext?: string;
-    TaskParameters?: string;
-    WeekendCorrectionKind?: number;
-    LastScheduledDateTimeStr?: string;
-    PlanDescription?: string;
-    RunAsPassword?: string;
-    ScheduledDateTimeStr?: string;
-    TaskDisplayName?: string;
+export interface IAutoServerScheduleriItem extends IAbraModel {
+    code?: string;
+    correctedby_id?: string;
+    createdby_id?: string;
+    description?: string;
+    executiondatekind?: number;
+    executionlogmaxage?: number;
+    isactive?: boolean;
+    isactivefortestconnection?: boolean;
+    lastscheduleddatetime$date?: string;
+    name?: string;
+    notificationkind?: number;
+    recipients?: IAutoServerSchedulerItemRecipient[];
+    repeattodate$date?: string;
+    repetitioncount?: number;
+    repetitioncounter?: number;
+    repetitionday?: number;
+    repetitiondaysinweek?: string;
+    repetitionkind?: number;
+    repetitionmonth?: number;
+    repetitionperiodkind?: number;
+    repetitiontime$date?: string;
+    repetitionweek?: number;
+    runas_id?: string;
+    runsoonaspossible?: boolean;
+    scheduleddatetime$date?: string;
+    site?: string;
+    startdatetime$date?: string;
+    subject?: string;
+    taskclsid?: string;
+    taskcontext?: string;
+    taskparameters?: string;
+    weekendcorrectionkind?: number;
+    lastscheduleddatetimestr?: string;
+    plandescription?: string;
+    runaspassword?: string;
+    scheduleddatetimestr?: string;
+    taskdisplayname?: string;
 }
 
 /**
  * Auto server task end log
- * @description Interface for Auto server task end log
+ * @description Interface for auto server task end log
  */
 export interface IAutoServerTaskEndLog extends IAbraModel {
-    FinishedAt$DATE?: string;
-    Note?: string;
-    ResultKind?: number;
-    TaskLog_ID?: string;
-    ResultKindStr?: string;
+    finishedat$date?: string;
+    note?: string;
+    resultkind?: number;
+    tasklog_id?: string;
+    resultkindstr?: string;
 }
 
 /**
  * Auto server task log
- * @description Interface for Auto server task log
+ * @description Interface for auto server task log
  */
 export interface IAutoServerTaskLog extends IAbraModel {
-    CreatedAt$DATE?: string;
-    Description?: string;
-    InstanceID?: string;
-    QueueItem_ID?: string;
-    SPID?: number;
-    SchedulerItem_ID?: string;
-    TaskCLSID?: string;
-    TaskParameters?: string;
+    createdat$date?: string;
+    description?: string;
+    instanceid?: string;
+    queueitem_id?: string;
+    spid?: number;
+    scheduleritem_id?: string;
+    taskclsid?: string;
+    taskparameters?: string;
 }
 
 /**
  * B2b export
- * @description Interface for B2b export
+ * @description Interface for b2b export
  */
 export interface IB2bExport extends IAbraModel {
-    CorrectedBy_ID?: string;
-    CreatedBy_ID?: string;
-    Data?: string;
-    DataSource?: string;
-    ExportID?: string;
-    Hash?: string;
-    IsForm?: boolean;
-    Owner_ID?: string;
-    System?: boolean;
-    Title?: string;
-    VisibleFrom$DATE?: string;
-    VisibleTo$DATE?: string;
+    correctedby_id?: string;
+    createdby_id?: string;
+    data?: string;
+    datasource?: string;
+    exportid?: string;
+    hash?: string;
+    isform?: boolean;
+    owner_id?: string;
+    system?: boolean;
+    title?: string;
+    visiblefrom$date?: string;
+    visibleto$date?: string;
 }
 
 /**
  * Balance exchange difference
- * @description Interface for Balance exchange difference
+ * @description Interface for balance exchange difference
  */
-export interface IBalanceExchangeDifference extends IAbraModel {
-    AccDate$DATE?: string;
-    AccDocQueue_ID?: string;
-    AccPresetDef_ID?: string;
-    Amount?: number;
-    BusOrder_ID?: string;
-    BusProject_ID?: string;
-    BusTransaction_ID?: string;
-    CorrectedBy_ID?: string;
-    CreatedBy_ID?: string;
-    Description?: string;
-    Division_ID?: string;
-    DocDate$DATE?: string;
-    DocQueue_ID?: string;
-    FirmOffice_ID?: string;
-    Firm_ID?: string;
-    OrdNumber?: number;
-    Original?: boolean;
-    PDocumentType?: string;
-    PDocument_ID?: string;
-    Period_ID?: string;
-    Person_ID?: string;
-    Profit?: boolean;
-    AccountingType?: number;
-    Country_ID?: string;
-    Currency_ID?: string;
-    Dirty?: boolean;
-    IsAccounted?: boolean;
-    LocalRefCurrency_ID?: string;
-    NewRelatedDocument_ID?: string;
-    NewRelatedType?: number;
-    RefCurrency_ID?: string;
+export interface IBalancExchangeDifference extends IAbraModel {
+    accdate$date?: string;
+    accdocqueue_id?: string;
+    accpresetdef_id?: string;
+    amount?: number;
+    busorder_id?: string;
+    busproject_id?: string;
+    bustransaction_id?: string;
+    correctedby_id?: string;
+    createdby_id?: string;
+    description?: string;
+    division_id?: string;
+    docdate$date?: string;
+    docqueue_id?: string;
+    firmoffice_id?: string;
+    firm_id?: string;
+    ordnumber?: number;
+    original?: boolean;
+    pdocumenttype?: string;
+    pdocument_id?: string;
+    period_id?: string;
+    person_id?: string;
+    profit?: boolean;
+    accountingtype?: number;
+    country_id?: string;
+    currency_id?: string;
+    dirty?: boolean;
+    isaccounted?: boolean;
+    localrefcurrency_id?: string;
+    newrelateddocument_id?: string;
+    newrelatedtype?: number;
+    refcurrency_id?: string;
 }
 
 /**
  * Bank account row
- * @description Interface for Bank account row
+ * @description Interface for bank account row
  */
 export interface IBankAccountRow extends IAbraModel {
-    Beginning?: number;
-    BeginningLocal?: number;
-    Parent_ID?: string;
-    Period_ID?: string;
+    beginning?: number;
+    beginninglocal?: number;
+    parent_id?: string;
+    period_id?: string;
 }
 
 /**
  * Bank account
- * @description Interface for Bank account
+ * @description Interface for bank account
  */
 export interface IBankAccount extends IAbraModel {
-    Account_ID?: string;
-    Address_ID?: string;
-    BankAccount?: string;
-    BankCountry_ID?: string;
-    BankStatement_ID?: string;
-    ClientIdentificationNumber?: string;
-    Currency_ID?: string;
-    Division_ID?: string;
-    FirstOpenPeriod_ID?: string;
-    Hidden?: boolean;
-    IBANCode?: string;
-    LastOpenPeriod_ID?: string;
-    Name?: string;
-    PaymentOrder_ID?: string;
-    PostalAccountNumber?: string;
-    QRIBANCode?: string;
-    Rows?: IBankAccountRow[];
-    SpecSymbol?: string;
-    SwiftCode?: string;
-    FirstAmount?: number;
-    FirstLocalAmount?: number;
+    account_id?: string;
+    address_id?: string;
+    bankaccount?: string;
+    bankcountry_id?: string;
+    bankstatement_id?: string;
+    clientidentificationnumber?: string;
+    currency_id?: string;
+    division_id?: string;
+    firstopenperiod_id?: string;
+    hidden?: boolean;
+    ibancode?: string;
+    lastopenperiod_id?: string;
+    name?: string;
+    paymentorder_id?: string;
+    postalaccountnumber?: string;
+    qribancode?: string;
+    rows?: IBankAccountRow[];
+    specsymbol?: string;
+    swiftcode?: string;
+    firstamount?: number;
+    firstlocalamount?: number;
 }
 
 /**
  * Bank account exchange difference
- * @description Interface for Bank account exchange difference
+ * @description Interface for bank account exchange difference
  */
-export interface IBankAccountExchangeDifference extends IAbraModel {
-    AccDate$DATE?: string;
-    AccDocQueue_ID?: string;
-    AccPresetDef_ID?: string;
-    Amount?: number;
-    BankAccount_ID?: string;
-    BusOrder_ID?: string;
-    BusProject_ID?: string;
-    BusTransaction_ID?: string;
-    CorrectedBy_ID?: string;
-    CreatedBy_ID?: string;
-    CurrRate?: number;
-    Division_ID?: string;
-    DocDate$DATE?: string;
-    DocQueue_ID?: string;
-    OrdNumber?: number;
-    Period_ID?: string;
-    Profit?: boolean;
-    RefCurrRate?: number;
-    AccountingType?: number;
-    Country_ID?: string;
-    Currency_ID?: string;
-    Dirty?: boolean;
-    IsAccounted?: boolean;
-    LocalRefCurrency_ID?: string;
-    NewRelatedDocument_ID?: string;
-    NewRelatedType?: number;
-    RefCurrency_ID?: string;
+export interface IBankAccounteEchangeDifference extends IAbraModel {
+    accdate$date?: string;
+    accdocqueue_id?: string;
+    accpresetdef_id?: string;
+    amount?: number;
+    bankaccount_id?: string;
+    busorder_id?: string;
+    busproject_id?: string;
+    bustransaction_id?: string;
+    correctedby_id?: string;
+    createdby_id?: string;
+    currrate?: number;
+    division_id?: string;
+    docdate$date?: string;
+    docqueue_id?: string;
+    ordnumber?: number;
+    period_id?: string;
+    profit?: boolean;
+    refcurrrate?: number;
+    accountingtype?: number;
+    country_id?: string;
+    currency_id?: string;
+    dirty?: boolean;
+    isaccounted?: boolean;
+    localrefcurrency_id?: string;
+    newrelateddocument_id?: string;
+    newrelatedtype?: number;
+    refcurrency_id?: string;
 }
 
 /**
  * Bank statement row
- * @description Interface for Bank statement row
+ * @description Interface for bank statement row
  */
 export interface IBankStatementRow extends IAbraModel {
-    AccDate$DATE?: string;
-    AccPresetDef_ID?: string;
-    Account_ID?: string;
-    Amount?: number;
-    BankAccount?: string;
-    BankStatementRow_ID?: string;
-    BusOrder_ID?: string;
-    BusProject_ID?: string;
-    BusTransaction_ID?: string;
-    Coef?: number;
-    Credit?: boolean;
-    CurrRate?: number;
-    Currency_ID?: string;
-    Division_ID?: string;
-    DocDate$DATE?: string;
-    ExpenseType_ID?: string;
-    FirmText?: string;
-    Firm_ID?: string;
-    IncomeType_ID?: string;
-    IsMultiPaymentRow?: boolean;
-    LocalCoef?: number;
-    LocalTAmount?: number;
-    LocalZone_ID?: string;
-    PAmount?: number;
-    PDisKind?: number;
-    PDocumentType?: string;
-    PDocument_ID?: string;
-    Parent_ID?: string;
-    PosIndex?: number;
-    RefCurrRate?: number;
-    SpecSymbol?: string;
-    TAmount?: number;
-    Text?: string;
-    VarSymbol?: string;
-    Zone_ID?: string;
-    LocalRefCurrency_ID?: string;
-    RefCurrency_ID?: string;
+    accdate$date?: string;
+    accpresetdef_id?: string;
+    account_id?: string;
+    amount?: number;
+    bankaccount?: string;
+    bankstatementrow_id?: string;
+    busorder_id?: string;
+    busproject_id?: string;
+    bustransaction_id?: string;
+    coef?: number;
+    credit?: boolean;
+    currrate?: number;
+    currency_id?: string;
+    division_id?: string;
+    docdate$date?: string;
+    expensetype_id?: string;
+    firmtext?: string;
+    firm_id?: string;
+    incometype_id?: string;
+    ismultipaymentrow?: boolean;
+    localcoef?: number;
+    localtamount?: number;
+    localzone_id?: string;
+    pamount?: number;
+    pdiskind?: number;
+    pdocumenttype?: string;
+    pdocument_id?: string;
+    parent_id?: string;
+    posindex?: number;
+    refcurrrate?: number;
+    specsymbol?: string;
+    tamount?: number;
+    text?: string;
+    varsymbol?: string;
+    zone_id?: string;
+    localrefcurrency_id?: string;
+    refcurrency_id?: string;
 }
 
 /**
  * Bank statement
- * @description Interface for Bank statement
+ * @description interface for bank statement
  */
 export interface IBankStatement extends IAbraModel {
-    AccDocQueue_ID?: string;
-    BankAccount_ID?: string;
-    CorrectedAt$DATE?: string;
-    CorrectedBy_ID?: string;
-    CreatedAt$DATE?: string;
-    CreatedBy_ID?: string;
-    CreditAmount?: number;
-    DebitAmount?: number;
-    Dirty?: boolean;
-    DocDate$DATE?: string;
-    DocQueue_ID?: string;
-    ExternalNumber?: string;
-    LocalCreditAmount?: number;
-    LocalDebitAmount?: number;
-    OrdNumber?: number;
-    Period_ID?: string;
-    NewRelatedDocument_ID?: string;
-    NewRelatedType?: number;
-    Rows?: IBankStatementRow[];
+    accdocqueue_id?: string;
+    bankaccount_id?: string;
+    correctedat$date?: string;
+    correctedby_id?: string;
+    createdat$date?: string;
+    createdby_id?: string;
+    creditamount?: number;
+    debitamount?: number;
+    dirty?: boolean;
+    docdate$date?: string;
+    docqueue_id?: string;
+    externalnumber?: string;
+    localcreditamount?: number;
+    localdebitamount?: number;
+    ordnumber?: number;
+    period_id?: string;
+    newrelateddocument_id?: string;
+    newrelatedtype?: number;
+    rows?: IBankStatementRow[];
 }
 
 /**
  * Doc row batch
- * @description Interface for Doc row batch
+ * @description Interface for doc row batch
  */
 export interface IDocRowBatch extends IAbraModel {
-    DeliveredQuantity?: number;
-    Parent_ID?: string;
-    PosIndex?: number;
-    ProvideRowBatch_ID?: string;
-    QUnit?: string;
-    Quantity?: number;
-    StoreBatch_ID?: string;
-    UnitRate?: number;
-    DeliveredQuantityStr?: string;
-    MainUnitQuantity?: number;
-    MainUnitRate?: number;
-    NewBatch?: boolean;
-    NewBatchComment?: string;
-    NewBatchExpirationDate$DATE?: string;
-    NewBatchName?: string;
-    NewBatchSpecification?: string;
-    StoreSubBatch_ID?: string;
-    UnitQuantity?: number;
+    deliveredquantity?: number;
+    parent_id?: string;
+    posindex?: number;
+    providerowbatch_id?: string;
+    qunit?: string;
+    quantity?: number;
+    storebatch_id?: string;
+    unitrate?: number;
+    deliveredquantitystr?: string;
+    mainunitquantity?: number;
+    mainunitrate?: number;
+    newbatch?: boolean;
+    newbatchcomment?: string;
+    newbatchexpirationdate$date?: string;
+    newbatchname?: string;
+    newbatchspecification?: string;
+    storesubbatch_id?: string;
+    unitquantity?: number;
 }
 
 /**
  * Bill of delivery row
- * @description Interface for Bill of delivery row
+ * @description Interface for bill of delivery row
  */
 export interface IBillOfDeliveryRow extends IAbraModel {
-    AdditionalCosts_ID?: string;
-    BatchStatus?: number;
-    BusOrder_ID?: string;
-    BusProject_ID?: string;
-    BusTransaction_ID?: string;
-    ClosingIndex?: number;
-    ClosingOrder?: number;
-    CompletePrices?: boolean;
-    DeliveredQuantity?: number;
-    Division_ID?: string;
-    DocRowBatches?: IDocRowBatch[];
-    EtalonRate?: number;
-    FlowSign?: number;
-    FlowType?: string;
-    IntrastatAmount?: number;
-    IntrastatCurrency_ID?: string;
-    IntrastatInputStatistic_ID?: string;
-    IntrastatOutputStatistic_ID?: string;
-    IntrastatRegion_ID?: string;
-    IntrastatTransport?: boolean;
-    InventoryCoupon?: boolean;
-    LocalIntrastatAmount?: number;
-    LocalTAmount?: number;
-    OrderFlow?: number;
-    OriginCountry_ID?: string;
-    OriginalUnitPrice?: number;
-    PMState_ID?: string;
-    Parent_ID?: string;
-    PosIndex?: number;
-    PriceTransformationCoefficient?: number;
-    ProductionTask_ID?: string;
-    ProvideRowType?: string;
-    ProvideRow_ID?: string;
-    Provide_ID?: string;
-    QUnit?: string;
-    Quantity?: number;
-    RDocumentRow_ID?: string;
-    ReservedQuantity?: number;
-    RowExtID?: string;
-    RowType?: number;
-    SourcePriceTransCoef?: number;
-    StatisticAmount?: number;
-    StoreCard_ID?: string;
-    Store_ID?: string;
-    TAmount?: number;
-    Text?: string;
-    ToIntrastat?: boolean;
-    TotalPrice?: number;
-    UnitPrice?: number;
-    UnitRate?: number;
-    Valuated?: boolean;
-    ValuatedAt$DATE?: string;
-    Capacity?: number;
-    CapacityUnit?: number;
-    DeliveredQuantityStr?: string;
-    IntrastatStatus?: number;
-    MainUnitQuantity?: number;
-    MainUnitRate?: number;
-    PercentPriceTransformationCoef?: number;
-    ProvideRowDisplayName?: string;
-    UnitQuantity?: number;
-    Weight?: number;
-    WeightUnit?: number;
+    additionalcosts_id?: string;
+    batchstatus?: number;
+    busorder_id?: string;
+    busproject_id?: string;
+    bustransaction_id?: string;
+    closingindex?: number;
+    closingorder?: number;
+    completeprices?: boolean;
+    deliveredquantity?: number;
+    division_id?: string;
+    docrowbatches?: IDocRowBatch[];
+    etalonrate?: number;
+    flowsign?: number;
+    flowtype?: string;
+    intrastatamount?: number;
+    intrastatcurrency_id?: string;
+    intrastatinputstatistic_id?: string;
+    intrastatoutputstatistic_id?: string;
+    intrastatregion_id?: string;
+    intrastattransport?: boolean;
+    inventorycoupon?: boolean;
+    localintrastatamount?: number;
+    localtamount?: number;
+    orderflow?: number;
+    origincountry_id?: string;
+    originalunitprice?: number;
+    pmstate_id?: string;
+    parent_id?: string;
+    posindex?: number;
+    pricetransformationcoefficient?: number;
+    productiontask_id?: string;
+    providerowtype?: string;
+    providerow_id?: string;
+    provide_id?: string;
+    qunit?: string;
+    quantity?: number;
+    rdocumentrow_id?: string;
+    reservedquantity?: number;
+    rowextid?: string;
+    rowtype?: number;
+    sourcepricetranscoef?: number;
+    statisticamount?: number;
+    storecard_id?: string;
+    store_id?: string;
+    tamount?: number;
+    text?: string;
+    tointrastat?: boolean;
+    totalprice?: number;
+    unitprice?: number;
+    unitrate?: number;
+    valuated?: boolean;
+    valuatedat$date?: string;
+    capacity?: number;
+    capacityunit?: number;
+    deliveredquantitystr?: string;
+    intrastatstatus?: number;
+    mainunitquantity?: number;
+    mainunitrate?: number;
+    percentpricetransformationcoef?: number;
+    providerowdisplayname?: string;
+    unitquantity?: number;
+    weight?: number;
+    weightunit?: number;
 }
 
 /**
  * Bill of delivery
- * @description Interface for Bill of delivery
+ * @description Interface for bill of delivery
  */
 export interface IBillOfDelivery extends IAbraModel {
-    AccDate$DATE?: string;
-    AccDocQueue_ID?: string;
-    AccPresetDef_ID?: string;
-    Address_ID?: string;
-    AutoFillRowsPriceTransCoef?: number;
-    Coef?: number;
-    CorrectedAt$DATE?: string;
-    CorrectedBy_ID?: string;
-    Country_ID?: string;
-    CreatedAt$DATE?: string;
-    CreatedBy_ID?: string;
-    CurrRate?: number;
-    Currency_ID?: string;
-    Description?: string;
-    Dirty?: boolean;
-    DocDate$DATE?: string;
-    DocQueue_ID?: string;
-    DocUUID?: string;
-    DocumentType?: string;
-    Finished?: boolean;
-    FinishedAt$DATE?: string;
-    FinishedBy_ID?: string;
-    FirmOffice_ID?: string;
-    Firm_ID?: string;
-    IntrastatCompleteKind?: number;
-    IntrastatDate$DATE?: string;
-    IntrastatDeliveryTerm_ID?: string;
-    IntrastatTransactionType_ID?: string;
-    IntrastatTransportationType_ID?: string;
-    InvalidAccounting?: boolean;
-    IsAvailableForDelivery?: boolean;
-    LocalCoef?: number;
-    LocalZone_ID?: string;
-    MasterDocCLSID?: string;
-    MasterDocument_ID?: string;
-    Options?: number;
-    OrdNumber?: number;
-    OutgoingTransfer_ID?: string;
-    PMState_ID?: string;
-    Period_ID?: string;
-    Person_ID?: string;
-    PricePrecision?: number;
-    PriceTransformationCoefficient?: number;
-    RDocumentType?: string;
-    RDocument_ID?: string;
-    RefCurrRate?: number;
-    ResponsibleRole_ID?: string;
-    ResponsibleUser_ID?: string;
-    Rows?: IBillOfDeliveryRow[];
-    TradeType?: number;
-    TransportationType_ID?: string;
-    VATCountry_ID?: string;
-    VIESKind?: number;
-    Zone_ID?: string;
-    AccountingType?: number;
-    Amount?: number;
-    Capacity?: number;
-    CapacityUnit?: number;
-    CheckSetBatches?: boolean;
-    Closed?: boolean;
-    ClosedRowCount?: number;
-    CurrRateInfo?: string;
-    IsAccounted?: boolean;
-    LocalAmount?: number;
-    LocalRefCurrency_ID?: string;
-    NewRelatedDocument_ID?: string;
-    NewRelatedType?: number;
-    PercentPriceTransformationCoef?: number;
-    RefCurrency_ID?: string;
-    ReverseDocumentInfo?: string;
-    RowCount?: number;
-    VIESKindAsText?: string;
-    Weight?: number;
-    WeightUnit?: number;
+    accdate$date?: string;
+    accdocqueue_id?: string;
+    accpresetdef_id?: string;
+    address_id?: string;
+    autofillrowspricetranscoef?: number;
+    coef?: number;
+    correctedat$date?: string;
+    correctedby_id?: string;
+    country_id?: string;
+    createdat$date?: string;
+    createdby_id?: string;
+    currrate?: number;
+    currency_id?: string;
+    description?: string;
+    dirty?: boolean;
+    docdate$date?: string;
+    docqueue_id?: string;
+    docuuid?: string;
+    documenttype?: string;
+    finished?: boolean;
+    finishedat$date?: string;
+    finishedby_id?: string;
+    firmoffice_id?: string;
+    firm_id?: string;
+    intrastatcompletekind?: number;
+    intrastatdate$date?: string;
+    intrastatdeliveryterm_id?: string;
+    intrastattransactiontype_id?: string;
+    intrastattransportationtype_id?: string;
+    invalidaccounting?: boolean;
+    isavailablefordelivery?: boolean;
+    localcoef?: number;
+    localzone_id?: string;
+    masterdocclsid?: string;
+    masterdocument_id?: string;
+    options?: number;
+    ordnumber?: number;
+    outgoingtransfer_id?: string;
+    pmstate_id?: string;
+    period_id?: string;
+    person_id?: string;
+    priceprecision?: number;
+    pricetransformationcoefficient?: number;
+    rdocumenttype?: string;
+    rdocument_id?: string;
+    refcurrrate?: number;
+    responsiblerole_id?: string;
+    responsibleuser_id?: string;
+    rows?: IBillOfDeliveryRow[];
+    tradetype?: number;
+    transportationtype_id?: string;
+    vatcountry_id?: string;
+    vieskind?: number;
+    zone_id?: string;
+    accountingtype?: number;
+    amount?: number;
+    capacity?: number;
+    capacityunit?: number;
+    checksetbatches?: boolean;
+    closed?: boolean;
+    closedrowcount?: number;
+    currrateinfo?: string;
+    isaccounted?: boolean;
+    localamount?: number;
+    localrefcurrency_id?: string;
+    newrelateddocument_id?: string;
+    newrelatedtype?: number;
+    percentpricetransformationcoef?: number;
+    refcurrency_id?: string;
+    reversedocumentinfo?: string;
+    rowcount?: number;
+    vieskindastext?: string;
+    weight?: number;
+    weightunit?: number;
 }
 
 /**
  * Book entry
- * @description Interface for Book entry
+ * @description Interface for book entry
  */
 export interface IBookEntry extends IAbraModel {
-    AccDate$DATE?: string;
-    AccDocQueue_ID?: string;
-    AccGroupCredit_ID?: string;
-    AccGroupDebit_ID?: string;
-    AccGroup_ID?: string;
-    Amount?: number;
-    AmountInCurrency?: number;
-    Audited?: boolean;
-    CorrectedBy_ID?: string;
-    CreatedBy_ID?: string;
-    CreditAccount_ID?: string;
-    CreditBusOrder_ID?: string;
-    CreditBusProject_ID?: string;
-    CreditBusTransaction_ID?: string;
-    CreditDivision_ID?: string;
-    Currency_ID?: string;
-    DebitAccount_ID?: string;
-    DebitBusOrder_ID?: string;
-    DebitBusProject_ID?: string;
-    DebitBusTransaction_ID?: string;
-    DebitDivision_ID?: string;
-    Firm_ID?: string;
-    IsRequest?: boolean;
-    OrdNumber?: number;
-    Period_ID?: string;
-    Text?: string;
-    Auditable?: boolean;
-    GroupFirm_ID?: string;
+    accdate$date?: string;
+    accdocqueue_id?: string;
+    accgroupcredit_id?: string;
+    accgroupdebit_id?: string;
+    accgroup_id?: string;
+    amount?: number;
+    amountincurrency?: number;
+    audited?: boolean;
+    correctedby_id?: string;
+    createdby_id?: string;
+    creditaccount_id?: string;
+    creditbusorder_id?: string;
+    creditbusproject_id?: string;
+    creditbustransaction_id?: string;
+    creditdivision_id?: string;
+    currency_id?: string;
+    debitaccount_id?: string;
+    debitbusorder_id?: string;
+    debitbusproject_id?: string;
+    debitbustransaction_id?: string;
+    debitdivision_id?: string;
+    firm_id?: string;
+    isrequest?: boolean;
+    ordnumber?: number;
+    period_id?: string;
+    text?: string;
+    auditable?: boolean;
+    groupfirm_id?: string;
 }
 
 /**
  * Bus order checkpoint
- * @description Interface for Bus order checkpoint
+ * @description Interface for bus order checkpoint
  */
 export interface IBusOrderCheckpoint extends IAbraModel {
-    CheckDescription?: string;
-    CheckDone?: boolean;
-    CheckResult?: string;
-    Name?: string;
-    Parent_ID?: string;
-    PlannedCosts?: number;
-    PlannedInvoicing?: number;
-    PlannedRevenues?: number;
-    PointDate$DATE?: string;
-    ResponsibleCustomerPerson_ID?: string;
-    ResponsibleSupplierRole_ID?: string;
-    DoCalculateBilance?: boolean;
+    checkdescription?: string;
+    checkdone?: boolean;
+    checkresult?: string;
+    name?: string;
+    parent_id?: string;
+    plannedcosts?: number;
+    plannedinvoicing?: number;
+    plannedrevenues?: number;
+    pointdate$date?: string;
+    responsiblecustomerperson_id?: string;
+    responsiblesupplierrole_id?: string;
+    docalculatebilance?: boolean;
 }
 
 /**
  * Bus order link
- * @description Interface for Bus order link
+ * @description Interface for bus order link
  */
-export interface IBusOrderLink extends IAbraModel {
-    Parent_ID?: string;
-    Precedent_ID?: string;
+export interface IBusOrderlink extends IAbraModel {
+    parent_id?: string;
+    precedent_id?: string;
 }
 
 /**
  * Bus order
- * @description Interface for Bus order
+ * @description Interface for bus order
  */
 export interface IBusOrder extends IAbraModel {
-    Approved?: boolean;
-    CheckActivityVsSources?: number;
-    CheckPoints?: IBusOrderCheckpoint[];
-    Closed?: boolean;
-    ClosingDate$DATE?: string;
-    Code?: string;
-    Date$DATE?: string;
-    Division_ID?: string;
-    ExtendedControl?: boolean;
-    FinalizationState?: number;
-    Firm_ID?: string;
-    FixedAmount?: number;
-    Hidden?: boolean;
-    InvoicingType?: number;
-    IssuedOffer_ID?: string;
-    Links?: any[];
-    MasterSolverRole_ID?: string;
-    Name?: string;
-    Note?: string;
-    Parent_ID?: string;
-    PlannedCostsOther?: number;
-    PlannedCostsTotal?: number;
-    PlannedEndDate$DATE?: string;
-    PlannedRevenuesOther?: number;
-    PlannedRevenuesTotal?: number;
-    Priority?: number;
-    ProcessState?: number;
-    Source?: any[];
-    BodyCode?: string;
-    CheckActivityVsSourcesAsText?: string;
-    Comment?: string;
-    DisplayParent?: string;
-    FinalizationStateSub?: number;
-    InvoicingTypeAsText?: string;
-    PlannedCostsAllTotal?: number;
-    PlannedCostsSubTree?: number;
-    PlannedProfit?: number;
-    PlannedProfitTotal?: number;
-    PlannedRevenuesAllTotal?: number;
-    PlannedRevenuesSubTree?: number;
-    PrefixCode?: string;
-    ProcessStateAsText?: string;
-    SuffixCode?: string;
+    approved?: boolean;
+    checkactivityvssources?: number;
+    checkpoints?: IBusOrderCheckpoint[];
+    closed?: boolean;
+    closingdate$date?: string;
+    code?: string;
+    date$date?: string;
+    division_id?: string;
+    extendedcontrol?: boolean;
+    finalizationstate?: number;
+    firm_id?: string;
+    fixedamount?: number;
+    hidden?: boolean;
+    invoicingtype?: number;
+    issuedoffer_id?: string;
+    links?: any[];
+    mastersolverrole_id?: string;
+    name?: string;
+    note?: string;
+    parent_id?: string;
+    plannedcostsother?: number;
+    plannedcoststotal?: number;
+    plannedenddate$date?: string;
+    plannedrevenuesother?: number;
+    plannedrevenuestotal?: number;
+    priority?: number;
+    processstate?: number;
+    source?: any[];
+    bodycode?: string;
+    checkactivityvssourcesastext?: string;
+    comment?: string;
+    displayparent?: string;
+    finalizationstatesub?: number;
+    invoicingtypeastext?: string;
+    plannedcostsalltotal?: number;
+    plannedcostssubtree?: number;
+    plannedprofit?: number;
+    plannedprofittotal?: number;
+    plannedrevenuesalltotal?: number;
+    plannedrevenuessubtree?: number;
+    prefixcode?: string;
+    processstateastext?: string;
+    suffixcode?: string;
 }
 
 /**
  * Bus order f real
- * @description Interface for Bus order f real
+ * @description Interface for bus order f real
  */
 export interface IBusOrderFReal extends IAbraModel {
-    BusObject_ID?: string;
-    CalculatedBy_ID?: string;
-    CalculatedWhen$DATE?: string;
-    EvaluationDate$DATE?: string;
-    RealCosts?: number;
-    RealCostsFromSources?: number;
-    RealCostsFromSourcesWSubTree?: number;
-    RealCostsWithSubTree?: number;
-    RealRevenues?: number;
-    RealRevenuesWithSubTree?: number;
+    busobject_id?: string;
+    calculatedby_id?: string;
+    calculatedwhen$date?: string;
+    evaluationdate$date?: string;
+    realcosts?: number;
+    realcostsfromsources?: number;
+    realcostsfromsourceswsubtree?: number;
+    realcostswithsubtree?: number;
+    realrevenues?: number;
+    realrevenueswithsubtree?: number;
 }
 
 /**
  * Bus order invoicing row
- * @description Interface for Bus order invoicing row
+ * @description Interface for bus order invoicing row
  */
 export interface IBusOrderInvoicingRow extends IAbraModel {
-    Amount?: number;
-    DocDate$DATE?: string;
-    DocDispName?: string;
-    DocType?: string;
-    Document_ID?: string;
-    Parent_ID?: string;
-    Quantity?: number;
-    Row_ID?: string;
+    amount?: number;
+    docdate$date?: string;
+    docdispname?: string;
+    doctype?: string;
+    document_id?: string;
+    parent_id?: string;
+    quantity?: number;
+    row_id?: string;
 
 }
 
 /**
  * Bus order invoicing
- * @description Interface for Bus order invoicing
+ * @description Interface for bus order invoicing
  */
 export interface IBusOrderInvoicing extends IAbraModel {
-    AmountCorrection?: number;
-    AmountToInvoice?: number;
-    BusObject_ID?: string;
-    QuantityCorrection?: number;
-    QuantityToInvoice?: number;
-    Rows?: IBusOrderInvoicingRow[];
-    Source_ID?: string;
-    StoreCard_ID?: string;
-    StoreUnit_ID?: string;
+    amountcorrection?: number;
+    amounttoinvoice?: number;
+    busobject_id?: string;
+    quantitycorrection?: number;
+    quantitytoinvoice?: number;
+    rows?: IBusOrderInvoicingRow[];
+    source_id?: string;
+    storecard_id?: string;
+    storeunit_id?: string;
 }
 
 /**
  * Bus project accounting plan
- * @description Interface for Bus project accounting plan
+ * @description Interface for bus project accounting plan
  */
 export interface IBusProjectAccountingPlan extends IAbraModel {
-    AccountCodeMask?: string;
-    Description?: string;
-    IncludeChildren?: boolean;
-    Parent_ID?: string;
-    PlannedAmount?: number;
-    ActualAmount?: number;
+    accountcodemask?: string;
+    description?: string;
+    includechildren?: boolean;
+    parent_id?: string;
+    plannedamount?: number;
+    actualamount?: number;
 }
 
 /**
  * Bus project check point
- * @description Interface for Bus project check point
+ * @description Interface for bus project check point
  */
-export interface IBusProjectCheckPoint extends IAbraModel {
-    CheckDescription?: string;
-    CheckDone?: boolean;
-    CheckResult?: string;
-    Name?: string;
-    Parent_ID?: string;
-    PlannedCosts?: number;
-    PlannedInvoicing?: number;
-    PlannedRevenues?: number;
-    PointDate$DATE?: string;
-    ResponsibleCustomerPerson_ID?: string;
-    ResponsibleSupplierRole_ID?: string;
-    DoCalculateBilance?: boolean;
+export interface IBusProjectCheckpoint extends IAbraModel {
+    checkdescription?: string;
+    checkdone?: boolean;
+    checkresult?: string;
+    name?: string;
+    parent_id?: string;
+    plannedcosts?: number;
+    plannedinvoicing?: number;
+    plannedrevenues?: number;
+    pointdate$date?: string;
+    responsiblecustomerperson_id?: string;
+    responsiblesupplierrole_id?: string;
+    docalculatebilance?: boolean;
 }
 
 /**
  * Bus project link
- * @description Interface for Bus project link
+ * @description Interface for bus project link
  */
 export interface IBusProjectLink extends IAbraModel {
-    Parent_ID?: string;
-    Precedent_ID?: string;
+    parent_id?: string;
+    precedent_id?: string;
 }
 
 /**
  * Bus project source
- * @description Interface for Bus project source
+ * @description Interface for bus project source
  */
 export interface IBusProjectSource extends IAbraModel {
-    BusOrder_ID?: string;
-    BusTransaction_ID?: string;
-    CRMActivityArea_ID?: string;
-    CRMActivityQueue_ID?: string;
-    CRMActivityType_ID?: string;
-    CanExceedPlan?: number;
-    CostHourRate?: number;
-    Description?: string;
-    Division_ID?: string;
-    Finished?: boolean;
-    HourRate?: number;
-    Invoicing?: boolean;
-    Note?: string;
-    OverTimeHourRate?: number;
-    Parent_ID?: string;
-    PlannedTotalHours?: number;
-    PosIndex?: number;
-    PriceDefinition1_ID?: string;
-    PriceDefinition2_ID?: string;
-    RealTotalHours?: number;
-    SalePriceType?: number;
-    SourceOrder?: number;
-    SourceRole_ID?: string;
-    StoreCard_ID?: string;
-    StoreUnit_ID?: string;
-    Store_ID?: string;
-    VATRate_ID?: string;
+    busorder_id?: string;
+    bustransaction_id?: string;
+    crmactivityarea_id?: string;
+    crmactivityqueue_id?: string;
+    crmactivitytype_id?: string;
+    canexceedplan?: number;
+    costhourrate?: number;
+    description?: string;
+    division_id?: string;
+    finished?: boolean;
+    hourrate?: number;
+    invoicing?: boolean;
+    note?: string;
+    overtimehourrate?: number;
+    parent_id?: string;
+    plannedtotalhours?: number;
+    posindex?: number;
+    pricedefinition1_id?: string;
+    pricedefinition2_id?: string;
+    realtotalhours?: number;
+    salepricetype?: number;
+    sourceorder?: number;
+    sourcerole_id?: string;
+    storecard_id?: string;
+    storeunit_id?: string;
+    store_id?: string;
+    vatrate_id?: string;
 }
 
 /**
  * Bus project
- * @description Interface for Bus project
+ * @description Interface for bus project
  */
-export interface IBusProject extends IAbraModel {
-    AccountingPlan?: IBusProjectAccountingPlan[];
-    Approved?: boolean;
-    CheckActivityVsSources?: number;
-    CheckPoints?: IBusProjectCheckPoint[];
-    Closed?: boolean;
-    ClosingDate$DATE?: string;
-    Code?: string;
-    Date$DATE?: string;
-    Division_ID?: string;
-    ExtendedControl?: boolean;
-    FinalizationState?: number;
-    Firm_ID?: string;
-    FixedAmount?: number;
-    Hidden?: boolean;
-    InvoicingType?: number;
-    IssuedOffer_ID?: string;
-    Links?: IBusProjectLink[];
-    MasterSolverRole_ID?: string;
-    Name?: string;
-    Note?: string;
-    Parent_ID?: string;
-    PlannedCostsOther?: number;
-    PlannedCostsTotal?: number;
-    PlannedEndDate$DATE?: string;
-    PlannedRevenuesOther?: number;
-    PlannedRevenuesTotal?: number;
-    Priority?: number;
-    ProcessState?: number;
-    Sources?: IBusProjectSource[];
-    BodyCode?: string;
-    CheckActivityVsSourcesAsText?: string;
-    Comment?: string;
-    DisplayParent?: string;
-    FinalizationStateSub?: number;
-    InvoicingTypeAsText?: string;
-    PlannedCostsAllTotal?: number;
-    PlannedCostsSubTree?: number;
-    PlannedProfit?: number;
-    PlannedProfitTotal?: number;
-    PlannedRevenuesAllTotal?: number;
-    PlannedRevenuesSubTree?: number;
-    PrefixCode?: string;
-    ProcessStateAsText?: string;
-    SuffixCode?: string;
+export interface ibusproject extends IAbraModel {
+    accountingplan?: IBusProjectAccountingPlan[];
+    approved?: boolean;
+    checkactivityvssources?: number;
+    checkpoints?: IBusProjectCheckpoint[];
+    closed?: boolean;
+    closingdate$date?: string;
+    code?: string;
+    date$date?: string;
+    division_id?: string;
+    extendedcontrol?: boolean;
+    finalizationstate?: number;
+    firm_id?: string;
+    fixedamount?: number;
+    hidden?: boolean;
+    invoicingtype?: number;
+    issuedoffer_id?: string;
+    links?: IBusProjectLink[];
+    mastersolverrole_id?: string;
+    name?: string;
+    note?: string;
+    parent_id?: string;
+    plannedcostsother?: number;
+    plannedcoststotal?: number;
+    plannedenddate$date?: string;
+    plannedrevenuesother?: number;
+    plannedrevenuestotal?: number;
+    priority?: number;
+    processstate?: number;
+    sources?: IBusProjectSource[];
+    bodycode?: string;
+    checkactivityvssourcesastext?: string;
+    comment?: string;
+    displayparent?: string;
+    finalizationstatesub?: number;
+    invoicingtypeastext?: string;
+    plannedcostsalltotal?: number;
+    plannedcostssubtree?: number;
+    plannedprofit?: number;
+    plannedprofittotal?: number;
+    plannedrevenuesalltotal?: number;
+    plannedrevenuessubtree?: number;
+    prefixcode?: string;
+    processstateastext?: string;
+    suffixcode?: string;
 }
 
 /**
  * Bus project f real
- * @description Interface for Bus project f real
+ * @description Interface for bus project f real
  */
 export interface IBusProjectFReal extends IAbraModel {
-    BusObject_ID?: string;
-    CalculatedBy_ID?: string;
-    CalculatedWhen$DATE?: string;
-    EvaluationDate$DATE?: string;
-    RealCosts?: number;
-    RealCostsFromSources?: number;
-    RealCostsFromSourcesWSubTree?: number;
-    RealCostsWithSubTree?: number;
-    RealRevenues?: number;
-    RealRevenuesWithSubTree?: number;
+    busobject_id?: string;
+    calculatedby_id?: string;
+    calculatedwhen$date?: string;
+    evaluationdate$date?: string;
+    realcosts?: number;
+    realcostsfromsources?: number;
+    realcostsfromsourceswsubtree?: number;
+    realcostswithsubtree?: number;
+    realrevenues?: number;
+    realrevenueswithsubtree?: number;
 }
 
 /**
  * Bus project invoicing row
- * @description Interface for Bus project invoicing row
+ * @description Interface for bus project invoicing row
  */
 export interface IBusProjectInvoicingRow extends IAbraModel {
-    Amount?: number;
-    DocDate$DATE?: string;
-    DocDispName?: string;
-    DocType?: string;
-    Document_ID?: string;
-    Parent_ID?: string;
-    Quantity?: number;
-    Row_ID?: string;
+    amount?: number;
+    docdate$date?: string;
+    docdispname?: string;
+    doctype?: string;
+    document_id?: string;
+    parent_id?: string;
+    quantity?: number;
+    row_id?: string;
 
 }
 
 /**
  * Bus project invoicing
- * @description Interface for Bus project invoicing
+ * @description Interface for bus project invoicing
  */
 export interface IBusProjectInvoicing extends IAbraModel {
-    AmountCorrection?: number;
-    AmountToInvoice?: number;
-    BusObject_ID?: string;
-    QuantityCorrection?: number;
-    QuantityToInvoice?: number;
-    Rows?: IBusProjectInvoicingRow[];
-    Source_ID?: string;
-    StoreCard_ID?: string;
-    StoreUnit_ID?: string;
+    amountcorrection?: number;
+    amounttoinvoice?: number;
+    busobject_id?: string;
+    quantitycorrection?: number;
+    quantitytoinvoice?: number;
+    rows?: IBusProjectInvoicingRow[];
+    source_id?: string;
+    storecard_id?: string;
+    storeunit_id?: string;
 }
 
 /**
  * Bus transaction check point
- * @description Interface for Bus transaction check point
+ * @description Interface for bus transaction check point
  */
-export interface IBusTransactionCheckPoint extends IAbraModel {
-    CheckDescription?: string;
-    CheckDone?: boolean;
-    CheckResult?: string;
-    Name?: string;
-    Parent_ID?: string;
-    PlannedCosts?: number;
-    PlannedInvoicing?: number;
-    PlannedRevenues?: number;
-    PointDate$DATE?: string;
-    ResponsibleCustomerPerson_ID?: string;
-    ResponsibleSupplierRole_ID?: string;
-    DoCalculateBilance?: boolean;
+export interface IBusTransactionCheckpoint extends IAbraModel {
+    checkdescription?: string;
+    checkdone?: boolean;
+    checkresult?: string;
+    name?: string;
+    parent_id?: string;
+    plannedcosts?: number;
+    plannedinvoicing?: number;
+    plannedrevenues?: number;
+    pointdate$date?: string;
+    responsiblecustomerperson_id?: string;
+    responsiblesupplierrole_id?: string;
+    docalculatebilance?: boolean;
 }
 
 /**
  * Bus transaction link
- * @description Interface for Bus transaction link
+ * @description Interface for bus transaction link
  */
 export interface IBusTransactionLink extends IAbraModel {
-    Parent_ID?: string;
-    Precedent_ID?: string;
+    parent_id?: string;
+    precedent_id?: string;
 }
 
 /**
  * Bus transaction source
- * @description Interface for Bus transaction source
+ * @description Interface for bus transaction source
  */
-export interface IBusTransactionSource extends IAbraModel {
-    BusOrder_ID?: string;
-    BusProject_ID?: string;
-    CRMActivityArea_ID?: string;
-    CRMActivityQueue_ID?: string;
-    CRMActivityType_ID?: string;
-    CanExceedPlan?: number;
-    CostHourRate?: number;
-    Description?: string;
-    Division_ID?: string;
-    Finished?: boolean;
-    HourRate?: number;
-    Invoicing?: boolean;
-    Note?: string;
-    OverTimeHourRate?: number;
-    Parent_ID?: string;
-    PlannedTotalHours?: number;
-    PosIndex?: number;
-    PriceDefinition1_ID?: string;
-    PriceDefinition2_ID?: string;
-    RealTotalHours?: number;
-    SalePriceType?: number;
-    SourceOrder?: number;
-    SourceRole_ID?: string;
-    StoreCard_ID?: string;
-    StoreUnit_ID?: string;
-    Store_ID?: string;
-    VATRate_ID?: string;
+export interface IBustransactionsource extends IAbraModel {
+    busorder_id?: string;
+    busproject_id?: string;
+    crmactivityarea_id?: string;
+    crmactivityqueue_id?: string;
+    crmactivitytype_id?: string;
+    canexceedplan?: number;
+    costhourrate?: number;
+    description?: string;
+    division_id?: string;
+    finished?: boolean;
+    hourrate?: number;
+    invoicing?: boolean;
+    note?: string;
+    overtimehourrate?: number;
+    parent_id?: string;
+    plannedtotalhours?: number;
+    posindex?: number;
+    pricedefinition1_id?: string;
+    pricedefinition2_id?: string;
+    realtotalhours?: number;
+    salepricetype?: number;
+    sourceorder?: number;
+    sourcerole_id?: string;
+    storecard_id?: string;
+    storeunit_id?: string;
+    store_id?: string;
+    vatrate_id?: string;
 }
 
 
 /**
  * Bus transaction
- * @description Interface for Bus transaction
+ * @description Interface for bus transaction
  */
 export interface IBusTransaction extends IAbraModel {
-    Approved?: boolean;
-    CheckActivityVsSources?: number;
-    CheckPoints?: IBusTransactionCheckPoint[];
-    Closed?: boolean;
-    ClosingDate$DATE?: string;
-    Code?: string;
-    Date$DATE?: string;
-    Division_ID?: string;
-    ExtendedControl?: boolean;
-    FinalizationState?: number;
-    Firm_ID?: string;
-    FixedAmount?: number;
-    Hidden?: boolean;
-    InvoicingType?: number;
-    IssuedOffer_ID?: string;
-    Links?: IBusTransactionLink[];
-    MasterSolverRole_ID?: string;
-    Name?: string;
-    Note?: string;
-    Parent_ID?: string;
-    PlannedCostsOther?: number;
-    PlannedCostsTotal?: number;
-    PlannedEndDate$DATE?: string;
-    PlannedRevenuesOther?: number;
-    PlannedRevenuesTotal?: number;
-    Priority?: number;
-    ProcessState?: number;
-    Sources?: IBusTransactionSource[];
-    BodyCode?: string;
-    CheckActivityVsSourcesAsText?: string;
-    Comment?: string;
-    DisplayParent?: string;
-    FinalizationStateSub?: number;
-    InvoicingTypeAsText?: string;
-    PlannedCostsAllTotal?: number;
-    PlannedCostsSubTree?: number;
-    PlannedProfit?: number;
-    PlannedProfitTotal?: number;
-    PlannedRevenuesAllTotal?: number;
-    PlannedRevenuesSubTree?: number;
-    PrefixCode?: string;
-    ProcessStateAsText?: string;
-    SuffixCode?: string;
+    approved?: boolean;
+    checkactivityvssources?: number;
+    checkpoints?: IBusTransactionCheckpoint[];
+    closed?: boolean;
+    closingdate$date?: string;
+    code?: string;
+    date$date?: string;
+    division_id?: string;
+    extendedcontrol?: boolean;
+    finalizationstate?: number;
+    firm_id?: string;
+    fixedamount?: number;
+    hidden?: boolean;
+    invoicingtype?: number;
+    issuedoffer_id?: string;
+    links?: IBusTransactionLink[];
+    mastersolverrole_id?: string;
+    name?: string;
+    note?: string;
+    parent_id?: string;
+    plannedcostsother?: number;
+    plannedcoststotal?: number;
+    plannedenddate$date?: string;
+    plannedrevenuesother?: number;
+    plannedrevenuestotal?: number;
+    priority?: number;
+    processstate?: number;
+    sources?: IBustransactionsource[];
+    bodycode?: string;
+    checkactivityvssourcesastext?: string;
+    comment?: string;
+    displayparent?: string;
+    finalizationstatesub?: number;
+    invoicingtypeastext?: string;
+    plannedcostsalltotal?: number;
+    plannedcostssubtree?: number;
+    plannedprofit?: number;
+    plannedprofittotal?: number;
+    plannedrevenuesalltotal?: number;
+    plannedrevenuessubtree?: number;
+    prefixcode?: string;
+    processstateastext?: string;
+    suffixcode?: string;
 }
 
 /**
  * Bus transaction f real
- * @description Interface for Bus transaction f real
+ * @description Interface for bus transaction f real
  */
 export interface IBusTransactionFReal extends IAbraModel {
-    BusObject_ID?: string;
-    CalculatedBy_ID?: string;
-    CalculatedWhen$DATE?: string;
-    EvaluationDate$DATE?: string;
-    RealCosts?: number;
-    RealCostsFromSources?: number;
-    RealCostsFromSourcesWSubTree?: number;
-    RealCostsWithSubTree?: number;
-    RealRevenues?: number;
-    RealRevenuesWithSubTree?: number;
+    busobject_id?: string;
+    calculatedby_id?: string;
+    calculatedwhen$date?: string;
+    evaluationdate$date?: string;
+    realcosts?: number;
+    realcostsfromsources?: number;
+    realcostsfromsourceswsubtree?: number;
+    realcostswithsubtree?: number;
+    realrevenues?: number;
+    realrevenueswithsubtree?: number;
 }
 
 /**
  * Bus transaction invoicing row
- * @description Interface for Bus transaction invoicing row
+ * @description Interface for bus transaction invoicing row
  */
 export interface IBusTransactionInvoicingRow extends IAbraModel {
-    Amount?: number;
-    DocDate$DATE?: string;
-    DocDispName?: string;
-    DocType?: string;
-    Document_ID?: string;
-    Parent_ID?: string;
-    Quantity?: number;
-    Row_ID?: string;
+    amount?: number;
+    docdate$date?: string;
+    docdispname?: string;
+    doctype?: string;
+    document_id?: string;
+    parent_id?: string;
+    quantity?: number;
+    row_id?: string;
 }
 
 /**
  * Bus transaction invoicing
- * @description Interface for Bus transaction invoicing
+ * @description Interface for bus transaction invoicing
  */
 export interface IBusTransactionInvoicing extends IAbraModel {
-    AmountCorrection?: number;
-    AmountToInvoice?: number;
-    BusObject_ID?: string;
-    QuantityCorrection?: number;
-    QuantityToInvoice?: number;
-    Rows?: IBusTransactionInvoicingRow[];
-    Source_ID?: string;
-    StoreCard_ID?: string;
-    StoreUnit_ID?: string;
+    amountcorrection?: number;
+    amounttoinvoice?: number;
+    busobject_id?: string;
+    quantitycorrection?: number;
+    quantitytoinvoice?: number;
+    rows?: IBusTransactionInvoicingRow[];
+    source_id?: string;
+    storecard_id?: string;
+    storeunit_id?: string;
 }
 
 /**
  * Cash desk row
- * @description Interface for Cash desk row
+ * @description Interface for cash desk row
  */
 export interface ICashDeskRow extends IAbraModel {
-    Beginning?: number;
-    BeginningLocal?: number;
-    Parent_ID?: string;
-    Period_ID?: string;
+    beginning?: number;
+    beginninglocal?: number;
+    parent_id?: string;
+    period_id?: string;
 }
 
 /**
  * Cash desk
- * @description Interface for Cash desk
+ * @description Interface for cash desk
  */
-export interface ICashDesk extends IAbraModel {
-    Account_ID?: string;
-    Currency_ID?: string;
-    Division_ID?: string;
-    ElectronicPayment?: boolean;
-    FirstOpenPeriod_ID?: string;
-    Fiscal?: boolean;
-    FiscalizationPaymentType?: number;
-    Hidden?: boolean;
-    LastOpenPeriod_ID?: string;
-    Name?: string;
-    Rows?: ICashDeskRow[];
-    BalanceAmount?: number;
-    FirstAmount?: number;
-    FirstLocalAmount?: number;
-    LocalBalanceAmount?: number;
+export interface ICashdesk extends IAbraModel {
+    account_id?: string;
+    currency_id?: string;
+    division_id?: string;
+    electronicpayment?: boolean;
+    firstopenperiod_id?: string;
+    fiscal?: boolean;
+    fiscalizationpaymenttype?: number;
+    hidden?: boolean;
+    lastopenperiod_id?: string;
+    name?: string;
+    rows?: ICashDeskRow[];
+    balanceamount?: number;
+    firstamount?: number;
+    firstlocalamount?: number;
+    localbalanceamount?: number;
 }
 
 /**
  * Cash desk exchange difference
- * @description Interface for Cash desk exchange difference
+ * @description Interface for cash desk exchange difference
  */
 export interface ICashDeskExchangeDifference extends IAbraModel {
-    AccDate$DATE?: string;
-    AccDocQueue_ID?: string;
-    AccPresetDef_ID?: string;
-    Amount?: number;
-    BusOrder_ID?: string;
-    BusProject_ID?: string;
-    BusTransaction_ID?: string;
-    CashDesk_ID?: string;
-    CorrectedBy_ID?: string;
-    CreatedBy_ID?: string;
-    CurrRate?: number;
-    Division_ID?: string;
-    DocDate$DATE?: string;
-    DocQueue_ID?: string;
-    OrdNumber?: number;
-    Period_ID?: string;
-    Profit?: boolean;
-    RefCurrRate?: number;
-    AccountingType?: number;
-    Country_ID?: string;
-    Currency_ID?: string;
-    Dirty?: boolean;
-    IsAccounted?: boolean;
-    LocalRefCurrency_ID?: string;
-    NewRelatedDocument_ID?: string;
-    NewRelatedType?: number;
-    RefCurrency_ID?: string;
+    accdate$date?: string;
+    accdocqueue_id?: string;
+    accpresetdef_id?: string;
+    amount?: number;
+    busorder_id?: string;
+    busproject_id?: string;
+    bustransaction_id?: string;
+    cashdesk_id?: string;
+    correctedby_id?: string;
+    createdby_id?: string;
+    currrate?: number;
+    division_id?: string;
+    docdate$date?: string;
+    docqueue_id?: string;
+    ordnumber?: number;
+    period_id?: string;
+    profit?: boolean;
+    refcurrrate?: number;
+    accountingtype?: number;
+    country_id?: string;
+    currency_id?: string;
+    dirty?: boolean;
+    isaccounted?: boolean;
+    localrefcurrency_id?: string;
+    newrelateddocument_id?: string;
+    newrelatedtype?: number;
+    refcurrency_id?: string;
 }
 
 /**
- * CD confirm link
- * @description Interface for CD Confirm link
+ * Cd confirm link
+ * @description Interface for cd confirm link
  */
 export interface ICdConfirmLink extends IAbraModel {
-    Amount?: number;
-    RDocumentRow_ID?: string;
-    RDocumentType?: string;
-    Row_ID?: string;
+    amount?: number;
+    rdocumentrow_id?: string;
+    rdocumenttype?: string;
+    row_id?: string;
 }
 
 /**
  * Cash paid row
- * @description Interface for Cash paid row
+ * @description Interface for cash paid row
  */
 export interface ICashPaidRow extends IAbraModel {
-    Account_ID?: string;
-    BusOrder_ID?: string;
-    BusProject_ID?: string;
-    BusTransaction_ID?: string;
-    CDConfirmedRows?: ICdConfirmLink[];
-    DRCArticle_ID?: string;
-    DRCQUnit?: string;
-    DRCQuantity?: number;
-    Division_ID?: string;
-    ExpenseType_ID?: string;
-    LocalByHand?: boolean;
-    LocalTAmount?: number;
-    LocalTAmountWithoutVAT?: number;
-    Parent_ID?: string;
-    PosIndex?: number;
-    TAmount?: number;
-    TAmountWithoutVAT?: number;
-    Text?: string;
-    UsedRatio?: boolean;
-    VATIndex_ID?: string;
-    VATMode?: number;
-    VATRate?: number;
-    VATRate_ID?: string;
-    CDConfirmedAmount?: number;
-    HasAccrual?: boolean;
-    LocalVATTAmount?: number;
-    VATTAmount?: number;
+    account_id?: string;
+    busorder_id?: string;
+    busproject_id?: string;
+    bustransaction_id?: string;
+    cdconfirmedrows?: ICdConfirmLink[];
+    drcarticle_id?: string;
+    drcqunit?: string;
+    drcquantity?: number;
+    division_id?: string;
+    expensetype_id?: string;
+    localbyhand?: boolean;
+    localtamount?: number;
+    localtamountwithoutvat?: number;
+    parent_id?: string;
+    posindex?: number;
+    tamount?: number;
+    tamountwithoutvat?: number;
+    text?: string;
+    usedratio?: boolean;
+    vatindex_id?: string;
+    vatmode?: number;
+    vatrate?: number;
+    vatrate_id?: string;
+    cdconfirmedamount?: number;
+    hasaccrual?: boolean;
+    localvattamount?: number;
+    vattamount?: number;
 }
 
 /**
  * Cash paid
- * @description Interface for Cash paid
+ * @description Interface for cash paid
  */
 export interface ICashPaid extends IAbraModel {
-    AccDate$DATE?: string;
-    AccDocQueue_ID?: string;
-    AccPresetDef_ID?: string;
-    Amount?: number;
-    AmountWithoutVAT?: number;
-    CashDesk_ID?: string;
-    Coef?: number;
-    CorrectedAt$DATE?: string;
-    CorrectedBy_ID?: string;
-    Country_ID?: string;
-    CreatedAt$DATE?: string;
-    CreatedBy_ID?: string;
-    CreditAmount?: number;
-    CreditAmountWithoutVAT?: number;
-    CurrRate?: number;
-    Currency_ID?: string;
-    DataEntryKind?: number;
-    Description?: string;
-    Dirty?: boolean;
-    DocDate$DATE?: string;
-    DocQueue_ID?: string;
-    DocumentInVATByPaymentMode?: boolean;
-    EET?: boolean;
-    EETTurnover_ID?: string;
-    ElectronicPayTransactionData?: string;
-    ElectronicPayment?: boolean;
-    ElectronicPaymentAuthCode?: string;
-    ElectronicPaymentDescription?: string;
-    ElectronicPaymentPaid?: boolean;
-    ExternalNumber?: string;
-    FirmOffice_ID?: string;
-    Firm_ID?: string;
-    FiscalizationMode?: number;
-    IsFiscalized?: boolean;
-    IsReverseChargeDeclared?: boolean;
-    LocalAmount?: number;
-    LocalAmountWithoutVAT?: number;
-    LocalCoef?: number;
-    LocalCreditAmount?: number;
-    LocalCreditAmountWithoutVAT?: number;
-    LocalRoundingAmount?: number;
-    LocalZone_ID?: string;
-    OrdNumber?: number;
-    PAmount?: number;
-    PDisKind?: number;
-    PDocumentType?: string;
-    PDocument_ID?: string;
-    Period_ID?: string;
-    Person_ID?: string;
-    RefCurrRate?: number;
-    RoundingAmount?: number;
-    Rows?: ICashPaidRow[];
-    SimplifiedVATDocument?: boolean;
-    TradeType?: number;
-    UUID?: string;
-    VATAdmitDate$DATE?: string;
-    VATByPayment?: boolean;
-    VATByPaymentEndDate$DATE?: string;
-    VATCountry_ID?: string;
-    VATDate$DATE?: string;
-    VATDocument?: boolean;
-    VATReportPreference?: string;
-    VATReportReference?: string;
-    VATVoluntaryPaid?: boolean;
-    Zone_ID?: string;
-    AccountingType?: number;
-    CurrRateInfo?: string;
-    IsAccounted?: boolean;
-    IsAccountedLaterVAT?: boolean;
-    LocalRefCurrency_ID?: string;
-    LocalVATAmount?: number;
-    NewRelatedDocument_ID?: string;
-    NewRelatedType?: number;
-    RefCurrency_ID?: string;
-    TradeTypeDescription?: string;
-    VATAmount?: number;
+    accdate$date?: string;
+    accdocqueue_id?: string;
+    accpresetdef_id?: string;
+    amount?: number;
+    amountwithoutvat?: number;
+    cashdesk_id?: string;
+    coef?: number;
+    correctedat$date?: string;
+    correctedby_id?: string;
+    country_id?: string;
+    createdat$date?: string;
+    createdby_id?: string;
+    creditamount?: number;
+    creditamountwithoutvat?: number;
+    currrate?: number;
+    currency_id?: string;
+    dataentrykind?: number;
+    description?: string;
+    dirty?: boolean;
+    docdate$date?: string;
+    docqueue_id?: string;
+    documentinvatbypaymentmode?: boolean;
+    eet?: boolean;
+    eetturnover_id?: string;
+    electronicpaytransactiondata?: string;
+    electronicpayment?: boolean;
+    electronicpaymentauthcode?: string;
+    electronicpaymentdescription?: string;
+    electronicpaymentpaid?: boolean;
+    externalnumber?: string;
+    firmoffice_id?: string;
+    firm_id?: string;
+    fiscalizationmode?: number;
+    isfiscalized?: boolean;
+    isreversechargedeclared?: boolean;
+    localamount?: number;
+    localamountwithoutvat?: number;
+    localcoef?: number;
+    localcreditamount?: number;
+    localcreditamountwithoutvat?: number;
+    localroundingamount?: number;
+    localzone_id?: string;
+    ordnumber?: number;
+    pamount?: number;
+    pdiskind?: number;
+    pdocumenttype?: string;
+    pdocument_id?: string;
+    period_id?: string;
+    person_id?: string;
+    refcurrrate?: number;
+    roundingamount?: number;
+    rows?: ICashPaidRow[];
+    simplifiedvatdocument?: boolean;
+    tradetype?: number;
+    uuid?: string;
+    vatadmitdate$date?: string;
+    vatbypayment?: boolean;
+    vatbypaymentenddate$date?: string;
+    vatcountry_id?: string;
+    vatdate$date?: string;
+    vatdocument?: boolean;
+    vatreportpreference?: string;
+    vatreportreference?: string;
+    vatvoluntarypaid?: boolean;
+    zone_id?: string;
+    accountingtype?: number;
+    currrateinfo?: string;
+    isaccounted?: boolean;
+    isaccountedlatervat?: boolean;
+    localrefcurrency_id?: string;
+    localvatamount?: number;
+    newrelateddocument_id?: string;
+    newrelatedtype?: number;
+    refcurrency_id?: string;
+    tradetypedescription?: string;
+    vatamount?: number;
 }
 
 /**
  * Cash received row
- * @description Interface for Cash received row
+ * @description Interface for cash received row
  */
 export interface ICashReceivedRow extends IAbraModel {
-    Account_ID?: string;
-    BusOrder_ID?: string;
-    BusProject_ID?: string;
-    BusTransaction_ID?: string;
-    DRCArticle_ID?: string;
-    DRCQUnit?: string;
-    DRCQuantity?: number;
-    DealerDiscount?: number;
-    DealerDiscountExcluded?: boolean;
-    DiscountsExcluded?: boolean;
-    Division_ID?: string;
-    DocumentDiscountExcluded?: boolean;
-    ESLDate$DATE?: string;
-    ESLIndicator_ID?: string;
-    FinancialDiscountExcluded?: boolean;
-    IncomeType_ID?: string;
-    IndividualDiscountExcluded?: boolean;
-    IntrastatAmount?: number;
-    IntrastatOutputStatistic_ID?: string;
-    IntrastatRegion_ID?: string;
-    LocalIntrastatAmount?: number;
-    LocalTAmount?: number;
-    LocalTAmountWithoutVAT?: number;
-    MOSSService_ID?: string;
-    OSSSupplyType?: number;
-    OriginCountry_ID?: string;
-    OriginalUnitPrice?: number;
-    Parent_ID?: string;
-    PosIndex?: number;
-    ProvideRow_ID?: string;
-    Provide_ID?: string;
-    QUnit?: string;
-    Quantity?: number;
-    QuantityDiscount?: number;
-    QuantityDiscountExcluded?: boolean;
-    RCreditAmount?: number;
-    RCreditAmountWithoutVAT?: number;
-    RowDiscount?: number;
-    RowType?: number;
-    SplitIntrastat?: boolean;
-    StatisticAmount?: number;
-    StoreCard_ID?: string;
-    Store_ID?: string;
-    TAmount?: number;
-    TAmountWithoutVAT?: number;
-    Text?: string;
-    ToESL?: boolean;
-    ToIntrastat?: boolean;
-    TotalPrice?: number;
-    UnitPrice?: number;
-    UnitRate?: number;
-    VATIndex_ID?: string;
-    VATMode?: number;
-    VATRate?: number;
-    VATRate_ID?: string;
-    Capacity?: number;
-    CapacityUnit?: number;
-    DeliveryMode?: number;
-    DeliveryProvideModeStr?: string;
-    ESLStatus?: number;
-    HasAccrual?: boolean;
-    IntrastatStatus?: number;
-    IsAnyDiscount?: boolean
-    ProvideRowDisplayName?: string;
-    RowMargin?: number;
-    RowStorePrice?: number;
-    TotalDiscountFactor?: number;
-    TotalPercentualDiscount?: number;
-    UnitQuantity?: number;
-    Weight?: number;
-    WeightUnit?: number;
+    account_id?: string;
+    busorder_id?: string;
+    busproject_id?: string;
+    bustransaction_id?: string;
+    drcarticle_id?: string;
+    drcqunit?: string;
+    drcquantity?: number;
+    dealerdiscount?: number;
+    dealerdiscountexcluded?: boolean;
+    discountsexcluded?: boolean;
+    division_id?: string;
+    documentdiscountexcluded?: boolean;
+    esldate$date?: string;
+    eslindicator_id?: string;
+    financialdiscountexcluded?: boolean;
+    incometype_id?: string;
+    individualdiscountexcluded?: boolean;
+    intrastatamount?: number;
+    intrastatoutputstatistic_id?: string;
+    intrastatregion_id?: string;
+    localintrastatamount?: number;
+    localtamount?: number;
+    localtamountwithoutvat?: number;
+    mossservice_id?: string;
+    osssupplytype?: number;
+    origincountry_id?: string;
+    originalunitprice?: number;
+    parent_id?: string;
+    posindex?: number;
+    providerow_id?: string;
+    provide_id?: string;
+    qunit?: string;
+    quantity?: number;
+    quantitydiscount?: number;
+    quantitydiscountexcluded?: boolean;
+    rcreditamount?: number;
+    rcreditamountwithoutvat?: number;
+    rowdiscount?: number;
+    rowtype?: number;
+    splitintrastat?: boolean;
+    statisticamount?: number;
+    storecard_id?: string;
+    store_id?: string;
+    tamount?: number;
+    tamountwithoutvat?: number;
+    text?: string;
+    toesl?: boolean;
+    tointrastat?: boolean;
+    totalprice?: number;
+    unitprice?: number;
+    unitrate?: number;
+    vatindex_id?: string;
+    vatmode?: number;
+    vatrate?: number;
+    vatrate_id?: string;
+    capacity?: number;
+    capacityunit?: number;
+    deliverymode?: number;
+    deliveryprovidemodestr?: string;
+    eslstatus?: number;
+    hasaccrual?: boolean;
+    intrastatstatus?: number;
+    isanydiscount?: boolean
+    providerowdisplayname?: string;
+    rowmargin?: number;
+    rowstoreprice?: number;
+    totaldiscountfactor?: number;
+    totalpercentualdiscount?: number;
+    unitquantity?: number;
+    weight?: number;
+    weightunit?: number;
 }
 
 /**
  * Cash received
- * @description Interface for Cash received
+ * @description Interface for cash received
  */
 export interface ICashReceived extends IAbraModel {
-    AccDate$DATE?: string;
-    AccDocQueue_ID?: string;
-    AccPresetDef_ID?: string;
-    Address_ID?: string;
-    Amount?: number;
-    AmountWithoutVAT?: number;
-    CashDesk_ID?: string;
-    Coef?: number;
-    CorrectedAt$DATE?: string;
-    CorrectedBy_ID?: string;
-    Country_ID?: string;
-    CreatedAt$DATE?: string;
-    CreatedBy_ID?: string;
-    CreditAmount?: number;
-    CreditAmountWithoutVAT?: number;
-    CurrRate?: number;
-    Currency_ID?: string;
-    DealerCategory_ID?: string;
-    DealerDiscount?: number;
-    DealerDiscountKind?: number;
-    Description?: string;
-    Dirty?: boolean;
-    DiscountCalcKind?: number;
-    DocDate$DATE?: string;
-    DocQueue_ID?: string;
-    DocumentDiscount?: number;
-    EET?: boolean;
-    EETTurnover_ID?: string;
-    ElectronicPayTransactionData?: string;
-    ElectronicPayment?: boolean;
-    ElectronicPaymentAuthCode?: string;
-    ElectronicPaymentDescription?: string;
-    ElectronicPaymentPaid?: boolean;
-    ExternalNumber?: string;
-    FinancialDiscount?: number;
-    FirmOffice_ID?: string;
-    Firm_ID?: string;
-    FiscalizationMode?: number;
-    FrozenDiscounts?: boolean;
-    IntrastatCompleteKind?: number;
-    IntrastatDeliveryTerm_ID?: string;
-    IntrastatTransactionType_ID?: string;
-    IntrastatTransportationType_ID?: string;
-    IsExternFiscal?: boolean;
-    IsFinancialDiscount?: boolean;
-    IsFiscalized?: boolean;
-    IsReverseChargeDeclared?: boolean;
-    IsRowDiscount?: boolean;
-    LocalAmount?: number;
-    LocalAmountWithoutVAT?: number;
-    LocalCoef?: number;
-    LocalCreditAmount?: number;
-    LocalCreditAmountWithoutVAT?: number;
-    LocalRoundingAmount?: number;
-    LocalZone_ID?: string;
-    MasterDocCLSID?: string;
-    MasterDocument_ID?: string;
-    OrdNumber?: number;
-    PAmount?: number;
-    PDisKind?: number;
-    PDocumentType?: string;
-    PDocument_ID?: string;
-    Period_ID?: string;
-    Person_ID?: string;
-    PricePrecision?: number;
-    PricesWithVAT?: boolean;
-    QuantityDiscountKind?: number;
-    RefCurrRate?: number;
-    RoundingAmount?: number;
-    Rows?: ICashReceivedRow[];
-    SimplifiedVATDocument?: boolean;
-    TotalRounding?: number;
-    TradeType?: number;
-    UUID?: string;
-    VATAdmitDate$DATE?: string;
-    VATAlgorithm?: number;
-    VATByPayment?: boolean;
-    VATByPaymentEndDate$DATE?: string;
-    VATCountry_ID?: string;
-    VATDate$DATE?: string;
-    VATDocument?: boolean;
-    VATFromAbovePrecision?: number;
-    VATFromAboveType?: number;
-    VATReportPreference?: string;
-    VATReportReference?: string;
-    VATRounding?: number;
-    VATVoluntaryPaid?: boolean;
-    Zone_ID?: string;
-    AccountingType?: number;
-    Capacity?: number;
-    CapacityUnit?: number;
-    CurrRateInfo?: string;
-    DeliveryMode?: number;
-    IsAccounted?: boolean;
-    IsAccountedLaterVAT?: boolean;
-    LocalRefCurrency_ID?: string;
-    LocalVATAmount?: number;
-    Margin?: number;
-    NewRelatedDocument_ID?: string;
-    NewRelatedType?: number;
-    ReceiptCardDocQueue_ID?: string;
-    RefCurrency_ID?: string;
-    StoreDocQueue_ID?: string;
-    StorePrice?: number;
-    TotalDiscountAmount?: number;
-    TradeTypeDescription?: string;
-    VATAmount?: number;
-    Weight?: number;
-    WeightUnit?: number;
+    accdate$date?: string;
+    accdocqueue_id?: string;
+    accpresetdef_id?: string;
+    address_id?: string;
+    amount?: number;
+    amountwithoutvat?: number;
+    cashdesk_id?: string;
+    coef?: number;
+    correctedat$date?: string;
+    correctedby_id?: string;
+    country_id?: string;
+    createdat$date?: string;
+    createdby_id?: string;
+    creditamount?: number;
+    creditamountwithoutvat?: number;
+    currrate?: number;
+    currency_id?: string;
+    dealercategory_id?: string;
+    dealerdiscount?: number;
+    dealerdiscountkind?: number;
+    description?: string;
+    dirty?: boolean;
+    discountcalckind?: number;
+    docdate$date?: string;
+    docqueue_id?: string;
+    documentdiscount?: number;
+    eet?: boolean;
+    eetturnover_id?: string;
+    electronicpaytransactiondata?: string;
+    electronicpayment?: boolean;
+    electronicpaymentauthcode?: string;
+    electronicpaymentdescription?: string;
+    electronicpaymentpaid?: boolean;
+    externalnumber?: string;
+    financialdiscount?: number;
+    firmoffice_id?: string;
+    firm_id?: string;
+    fiscalizationmode?: number;
+    frozendiscounts?: boolean;
+    intrastatcompletekind?: number;
+    intrastatdeliveryterm_id?: string;
+    intrastattransactiontype_id?: string;
+    intrastattransportationtype_id?: string;
+    isexternfiscal?: boolean;
+    isfinancialdiscount?: boolean;
+    isfiscalized?: boolean;
+    isreversechargedeclared?: boolean;
+    isrowdiscount?: boolean;
+    localamount?: number;
+    localamountwithoutvat?: number;
+    localcoef?: number;
+    localcreditamount?: number;
+    localcreditamountwithoutvat?: number;
+    localroundingamount?: number;
+    localzone_id?: string;
+    masterdocclsid?: string;
+    masterdocument_id?: string;
+    ordnumber?: number;
+    pamount?: number;
+    pdiskind?: number;
+    pdocumenttype?: string;
+    pdocument_id?: string;
+    period_id?: string;
+    person_id?: string;
+    priceprecision?: number;
+    priceswithvat?: boolean;
+    quantitydiscountkind?: number;
+    refcurrrate?: number;
+    roundingamount?: number;
+    rows?: ICashReceivedRow[];
+    simplifiedvatdocument?: boolean;
+    totalrounding?: number;
+    tradetype?: number;
+    uuid?: string;
+    vatadmitdate$date?: string;
+    vatalgorithm?: number;
+    vatbypayment?: boolean;
+    vatbypaymentenddate$date?: string;
+    vatcountry_id?: string;
+    vatdate$date?: string;
+    vatdocument?: boolean;
+    vatfromaboveprecision?: number;
+    vatfromabovetype?: number;
+    vatreportpreference?: string;
+    vatreportreference?: string;
+    vatrounding?: number;
+    vatvoluntarypaid?: boolean;
+    zone_id?: string;
+    accountingtype?: number;
+    capacity?: number;
+    capacityunit?: number;
+    currrateinfo?: string;
+    deliverymode?: number;
+    isaccounted?: boolean;
+    isaccountedlatervat?: boolean;
+    localrefcurrency_id?: string;
+    localvatamount?: number;
+    margin?: number;
+    newrelateddocument_id?: string;
+    newrelatedtype?: number;
+    receiptcarddocqueue_id?: string;
+    refcurrency_id?: string;
+    storedocqueue_id?: string;
+    storeprice?: number;
+    totaldiscountamount?: number;
+    tradetypedescription?: string;
+    vatamount?: number;
+    weight?: number;
+    weightunit?: number;
 }
 
 /**
  * Category item
- * @description Interface for Category item
+ * @description Interface for category item
  */
 export interface ICategoryItem extends IAbraModel {
-    CategoryItemGroup_ID?: string;
-    DataSize?: number;
-    DataType?: number;
-    DecimalPlaces?: number;
-    Expression?: string;
-    FieldName?: string;
-    Hidden?: boolean;
-    ItemType?: number;
-    Name?: string;
-    SQLQuery?: string;
-    UserFieldDef2_ID?: string;
-    DataTypeTXT?: string;
-    FieldCode?: number;
-    FieldHint?: string;
-    FieldLabel?: string;
-    ItemTypeTXT?: string;
+    categoryitemgroup_id?: string;
+    datasize?: number;
+    datatype?: number;
+    decimalplaces?: number;
+    expression?: string;
+    fieldname?: string;
+    hidden?: boolean;
+    itemtype?: number;
+    name?: string;
+    sqlquery?: string;
+    userfielddef2_id?: string;
+    datatypetxt?: string;
+    fieldcode?: number;
+    fieldhint?: string;
+    fieldlabel?: string;
+    itemtypetxt?: string;
 }
 
 /**
  * Category item group
- * @description Interface for Category item group
+ * @description Interface for category item group
  */
 export interface ICategoryItemGroup extends IAbraModel {
-    Condition?: string;
-    Name?: string;
+    condition?: string;
+    name?: string;
 }
 
 /**
  * Code structure
- * @description Interface  for Code structure
+ * @description interface  for code structure
  */
 export interface ICodeStructure extends IAbraModel {
-    Code?: string;
-    CodeStructure?: string;
-    Name?: string;
+    code?: string;
+    codestructure?: string;
+    name?: string;
 }
 
 /**
  * Common work position
- * @description Interface for Common work position
+ * @description Interface for common work position
  */
 export interface ICommonWorkPosition extends IAbraModel {
-    Code?: string;
-    Hidden?: boolean;
-    Name?: string;
-    Parent_ID?: string;
+    code?: string;
+    hidden?: boolean;
+    name?: string;
+    parent_id?: string;
 }
 
 /**
  * Communication type
- * @description Interface for Communication type
+ * @description Interface for communication type
  */
 export interface ICommunicationType extends IAbraModel {
-    Code: number,
-    Name: string,
-    FixedType: number
+    code: number,
+    name: string,
+    fixedtype: number
 }
 
 /**
  * Company legal status
- * @description Interface for Company legal status
+ * @description Interface for company legal status
  */
 export interface ICompanyLegalStatus extends IAbraModel {
-    Code?: string;
-    Name?: string;
+    code?: string;
+    name?: string;
 }
 
 /**
  * Compensation row
- * @description Interface for Compensation row
+ * @description Interface for compensation row
  */
 export interface ICompensationRow extends IAbraModel {
-    AccDate$DATE?: string;
-    AccPresetDef_ID?: string;
-    Account_ID?: string;
-    Amount?: number;
-    BusOrder_ID?: string;
-    BusProject_ID?: string;
-    BusTransaction_ID?: string;
-    Coef?: number;
-    CorrectionRow?: boolean;
-    Credit?: boolean;
-    CurrRate?: number;
-    Currency_ID?: string;
-    Division_ID?: string;
-    DocDate$DATE?: string;
-    Firm_ID?: string;
-    LocalCoef?: number;
-    LocalTAmount?: number;
-    LocalZone_ID?: string;
-    PAmount?: number;
-    PDisKind?: number;
-    PDocumentSource_ID?: string;
-    PDocumentType?: string;
-    PDocument_ID?: string;
-    Parent_ID?: string;
-    PosIndex?: number;
-    RefCurrRate?: number;
-    TAmount?: number;
-    Text?: string;
-    VarSymbol?: string;
-    Zone_ID?: string;
-    LocalRefCurrency_ID?: string;
-    RefCurrency_ID?: string;
+    accdate$date?: string;
+    accpresetdef_id?: string;
+    account_id?: string;
+    amount?: number;
+    busorder_id?: string;
+    busproject_id?: string;
+    bustransaction_id?: string;
+    coef?: number;
+    correctionrow?: boolean;
+    credit?: boolean;
+    currrate?: number;
+    currency_id?: string;
+    division_id?: string;
+    docdate$date?: string;
+    firm_id?: string;
+    localcoef?: number;
+    localtamount?: number;
+    localzone_id?: string;
+    pamount?: number;
+    pdiskind?: number;
+    pdocumentsource_id?: string;
+    pdocumenttype?: string;
+    pdocument_id?: string;
+    parent_id?: string;
+    posindex?: number;
+    refcurrrate?: number;
+    tamount?: number;
+    text?: string;
+    varsymbol?: string;
+    zone_id?: string;
+    localrefcurrency_id?: string;
+    refcurrency_id?: string;
 }
 
 /**
  * Compensation
- * @description Interface for Compensation
+ * @description Interface for compensation
  */
 export interface ICompensation extends IAbraModel {
-    AccDocQueue_ID?: string;
-    CorrectedAt$DATE?: string;
-    CorrectedBy_ID?: string;
-    CreatedAt$DATE?: string;
-    CreatedBy_ID?: string;
-    CreditAmount?: number;
-    Currency_ID?: string;
-    DebitAmount?: number;
-    Dirty?: boolean;
-    DocDate$DATE?: string;
-    DocQueue_ID?: string;
-    ExternalNumber?: string;
-    Firm_ID?: string;
-    LocalCreditAmount?: number;
-    LocalDebitAmount?: number
-    LocalDocCanChangeRate?: boolean;
-    OrdNumber?: number;
-    Period_ID?: string;
-    Rows?: ICompensationRow[];
-    NewRelatedDocument_ID?: string;
-    NewRelatedType?: number;
-}
-
-/**
- * Country
- * @description Interface for abra country
- */
-export interface ICountry extends IAbraModel {
-    Rows?: ICountryRow[],
-    Hidden?: boolean,
-    Code?: string,
-    Name?: string,
-    Currency_ID?: string,
-    NumCode?: string,
-    AlternateCode?: string
+    accdocqueue_id?: string;
+    correctedat$date?: string;
+    correctedby_id?: string;
+    createdat$date?: string;
+    createdby_id?: string;
+    creditamount?: number;
+    currency_id?: string;
+    debitamount?: number;
+    dirty?: boolean;
+    docdate$date?: string;
+    docqueue_id?: string;
+    externalnumber?: string;
+    firm_id?: string;
+    localcreditamount?: number;
+    localdebitamount?: number
+    localdoccanchangerate?: boolean;
+    ordnumber?: number;
+    period_id?: string;
+    rows?: ICompensationRow[];
+    newrelateddocument_id?: string;
+    newrelatedtype?: number;
 }
 
 /**
@@ -1918,39 +1904,33 @@ export interface ICountry extends IAbraModel {
  * @description Interface for abra country row
  */
 export interface ICountryRow extends IAbraModel {
-    Parent_ID?: string,
-    DateOfChange$DATE?: string,
-    EUMember?: boolean
+    parent_id?: string,
+    dateofchange$date?: string,
+    eumember?: boolean
 }
 
 /**
- * Currency
- * @description Interface for abra currency
+ * Country
+ * @description Interface for abra country
  */
-export interface ICurrency {
-    ID?: string,
-    ObjVersion?: 5,
-    Rows?: ICurrencyRow[],
-    Hidden?: false,
-    Code?: string,
-    Name?: string,
-    Symbol?: string,
-    Rounding?: number,
-    Values?: ICurrencyValue[],
-    BankCode?: string,
-    DocRounding?: number,
-    DocCashRounding?: number,
-    DocVATRounding?: number
+export interface ICountry extends IAbraModel {
+    rows?: ICountryRow[],
+    hidden?: boolean,
+    code?: string,
+    name?: string,
+    currency_id?: string,
+    numcode?: string,
+    alternatecode?: string
 }
 
 /**
  * Currency value
- * @description Interface for abra currency value
+ * @description interface for abra currency value
  */
 export interface ICurrencyValue extends IAbraModel {
-    Parent_ID?: string,
-    NominalValue?: number,
-    Description?: string
+    parent_id?: string,
+    nominalvalue?: number,
+    description?: string
 }
 
 /**
@@ -1958,35 +1938,55 @@ export interface ICurrencyValue extends IAbraModel {
  * @description Interface for abra currency row
  */
 export interface ICurrencyRow extends IAbraModel {
-    Parent_ID?: string,
-    DateOfChange$DATE?: string,
-    Denomination?: boolean,
-    Currency_ID?: string,
-    Coef?: string
+    parent_id?: string,
+    dateofchange$date?: string,
+    denomination?: boolean,
+    currency_id?: string,
+    coef?: string
+}
+
+/**
+ * Currency
+ * @description Interface for abra currency
+ */
+export interface ICurrency {
+    id?: string,
+    objversion?: 5,
+    rows?: ICurrencyRow[],
+    hidden?: false,
+    code?: string,
+    name?: string,
+    symbol?: string,
+    rounding?: number,
+    values?: ICurrencyValue[],
+    bankcode?: string,
+    docrounding?: number,
+    doccashrounding?: number,
+    docvatrounding?: number
 }
 
 /**
 * Employee count category
-* @description Interface for abra Employee count category
+* @description Interface for abra employee count category
  */
 export interface IEmployeeCountCategory extends IAbraModel {
-    Code?: string,
-    Name?: string,
-    Minimum?: number,
-    Maximum?: number,
-    MeanValue?: number
+    code?: string,
+    name?: string,
+    minimum?: number,
+    maximum?: number,
+    meanvalue?: number
 }
 
 /**
  * Financial category
- * @description Interface for abra Financial category
+ * @description Interface for abra financial category
  */
 export interface IFinancialCategory extends IAbraModel {
-    Code?: string,
-    Name?: string,
-    Minimum?: number,
-    Maximum?: number,
-    MeanValue?: number
+    code?: string,
+    name?: string,
+    minimum?: number,
+    maximum?: number,
+    meanvalue?: number
 }
 
 /**
@@ -1994,11 +1994,11 @@ export interface IFinancialCategory extends IAbraModel {
  * @description Interface for abra firm assortment discount
  */
 export interface IFirmAssortmentDiscount extends IAbraModel {
-    Discount?: number,
-    Parent_ID?: string,
-    PosIndex?: number,
-    Price_ID?: string,
-    StoreAssortmentGroup_ID?: string
+    discount?: number,
+    parent_id?: string,
+    posindex?: number,
+    price_id?: string,
+    storeassortmentgroup_id?: string
 }
 
 /**
@@ -2006,11 +2006,11 @@ export interface IFirmAssortmentDiscount extends IAbraModel {
  * @description Interface for abra firm category metadata
  */
 export interface IFirmCategoryMetadata extends IAbraModel {
-    Parent_ID?: string,
-    CategoryItem_ID?: string,
-    StringValue?: string,
-    CategoryUpdateMode?: number,
-    ChangeDate$DATE?: Date
+    parent_id?: string,
+    categoryitem_id?: string,
+    stringvalue?: string,
+    categoryupdatemode?: number,
+    changedate$date?: Date
 }
 
 /**
@@ -2018,11 +2018,11 @@ export interface IFirmCategoryMetadata extends IAbraModel {
  * @description Interface for abra firm nace
  */
 export interface IFirmNace extends IAbraModel {
-    Parent_ID?: string,
-    PosIndex?: number,
-    Nace_ID?: string,
-    NACEUpdateMode?: number,
-    ChangeDate$DATE?: Date
+    parent_id?: string,
+    posindex?: number,
+    nace_id?: string,
+    naceupdatemode?: number,
+    changedate$date?: Date
 }
 
 /**
@@ -2030,22 +2030,22 @@ export interface IFirmNace extends IAbraModel {
  * @description Interface for abra firm office
  */
 export interface IFirmOffice extends IAbraModel {
-    Address_id?: string,
-    Checkcredit?: boolean,
-    Credit?: number,
-    Dealercategory_id?: string,
-    Electronicaddress_id?: string,
-    Hidden?: boolean,
-    Id?: string,
-    Masscorrespondence?: boolean,
-    Name?: string,
-    Objversion?: number,
-    Officeidentnumber?: string,
-    Officeunique_id?: string,
-    Parent_id?: string,
-    Posindex?: number,
-    Store_id?: string,
-    Synchronizeaddress?: boolean
+    address_id?: string,
+    checkcredit?: boolean,
+    credit?: number,
+    dealercategory_id?: string,
+    electronicaddress_id?: string,
+    hidden?: boolean,
+    id?: string,
+    masscorrespondence?: boolean,
+    name?: string,
+    objversion?: number,
+    officeidentnumber?: string,
+    officeunique_id?: string,
+    parent_id?: string,
+    posindex?: number,
+    store_id?: string,
+    synchronizeaddress?: boolean
 }
 
 /**
@@ -2053,13 +2053,13 @@ export interface IFirmOffice extends IAbraModel {
  * @description Interface for abra firm office
  */
 export interface IFirmPerson extends IAbraModel {
-    Parent_ID?: string,
-    PosIndex?: number,
-    FirmOffice_ID?: string,
-    Person_ID?: string,
-    CommonWorkPosition_ID?: string,
-    Note?: string,
-    Address_ID?: string
+    parent_id?: string,
+    posindex?: number,
+    firmoffice_id?: string,
+    person_id?: string,
+    commonworkposition_id?: string,
+    note?: string,
+    address_id?: string
 }
 
 /**
@@ -2067,9 +2067,9 @@ export interface IFirmPerson extends IAbraModel {
  * @description Interface for abra firm office
  */
 export interface IFirmPicture extends IAbraModel {
-    Parent_ID?: string,
-    PosIndex?: number,
-    Picture_ID?: string
+    parent_id?: string,
+    posindex?: number,
+    picture_id?: string
 }
 
 /**
@@ -2077,99 +2077,99 @@ export interface IFirmPicture extends IAbraModel {
  * @description Interface for abra firm
  */
 export interface IFirm extends IAbraModel {
-    Rows?: IBankAccount[],
-    Hidden?: boolean,
-    Code?: string,
-    Name?: string,
-    ResidenceAddress_ID?: string,
-    OrgIdentNumber?: string,
-    VATIdentNumber?: string,
-    EORIIdentNumber?: string,
-    Firm_ID?: string,
-    PriceList_ID?: string,
-    DueTerm?: number,
-    DueTermForPurchase?: number,
-    DealerCategory_ID?: string,
-    DealerDiscount?: number,
-    Note?: string,
-    Credit?: number,
-    CheckCredit?: boolean,
-    K0?: string,
-    K1?: string,
-    K2?: string,
-    K3?: string,
-    K4?: string,
-    K5?: string,
-    K6?: string,
-    K7?: string,
-    K8?: string,
-    K9?: string,
-    K10?: string,
-    K11?: string,
-    K12?: string,
-    K13?: string,
-    K14?: string,
-    K15?: string,
-    WWWAddress?: string,
-    PenaltyPercent?: number,
-    FirmOffices?: IFirmOffice[],
-    FirmNACEs?: IFirmNace[],
-    CategoriesMetadata?: IFirmCategoryMetadata[],
-    PaymentType_ID?: string,
-    TransportationType_ID?: string,
-    Currency_ID?: string,
-    Price_ID?: string,
-    NPTitle?: string,
-    NPResidencePermitNumber?: string,
-    NPBirthNumber?: string,
-    NPSurname?: string,
-    NPForename?: string,
-    IsRegistered?: boolean,
-    RegisterKeptAt?: string,
-    RegisterFileRef?: string,
-    RegisterDate$DATE?: string,
-    PrefillDiscountKind?: boolean,
-    DealerDiscountKind?: number,
-    QuantityDiscountKind?: number,
-    CommunicationType_ID?: string,
-    AssortmentDiscounts?: IFirmAssortmentDiscount[],
-    TAXIdentNumber?: string,
-    Pictures?: IFirmPicture[],
-    CRMMenuItem_ID?: string,
-    EInvoiceFormat?: number,
-    InvoicingDelivery?: number,
-    ElectronicAddress_ID?: string,
-    ElecPosAgreementRef?: string,
-    ImportDataFromARESAt$DATE?: string,
-    StateConsolidationUnit?: boolean,
-    LegalPerson?: boolean,
-    VATPayor?: boolean,
-    ECDCustomerIdType?: number,
-    GDPRValiditySuspended?: boolean,
-    DebitAccount_ID?: string,
-    CreditAccount_ID?: string,
-    ScontoUsage?: number,
-    ScontoPayLimit?: number,
-    ScontoPattern_ID?: string,
-    ScontoType_ID?: string,
-    Picture_ID?: string,
-    Store_ID?: string,
-    VATCountry_ID?: string,
-    AfterDueTerm?: number,
-    AfterDueTermEnabled?: boolean,
-    EquityCapital_ID?: string,
-    Turnover_ID?: string,
-    Profit_ID?: string,
-    EmployeeCount_ID?: string,
-    LegalStatus_ID?: string,
-    OwnershipType_ID?: string,
-    CommercialsAgreement?: number,
-    MainNACECode_ID?: string,
-    FirmPersons?: IFirmPerson[],
-    CreatedAt$DATE?: string,
-    CorrectedAt$DATE?: string,
-    CreatedBy_ID?: string,
-    CorrectedBy_ID?: string
+    rows?: IBankAccount[],
+    hidden?: boolean,
+    code?: string,
+    name?: string,
+    residenceaddress_id?: string,
+    orgidentnumber?: string,
+    vatidentnumber?: string,
+    eoriidentnumber?: string,
+    firm_id?: string,
+    pricelist_id?: string,
+    dueterm?: number,
+    duetermforpurchase?: number,
+    dealercategory_id?: string,
+    dealerdiscount?: number,
+    note?: string,
+    credit?: number,
+    checkcredit?: boolean,
+    k0?: string,
+    k1?: string,
+    k2?: string,
+    k3?: string,
+    k4?: string,
+    k5?: string,
+    k6?: string,
+    k7?: string,
+    k8?: string,
+    k9?: string,
+    k10?: string,
+    k11?: string,
+    k12?: string,
+    k13?: string,
+    k14?: string,
+    k15?: string,
+    wwwaddress?: string,
+    penaltypercent?: number,
+    firmoffices?: IFirmOffice[],
+    firmnaces?: IFirmNace[],
+    categoriesmetadata?: IFirmCategoryMetadata[],
+    paymenttype_id?: string,
+    transportationtype_id?: string,
+    currency_id?: string,
+    price_id?: string,
+    nptitle?: string,
+    npresidencepermitnumber?: string,
+    npbirthnumber?: string,
+    npsurname?: string,
+    npforename?: string,
+    isregistered?: boolean,
+    registerkeptat?: string,
+    registerfileref?: string,
+    registerdate$date?: string,
+    prefilldiscountkind?: boolean,
+    dealerdiscountkind?: number,
+    quantitydiscountkind?: number,
+    communicationtype_id?: string,
+    assortmentdiscounts?: IFirmAssortmentDiscount[],
+    taxidentnumber?: string,
+    pictures?: IFirmPicture[],
+    crmmenuitem_id?: string,
+    einvoiceformat?: number,
+    invoicingdelivery?: number,
+    electronicaddress_id?: string,
+    elecposagreementref?: string,
+    importdatafromaresat$date?: string,
+    stateconsolidationunit?: boolean,
+    legalperson?: boolean,
+    vatpayor?: boolean,
+    ecdcustomeridtype?: number,
+    gdprvaliditysuspended?: boolean,
+    debitaccount_id?: string,
+    creditaccount_id?: string,
+    scontousage?: number,
+    scontopaylimit?: number,
+    scontopattern_id?: string,
+    scontotype_id?: string,
+    picture_id?: string,
+    store_id?: string,
+    vatcountry_id?: string,
+    afterdueterm?: number,
+    afterduetermenabled?: boolean,
+    equitycapital_id?: string,
+    turnover_id?: string,
+    profit_id?: string,
+    employeecount_id?: string,
+    legalstatus_id?: string,
+    ownershiptype_id?: string,
+    commercialsagreement?: number,
+    mainnacecode_id?: string,
+    firmpersons?: IFirmPerson[],
+    createdat$date?: string,
+    correctedat$date?: string,
+    createdby_id?: string,
+    correctedby_id?: string
 }
 
 /**
@@ -2177,108 +2177,108 @@ export interface IFirm extends IAbraModel {
  * @description Interface for abra ownership type
  */
 export interface IOwnershipType extends IAbraModel {
-    Code?: number,
-    Name?: string
+    code?: number,
+    name?: string
 }
 
 /**
  * Payment type
- * @description Interface for abra Payment type
+ * @description Interface for abra payment type
  */
 export interface IPaymentType extends IAbraModel {
-    Hidden?: boolean,
-    Code?: string,
-    Name?: string,
-    PaymentKind?: number,
-    CommentTitle?: string,
-    CommentRequired?: boolean,
-    AuthCodeRequired?: boolean,
-    SummarizeDisabled?: boolean,
-    PrintComment?: boolean,
-    MaximumGiveBackAmount?: number,
-    AnalyticalAccount?: string,
-    MaximumPaymentAmount?: number,
-    EET?: boolean
+    hidden?: boolean,
+    code?: string,
+    name?: string,
+    paymentkind?: number,
+    commenttitle?: string,
+    commentrequired?: boolean,
+    authcoderequired?: boolean,
+    summarizedisabled?: boolean,
+    printcomment?: boolean,
+    maximumgivebackamount?: number,
+    analyticalaccount?: string,
+    maximumpaymentamount?: number,
+    eet?: boolean
 }
 
 /**
  * Period
- * @description Interface for abra Period
+ * @description Interface for abra period
  */
 export interface IPeriod extends IAbraModel {
-    Code?: boolean,
-    Name?: string,
-    DateFrom$DATE?: string,
-    DateTo$DATE?: string,
-    Closing?: boolean,
-    Beginnings?: boolean,
-    SequenceNumber?: number
+    code?: boolean,
+    name?: string,
+    datefrom$date?: string,
+    dateto$date?: string,
+    closing?: boolean,
+    beginnings?: boolean,
+    sequencenumber?: number
 }
 
 /**
  * Picture
- * @description Interface for abra Picture
+ * @description interface for abra picture
  */
 export interface IPicture extends IAbraModel {
-    BlobData?: string,
-    PictureTitle?: string,
-    ExternalFile?: boolean,
-    PathAndFileName?: string,
-    RefCount?: number,
-    IsProtected?: boolean,
-    Class_ID?: string
+    blobdata?: string,
+    picturetitle?: string,
+    externalfile?: boolean,
+    pathandfilename?: string,
+    refcount?: number,
+    isprotected?: boolean,
+    class_id?: string
 }
 
 /**
  * Price definition
- * @description Interface for abra Price definition
+ * @description interface for abra price definition
  */
 export interface IPriceDefinition extends IAbraModel {
-    Hidden?: boolean,
-    Code?: number,
-    Name?: string,
-    Note?: string,
-    Currency_ID?: string,
-    PriceWithVAT?: boolean,
-    Basic?: boolean
+    hidden?: boolean,
+    code?: number,
+    name?: string,
+    note?: string,
+    currency_id?: string,
+    pricewithvat?: boolean,
+    basic?: boolean
 }
 
 /**
  * Price list rounding
  * @description Interface for abra price list rounding
  */
-export interface IPriceListRounding extends IAbraModel {
-    AmountTo?: number,
-    ConstantToAdd?: number,
-    Currency_ID?: string,
-    Parent_ID?: string,
-    PosIndex?: number,
-    PriceRounding?: number
+export interface IPricelistRounding extends IAbraModel {
+    amountto?: number,
+    constanttoadd?: number,
+    currency_id?: string,
+    parent_id?: string,
+    posindex?: number,
+    pricerounding?: number
 }
 
 /**
  * Price list store price
- * @description Interface for abra Price list store price
+ * @description Interface for abra price list store price
  */
 export interface IPriceListStorePricePrice extends IAbraModel {
-    Amount?: number,
-    Parent_id?: string,
-    Price_id?: string,
-    Qunit?: string,
-    TieredPrice?: boolean,
-    UnitRate?: number
+    amount?: number,
+    parent_id?: string,
+    price_id?: string,
+    qunit?: string,
+    tieredprice?: boolean,
+    unitrate?: number
 }
 
 /**
  * Price list store price
- * @description Interface for abra Price list store price
+ * @description Interface for abra price list store price
  */
 export interface IPriceListStorePrice extends IAbraModel {
-    StoreCard_ID?: string,
-    PriceRows?: IPriceListStorePricePrice[],
-    PriceList_ID?: string,
-    PriceListValidity_ID?: string,
-    DeletedFromPriceList?: boolean
+    storecard_id?: string,
+    pricerows?: IPriceListStorePricePrice[],
+    pricelist_id?: string,
+    pricelistvalidity_id?: string,
+    deletedfrompricelist?: boolean
 }
 
 /**
@@ -2286,9 +2286,9 @@ export interface IPriceListStorePrice extends IAbraModel {
  * @description Interface for abra price list validity
  */
 export interface IPriceListValidity extends IAbraModel {
-    Description?: string,
-    Parent_ID?: string,
-    ValidFromDate$DATE?: string
+    description?: string,
+    parent_id?: string,
+    validfromdate$date?: string
 }
 
 /**
@@ -2296,19 +2296,19 @@ export interface IPriceListValidity extends IAbraModel {
  * @description Interface for abra price list
  */
 export interface IPriceList extends IAbraModel {
-    Rows?: IPriceListValidity[],
-    Hidden?: boolean,
-    Code?: string,
-    Name?: string,
-    Note?: string,
-    ManagedBy_ID?: string,
-    CreationDate$DATE?: string,
-    DealerDiscountExcluded?: boolean,
-    IndividualDiscountExcluded?: boolean,
-    FinancialDiscountExcluded?: boolean,
-    QuantityDiscountExcluded?: boolean,
-    DocumentDiscountExcluded?: boolean,
-    PriceListRoundings?: IPriceListRounding[]
+    rows?: IPriceListValidity[],
+    hidden?: boolean,
+    code?: string,
+    name?: string,
+    note?: string,
+    managedby_id?: string,
+    creationdate$date?: string,
+    dealerdiscountexcluded?: boolean,
+    individualdiscountexcluded?: boolean,
+    financialdiscountexcluded?: boolean,
+    quantitydiscountexcluded?: boolean,
+    documentdiscountexcluded?: boolean,
+    pricelistroundings?: IPriceListRounding[]
 }
 
 /**
@@ -2316,23 +2316,23 @@ export interface IPriceList extends IAbraModel {
  * @description Security user
  */
 export interface ISecurityUser extends IAbraModel {
-    Address_ID?: string,
-    AskToNPS?: boolean,
-    BIAccess?: boolean,
-    BI_GID?: string,
-    DPBypass?: boolean,
-    Locked?: boolean,
-    LoginName?: string,
-    Name?: string,
-    Note?: string,
-    OfferToLogin?: boolean,
-    PortalLoginName?: string,
-    PortalSecPassword?: string,
-    SecPassword?: string,
-    SecToken?: string,
-    SecTokenFastLogin?: boolean,
-    ShortName?: string,
-    WebAPIAccess?: boolean
+    address_id?: string,
+    asktonps?: boolean,
+    biaccess?: boolean,
+    bi_gid?: string,
+    dpbypass?: boolean,
+    locked?: boolean,
+    loginname?: string,
+    name?: string,
+    note?: string,
+    offertologin?: boolean,
+    portalloginname?: string,
+    portalsecpassword?: string,
+    secpassword?: string,
+    sectoken?: string,
+    sectokenfastlogin?: boolean,
+    shortname?: string,
+    webapiaccess?: boolean
 }
 
 /**
@@ -2340,29 +2340,29 @@ export interface ISecurityUser extends IAbraModel {
  * @description Store
  */
 export interface IStore extends IAbraModel {
-    Hidden?: false,
-    Address_ID?: string,
-    Name?: string,
-    Code?: string,
-    Account_ID?: string,
-    PriceList_ID?: string,
-    InventoryState?: number,
-    MachineName?: string,
-    InvStartedBy_ID?: string,
-    RefundStore_ID?: string,
-    FirstOpenPeriod_ID?: string,
-    LastOpenPeriod_ID?: string,
-    FIFO?: boolean,
-    ToAccount?: boolean,
-    OutOfStockDelivery?: number,
-    OutOfStockBatchDelivery?: number,
-    IntrastatInputStatistic_ID?: string,
-    IntrastatOutputStatistic_ID?: string,
-    IntrastatRegion_ID?: string,
-    IsLogistic?: boolean,
-    IsLogisticFromDate$DATE?: string,
-    RegisterBusOrders?: boolean,
-    IgnoreSCOutOfStockDelivery?: boolean
+    hidden?: false,
+    address_id?: string,
+    name?: string,
+    code?: string,
+    account_id?: string,
+    pricelist_id?: string,
+    inventorystate?: number,
+    machinename?: string,
+    invstartedby_id?: string,
+    refundstore_id?: string,
+    firstopenperiod_id?: string,
+    lastopenperiod_id?: string,
+    fifo?: boolean,
+    toaccount?: boolean,
+    outofstockdelivery?: number,
+    outofstockbatchdelivery?: number,
+    intrastatinputstatistic_id?: string,
+    intrastatoutputstatistic_id?: string,
+    intrastatregion_id?: string,
+    islogistic?: boolean,
+    islogisticfromdate$date?: string,
+    registerbusorders?: boolean,
+    ignorescoutofstockdelivery?: boolean
 }
 
 /**
@@ -2370,8 +2370,8 @@ export interface IStore extends IAbraModel {
  * @description Transportation type
  */
 export interface ITransportationType extends IAbraModel {
-    Hidden?: boolean,
-    Code?: string,
-    Name?: string,
-    AnalyticalAccount?: string
+    hidden?: boolean,
+    code?: string,
+    name?: string,
+    analyticalaccount?: string
 }

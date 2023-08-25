@@ -22,7 +22,7 @@ const normalizeAttributes: any = function (input: any) {
     return Object.keys(input).reduce(function (newObj, key) {
         let val = input[key];
         let newVal = (typeof val === 'object') && val !== null ? normalizeAttributes(val) : val;
-        (newObj as any)[key.charAt(0).toUpperCase() + key.slice(1)] = newVal;
+        (newObj as any)[key.toLowerCase()] = newVal;
         return newObj;
     }, {});
 };
