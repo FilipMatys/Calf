@@ -166,4 +166,19 @@ export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEn
             return await this.model.updateOne(query.filter || {}, { $set: payload }, options || {}).exec();
         }
     }
+
+    /**
+    * Archive entity
+    * @param entity 
+    * @param args 
+    */
+    public async archive(entity: TEntity, ...args: any[]): Promise<TEntity> {
+
+        // Create model
+        const model = new this.model(entity);
+
+        // Update one
+        return await this.model.updateOne({ _id: entity._id }, { $set: { isArchived: false, archivedAt: new Date() } }, {}).exec();
+    }
+
 }
