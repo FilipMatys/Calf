@@ -6,4 +6,6 @@ export class Serializable {
     _id?: any;
     createdAt?: Date;
     updatedAt?: Date;
+    isArchived?: boolean;
+    archivedAt?: Date;
 }
