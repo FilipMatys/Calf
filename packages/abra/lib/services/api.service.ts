@@ -259,8 +259,14 @@ export class ApiService {
      */
     private async parseResponse<TResult>(response: Response): Promise<TResult> {
         try {
-            // First get json
-            return response.json();
+            // No Content success status response code
+            if (response.status === 204) {
+                return {} as TResult;
+            }
+            else {
+                // First get json
+                return response.json();
+            }
         }
         catch (e) {
             // Rethrow error
