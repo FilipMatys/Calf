@@ -70,7 +70,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
             // Execute
             await SQLiteDatabase.execute(dbQuery);
         }
-        catch (e) { console.log(JSON.stringify(e)); }
+        catch (_) { }
 
         // Now get update queries
         const dbQueries: string[] = this.builder.alterTableColumns(this.schema);
@@ -82,7 +82,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
                 // Execute
                 await SQLiteDatabase.execute(dbQueries[index]);
             }
-            catch (e) { console.log(JSON.stringify(e)); }
+            catch (_) { }
         }
 
         // Resolve

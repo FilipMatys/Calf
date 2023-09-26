@@ -322,6 +322,6 @@ export class SQLiteParser {
         }).forEach((item) => result.push(item));
 
         // Stringify result
-        return `'${JSON.stringify(result)}'`;
+        return `'${this.safeString(JSON.stringify(result))}'`;
     }
 }
