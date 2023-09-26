@@ -2312,6 +2312,531 @@ export interface IPriceList extends IAbraModel {
 }
 
 /**
+ * Store container
+ */
+export interface IStoreContainer extends IAbraModel {
+    objversion?: number,
+    parent_id?: string,
+    unitquantity?: number,
+    storecard_id?: string,
+    qunit?: string
+}
+
+/**
+ * Store ean
+ */
+export interface IStoreEan extends IAbraModel {
+    objversion?: number,
+    parent_id?: string,
+    ean?: string,
+}
+
+/**
+ * Store unit
+ */
+export interface IStoreUnit extends IAbraModel {
+    objversion?: number,
+    parent_id?: string,
+    posindex?: number,
+    code?: string,
+    unitrate?: number,
+    indivisiblequantity?: number,
+    weight?: number,
+    weightunit?: number,
+    capacity?: number,
+    capacityunit?: number,
+    ean?: string,
+    plu?: number,
+    hasanycontainer?: boolean,
+    storecontainers?: IStoreContainer[],
+    storeeans?: IStoreEan[],
+    description?: string,
+    width?: number,
+    height?: number,
+    depth?: number,
+    sizeunit?: number,
+    vatrate_id?: string
+}
+
+/**
+ * Vat rate row
+ */
+export interface IVatRateRow extends IAbraModel {
+    objversion?: number,
+    parent_id?: string,
+    validfromdate$date?: string,
+    validtodate$date?: string,
+    ancestor_id?: string
+}
+
+/**
+ * Vat index
+ */
+export interface IVatIndex extends IAbraModel {
+    objversion?: number,
+    hidden?: boolean,
+    code?: string,
+    tariff?: number,
+    income?: boolean,
+    description?: string,
+    analyticalaccount?: string,
+    vatrate_id?: string,
+    allowancevatindex_id?: string,
+    reversevatindex_id?: string,
+    iscommon?: boolean,
+    isallowance?: boolean,
+    isreverse?: boolean,
+    country_id?: string,
+    vatindextype?: number,
+    legalnotice?: string,
+    usingnotice?: string,
+    forcustomsdeclaration?: boolean,
+    fordomesticreversecharge?: boolean,
+    forinsolventvatcorrection?: boolean,
+    outofvat?: boolean,
+    eslindicatortype?: number,
+    accrualwithvat?: boolean,
+    saldoratetype?: number,
+    forvatreturnmethod?: number,
+    forbaddeptvatcorrection?: boolean
+}
+
+/**
+ * Vat rate
+ */
+export interface IVatRate extends IAbraModel {
+    objversion?: number,
+    rows?: IVatRateRow[],
+    hidden?: boolean,
+    tariff?: number,
+    vatratetype?: number,
+    name?: string,
+    description?: string,
+    country_id?: string,
+    account_id?: string,
+    incomedomesticdefvatindex_id?: string,
+    incomeforeigndefvatindex_id?: string,
+    outcomedomesticdefvatindex_id?: string,
+    outcomeforeigndefvatindex_id?: string,
+    incomeforeigneudefvatindex_id?: string,
+    outcomeforeigneudefvatindex_id?: string,
+    incomedomesticrcvatindex_id?: string,
+    outcomedomesticrcvatindex_id?: string,
+    outcomedomesticrcxvatindex_id?: string,
+    outcomeforeignrcvatindex_id?: string,
+    ossservicevatindex_id?: string,
+    ossgoodvatindex_id?: string
+}
+
+/**
+ * Store card component
+ */
+export interface IStoreCardComponent extends IAbraModel {
+    objversion?: number,
+    parent_id?: string,
+    posindex?: number,
+    rowtype?: number,
+    text?: string,
+    unitquantity?: number,
+    qunit?: string,
+    storecard_id?: string,
+    unitprice?: number,
+    totalprice?: number,
+    currency_id?: string,
+    pricewithvat?: number,
+    vatrate?: 0,
+    vatrate_id?: null
+}
+
+/**
+ * Doc queue period
+ */
+export interface IDocQueuePeriod extends IAbraModel {
+    objversion?: number,
+    docqueue_id?: string,
+    period_id?: string,
+    lastnumber?: number
+}
+
+/**
+ * Expense type
+ */
+export interface IExpenseType extends IAbraModel {
+    objversion?: number,
+    hidden?: boolean,
+    code?: string,
+    name?: string,
+    analyticalaccount?: string,
+    category?: number,
+    bookcolumn?: number,
+    description?: string,
+    eetkind?: number,
+    ecdspecialregulation?: number,
+    ecditemtype?: number,
+    parent_id?: string
+}
+
+/**
+ * Income type
+ */
+export interface IIncomeType extends IAbraModel {
+    objversion: number,
+    hidden: boolean,
+    code: string,
+    name: string,
+    analyticalaccount: string,
+    category: number,
+    bookcolumn: number,
+    description: string,
+    eetkind: number,
+    ecdspecialregulation: number,
+    ecditemtype: number,
+    parent_id: null
+}
+
+/**
+ * Doc queue
+ */
+export interface IDocQueue extends IAbraModel {
+    objversion: number,
+    hidden: boolean,
+    code: string,
+    name: string,
+    lastnumbers: IDocQueue[],
+    note: string,
+    autofillhole: boolean,
+    documenttype: string,
+    toaccount: boolean,
+    summaryaccounted: boolean,
+    forceaccounting: boolean,
+    singleaccdocqueue_id: string,
+    summaryaccdocqueue_id: string,
+    prefixvar: number,
+    firstopenperiod_id: string,
+    lastopenperiod_id: string,
+    account_id: string,
+    outofuse: boolean,
+    expensetype_id: string,
+    incometype_id: string,
+    editextnumonrows: boolean,
+    createreservations: boolean,
+    prefillcurrencyfromfirm: boolean,
+    eetestablishment_id: string,
+    otherdocelectronicpayment: boolean,
+    storeclosingselectivevaluation: number,
+    rowaccountusage: number,
+    allowvarsymbolduplicates: boolean,
+    multireversegroupbysourcedoc: boolean
+}
+
+/**
+ * ESL indicator
+ */
+export interface IESLIndicator extends IAbraModel {
+    objversion?: number,
+    hidden?: boolean,
+    code?: string,
+    description?: string,
+    eslindicatortype?: number
+}
+
+/**
+ * Store card category
+ */
+export interface IStoreCardCategory extends IAbraModel {
+    objversion?: number,
+    hidden?: false,
+    code?: string,
+    name?: string,
+    toaccountreceiptcard?: boolean,
+    toaccountbillofdelivery?: boolean,
+    toaccountinventory?: boolean,
+    toaccounttransfer?: boolean,
+    analyticalaccount?: string,
+    tointrastat?: boolean,
+    toesl?: boolean,
+    intrastattransport?: boolean,
+    costpricesourcetype?: number,
+    plmprrequestdocqueue_id?: string,
+    plmprrequestdocqueue_id2?: string,
+    splitintrastat?: boolean,
+    eslindicator_id?: string,
+    roignorecreateres?: boolean
+}
+
+/**
+ * Store menu item
+ */
+export interface IStoreMenuItem extends IAbraModel {
+    objversion?: number,
+    hidden?: boolean,
+    posindex?: number,
+    parent_id?: string,
+    text?: string
+}
+
+/**
+ * Dealer discount row
+ */
+export interface IDealerDiscountRow extends IAbraModel {
+    objversion?: number,
+    parent_id?: string,
+    dealercategory_id?: string,
+    price_id?: string,
+    discount?: number
+}
+
+/**
+ * Dealer discount
+ */
+export interface IDealerDiscount extends IAbraModel {
+    objversion?: number,
+    rows?: IDealerDiscountRow[],
+    hidden?: boolean,
+    code?: string,
+    name?: string
+}
+
+/**
+ * Quantity discount row
+ */
+export interface IQuantityDiscountRow extends IAbraModel {
+    discount?: number,
+    objversion?: number,
+    parent_id?: string,
+    price_id?: string,
+    quantity?: string
+}
+
+/**
+ * Quantity discount
+ */
+export interface IQuantityDiscount extends IAbraModel {
+    code?: string,
+    hidden?: boolean,
+    name?: string,
+    objversion?: number,
+    rows?: IQuantityDiscountRow[]
+}
+
+/**
+ * Supplier tiered price
+ */
+export interface ISupplierTieredPrice extends IAbraModel {
+    discount?: number,
+    firstprice?: boolean,
+    islocked?: boolean,
+    objversion?: number,
+    parent_id?: string,
+    posindex?: number,
+    pricefromdiscount?: boolean,
+    purchaseprice?: number,
+    quantityfrom?: number
+}
+
+/**
+ * Supplier
+ */
+export interface ISupplier extends IAbraModel {
+    objversion?: number,
+    storecard_id?: string,
+    firm_id?: string,
+    externalnumber?: string,
+    name?: string,
+    deliverytime?: number,
+    minimalquantity?: number,
+    packing?: number,
+    dodemand?: boolean,
+    purchaseprice?: number,
+    purchasecurrency_id?: string,
+    purchasecurrrate?: number,
+    purchaserefcurrrate?: number,
+    purchasecoef?: number,
+    localpurchasecoef?: number,
+    purchasezone_id?: string,
+    localpurchasezone_id?: string,
+    purchasedate$date?: string,
+    unitrate?: number,
+    qunit?: string,
+    description?: string,
+    tieredprice?: boolean,
+    tieredprices?: ISupplierTieredPrice[]
+}
+
+/**
+ * Store card picture
+ */
+export interface IStoreCardPicture extends IAbraModel {
+    objversion?: number,
+    parent_id?: string,
+    posindex?: number,
+    picture_id?: string
+}
+
+/**
+ * Store card vat rate
+ */
+export interface IStoreCardVatRate extends IAbraModel {
+    objversion?: number,
+    parent_id?: string,
+    country_id?: string,
+    vatrate_id?: string
+}
+
+/**
+ * Export type
+ */
+export interface IExportType extends IAbraModel {
+    objversion: number,
+    hidden: boolean,
+    code: string,
+    description: string
+}
+
+/**
+ * Intrast extra type
+ */
+export interface IIntrastatExtraType extends IAbraModel {
+    objversion: number,
+    hidden: boolean,
+    code: string,
+    description: string
+}
+
+/**
+ * Intrastat region
+ */
+export interface IIntrastatRegion extends IAbraModel {
+    objversion: number,
+    hidden: boolean,
+    code: string,
+    description: string,
+    outofuse: boolean
+}
+
+/**
+ * Store assortment group
+ */
+export interface IStoreAssortmentGroup extends IAbraModel {
+    code: string,
+    hidden: boolean,
+    name: string,
+    objversion: number,
+    parent_id: string,
+    toleranceminus: number,
+    toleranceplus: number,
+    tolerancetype: number,
+    usualgrossprofit: number
+}
+
+/**
+ * Store card drc artucke
+ */
+export interface IStoreCardDrcArticle extends IAbraModel {
+    country_id: string,
+    drcarticlequnit: string,
+    drcarticleunitrate: number,
+    drcarticleunitrateref: number,
+    drcarticle_id: string,
+    drcvatmode: boolean,
+    objversion: number,
+    parent_id: string
+}
+
+/**
+ * Waste category
+ */
+export interface IWasteCategory extends IAbraModel {
+    code: string,
+    hidden: false,
+    name: string,
+    note: string,
+    objversion: number,
+    printonreceipt: number
+}
+
+/**
+ * Store card
+ */
+export interface IStoreCard extends IAbraModel {
+    objversion?: number,
+    storeunits?: IStoreContainer[],
+    components?: IStoreCardComponent[],
+    code?: string,
+    plu?: number,
+    ean?: string,
+    name?: string,
+    shortname?: string,
+    foreignname?: string,
+    specification?: string,
+    specification2?: string,
+    storecardcategory_id?: string,
+    producer_id?: string,
+    spendingtaxtariff?: number,
+    customstariff?: number,
+    country_id?: string,
+    category?: number,
+    note?: string,
+    serialnumberstructure?: string,
+    customstariffnumber?: string,
+    hidden?: boolean,
+    storemenuitem_id?: string,
+    dealerdiscount_id?: string,
+    quantitydiscount_id?: string,
+    mainunitcode?: string,
+    isscalable?: boolean,
+    isproduct?: boolean,
+    mainsupplier_id?: string,
+    picture_id?: string,
+    expirationdue?: number,
+    withcontainers?: boolean,
+    authorizedby_id?: string,
+    authorizedat$date?: string,
+    vatrates?: IStoreCardVatRate[],
+    intrastatinputstatistic_id?: string,
+    intrastatoutputstatistic_id?: string,
+    intrastatcommodity_id?: string,
+    intrastatunitcode?: string,
+    intrastatunitrate?: number,
+    intrastatunitrateref?: number,
+    intrastatextratype_id?: string,
+    intrastatweight?: number,
+    intrastatweightunit?: number,
+    outofstockdelivery?: number,
+    outofstockbatchdelivery?: number,
+    useoutofstockdelivery?: boolean,
+    useoutofstockbatchdelivery?: boolean,
+    discountsexcluded?: boolean,
+    intrastatregion_id?: string,
+    storebatchstructure_id?: string,
+    storeassortmentgroup_id?: string,
+    usualgrossprofit?: number,
+    tolerancetype?: number,
+    toleranceplus?: number,
+    toleranceminus?: number,
+    intrastatcurrentprice?: number,
+    intrastatcurrentpricelimit?: number,
+    pictures?: IStoreCardPicture[],
+    guaranteelength?: number,
+    guaranteelengthcorporate?: number,
+    mossservice_id?: string,
+    drcarticles?: IStoreCardDrcArticle[],
+    incometype_id?: string,
+    priority?: number,
+    nonstocktype?: boolean,
+    etalonunit?: string,
+    etalonrate?: number,
+    wasteamount?: number,
+    wasteunit?: number,
+    wastecategory_id?: string,
+    osssupplytype?: number,
+    createdat$date?: string,
+    correctedat$date?: string,
+    createdby_id?: string,
+    correctedby_id?: string
+}
+
+/**
  * Security user
  * @description Security user
  */
