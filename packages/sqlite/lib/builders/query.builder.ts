@@ -77,7 +77,8 @@ export class QueryBuilder<T> {
         orderBy.forEach((key) => {
             // Check for "-" sign
             if (key.startsWith("-")) {
-                const nKey = key.substr(1);
+                // Get normalized key
+                const nKey = key.slice(1);
 
                 // Get property name
                 const pName = schema.properties[nKey].name || nKey;

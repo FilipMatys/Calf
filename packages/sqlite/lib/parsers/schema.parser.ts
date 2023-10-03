@@ -32,7 +32,7 @@ export class SchemaParser extends BaseSchemaParser {
          const pDefinition = schema.properties[pKey];
 
          // Normalize property name
-         SQLITE_KEYWORDS.indexOf(pDefinition.name.toUpperCase()) !== -1 && (pDefinition.name = `c${pDefinition.name}`);
+         SQLITE_KEYWORDS.indexOf(pDefinition.name.toUpperCase()) !== -1 && (pDefinition.name = `c${pDefinition.name.charAt(0).toUpperCase() + pDefinition.name.slice(1)}`);
       }
 
       // Return schema
