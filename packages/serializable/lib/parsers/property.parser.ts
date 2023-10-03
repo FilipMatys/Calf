@@ -40,6 +40,9 @@ export class PropertyParser extends BaseParser<IPropertyDefinition> {
             return undefined;
         }
 
+        // Check for property name
+        !property.name && (property.name = name);
+
         // Default
         const lDefault = this.getDefault(target, name);
 
