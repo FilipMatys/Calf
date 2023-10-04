@@ -81,7 +81,7 @@ export class SQLiteParser {
             let pKey = key;
 
             // Check if name is in schema
-            if (!(key in schema.properties) && !Object.entries(schema.properties).some(([sKey, sValue]) => sValue.name === key && (pKey = sKey))) {
+            if (!(key in schema.properties) && !Object.entries(schema.properties).some(([sKey, sValue]) => sValue.name === key && !!(pKey = sKey))) {
                 return;
             }
 

@@ -443,7 +443,7 @@ export class QueryBuilder<T> {
             const pName = schema.properties[key].name || key;
 
             // Add field
-            fields.push(`${pName} ${this.sqLiteParser.typeToSQLite(schema.properties[key].type)}`);
+            fields.push(`${pName} ${this.sqLiteParser.typeToSQLite(schema.properties[key].type as number)}`);
         });
 
         // Add fields to query
@@ -467,7 +467,7 @@ export class QueryBuilder<T> {
             const pName = schema.properties[key].name || key;
 
             // Add field
-            dbQueries.push(`ALTER TABLE ${schema.entity.name} ADD COLUMN ${pName} ${this.sqLiteParser.typeToSQLite(schema.properties[key].type)}`);
+            dbQueries.push(`ALTER TABLE ${schema.entity.name} ADD COLUMN ${pName} ${this.sqLiteParser.typeToSQLite(schema.properties[key].type as number)}`);
         });
 
         // Return queries
