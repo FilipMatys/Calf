@@ -77,13 +77,16 @@ export class SQLiteParser {
 
         // Iterate row keys
         Object.keys(row).forEach((key) => {
+            // Init property key
+            let pKey = key;
+
             // Check if name is in schema
-            if (!(key in schema.properties)) {
+            if (!(key in schema.properties) && !Object.entries(schema.properties).some(([sKey, sValue]) => sValue.name === key && !!(pKey = sKey))) {
                 return;
             }
 
             // Map value
-            (result as any)[key] = this.fromSQLite(schema.properties[key], row[key]);
+            (result as any)[pKey] = this.fromSQLite(schema.properties[pKey], row[key]);
         });
 
         // Return result

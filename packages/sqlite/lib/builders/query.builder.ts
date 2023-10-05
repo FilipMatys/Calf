@@ -15,16 +15,30 @@ export class QueryBuilder<T> {
 
     /**
      * Build select
+     * @param schema
      * @param select
      */
-    private buildSelect(select: string[]): string {
+    private buildSelect(schema: ISchema<IPropertyDefinition>, select: string[]): string {
         // Check if select is set
         if (!select || !select.length) {
             return "SELECT *";
         }
 
         // Otherwise return selected properties
-        return `SELECT ${select.join(",")}`
+        return `SELECT ${select.map((key) => {
+            // Check for AS
+            if (key.indexOf(" AS ") !== -1) {
+                // Split AS
+                const [name, value] = key.split(" AS ");
+
+                // Set proper property name
+                return `${schema.properties[name].name || name} AS ${value}`;
+            }
+            else {
+                // Return property name
+                return schema.properties[key].name || key;
+            }
+        }).join(",")}`
     }
 
     /**
@@ -55,20 +69,29 @@ export class QueryBuilder<T> {
      * Build order by
      * @param orderBy 
      */
-    private buildOrderBy(orderBy: string[]): string {
+    private buildOrderBy(schema: ISchema<IPropertyDefinition>, orderBy: string[]): string {
         // Init list of columns to order by
         const columns: string[] = [];
 
         // Iterate through order by columns
-        orderBy.forEach((ob) => {
+        orderBy.forEach((key) => {
             // Check for "-" sign
-            if (ob.startsWith("-")) {
+            if (key.startsWith("-")) {
+                // Get normalized key
+                const nKey = key.slice(1);
+
+                // Get property name
+                const pName = schema.properties[nKey].name || nKey;
+
                 // DESCENDING
-                columns.push(`${ob.substr(1)} DESC`);
+                columns.push(`${pName} DESC`);
             }
             else {
+                // Get property name
+                const pName = schema.properties[key].name || key;
+
                 // ASCENDING
-                columns.push(`${ob} ASC`);
+                columns.push(`${pName} ASC`);
             }
         });
 
@@ -122,18 +145,21 @@ export class QueryBuilder<T> {
                         return;
                     }
 
+                    // Get property name
+                    const pName = schema.properties[key].name || key;
+
                     // Get value
                     const value: any = payload[key];
 
                     // Check for null value
                     if (value === null) {
                         // Add condition
-                        conditions.push(`${key} IS NULL`);
+                        conditions.push(`${pName} IS NULL`);
                     }
                     // Check if value is primitive or object with no operator
                     else if (value !== Object(value) || !Object.keys(value).filter(k => k.startsWith("$")).length) {
                         // Add condition
-                        conditions.push(`${key} = ${this.sqLiteParser.toSQLite(schema.properties[key], value)}`);
+                        conditions.push(`${pName} = ${this.sqLiteParser.toSQLite(schema.properties[key], value)}`);
                     }
                     // Value is object with operator
                     else {
@@ -152,11 +178,11 @@ export class QueryBuilder<T> {
                                     // Check operator value
                                     if (oValue !== null) {
                                         // Add equal query
-                                        andConditions.push(`${key} = ${this.sqLiteParser.toSQLite(schema.properties[key], oValue)}`);
+                                        andConditions.push(`${pName} = ${this.sqLiteParser.toSQLite(schema.properties[key], oValue)}`);
                                     }
                                     else {
                                         // Add null query
-                                        andConditions.push(`${key} IS NULL`);
+                                        andConditions.push(`${pName} IS NULL`);
                                     }
                                     break;
 
@@ -165,53 +191,53 @@ export class QueryBuilder<T> {
                                     // Check operator value
                                     if (oValue !== null) {
                                         // Add NOT equal query
-                                        andConditions.push(`${key} != ${this.sqLiteParser.toSQLite(schema.properties[key], oValue)}`);
+                                        andConditions.push(`${pName} != ${this.sqLiteParser.toSQLite(schema.properties[key], oValue)}`);
                                     }
                                     else {
                                         // Add null query
-                                        andConditions.push(`${key} IS NOT NULL`);
+                                        andConditions.push(`${pName} IS NOT NULL`);
                                     }
                                     break;
 
                                 // LIKE
                                 case "$like":
-                                    andConditions.push(`${key} LIKE '${oValue}'`);
+                                    andConditions.push(`${pName} LIKE '${oValue}'`);
                                     break;
 
                                 // GREATER
                                 case "$gt":
                                     // Add greater query
-                                    andConditions.push(`${key} > ${this.sqLiteParser.toSQLite(schema.properties[key], oValue)}`);
+                                    andConditions.push(`${pName} > ${this.sqLiteParser.toSQLite(schema.properties[key], oValue)}`);
                                     break;
 
                                 // GREATER or EQUAL
                                 case "$gte":
                                     // Add greater or equal query
-                                    andConditions.push(`${key} >= ${this.sqLiteParser.toSQLite(schema.properties[key], oValue)}`);
+                                    andConditions.push(`${pName} >= ${this.sqLiteParser.toSQLite(schema.properties[key], oValue)}`);
                                     break;
 
                                 // LESSER
                                 case "$lt":
                                     // Add lesser query
-                                    andConditions.push(`${key} < ${this.sqLiteParser.toSQLite(schema.properties[key], oValue)}`);
+                                    andConditions.push(`${pName} < ${this.sqLiteParser.toSQLite(schema.properties[key], oValue)}`);
                                     break;
 
                                 // LESSER or EQUAL
                                 case "$lte":
                                     // Add lesser or equal query
-                                    andConditions.push(`${key} <= ${this.sqLiteParser.toSQLite(schema.properties[key], oValue)}`);
+                                    andConditions.push(`${pName} <= ${this.sqLiteParser.toSQLite(schema.properties[key], oValue)}`);
                                     break;
 
                                 // IN
                                 case "$in":
                                     // Add in query
-                                    andConditions.push(`${key} IN (${(oValue as Array<any>).map((item) => this.sqLiteParser.toSQLite(schema.properties[key], item)).join(',')})`);
+                                    andConditions.push(`${pName} IN (${(oValue as Array<any>).map((item) => this.sqLiteParser.toSQLite(schema.properties[key], item)).join(',')})`);
                                     break;
 
                                 // Not IN
                                 case "$nin":
                                     // Add not in query
-                                    andConditions.push(`${key} NOT IN (${(oValue as Array<any>).map((item) => this.sqLiteParser.toSQLite(schema.properties[key], item)).join(',')})`);
+                                    andConditions.push(`${pName} NOT IN (${(oValue as Array<any>).map((item) => this.sqLiteParser.toSQLite(schema.properties[key], item)).join(',')})`);
                                     break;
 
                             }
@@ -272,8 +298,11 @@ export class QueryBuilder<T> {
                 dbValue = this.sqLiteParser.toSQLite(definition, value);
             }
 
+            // Get property name
+            const pName = schema.properties[key].name || key;
+
             // Add field and value
-            fields.push(key);
+            fields.push(pName);
             values.push(dbValue);
         });
 
@@ -304,8 +333,11 @@ export class QueryBuilder<T> {
                 return;
             }
 
+            // Get property name
+            const pName = schema.properties[key].name || key;
+
             // Add assignment
-            updates.push(`${key}=${this.sqLiteParser.toSQLite(schema.properties[key], (payload as any)[key])}`);
+            updates.push(`${pName}=${this.sqLiteParser.toSQLite(schema.properties[key], (payload as any)[key])}`);
         });
 
         // Add updates to db query
@@ -351,7 +383,7 @@ export class QueryBuilder<T> {
         const dbQuery: string[] = [];
 
         // Select
-        dbQuery.push(this.buildSelect(query.select));
+        dbQuery.push(this.buildSelect(schema, query.select));
         // From
         dbQuery.push(this.buildFrom(schema.entity.name));
 
@@ -362,7 +394,7 @@ export class QueryBuilder<T> {
 
         // Check for order by
         if (query.sort && query.sort.length) {
-            dbQuery.push(this.buildOrderBy(query.sort));
+            dbQuery.push(this.buildOrderBy(schema, query.sort));
         }
 
         // Check for limit
@@ -407,8 +439,11 @@ export class QueryBuilder<T> {
 
         // Process fields
         Object.keys(schema.properties).forEach((key) => {
+            // Get property name
+            const pName = schema.properties[key].name || key;
+
             // Add field
-            fields.push(`${key} ${this.sqLiteParser.typeToSQLite(schema.properties[key].type)}`);
+            fields.push(`${pName} ${this.sqLiteParser.typeToSQLite(schema.properties[key].type as number)}`);
         });
 
         // Add fields to query
@@ -428,8 +463,11 @@ export class QueryBuilder<T> {
 
         // Process fields
         Object.keys(schema.properties).forEach((key) => {
+            // Get property name
+            const pName = schema.properties[key].name || key;
+
             // Add field
-            dbQueries.push(`ALTER TABLE ${schema.entity.name} ADD COLUMN ${key} ${this.sqLiteParser.typeToSQLite(schema.properties[key].type)}`);
+            dbQueries.push(`ALTER TABLE ${schema.entity.name} ADD COLUMN ${pName} ${this.sqLiteParser.typeToSQLite(schema.properties[key].type as number)}`);
         });
 
         // Return queries
