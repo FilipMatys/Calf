@@ -190,6 +190,7 @@ export enum AbraModule {
     ReceivedDepositUsages = "receiveddepositusages",
     ReceivedInvoices = "receivedinvoices",
     ReceivedOrders = "receivedorders",
+    ReceivedOrdersPdf = "receivedorders.pdf",
     RefundedBillsOfDelivery = "refundedbillsofdelivery",
     RefundedCashPaid = "refundedcashpaids",
     RefundedCashReceived = "refundedcashreceiveds",
