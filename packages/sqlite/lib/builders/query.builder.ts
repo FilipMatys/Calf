@@ -34,9 +34,14 @@ export class QueryBuilder<T> {
                 // Set proper property name
                 return `${schema.properties[name].name || name} AS ${value}`;
             }
-            else {
+            // Check if key is in schema properties
+            else if (key in schema.properties) {
                 // Return property name
                 return schema.properties[key].name || key;
+            }
+            else {
+                // Return key itself
+                return key;
             }
         }).join(",")}`
     }
