@@ -115,15 +115,16 @@ export class ApiService {
     }
 
     /**
-     * Execute
-     * @description Execute custom path
+     * Request
+     * @description Make request to given endpoint without processing
+     * the result
      * @param method 
      * @param module 
      * @param segments 
      * @param payload 
      * @param fields 
      */
-    public async execute<TPayload, TResult>(method: "post" | "get" | "put" | "delete", module: AbraModule, segments: string[], payload?: TPayload, fields: string[] = []): Promise<TResult> {
+    public async request<TPayload>(method: "post" | "get" | "put" | "delete", module: AbraModule, segments: string[], payload?: TPayload, fields: string[] = []): Promise<Response> {
         // Get headers
         const headers = await this.getRequestHeaders();
 
@@ -149,7 +150,21 @@ export class ApiService {
         }
 
         // Get response
-        const response = await fetch(url, options);
+        return fetch(url, options);
+    }
+
+    /**
+     * Execute
+     * @description Execute custom path
+     * @param method 
+     * @param module 
+     * @param segments 
+     * @param payload 
+     * @param fields 
+     */
+    public async execute<TPayload, TResult>(method: "post" | "get" | "put" | "delete", module: AbraModule, segments: string[], payload?: TPayload, fields: string[] = []): Promise<TResult> {
+        // Get response
+        const response = await this.request(method, module, segments, payload, fields);
 
         // Parse response result
         const result = await this.parseResponse<TResult>(response);
