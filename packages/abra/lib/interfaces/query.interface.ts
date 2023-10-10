@@ -59,3 +59,12 @@ export interface IAbraQuery {
      */
     orderBy?: IAbraQueryOrderByItem | Array<IAbraQueryOrderByItem>;
 }
+
+/**
+ * Abra query param
+  * @description Interface for abra query param
+ */
+export interface IAbraQueryParam {
+    name: string;
+    value: string;
+}

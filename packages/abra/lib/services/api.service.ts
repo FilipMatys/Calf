@@ -1,9 +1,10 @@
 // External modules
 import fetch, { Response } from "node-fetch";
 import { Observable, Subject } from "rxjs";
+const zlib = require("zlib");
 
 // Interfaces
-import { IAbraQuery } from "../interfaces/query.interface";
+import { IAbraQuery, IAbraQueryParam } from "../interfaces/query.interface";
 
 // Enums
 import { AbraModule } from "../enums/module.enum";
@@ -123,7 +124,7 @@ export class ApiService {
      * @param payload 
      * @param fields 
      */
-    public async execute<TPayload, TResult>(method: "post" | "get" | "put" | "delete", module: AbraModule, segments: string[], payload?: TPayload, fields: string[] = []): Promise<TResult> {
+    public async execute<TPayload, TResult>(method: "post" | "get" | "put" | "delete", module: AbraModule, segments: string[], fields: string[] = [], queryParams: IAbraQueryParam[] = [], payload?: TPayload): Promise<TResult> {
         // Get headers
         const headers = await this.getRequestHeaders();
 
@@ -137,6 +138,24 @@ export class ApiService {
         if ((fields || []).length) {
             // Add fields as select query
             url = `${url}?select=${fields.join(",")}`;
+        }
+
+        // Check for query params
+        if (queryParams && queryParams.length) {
+
+            // Iterate params
+            for (let index = 0; index < queryParams.length; index++) {
+                // Get param
+                const param = queryParams[index];
+
+                // First element and fields are also set
+                if (!index && (!fields || !fields.length)) {
+                    url = `${url}?${param.name}=${param.value}`;
+                }
+                else {
+                    url = `${url}&${param.name}=${param.value}`;
+                }
+            }
         }
 
         // Init request option
@@ -156,6 +175,11 @@ export class ApiService {
 
         // Emit result
         this.resultSource.next(result);
+
+        // Get response content encoding
+        if (response.headers && response.headers.get("content-encoding") && (response.headers.get("content-encoding") === "gzip")) {
+            return result;
+        }
 
         // Return result
         return normalizeAttributes(result);
@@ -259,12 +283,21 @@ export class ApiService {
      */
     private async parseResponse<TResult>(response: Response): Promise<TResult> {
         try {
+            // Get response content encoding
+            const contentEncoding = response.headers.get("content-encoding");
+
             // No Content success status response code
             if (response.status === 204) {
+                // Empty object
                 return {} as TResult;
             }
+            else if (contentEncoding === "gzip") {
+
+                // Get response
+                return response as any;
+            }
             else {
-                // First get json
+                // Get json
                 return response.json();
             }
         }
