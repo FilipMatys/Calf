@@ -1,6 +1,6 @@
 {
   "name": "@calf/sqlite",
-  "version": "0.2.16",
+  "version": "0.2.17",
   "description": "SQLite module of Calf framework.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

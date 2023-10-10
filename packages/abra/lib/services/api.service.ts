@@ -116,15 +116,16 @@ export class ApiService {
     }
 
     /**
-     * Execute
-     * @description Execute custom path
+     * Request
+     * @description Make request to given endpoint without processing
+     * the result
      * @param method 
      * @param module 
      * @param segments 
      * @param payload 
      * @param fields 
      */
-    public async execute<TPayload, TResult>(method: "post" | "get" | "put" | "delete", module: AbraModule, segments: string[], fields: string[] = [], queryParams: IAbraQueryParam[] = [], payload?: TPayload): Promise<TResult> {
+    public async execute<TPayload>(method: "post" | "get" | "put" | "delete", module: AbraModule, segments: string[], fields: string[] = [], queryParams: IAbraQueryParam[] = [], payload?: TPayload): Promise<Response> {
         // Get headers
         const headers = await this.getRequestHeaders();
 
@@ -168,21 +169,7 @@ export class ApiService {
         }
 
         // Get response
-        const response = await fetch(url, options);
-
-        // Parse response result
-        const result = await this.parseResponse<TResult>(response);
-
-        // Emit result
-        this.resultSource.next(result);
-
-        // Get response content encoding
-        if (response.headers && response.headers.get("content-encoding") && (response.headers.get("content-encoding") === "gzip")) {
-            return result;
-        }
-
-        // Return result
-        return normalizeAttributes(result);
+        return fetch(url, options);
     }
 
     /**
