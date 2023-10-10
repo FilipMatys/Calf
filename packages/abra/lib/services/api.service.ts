@@ -1,7 +1,6 @@
 // External modules
 import fetch, { Response } from "node-fetch";
 import { Observable, Subject } from "rxjs";
-const zlib = require("zlib");
 
 // Interfaces
 import { IAbraQuery, IAbraQueryParam } from "../interfaces/query.interface";
@@ -278,15 +277,8 @@ export class ApiService {
                 // Empty object
                 return {} as TResult;
             }
-            else if (contentEncoding === "gzip") {
-
-                // Get response
-                return response as any;
-            }
-            else {
-                // Get json
-                return response.json();
-            }
+            // Get json
+            return response.json();
         }
         catch (e) {
             // Rethrow error
