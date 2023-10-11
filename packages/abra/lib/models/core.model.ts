@@ -3036,3 +3036,23 @@ export interface IReceiveOrder extends IAbraModel {
     x_description?: string,
     x_descriptionint?: string
 }
+
+/**
+ * Report
+ * @description Interface for abra report
+ */
+export interface IReport extends IAbraModel {
+    objversion: number,
+    title: string,
+    system: boolean,
+    datasource: string,
+    reportid: string,
+    data: string,
+    isform: boolean,
+    owner_id: string,
+    createdby_id: string,
+    correctedby_id: string,
+    visiblefrom$date: string,
+    visibleto$date: string,
+    hash: string
+}
