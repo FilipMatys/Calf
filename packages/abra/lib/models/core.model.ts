@@ -1818,9 +1818,9 @@ export interface ICommonWorkPosition extends IAbraModel {
  * @description Interface for communication type
  */
 export interface ICommunicationType extends IAbraModel {
-    code: number,
-    name: string,
-    fixedtype: number
+    code?: number,
+    name?: string,
+    fixedtype?: number
 }
 
 /**
@@ -2480,53 +2480,53 @@ export interface IExpenseType extends IAbraModel {
  * Income type
  */
 export interface IIncomeType extends IAbraModel {
-    objversion: number,
-    hidden: boolean,
-    code: string,
-    name: string,
-    analyticalaccount: string,
-    category: number,
-    bookcolumn: number,
-    description: string,
-    eetkind: number,
-    ecdspecialregulation: number,
-    ecditemtype: number,
-    parent_id: string
+    objversion?: number,
+    hidden?: boolean,
+    code?: string,
+    name?: string,
+    analyticalaccount?: string,
+    category?: number,
+    bookcolumn?: number,
+    description?: string,
+    eetkind?: number,
+    ecdspecialregulation?: number,
+    ecditemtype?: number,
+    parent_id?: string
 }
 
 /**
  * Doc queue
  */
 export interface IDocQueue extends IAbraModel {
-    objversion: number,
-    hidden: boolean,
-    code: string,
-    name: string,
-    lastnumbers: IDocQueue[],
-    note: string,
-    autofillhole: boolean,
-    documenttype: string,
-    toaccount: boolean,
-    summaryaccounted: boolean,
-    forceaccounting: boolean,
-    singleaccdocqueue_id: string,
-    summaryaccdocqueue_id: string,
-    prefixvar: number,
-    firstopenperiod_id: string,
-    lastopenperiod_id: string,
-    account_id: string,
-    outofuse: boolean,
-    expensetype_id: string,
-    incometype_id: string,
-    editextnumonrows: boolean,
-    createreservations: boolean,
-    prefillcurrencyfromfirm: boolean,
-    eetestablishment_id: string,
-    otherdocelectronicpayment: boolean,
-    storeclosingselectivevaluation: number,
-    rowaccountusage: number,
-    allowvarsymbolduplicates: boolean,
-    multireversegroupbysourcedoc: boolean
+    objversion?: number,
+    hidden?: boolean,
+    code?: string,
+    name?: string,
+    lastnumbers?: IDocQueue[],
+    note?: string,
+    autofillhole?: boolean,
+    documenttype?: string,
+    toaccount?: boolean,
+    summaryaccounted?: boolean,
+    forceaccounting?: boolean,
+    singleaccdocqueue_id?: string,
+    summaryaccdocqueue_id?: string,
+    prefixvar?: number,
+    firstopenperiod_id?: string,
+    lastopenperiod_id?: string,
+    account_id?: string,
+    outofuse?: boolean,
+    expensetype_id?: string,
+    incometype_id?: string,
+    editextnumonrows?: boolean,
+    createreservations?: boolean,
+    prefillcurrencyfromfirm?: boolean,
+    eetestablishment_id?: string,
+    otherdocelectronicpayment?: boolean,
+    storeclosingselectivevaluation?: number,
+    rowaccountusage?: number,
+    allowvarsymbolduplicates?: boolean,
+    multireversegroupbysourcedoc?: boolean
 }
 
 /**
@@ -2687,72 +2687,72 @@ export interface IStoreCardVatRate extends IAbraModel {
  * Export type
  */
 export interface IExportType extends IAbraModel {
-    objversion: number,
-    hidden: boolean,
-    code: string,
-    description: string
+    objversion?: number,
+    hidden?: boolean,
+    code?: string,
+    description?: string
 }
 
 /**
  * Intrast extra type
  */
 export interface IIntrastatExtraType extends IAbraModel {
-    objversion: number,
-    hidden: boolean,
-    code: string,
-    description: string
+    objversion?: number,
+    hidden?: boolean,
+    code?: string,
+    description?: string
 }
 
 /**
  * Intrastat region
  */
 export interface IIntrastatRegion extends IAbraModel {
-    objversion: number,
-    hidden: boolean,
-    code: string,
-    description: string,
-    outofuse: boolean
+    objversion?: number,
+    hidden?: boolean,
+    code?: string,
+    description?: string,
+    outofuse?: boolean
 }
 
 /**
  * Store assortment group
  */
 export interface IStoreAssortmentGroup extends IAbraModel {
-    code: string,
-    hidden: boolean,
-    name: string,
-    objversion: number,
-    parent_id: string,
-    toleranceminus: number,
-    toleranceplus: number,
-    tolerancetype: number,
-    usualgrossprofit: number
+    code?: string,
+    hidden?: boolean,
+    name?: string,
+    objversion?: number,
+    parent_id?: string,
+    toleranceminus?: number,
+    toleranceplus?: number,
+    tolerancetype?: number,
+    usualgrossprofit?: number
 }
 
 /**
  * Store card drc artucke
  */
 export interface IStoreCardDrcArticle extends IAbraModel {
-    country_id: string,
-    drcarticlequnit: string,
-    drcarticleunitrate: number,
-    drcarticleunitrateref: number,
-    drcarticle_id: string,
-    drcvatmode: boolean,
-    objversion: number,
-    parent_id: string
+    country_id?: string,
+    drcarticlequnit?: string,
+    drcarticleunitrate?: number,
+    drcarticleunitrateref?: number,
+    drcarticle_id?: string,
+    drcvatmode?: boolean,
+    objversion?: number,
+    parent_id?: string
 }
 
 /**
  * Waste category
  */
 export interface IWasteCategory extends IAbraModel {
-    code: string,
-    hidden: boolean,
-    name: string,
-    note: string,
-    objversion: number,
-    printonreceipt: number
+    code?: string,
+    hidden?: boolean,
+    name?: string,
+    note?: string,
+    objversion?: number,
+    printonreceipt?: number
 }
 
 /**
@@ -3034,7 +3034,8 @@ export interface IReceiveOrder extends IAbraModel {
     vatrounding?: number,
     zone_id?: string,
     x_description?: string,
-    x_descriptionint?: string
+    x_descriptionint?: string,
+    x_paletak?: boolean
 }
 
 /**
@@ -3234,7 +3235,7 @@ export interface IIssuedDepositInvoiceRow extends IAbraModel {
  * Issued deposit invoice
  * @description Interface for vat issued deposit invoices
  */
-export interface IIssuedDepositInvoice {
+export interface IIssuedDepositInvoice extends IAbraModel {
     objversion?: number,
     docqueue_id?: string,
     period_id?: string,
@@ -3824,4 +3825,97 @@ export interface IBillsOfDelivery extends IAbraModel {
     invalidaccounting?: boolean,
     createdat$date?: string,
     correctedat$date?: string
+}
+
+/**
+/**
+ * Other income
+ * @description Interface for other incom
+ */
+export interface IOtherIncome extends IAbraModel {
+    accdate$date?: string,
+    accdocqueue_id?: string,
+    accpresetdef_id?: string,
+    account_id?: string,
+    amount?: number,
+    amountwithoutvat?: number,
+    closingperiod_id?: string,
+    coef?: number,
+    correctedat$date?: string,
+    correctedby_id?: string,
+    country_id?: string,
+    createdat$date?: string,
+    createdby_id?: string,
+    currrate?: number,
+    currency_id?: string,
+    dataentrykind?: number,
+    description?: string,
+    dirty?: boolean,
+    docdate$date?: string,
+    docqueue_id?: string,
+    eet?: boolean,
+    eetturnover_id?: string,
+    electronicpaytransactiondata?: string,
+    electronicpayment?: boolean,
+    electronicpaymentauthcode?: string,
+    electronicpaymentdescription?: string,
+    electronicpaymentpaid?: boolean,
+    externalnumber?: string,
+    firmoffice_id?: string,
+    firm_id?: string,
+    hasimpacttothroughitem?: boolean,
+    lastpaymentperiod_id?: string,
+    localamount?: number,
+    localamountwithoutvat?: number,
+    localcoef?: number,
+    localpaidamount?: number,
+    localroundingamount?: number,
+    localzone_id?: string,
+    ordnumber?: number,
+    pamount?: number,
+    pdiskind?: number,
+    pdocumenttype?: string,
+    pdocument_id?: string,
+    paidamount?: number,
+    period_id?: string,
+    person_id?: string,
+    refcurrrate?: number,
+    roundingamount?: number,
+    rows?: any[],
+    sdocumenttype?: string,
+    sdocument_id?: string,
+    simplifiedvatdocument?: boolean,
+    specialdocumentmode?: number,
+    vatadmitdate$date?: string,
+    vatbypayment?: boolean,
+    vatbypaymentenddate$date?: string,
+    vatbypaymentexittaxation?: boolean,
+    vatdate$date?: string,
+    vatdocument?: boolean,
+    vatreportpreference?: string,
+    vatreportreference?: string,
+    vatvoluntarypaid?: boolean,
+    varsymbol?: string,
+    zone_id?: string
+}
+
+/**
+ * Document type
+ */
+export interface IDocumentType extends IAbraModel {
+    code?: string,
+    name?: string,
+    docqueuecode?: string,
+    toaccount?: boolean,
+    summaryaccounted?: boolean,
+    accpresetdef?: boolean,
+    throughbank?: boolean,
+    paymentkind?: 0,
+    reverseaccounting?: boolean,
+    defaultsummaryaccounted?: boolean,
+    accountcode?: string,
+    forceaccounting?: boolean,
+    reversedepositaccounting?: boolean,
+    currencyfromfirm?: boolean,
+    rowaccountusage?: number
 }

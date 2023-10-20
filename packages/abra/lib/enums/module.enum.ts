@@ -133,6 +133,7 @@ export enum AbraModule {
     IoTSensors = "iotsensors",
     IssuedCreditNotes = "issuedcreditnotes",
     IssuedDepositInvoices = "issueddepositinvoices",
+    IssuedDepositInvoicesPdf = "issueddepositinvoices.pdf",
     IssuedDepositUsages = "issueddepositusages",
     IssuedInvoices = "issuedinvoices",
     IssuedOffers = "issuedoffers",
