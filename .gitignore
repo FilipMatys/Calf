@@ -36,3 +36,5 @@ packages/gpwebpay/node_modules
 packages/gpwebpay/dist
 packages/wolt/node_modules
 packages/wolt/dist
+packages/cnb/node_modules
+packages/cnb/dist
