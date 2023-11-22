@@ -246,6 +246,7 @@ export enum AbraModule {
     VatIndexes = "vatindexes",
     VatIssuedDepositCreditNotes = "vatissueddepositcreditnotes",
     VatIssuedDepositInvoices = "vatissueddepositinvoices",
+    VatIssuedDepositInvoicesPdf = "vatissueddepositinvoices.pdf",
     VatRates = "vatrates",
     VatReceivedDepositCreditNotes = "vatreceiveddepositcreditnotes",
     VatReceivedDepositInvoices = "vatreceiveddepositinvoices",

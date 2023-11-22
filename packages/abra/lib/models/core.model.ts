@@ -3222,7 +3222,7 @@ export interface IIssuedDepositInvoiceRow extends IAbraModel {
     store_id?: string,
     storecard_id?: string,
     tamount?: number,
-    text?: number,
+    text?: string,
     unitprice?: number,
     unitrate?: number,
     vatindex_id?: string,
@@ -3881,7 +3881,7 @@ export interface IOtherIncome extends IAbraModel {
     person_id?: string,
     refcurrrate?: number,
     roundingamount?: number,
-    rows?: any[],
+    rows?: IOtherIncomeRow[],
     sdocumenttype?: string,
     sdocument_id?: string,
     simplifiedvatdocument?: boolean,
@@ -3897,6 +3897,28 @@ export interface IOtherIncome extends IAbraModel {
     vatvoluntarypaid?: boolean,
     varsymbol?: string,
     zone_id?: string
+}
+
+/**
+ * Other income rows
+ */
+export interface IOtherIncomeRow extends IAbraModel {
+    account_id: string,
+    busorder_id: string,
+    busproject_id: string,
+    bustransaction_id: string,
+    division_id: string,
+    incometype_id: string,
+    localtamount: number,
+    localtamountwithoutvat: number,
+    parent_id: string,
+    posindex: number,
+    tamount: number,
+    tamountwithoutvat: number,
+    text: string,
+    vatindex_id: string,
+    vatrate: number,
+    vatrate_id: string
 }
 
 /**
@@ -3918,4 +3940,24 @@ export interface IDocumentType extends IAbraModel {
     reversedepositaccounting?: boolean,
     currencyfromfirm?: boolean,
     rowaccountusage?: number
+}
+
+/**
+ * Issued deposit usage
+ */
+export interface IIssuedDepositUsage extends IAbraModel {
+    depositdocument_id?: string,
+    paymentdate$date?: string,
+    accdate$date?: string,
+    createdby_id?: string,
+    correctedby_id?: string,
+    amount?: number,
+    localamount?: number,
+    pamount?: number,
+    pdocument_id?: string,
+    pdocumenttype?: string,
+    pdiskind?: number,
+    accpresetdef_id?: string,
+    accdocqueue_id?: string,
+    sourcegroupidentical_id?: string
 }
