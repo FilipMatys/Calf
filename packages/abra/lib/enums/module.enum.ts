@@ -108,6 +108,7 @@ export enum AbraModule {
     GDPRRequestCategories = "gdprrequestcategories",
     GeneralCalendars = "generalcalendars",
     GlobData = "globdatas",
+    Import = "import",
     IncomeTypes = "incometypes",
     IncomingSubstitutions = "incomingsubstitutions",
     IncomingTransfers = "incomingtransfers",

@@ -124,7 +124,7 @@ export class ApiService {
      * @param payload 
      * @param fields 
      */
-    public async execute<TPayload>(method: "post" | "get" | "put" | "delete", module: AbraModule, segments: string[], fields: string[] = [], queryParams: IAbraQueryParam[] = [], payload?: TPayload): Promise<Response> {
+    public async execute<TPayload>(method: "post" | "get" | "put" | "delete", module: AbraModule, rawResponse: boolean = true, segments: string[], fields: string[] = [], queryParams: IAbraQueryParam[] = [], payload?: TPayload): Promise<Response> {
         // Get headers
         const headers = await this.getRequestHeaders();
 
@@ -167,8 +167,22 @@ export class ApiService {
             options.body = JSON.stringify(payload);
         }
 
-        // Get response
-        return fetch(url, options);
+        if (rawResponse) {
+            return fetch(url, options);
+        }
+        else {
+            // Get response
+            const response = await fetch(url, options);
+
+            // Parse response as result
+            const result = await this.parseResponse<any>(response);
+
+            // Emit result
+            this.resultSource.next(result);
+
+            // Return result
+            return normalizeAttributes(result);
+        }
     }
 
     /**

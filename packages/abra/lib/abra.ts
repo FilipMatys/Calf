@@ -2,6 +2,7 @@
 export * from "./interfaces/config.interface";
 export * from "./interfaces/auth.interface";
 export * from "./interfaces/query.interface";
+export * from "./interfaces/import.interface";
 
 // Models
 export * from "./models/abra.model";

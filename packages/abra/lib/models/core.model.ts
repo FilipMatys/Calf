@@ -2902,6 +2902,112 @@ export interface ITransportationType extends IAbraModel {
 }
 
 /**
+ * Received invoice row
+ */
+export interface IReceivedInvoiceRow {
+    account_id?: string,
+    busorder_id?: string,
+    busproject_id?: string,
+    bustransaction_id?: string,
+    division_id?: string,
+    drcarticle_id?: string,
+    drcquantity?: number,
+    drcqunit?: string,
+    ediposindex?: number,
+    expensetype_id?: string,
+    localbyhand?: boolean,
+    localtamount?: number,
+    localtamountwithoutvat?: number,
+    parent_id?: string,
+    posindex?: number,
+    rowextid?: string,
+    sourcegroupidentical_id?: string,
+    tamount?: number,
+    tamountwithoutvat?: number,
+    text?: string,
+    usedratio?: boolean,
+    vatdeposit?: boolean,
+    vatdeposit_id?: string,
+    vatdepositrow_id?: string,
+    vatindex_id?: string,
+    vatmode?: number,
+    vatrate?: number,
+    vatrate_id?: string
+}
+
+/**
+ * Received invoice
+ */
+export interface IReceivedInvoice {
+    rows?: IReceiveOrderRow[],
+    docqueue_id?: string,
+    period_id?: string,
+    ordnumber?: number,
+    docdate$date?: string,
+    createdby_id?: string,
+    correctedby_id?: string,
+    docuuid?: string,
+    firm_id?: string,
+    firmoffice_id?: string,
+    person_id?: string,
+    description?: string,
+    accpresetdef_id?: string,
+    accdate$date?: string,
+    accdocqueue_id?: string,
+    dirty?: boolean,
+    country_id?: string,
+    currency_id?: string,
+    currrate?: number,
+    refcurrrate?: number,
+    coef?: number,
+    localcoef?: number,
+    zone_id?: string,
+    localzone_id?: string,
+    amount?: number,
+    localamount?: number,
+    vatdocument?: boolean,
+    amountwithoutvat?: number,
+    localamountwithoutvat?: number,
+    vatdate$date?: string,
+    roundingamount?: number,
+    localroundingamount?: number,
+    simplifiedvatdocument?: boolean,
+    vatreportpreference?: string,
+    vatbypayment?: boolean,
+    vatbypaymentenddate$date?: string,
+    vatadmitdate$date?: string,
+    dataentrykind?: number,
+    documentinvatbypaymentmode?: boolean,
+    vatcountry_id?: string,
+    tradetype?: number,
+    isreversechargedeclared?: boolean,
+    creditamount?: number,
+    localcreditamount?: number,
+    creditamountwithoutvat?: number,
+    localcreditamountwithoutvat?: number,
+    vatreportreference?: string,
+    firmbankaccount_id?: string,
+    duedate$date?: string,
+    constsymbol_id?: string,
+    externalnumber?: string,
+    varsymbol?: string,
+    paidamount?: number,
+    localpaidamount?: number,
+    paidcreditamount?: number,
+    localpaidcreditamount?: number,
+    closingperiod_id?: string,
+    lastpaymentperiod_id?: string,
+    paymenttype_id?: string,
+    specsymbol?: string,
+    vatvoluntarypaid?: boolean,
+    edi?: boolean,
+    iestate_id?: string,
+    edimessageid?: string,
+    createdat$date?: string,
+    correctedat$date?: string
+}
+
+/**
  * Receive order row
  */
 export interface IReceiveOrderRow extends IAbraModel {
@@ -3903,22 +4009,22 @@ export interface IOtherIncome extends IAbraModel {
  * Other income rows
  */
 export interface IOtherIncomeRow extends IAbraModel {
-    account_id: string,
-    busorder_id: string,
-    busproject_id: string,
-    bustransaction_id: string,
-    division_id: string,
-    incometype_id: string,
-    localtamount: number,
-    localtamountwithoutvat: number,
-    parent_id: string,
-    posindex: number,
-    tamount: number,
-    tamountwithoutvat: number,
-    text: string,
-    vatindex_id: string,
-    vatrate: number,
-    vatrate_id: string
+    account_id?: string,
+    busorder_id?: string,
+    busproject_id?: string,
+    bustransaction_id?: string,
+    division_id?: string,
+    incometype_id?: string,
+    localtamount?: number,
+    localtamountwithoutvat?: number,
+    parent_id?: string,
+    posindex?: number,
+    tamount?: number,
+    tamountwithoutvat?: number,
+    text?: string,
+    vatindex_id?: string,
+    vatrate?: number,
+    vatrate_id?: string
 }
 
 /**
