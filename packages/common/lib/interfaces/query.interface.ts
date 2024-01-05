@@ -2,7 +2,7 @@
 import { IPopulate } from "./populate.interface";
 
 // Query interface
-export interface IQuery {
+export interface IQuery<TCustom = any> {
     term?: string;
     filter?: any;
     limit?: number;
@@ -10,4 +10,5 @@ export interface IQuery {
     select?: string[];
     sort?: string[];
     populate?: IPopulate[];
+    custom?: TCustom;
 }
