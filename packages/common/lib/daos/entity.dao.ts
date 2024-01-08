@@ -2,8 +2,11 @@
 import { Serializable } from "@calf/serializable";
 
 // Interfaces
-import { IQuery } from "../interfaces/query.interface";
-import { IPopulate } from "../interfaces/populate.interface";
+import { IGetQuery } from "../interfaces/get-query,interface";
+import { IListQuery } from "../interfaces/list-query.interface";
+import { IUpdateQuery } from "../interfaces/update-query.interface";
+import { ICountQuery } from "../interfaces/count-query.interface";
+import { IRemoveQuery } from "../interfaces/remove-query.interface";
 
 /**
  * Entity dao
@@ -23,28 +26,28 @@ export interface IEntityDao<T extends Serializable> {
      * @param entity 
      * @param args 
      */
-    get(entity: T, populate: IPopulate[], ...args: any[]): Promise<T>;
+    get(entity: T, query?: IGetQuery, ...args: any[]): Promise<T>;
 
     /**
      * Get list of entities
      * @param query
      * @param args 
      */
-    getList(query: IQuery, ...args: any[]): Promise<T[]>;
+    getList(query: IListQuery, ...args: any[]): Promise<T[]>;
 
     /**
      * Remove
      * @param query 
      * @param args 
      */
-    remove(query: IQuery, ...args: any[]): Promise<any>;
+    remove(query: IRemoveQuery, ...args: any[]): Promise<any>;
 
     /**
      * Count entities
      * @param query
      * @param args 
      */
-    count(query: IQuery, ...args: any[]): Promise<number>;
+    count(query: ICountQuery, ...args: any[]): Promise<number>;
 
     /**
      * Update
@@ -52,5 +55,12 @@ export interface IEntityDao<T extends Serializable> {
      * @param payload 
      * @param args 
      */
-    update(query: IQuery, payload: any, ...args: any[]): Promise<any>;
+    update(query: IUpdateQuery, payload: any, ...args: any[]): Promise<any>;
+
+    /**
+     * Archive
+     * @param entity 
+     * @param args 
+     */
+    archive(entity: T, ...args: any[]): Promise<any>;
 }

@@ -5,9 +5,15 @@ import { Serializable } from "@calf/serializable";
 import { ValidationResult } from "../classes/validation-result.class";
 
 // Interfaces
-import { IQueryResult } from "../interfaces/query-result.interface";
-import { IPopulate } from "../interfaces/populate.interface";
-import { IQuery } from "../interfaces/query.interface";
+import { ICountQuery } from "../interfaces/count-query.interface";
+import { IGetQuery } from "../interfaces/get-query,interface";
+import { IListQuery } from "../interfaces/list-query.interface";
+import { ISingleQuery } from "../interfaces/single-query.interface";
+import { IListQueryResult } from "../interfaces/list-query-result.interface";
+import { IRemoveQuery } from "../interfaces/remove-query.interface";
+import { IUpdateQuery } from "../interfaces/update-query.interface";
+
+// Daos
 import { IEntityDao } from "../daos/entity.dao";
 
 /**
@@ -107,7 +113,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param query 
      * @param args 
      */
-    public async count(query: IQuery, ...args: any[]): Promise<ValidationResult<number, TMessage>> {
+    public async count(query: ICountQuery, ...args: any[]): Promise<ValidationResult<number, TMessage>> {
         // Init validation
         const validation = new ValidationResult<number, TMessage>(0);
 
@@ -145,7 +151,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param query
      * @param args 
      */
-    protected preCount(validation: ValidationResult<number, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<number, TMessage>> {
+    protected preCount(validation: ValidationResult<number, TMessage>, query: ICountQuery, ...args: any[]): Promise<ValidationResult<number, TMessage>> {
         return Promise.resolve(validation);
     }
 
@@ -154,7 +160,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param validation 
      * @param args 
      */
-    protected periCount(validation: ValidationResult<number, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<number, TMessage>> {
+    protected periCount(validation: ValidationResult<number, TMessage>, query: ICountQuery, ...args: any[]): Promise<ValidationResult<number, TMessage>> {
         // Create new promise
         return new Promise((resolve, reject) => {
             // Save entity
@@ -181,23 +187,23 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param query
      * @param args 
      */
-    protected postCount(validation: ValidationResult<number, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<number, TMessage>> {
+    protected postCount(validation: ValidationResult<number, TMessage>, query: ICountQuery, ...args: any[]): Promise<ValidationResult<number, TMessage>> {
         return Promise.resolve(validation);
     }
 
     /**
      * Get entity
      * @param entity 
-     * @param populate
+     * @param query
      * @param args 
      */
-    public async get(entity: TEntity, populate: IPopulate[], ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
+    public async get(entity: TEntity, query?: IGetQuery, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
         // Init validation
         const validation = new ValidationResult<TEntity, TMessage>(entity);
 
         try {
             // Call pre get
-            await this.preGet(validation, ...args);
+            await this.preGet(validation, query, ...args);
 
             // Check validation
             if (!validation.isValid) {
@@ -206,7 +212,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
             }
 
             // Call peri get
-            await this.periGet(validation, populate, ...args);
+            await this.periGet(validation, query, ...args);
 
             // Check validation
             if (!validation.isValid) {
@@ -215,7 +221,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
             }
 
             // Call post get
-            return this.postGet(validation, ...args);
+            return this.postGet(validation, query, ...args);
         }
         catch (validation) {
             // Pass validation
@@ -226,22 +232,25 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
     /**
      * Pre get hook
      * @param validation 
+     * @param query
      * @param args 
      */
-    protected preGet(validation: ValidationResult<TEntity, TMessage>, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
+    protected preGet(validation: ValidationResult<TEntity, TMessage>, query?: IGetQuery, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
         return Promise.resolve(validation);
     }
 
     /**
-     * Peri get hok
+     * Peri get hook
      * @param validation 
+     * @param query 
      * @param args 
+     * @returns 
      */
-    protected periGet(validation: ValidationResult<TEntity, TMessage>, populate: IPopulate[], ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
+    protected periGet(validation: ValidationResult<TEntity, TMessage>, query?: IGetQuery, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
         // Create new promise
         return new Promise((resolve, reject) => {
             // Save entity
-            this.dao.get(validation.data as TEntity, populate, ...args)
+            this.dao.get(validation.data as TEntity, query, ...args)
                 .then((value) => {
                     // Assign value to validation
                     validation.data = value;
@@ -272,7 +281,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param query 
      * @param args 
      */
-    public async single(query: IQuery, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
+    public async single(query: ISingleQuery, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
         // Init validation
         const validation = new ValidationResult<TEntity, TMessage>();
 
@@ -310,7 +319,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param query 
      * @param args 
      */
-    protected preSingle(validation: ValidationResult<TEntity, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
+    protected preSingle(validation: ValidationResult<TEntity, TMessage>, query: ISingleQuery, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
         return Promise.resolve(validation);
     }
 
@@ -320,7 +329,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param query 
      * @param args 
      */
-    protected periSingle(validation: ValidationResult<TEntity, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
+    protected periSingle(validation: ValidationResult<TEntity, TMessage>, query: ISingleQuery, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
         // Create new promise
         return new Promise((resolve, reject) => {
             // First get list
@@ -356,7 +365,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param query 
      * @param args 
      */
-    protected postSingle(validation: ValidationResult<TEntity, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
+    protected postSingle(validation: ValidationResult<TEntity, TMessage>, query: ISingleQuery, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
         return Promise.resolve(validation);
     }
 
@@ -365,9 +374,9 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param query 
      * @param args 
      */
-    public async getList(query: IQuery, ...args: any[]): Promise<ValidationResult<IQueryResult<TEntity>, TMessage>> {
+    public async getList(query: IListQuery, ...args: any[]): Promise<ValidationResult<IListQueryResult<TEntity>, TMessage>> {
         // Init validation
-        const validation = new ValidationResult<IQueryResult<TEntity>, TMessage>({
+        const validation = new ValidationResult<IListQueryResult<TEntity>, TMessage>({
             items: [],
             total: 0,
             pageSize: query.limit,
@@ -408,7 +417,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param query 
      * @param args 
      */
-    protected preGetList(validation: ValidationResult<IQueryResult<TEntity>, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<IQueryResult<TEntity>, TMessage>> {
+    protected preGetList(validation: ValidationResult<IListQueryResult<TEntity>, TMessage>, query: IListQuery, ...args: any[]): Promise<ValidationResult<IListQueryResult<TEntity>, TMessage>> {
         return Promise.resolve(validation);
     }
 
@@ -418,24 +427,21 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param query 
      * @param args 
      */
-    protected periGetList(validation: ValidationResult<IQueryResult<TEntity>, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<IQueryResult<TEntity>, TMessage>> {
+    protected periGetList(validation: ValidationResult<IListQueryResult<TEntity>, TMessage>, query: IListQuery, ...args: any[]): Promise<ValidationResult<IListQueryResult<TEntity>, TMessage>> {
         // Create new promise
         return new Promise((resolve, reject) => {
             // First get list
             this.dao.getList(query, ...args)
                 .then((items) => {
                     // Assign items
-                    (validation.data as IQueryResult<TEntity>).items = items;
+                    (validation.data as IListQueryResult<TEntity>).items = items;
 
                     // Now get total count
-                    return this.dao.count({
-                        filter: query.filter,
-                        term: query.term
-                    });
+                    return this.dao.count({ filter: query.filter });
                 })
                 .then((total) => {
                     // Assign total
-                    (validation.data as IQueryResult<TEntity>).total = total;
+                    (validation.data as IListQueryResult<TEntity>).total = total;
 
                     // Resolve
                     return resolve(validation);
@@ -455,7 +461,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param query 
      * @param args 
      */
-    protected postGetList(validation: ValidationResult<IQueryResult<TEntity>, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<IQueryResult<TEntity>, TMessage>> {
+    protected postGetList(validation: ValidationResult<IListQueryResult<TEntity>, TMessage>, query: IListQuery, ...args: any[]): Promise<ValidationResult<IListQueryResult<TEntity>, TMessage>> {
         return Promise.resolve(validation);
     }
 
@@ -464,7 +470,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param query 
      * @param args 
      */
-    public async remove(query: IQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
+    public async remove(query: IRemoveQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
         // Init validation
         const validation = new ValidationResult<any, TMessage>();
 
@@ -502,7 +508,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param query 
      * @param args 
      */
-    protected preRemove(validation: ValidationResult<any, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
+    protected preRemove(validation: ValidationResult<any, TMessage>, query: IRemoveQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
         return Promise.resolve(validation);
     }
 
@@ -512,7 +518,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param query 
      * @param args 
      */
-    protected periRemove(validation: ValidationResult<any, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
+    protected periRemove(validation: ValidationResult<any, TMessage>, query: IRemoveQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
         // Create new promise
         return new Promise((resolve, reject) => {
             // Remove 
@@ -539,7 +545,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param query 
      * @param args 
      */
-    protected postRemove(validation: ValidationResult<any, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
+    protected postRemove(validation: ValidationResult<any, TMessage>, query: IRemoveQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
         return Promise.resolve(validation);
     }
 
@@ -573,7 +579,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
 
             // Call post change state
             return this.postChangeState(validation, ...args);
-            
+
         }
         catch (validation) {
             // Return validation
@@ -614,7 +620,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param payload 
      * @param args 
      */
-    public async update(query: IQuery, payload: any, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
+    public async update(query: IUpdateQuery, payload: any, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
         // Init validation
         const validation = new ValidationResult<any, TMessage>();
 
@@ -653,7 +659,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param payload 
      * @param args 
      */
-    protected preUpdate(validation: ValidationResult<any, TMessage>, query: IQuery, payload: any, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
+    protected preUpdate(validation: ValidationResult<any, TMessage>, query: IUpdateQuery, payload: any, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
         return Promise.resolve(validation);
     }
 
@@ -664,7 +670,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param payload 
      * @param args 
      */
-    protected periUpdate(validation: ValidationResult<any, TMessage>, query: IQuery, payload: any, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
+    protected periUpdate(validation: ValidationResult<any, TMessage>, query: IUpdateQuery, payload: any, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
         // Create new promise
         return new Promise((resolve, reject) => {
             // Update
@@ -692,7 +698,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param payload 
      * @param args 
      */
-    protected postUpdate(validation: ValidationResult<any, TMessage>, query: IQuery, payload: any, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
+    protected postUpdate(validation: ValidationResult<any, TMessage>, query: IUpdateQuery, payload: any, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
         return Promise.resolve(validation);
     }
 
@@ -754,7 +760,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param validation 
      * @param error 
      */
-    protected handleGetListError<TError>(validation: ValidationResult<IQueryResult<TEntity>, TMessage>, error: TError): Promise<ValidationResult<IQueryResult<TEntity>, TMessage>> {
+    protected handleGetListError<TError>(validation: ValidationResult<IListQueryResult<TEntity>, TMessage>, error: TError): Promise<ValidationResult<IListQueryResult<TEntity>, TMessage>> {
         return this.handleDaoError<TError>(validation, error);
     }
 

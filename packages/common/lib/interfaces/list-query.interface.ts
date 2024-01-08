@@ -1,8 +1,11 @@
-// Data
+// Interfaces
 import { IPopulate } from "./populate.interface";
 
-// Query interface
-export interface IQuery<TCustom = any> {
+/**
+ * List query
+ * @description Interface for List query
+ */
+export interface IListQuery<TCustom = any> {
     term?: string;
     filter?: any;
     limit?: number;
