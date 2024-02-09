@@ -38,3 +38,5 @@ packages/wolt/node_modules
 packages/wolt/dist
 packages/cnb/node_modules
 packages/cnb/dist
+packages/ares/node_modules
+packages/ares/dist

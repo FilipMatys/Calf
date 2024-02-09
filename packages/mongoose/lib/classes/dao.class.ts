@@ -1,6 +1,6 @@
 // External modules
 import { Serializable } from "@calf/serializable";
-import { IEntityDao, IQuery, IPopulate } from "@calf/common";
+import { ICountQuery, IEntityDao, IGetQuery, IListQuery, IRemoveQuery, IUpdateQuery } from "@calf/common";
 import { Model, model, Schema, models } from "mongoose";
 
 // Parsers
@@ -42,6 +42,16 @@ export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEn
     }
 
     /**
+     * Aggregate
+     * @param pipeline 
+     * @returns 
+     */
+    public async aggregate<TResult>(pipeline: any[]): Promise<TResult[]> {
+        // Call model aggregate
+        return this.model.aggregate(pipeline).exec();
+    }
+
+    /**
      * Save entity
      * @param entity 
      * @param args 
@@ -62,17 +72,26 @@ export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEn
     /**
      * Get entity
      * @param entity 
-     * @param populate
+     * @param query
      * @param args 
      */
-    public async get(entity: TEntity, populate: IPopulate[] = [], ...args: any[]): Promise<TEntity> {
+    public async get(entity: TEntity, query?: IGetQuery, ...args: any[]): Promise<TEntity> {
         // Init query
         const queryToExecute = this.model.findById(entity._id).lean();
 
+        // Check for query
+        if (!query) return await queryToExecute.exec() as TEntity;
+
         // Check for populate
-        if (populate && populate.length) {
+        if ((query.populate || []).length) {
             // Set populate
-            queryToExecute.populate(populate);
+            queryToExecute.populate(query.populate);
+        }
+
+        // Check for select
+        if ((query.select || []).length) {
+            // Set select
+            queryToExecute.select(query.select);
         }
 
         // Execute query
@@ -84,7 +103,7 @@ export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEn
      * @param query 
      * @param args 
      */
-    public async getList(query: IQuery, ...args: any[]): Promise<TEntity[]> {
+    public async getList(query: IListQuery, ...args: any[]): Promise<TEntity[]> {
         // First make sure query is set
         query = query || {};
 
@@ -125,12 +144,12 @@ export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEn
      * @param query 
      * @param args 
      */
-    public async remove(query: IQuery, ...args: any[]): Promise<any> {
+    public async remove(query: IRemoveQuery, ...args: any[]): Promise<any> {
         // Make sure query is set
         query = query || {};
 
         // Get count
-        return await this.model.remove(query.filter || {}).exec();
+        return this.model.remove(query.filter || {}).exec();
     }
 
     /**
@@ -138,12 +157,12 @@ export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEn
      * @param query 
      * @param args 
      */
-    public async count(query: IQuery, ...args: any[]): Promise<number> {
+    public async count(query: ICountQuery, ...args: any[]): Promise<number> {
         // Make sure query is set
         query = query || {};
 
         // Get count
-        return await this.model.countDocuments(query.filter || {}).exec();
+        return this.model.countDocuments(query.filter || {}).exec();
     }
 
     /**
@@ -152,7 +171,7 @@ export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEn
      * @param payload 
      * @param args 
      */
-    public async update(query: IQuery, payload: any, options?: any, ...args: any[]): Promise<any> {
+    public async update(query: IUpdateQuery, payload: any, options?: any, ...args: any[]): Promise<any> {
         // Make sure query is set
         query = query || {};
 
@@ -168,17 +187,12 @@ export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEn
     }
 
     /**
-    * Archive entity
-    * @param entity 
-    * @param args 
-    */
-    public async archive(entity: TEntity, ...args: any[]): Promise<TEntity> {
-
-        // Create model
-        const model = new this.model(entity);
-
+     * Archive entity
+     * @param entity 
+     * @param args 
+     */
+    public async archive(entity: TEntity, ...args: any[]): Promise<any> {
         // Update one
-        return await this.model.updateOne({ _id: entity._id }, { $set: { isArchived: false, archivedAt: new Date() } }, {}).exec();
+        return this.model.updateOne({ _id: entity._id }, { $set: { isArchived: true, archivedAt: new Date() } }, {}).exec();
     }
-
 }

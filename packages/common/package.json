@@ -1,6 +1,6 @@
 {
   "name": "@calf/common",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "Common module of Calf framework.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

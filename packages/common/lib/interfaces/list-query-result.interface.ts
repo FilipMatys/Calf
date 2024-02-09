@@ -1,5 +1,5 @@
 // Query result interface
-export interface IQueryResult<TEntity> {
+export interface IListQueryResult<TEntity> {
     items?: TEntity[];
     page?: number;
     pageSize?: number;

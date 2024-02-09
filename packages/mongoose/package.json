@@ -1,6 +1,6 @@
 {
   "name": "@calf/mongoose",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "Mongoose module of Calf framework.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -23,7 +23,7 @@
     "bson-objectid": "^1.2.3"
   },
   "devDependencies": {
-    "@calf/common": "^0.3.2",
+    "@calf/common": "^0.4.0",
     "@calf/serializable": "^0.3.2",
     "@types/chai": "^4.1.3",
     "@types/mocha": "^5.2.1",
@@ -36,7 +36,7 @@
     "typescript": "^4.0.0"
   },
   "peerDependencies": {
-    "@calf/common": "^0.3.2",
+    "@calf/common": "^0.4.0",
     "@calf/serializable": "^0.3.2",
     "mongoose": ">=5.7.5"
   }
