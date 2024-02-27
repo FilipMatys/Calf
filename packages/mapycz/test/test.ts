@@ -1,0 +1,3 @@
+describe("Mapy.cz", async () => {
+
+});
