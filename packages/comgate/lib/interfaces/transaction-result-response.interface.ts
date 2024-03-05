@@ -36,4 +36,16 @@ export interface ITransactionResultResponse extends ITransaction {
      * @description Type of the transaction
      */
     transactionType?: string;
+
+    /**
+     * Amount
+     * @description Paid amount
+     */
+    amount?: number;
+
+    /**
+     * Tip amount
+     * @description Tip amount of the transaction
+     */
+    tipAmount?: number;
 }
