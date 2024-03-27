@@ -2,7 +2,7 @@
 import { Serializable } from "@calf/serializable";
 
 // Interfaces
-import { IGetQuery } from "../interfaces/get-query,interface";
+import { IGetQuery } from "../interfaces/get-query.interface";
 import { IListQuery } from "../interfaces/list-query.interface";
 import { IUpdateQuery } from "../interfaces/update-query.interface";
 import { ICountQuery } from "../interfaces/count-query.interface";
@@ -37,10 +37,18 @@ export interface IEntityDao<T extends Serializable> {
 
     /**
      * Remove
+     * @param entity
+     * @param args 
+     */
+    remove(entity: T, ...args: any[]): Promise<any>;
+
+
+    /**
+     * Remove list
      * @param query 
      * @param args 
      */
-    remove(query: IRemoveQuery, ...args: any[]): Promise<any>;
+    removeList(query: IRemoveQuery, ...args: any[]): Promise<any>;
 
     /**
      * Count entities

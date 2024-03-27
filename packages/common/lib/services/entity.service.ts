@@ -6,7 +6,7 @@ import { ValidationResult } from "../classes/validation-result.class";
 
 // Interfaces
 import { ICountQuery } from "../interfaces/count-query.interface";
-import { IGetQuery } from "../interfaces/get-query,interface";
+import { IGetQuery } from "../interfaces/get-query.interface";
 import { IListQuery } from "../interfaces/list-query.interface";
 import { ISingleQuery } from "../interfaces/single-query.interface";
 import { IListQueryResult } from "../interfaces/list-query-result.interface";
