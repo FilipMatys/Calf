@@ -30,7 +30,7 @@ export class AccountsService extends RequestService {
      * @param params 
      * @param callback 
      */
-    public balance(id: string, params: any, callback?: ICallbackFn<any>): Promise<any> {
+    public balance(id: string, params: Accounts.Balance.IParams, callback?: ICallbackFn<Accounts.Balance.IResponse>): Promise<Accounts.Balance.IResponse> {
         // Make request
         return this.get(["api", "v3", "vip", "aisp", "my", "accounts", id, "balance"], params, callback);
     }
@@ -42,7 +42,7 @@ export class AccountsService extends RequestService {
      * @param params 
      * @param callback 
      */
-    public transactions(id: string, params: any, callback?: ICallbackFn<any>): Promise<any> {
+    public transactions(id: string, params: Accounts.Transactions.IParams, callback?: ICallbackFn<Accounts.Transactions.IResponse>): Promise<Accounts.Transactions.IResponse> {
         // Make request
         return this.get(["api", "v3", "vip", "aisp", "my", "accounts", id, "transactions"], params, callback);
     }
