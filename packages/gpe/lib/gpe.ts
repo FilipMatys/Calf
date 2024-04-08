@@ -12,6 +12,7 @@ export * from "./enums/transaction-type.enum";
 export * from "./maps/data-field.map";
 
 // Fields
+export * from "./fields/data/tip-amount.field";
 export * from "./fields/data/application-id.field";
 export * from "./fields/data/authorization-code.field";
 export * from "./fields/data/card-number.field";

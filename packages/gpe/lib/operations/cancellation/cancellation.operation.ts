@@ -11,7 +11,6 @@ import { Message } from "../../classes/message.class";
 
 // Fields
 import { TransactionTypeField } from "../../fields/data/transaction-type.field";
-import { SequenceNumberField } from "../../fields/data/sequence-number.field";
 import { TransactionDataField } from "../../fields/data/transaction-data.field";
 import { PaidAmountField } from "../../fields/data/paid-amount.field";
 import { ResponseCodeField } from "../../fields/data/response-code.field";

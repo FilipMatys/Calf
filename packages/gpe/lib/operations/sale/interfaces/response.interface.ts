@@ -20,6 +20,11 @@ export interface ISaleResponse extends ICommonResponse {
     amount?: number;
 
     /**
+     * Tip
+     */
+    tip?: number;
+
+    /**
      * Is signature required
      * @description Whether customer signature is required
      */

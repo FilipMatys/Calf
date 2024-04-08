@@ -16,6 +16,7 @@ import { AuthorizationCodeField } from "../../fields/data/authorization-code.fie
 import { ResponseCodeField } from "../../fields/data/response-code.field";
 import { SequenceNumberField } from "../../fields/data/sequence-number.field";
 import { CardNumberField } from "../../fields/data/card-number.field";
+import { TipAmountField } from "../../fields/data/tip-amount.field";
 
 // Operations
 import { CommonOperation } from "../common/common.operation";
@@ -49,6 +50,9 @@ export class SaleOperation extends CommonOperation<ISaleRequest, ISaleResponse> 
             message.appendDataField(new TransactionTypeField(TransactionType.Sale));
             // Add paid amount field
             message.appendDataField(new PaidAmountField(request.amount));
+
+            // Check for tip
+            request.tip && message.appendDataField(new TipAmountField(request.tip));
 
             // Check for reference number
             request.referenceNumber && message.appendDataField(new ReferenceNumberField(request.referenceNumber));
@@ -87,6 +91,7 @@ export class SaleOperation extends CommonOperation<ISaleRequest, ISaleResponse> 
 
             // Get response fields
             const paidAmountField = response.getDataFieldByIdentifier<PaidAmountField>(PaidAmountField.Identifier);
+            const tipAmountField = response.getDataFieldByIdentifier<TipAmountField>(TipAmountField.Identifier);
             const responseCodeField = response.getDataFieldByIdentifier<ResponseCodeField>(ResponseCodeField.Identifier);
             const authorizationCodeField = response.getDataFieldByIdentifier<AuthorizationCodeField>(AuthorizationCodeField.Identifier);
             const sequenceNumberField = response.getDataFieldByIdentifier<SequenceNumberField>(SequenceNumberField.Identifier);
@@ -100,6 +105,9 @@ export class SaleOperation extends CommonOperation<ISaleRequest, ISaleResponse> 
 
             // Check paid amount
             paidAmountField && (result.amount = paidAmountField.getData());
+
+            // Check for tip amount
+            tipAmountField && (result.tip = tipAmountField.getData());
 
             // Check sequence number field
             sequenceNumberField && (result.sequenceNumber = sequenceNumberField.getData());
