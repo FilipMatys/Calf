@@ -1,3 +1,8 @@
+// Interfaces
+import { IAccount } from "./account.interface";
+import { IBalance } from "./balance.interface";
+import { ITransaction } from "./transaction.interface";
+
 /**
  * Accounts
  * @description Namespace for Accounts service
@@ -22,7 +27,7 @@ export namespace Accounts {
          * @description Interface for Response
          */
         export interface IResponse {
-            balances?: any[];
+            balances?: IBalance[];
         }
     }
 
@@ -49,7 +54,7 @@ export namespace Accounts {
          * @description Interface for Response
          */
         export interface IResponse {
-            transactions?: any[];
+            transactions?: ITransaction[];
             nextPage?: number;
             pageCount?: number;
             pageNumber?: number;
@@ -79,7 +84,7 @@ export namespace Accounts {
          * @description Interface for Response
          */
         export interface IResponse {
-            accounts?: any[];
+            accounts?: IAccount[];
             nextPage?: number;
             pageCount?: number;
             pageNumber?: number;
