@@ -20,7 +20,7 @@ export class AccountsService extends RequestService {
      */
     public list(params: Accounts.List.IParams, callback?: ICallbackFn<Accounts.List.IResponse>): Promise<Accounts.List.IResponse> {
         // Make request
-        return this.get(["api", "v3", "vip", "aisp", "my", "accounts"], params, callback);
+        return this.get(["api", "v1", "vip", "aisp", "my", "accounts"], params, callback);
     }
 
     /**
@@ -32,7 +32,7 @@ export class AccountsService extends RequestService {
      */
     public balance(id: string, params: Accounts.Balance.IParams, callback?: ICallbackFn<Accounts.Balance.IResponse>): Promise<Accounts.Balance.IResponse> {
         // Make request
-        return this.get(["api", "v3", "vip", "aisp", "my", "accounts", id, "balance"], params, callback);
+        return this.get(["api", "v1", "vip", "aisp", "my", "accounts", id, "balance"], params, callback);
     }
 
     /**
@@ -44,6 +44,6 @@ export class AccountsService extends RequestService {
      */
     public transactions(id: string, params: Accounts.Transactions.IParams, callback?: ICallbackFn<Accounts.Transactions.IResponse>): Promise<Accounts.Transactions.IResponse> {
         // Make request
-        return this.get(["api", "v3", "vip", "aisp", "my", "accounts", id, "transactions"], params, callback);
+        return this.get(["api", "v1", "vip", "aisp", "my", "accounts", id, "transactions"], params, callback);
     }
 }
