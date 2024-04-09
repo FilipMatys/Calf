@@ -21,7 +21,7 @@ export abstract class Moneta {
      * @description 
      * @returns 
      */
-    public static Accounts(): AccountsService {
+    public static get Accounts(): AccountsService {
         // Return accounts service
         return this.accountsService;
     }

@@ -1,5 +1,6 @@
 import { Moneta } from "../lib/moneta";
 
-// describe("Moneta", async () => {
-
-// });
+describe("Moneta", async () => {
+    // Initialize library
+    Moneta.initialize({ host: "", token: "" });
+});
