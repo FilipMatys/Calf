@@ -1,5 +1,6 @@
 // Interfaces
 import { ITransactionDate } from "./transaction-date.interface";
+import { IEntryDetails } from "./entry-details.interface";
 import { IAmount } from "./amount.interface";
 
 /**
@@ -15,4 +16,5 @@ export interface ITransaction {
     bookingDate?: ITransactionDate;
     enteredDate?: ITransactionDate;
     valueDate?: ITransactionDate;
+    entryDetails?: IEntryDetails;
 }
