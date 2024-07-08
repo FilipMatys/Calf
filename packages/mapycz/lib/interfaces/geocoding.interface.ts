@@ -8,6 +8,39 @@ import { IPosition } from "./position.interface";
 export namespace Geocoding {
 
     /**
+     * Reverse
+     * @description Namespace for Reverse method
+     */
+    export namespace Reverse {
+
+        /**
+         * Params
+         * @description Interface for Params
+         */
+        export interface IParams {
+            lang?: string;
+            lon?: number;
+            lat?: number;
+        }
+
+        /**
+         * Interface for Response
+         * @description Interface for Response
+         */
+        export interface IResponse {
+            items?: IResponseItem[];
+        }
+
+        /**
+         * Response item
+         * @description Interface for Response item
+         */
+        export interface IResponseItem {
+
+        }
+    }
+
+    /**
      * Geocode
      * @description Namespace for Geocode method
      */
