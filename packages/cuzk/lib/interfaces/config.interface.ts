@@ -1,16 +1,8 @@
 /**
- * Config
- * @description Interface for Cuzk config
+ * CUZK config
  */
 export interface ICuzkConfig {
-
-    /**
-     * API key
-     */
-    key: string;
-
-    /**
-     * API host
-     */
-    host: string;
+    apiHost?: string;
+    apiKey?: string;
+    wfsHost?: string;
 }

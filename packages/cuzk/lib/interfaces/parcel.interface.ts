@@ -4,11 +4,69 @@
  */
 export namespace Parcel {
 
-    export namespace GetById {}
+    /**
+     * Get by id
+     * @description Namespace for Get by id
+     */
+    export namespace GetById {
 
-    export namespace Search {}
+        /**
+         * Interface for Response
+         * @description Interface for Response
+         */
+        export interface IResponse {
+        }
+    }
 
-    export namespace GetByPolygon {}
+    export namespace Search {
+        /**
+         * Params
+         * @description Interface for Params
+         */
+        export interface IParams {
+            KodKatastralnihoUzemi?: number;
+            TypParcely?: string;
+            DruhCislovaniParcely?: number;
+            KmenoveCisloParcely?: number;
+            PoddeleniCislaParcely?: number;
+            PuvodParcelyZE?: number;
+            Identifikace?: string;
+        }
 
-    export namespace Neighboring {}
+        /**
+         * Interface for Response
+         * @description Interface for Response
+         */
+        export interface IResponse {
+        }
+    }
+
+    export namespace GetByPolygon {
+
+        /**
+         * Params
+         * @description Interface for Params
+         */
+        export interface IParams {
+            SeznamSouradnic?: string;
+            Identifikace?: string;
+        }
+
+        /**
+         * Interface for Response
+         * @description Interface for Response
+         */
+        export interface IResponse {
+        }
+    }
+
+    export namespace Neighboring {
+
+        /**
+         * Interface for Response
+         * @description Interface for Response
+         */
+        export interface IResponse {
+        }
+    }
 }

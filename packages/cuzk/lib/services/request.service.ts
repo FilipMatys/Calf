@@ -1,14 +1,14 @@
 // External modules
-import fetch from "node-fetch";
+import fetch, { Response } from "node-fetch";
 
 // Interfaces
 import { ICallbackFn } from "../interfaces/callback.interface";
-import { ICuzkConfig } from "../interfaces/config.interface";
+import { ICuzkServiceConfig } from "../interfaces/service-config.interface";
 
 /**
  * Request service
  */
-export class RequestService {
+export abstract class RequestService {
 
     /**
      * Host
@@ -23,14 +23,27 @@ export class RequestService {
     protected key: string;
 
     /**
+     * Headers
+     * @description Request headers
+     */
+    protected headers: { [key: string]: string };
+
+    /**
      * Constructor
      * @param config 
      */
-    constructor(config: ICuzkConfig) {
+    constructor(config: ICuzkServiceConfig) {
         // Assign host and key
         this.host = config.host;
         this.key = config.key;
+        this.headers = config.headers;
     }
+
+    /**
+     * Parse response
+     * @param response 
+     */
+    protected abstract parseResponse<TResult>(response: Response): Promise<TResult>;
 
     /**
      * Get
@@ -53,22 +66,25 @@ export class RequestService {
                 }
             }
 
+            // Init headers
+            const headers: any = Object.assign({}, this.headers);
+
+            // Check for key
+            this.key && (headers["ApiKey"] = this.key);
+
             // Make get request
             const response = await fetch(url as any, {
                 // Set method
                 method: "get",
                 // Set headers
-                headers: {
-                    "Content-type": "application/json",
-                    "ApiKey": this.key
-                }
+                headers
             });
 
             // Get result
-            const result = await response.json() as TResult;
+            const result = await this.parseResponse<TResult>(response);
 
             // Check for callback
-            callback && callback(undefined, response, result);
+            callback && callback(undefined, response as any, result);
 
             // Return result
             return result;
