@@ -42,6 +42,9 @@ export class Envelope {
         // First create root
         this.root = this.content.ele(null, "soapenv:Envelope");
 
+        // Set soapenv attribute
+        this.root.att("xmlns:soapenv", "http://schemas.xmlsoap.org/soap/envelope/");
+
         // Now create header and body
         this.header = this.root.ele(null, "soapenv:Header");
         this.body = this.root.ele(null, "soapenv:Body");
