@@ -56,7 +56,8 @@ export class Envelope {
      * @returns
      */
     public toString(): string {
-        return this.content.end({ prettyPrint: true });
+        // Convert builder to string
+        return this.content.end();
     }
 
     /**
