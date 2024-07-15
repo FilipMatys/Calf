@@ -27,5 +27,9 @@
         "mocha": "^5.2.0",
         "ts-node": "^6.2.0",
         "typescript": "^3.9.7"
+    },
+    "dependencies": {
+        "crypto": "^1.0.1",
+        "xmlbuilder2": "^3.1.1"
     }
 }
