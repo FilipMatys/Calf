@@ -3,10 +3,12 @@ import fetch from "node-fetch";
 import { create } from "xmlbuilder2";
 
 // Interfaces
+import { Submit } from "../interfaces/submit.interface";
 import { IEUDRConfig } from "../interfaces/config.interface";
 
 // Classes
 import { SecureEnvelope } from "../classes/secure-envelope.class";
+import { SubmitEnvelope } from "../classes/submit-envelope.class";
 
 /**
  * Soap service
@@ -52,6 +54,8 @@ export class SoapService {
         // Set username and password
         envelope.setUsernameAndPassword(this.username, this.password);
 
+        console.log(envelope.toPrettyString());
+
         // Make post request
         const response = await fetch([this.host, service].join("/"), {
             // Set method
@@ -72,5 +76,15 @@ export class SoapService {
 
         // TODO
         return null
+    }
+
+    /**
+     * Submit
+     * @param envelope 
+     * @returns 
+     */
+    public async submit(envelope: SubmitEnvelope): Promise<Submit.IResponseData> {
+        // Send submit request
+        return this.send("EUDRSubmissionServiceV1?wsdl", envelope);
     }
 }

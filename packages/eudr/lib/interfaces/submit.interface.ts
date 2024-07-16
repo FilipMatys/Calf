@@ -28,6 +28,7 @@ export namespace Submit {
         internalReferenceNumber?: string;
         activityType?: string;
         countryOfActivity?: string;
+        countryOfEntry?: string;
         commodities?: ICommodity[];
         geoLocationConfidential?: boolean;
     }
