@@ -61,6 +61,15 @@ export class Envelope {
     }
 
     /**
+     * To pretty string
+     * @returns 
+     */
+    public toPrettyString(): string {
+        // Convert builder to pretty string
+        return this.content.end({ prettyPrint: true });
+    }
+
+    /**
      * Date to XML date
      * @param date 
      */

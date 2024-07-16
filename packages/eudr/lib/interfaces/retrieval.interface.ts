@@ -9,7 +9,7 @@ export namespace Retrieval {
      * @description Interface for Retrieval request data
      */
     export interface IRequestData {
-        identifier?: string;
+        identifiers?: string[];
     }
 
     /**

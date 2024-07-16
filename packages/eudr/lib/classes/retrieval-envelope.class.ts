@@ -23,9 +23,9 @@ export class RetrievalEnvelope extends SecureEnvelope {
         this.root.att("xmlns:v4", "http://ec.europa.eu/sanco/tracesnt/base/v4");
 
         // Build body
-        this.body
-            .ele(null, "v1:GetStatementInfoRequest")
-            .ele(null, "v1:identifier")
-            .txt(data.identifier);
+        const request = this.body.ele(null, "v1:GetStatementInfoRequest");
+
+        // Iterate identifiers
+        (data.identifiers || []).forEach((identifier) => request.ele(null, "v1:identifier").txt(identifier));
     }
 }
