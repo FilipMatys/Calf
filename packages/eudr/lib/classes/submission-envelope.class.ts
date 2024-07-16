@@ -1,20 +1,20 @@
 // Interfaces
-import { Submit } from "../interfaces/submit.interface";
+import { Submission } from "../interfaces/submission.interface";
 
 // Classes
 import { SecureEnvelope } from "./secure-envelope.class";
 
 /**
- * Submit envelope
- * @description Envelope for Submit service
+ * Submission envelope
+ * @description Envelope for Submission service
  */
-export class SubmitEnvelope extends SecureEnvelope {
+export class SubmissionEnvelope extends SecureEnvelope {
 
     /**
      * Constructor
      * @param data 
      */
-    constructor(data: Submit.IRequestData) {
+    constructor(data: Submission.IRequestData) {
         // Call super
         super();
 

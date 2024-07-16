@@ -3,12 +3,14 @@ import fetch from "node-fetch";
 import { create } from "xmlbuilder2";
 
 // Interfaces
-import { Submit } from "../interfaces/submit.interface";
+import { Submission } from "../interfaces/submission.interface";
+import { Retrieval } from "../interfaces/retrieval.interface";
 import { IEUDRConfig } from "../interfaces/config.interface";
 
 // Classes
 import { SecureEnvelope } from "../classes/secure-envelope.class";
-import { SubmitEnvelope } from "../classes/submit-envelope.class";
+import { SubmissionEnvelope } from "../classes/submission-envelope.class";
+import { RetrievalEnvelope } from "../classes/retrieval-envelope.class";
 
 /**
  * Soap service
@@ -83,8 +85,17 @@ export class SoapService {
      * @param envelope 
      * @returns 
      */
-    public async submit(envelope: SubmitEnvelope): Promise<Submit.IResponseData> {
+    public async submit(envelope: SubmissionEnvelope): Promise<Submission.IResponseData> {
         // Send submit request
         return this.send("EUDRSubmissionServiceV1?wsdl", envelope);
+    }
+
+    /**
+     * Retrieve
+     * @param envelope 
+     */
+    public async retrieve(envelope: RetrievalEnvelope): Promise<Retrieval.IResponseData> {
+        // Send retrieve request
+        return this.send("EUDRRetrievalServiceV1?wsdl", envelope);
     }
 }

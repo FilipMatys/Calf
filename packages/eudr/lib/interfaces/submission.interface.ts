@@ -1,8 +1,8 @@
 /**
- * Submit
- * @description Namespace for Submit
+ * Submission
+ * @description Namespace for Submission
  */
-export namespace Submit {
+export namespace Submission {
 
     /**
      * Submit request data
