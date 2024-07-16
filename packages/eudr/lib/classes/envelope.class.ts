@@ -37,7 +37,7 @@ export class Envelope {
      */
     constructor() {
         // Init content
-        this.content = create({});
+        this.content = create({ encoding: "UTF-8" });
 
         // First create root
         this.root = this.content.ele(null, "soapenv:Envelope");

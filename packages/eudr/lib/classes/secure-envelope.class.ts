@@ -31,7 +31,7 @@ export class SecureEnvelope extends Envelope {
         });
 
         // Set security client id
-        this.security.ele("v4:WebServiceClientId").txt("eudr-repository");
+        this.header.ele("v4:WebServiceClientId").txt("eudr-repository");
     }
 
     /**
@@ -47,18 +47,18 @@ export class SecureEnvelope extends Envelope {
         const timestamp = this.security.ele(null, "wsu:Timestamp");
 
         // Set timestamp attribute
-        timestamp.att("wsu:Id", `TS-${Buffer.from(this.dateToXMLDate(date)).toString("hex").toUpperCase()}`);
+        timestamp.att("wsu:Id", `Timestamp-${this.dateToXMLDate(date)}`);
 
         // Set values
         timestamp.ele(null, "wsu:Created").txt(this.dateToXMLDate(date));
-        timestamp.ele(null, "wsu:Expires").txt(this.dateToXMLDate(new Date(date.getTime() + (1000 * 600))));
+        timestamp.ele(null, "wsu:Expires").txt(this.dateToXMLDate(new Date(date.getTime() + (1000 * 60))));
 
 
         // Now create token
         const token = this.security.ele(null, "wsse:UsernameToken");
 
         // Set token attribute
-        token.att("wsu:Id", `UsernameToken-${Buffer.from(this.dateToXMLDate(date)).toString("hex").toUpperCase()}`);
+        token.att("wsu:Id", `UsernameToken-${this.dateToXMLDate(date)}`);
 
         // Create nonce
         const nonce = createHash("sha1").update(this.dateToXMLDate(date) + Math.random()).digest("base64");

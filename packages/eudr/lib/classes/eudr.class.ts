@@ -1,3 +1,6 @@
+// Interfaces
+import { IEUDRConfig } from "../interfaces/config.interface";
+
 // Services
 import { SoapService } from "../services/soap.service";
 
@@ -26,7 +29,7 @@ export class EUDR {
      * Initialize
      * @param config 
      */
-    public static initialize(config: any): void {
+    public static initialize(config: IEUDRConfig): void {
         // Create service
         this.soapService = new SoapService(config);
     }

@@ -1,5 +1,6 @@
 // External modules
 import fetch from "node-fetch";
+import { create } from "xmlbuilder2";
 
 // Interfaces
 import { IEUDRConfig } from "../interfaces/config.interface";
@@ -48,14 +49,11 @@ export class SoapService {
      * @param envelope 
      */
     public async send<TEnvelope extends SecureEnvelope, TResponse>(service: string, envelope: TEnvelope): Promise<TResponse> {
-        // Create new url
-        const url = new URL([this.host, service].join("/"));
-
         // Set username and password
         envelope.setUsernameAndPassword(this.username, this.password);
 
         // Make post request
-        const response = await fetch(url, {
+        const response = await fetch([this.host, service].join("/"), {
             // Set method
             method: "post",
             // Set body 
@@ -66,6 +64,11 @@ export class SoapService {
 
         // Get response
         const result = await response.text();
+
+        // Parse response XML
+        const document = create(result);
+
+        console.log(document.end({ prettyPrint: true }));
 
         // TODO
         return null
