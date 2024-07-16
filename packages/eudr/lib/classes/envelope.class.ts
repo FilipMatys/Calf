@@ -65,15 +65,7 @@ export class Envelope {
      * @param date 
      */
     protected dateToXMLDate(date: Date): string {
-        // Local pad function
-        const pad = (value: number) => value < 10 ? '0' + value : value;
-
-        // Process date
-        return date.getUTCFullYear() + '-'
-            + pad(date.getUTCMonth() + 1) + '-'
-            + pad(date.getUTCDate()) + 'T'
-            + pad(date.getUTCHours()) + ':'
-            + pad(date.getUTCMinutes()) + ':'
-            + pad(date.getUTCSeconds()) + 'Z';
+        // Convert date to ISO string
+        return date.toISOString();
     }
 }

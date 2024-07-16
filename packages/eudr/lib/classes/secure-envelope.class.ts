@@ -1,6 +1,6 @@
 // External modules
 import { XMLBuilder } from "xmlbuilder2/lib/interfaces";
-import { createHash } from "crypto";
+import { createHash, randomBytes } from "crypto";
 
 // Classes
 import { Envelope } from "./envelope.class";
@@ -47,30 +47,31 @@ export class SecureEnvelope extends Envelope {
         const timestamp = this.security.ele(null, "wsu:Timestamp");
 
         // Set timestamp attribute
-        timestamp.att("wsu:Id", `Timestamp-${this.dateToXMLDate(date)}`);
+        timestamp.att("wsu:Id", `TS-${Buffer.from(this.dateToXMLDate(date)).toString("hex").toUpperCase()}`);
 
         // Set values
         timestamp.ele(null, "wsu:Created").txt(this.dateToXMLDate(date));
         timestamp.ele(null, "wsu:Expires").txt(this.dateToXMLDate(new Date(date.getTime() + (1000 * 60))));
 
-
         // Now create token
         const token = this.security.ele(null, "wsse:UsernameToken");
 
         // Set token attribute
-        token.att("wsu:Id", `UsernameToken-${this.dateToXMLDate(date)}`);
+        token.att("wsu:Id", `UsernameToken-${Buffer.from(this.dateToXMLDate(new Date(date.getTime() + (1000 * 60)))).toString("hex").toUpperCase()}`);
 
         // Create nonce
-        const nonce = createHash("sha1").update(this.dateToXMLDate(date) + Math.random()).digest("base64");
+        const nonce = randomBytes(16).toString("base64");
 
         // Password digest
         const passwordDigest = (nonce: string, created: string, password: string): string => {
             // Create password hash
             const pHash = createHash("sha1");
             // Get raw none
-            const rNonce = Buffer.from(nonce, "base64").toString("binary");
+            const rNonce = Buffer.from(nonce, "base64");
+            const rCreated = Buffer.from(created, "utf-8");
+            const rPassword = Buffer.from(password, "utf-8");
             // Update password hash
-            pHash.update(rNonce + created + password);
+            pHash.update(Buffer.concat([rNonce, rCreated, rPassword]));
 
             // Return password
             return pHash.digest("base64");

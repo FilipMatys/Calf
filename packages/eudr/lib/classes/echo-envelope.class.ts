@@ -16,7 +16,6 @@ export class EchoEnvelope extends SecureEnvelope {
 
         // Set root attributes
         this.root.att("xmlns:echo", "http://ec.europa.eu/tracesnt/eudr/echo");
-        this.root.att("xmlns:v3", "http://ec.europa.eu/tracesnt/body/v3");
         this.root.att("xmlns:v4", "http://ec.europa.eu/sanco/tracesnt/base/v4");
 
         // Build body
