@@ -1,5 +1,5 @@
 // External modules
-import fetch from "node-fetch";
+import fetch, { Response } from "node-fetch";
 import { create } from "xmlbuilder2";
 
 // Interfaces
@@ -13,6 +13,7 @@ import { SecureEnvelope } from "../classes/secure-envelope.class";
 import { SubmitEnvelope } from "../classes/submit-envelope.class";
 import { RetrieveEnvelope } from "../classes/retrieve-envelope.class";
 import { RetractEnvelope } from "../classes/retract-envelope.class";
+import { IResponse } from "../interfaces/response.interface";
 
 /**
  * Soap service
@@ -55,7 +56,7 @@ export class SoapService {
      * @param envelope 
      * @returns 
      */
-    public async send<TEnvelope extends SecureEnvelope>(service: string, envelope: TEnvelope): Promise<string> {
+    public async send<TEnvelope extends SecureEnvelope>(service: string, envelope: TEnvelope): Promise<Response> {
         // Set username and password
         envelope.setUsernameAndPassword(this.username, this.password);
 
@@ -71,16 +72,8 @@ export class SoapService {
             headers: { "Content-type": "text/xml" }
         });
 
-        // Get response
-        const result = await response.text();
-
-        // Parse response XML
-        const document = create(result);
-
-        console.log(document.end({ prettyPrint: true }));
-
         // Return result
-        return result
+        return response as any;
     }
 
     /**
@@ -88,7 +81,7 @@ export class SoapService {
      * @param envelope 
      * @returns 
      */
-    public async submit(envelope: SubmitEnvelope): Promise<Submit.IResponseData> {
+    public async submit(envelope: SubmitEnvelope): Promise<IResponse<Submit.IResponseData>> {
         // Send submit request
         return this.send("EUDRSubmissionServiceV1?wsdl", envelope) as any;
     }
@@ -97,7 +90,7 @@ export class SoapService {
      * Retrieve
      * @param envelope 
      */
-    public async retrieve(envelope: RetrieveEnvelope): Promise<Retrieve.IResponseData> {
+    public async retrieve(envelope: RetrieveEnvelope): Promise<IResponse<Retrieve.IResponseData>> {
         // Send retrieve request
         return this.send("EUDRRetrievalServiceV1?wsdl", envelope) as any;
     }
@@ -107,8 +100,36 @@ export class SoapService {
      * @param envelope 
      * @returns 
      */
-    public async retract(envelope: RetractEnvelope): Promise<Retract.IRequestData> {
-        // Send retract request
-        return this.send("EUDRSubmissionServiceV1?wsdl", envelope) as any;
+    public async retract(envelope: RetractEnvelope): Promise<IResponse<Retract.IResponseData>> {
+        // Send request
+        const rResponse = await this.send("EUDRSubmissionServiceV1?wsdl", envelope);
+
+        // Init response
+        const response: IResponse<Retract.IResponseData> = {};
+
+        // Set status
+        response.status = rResponse.status;
+
+        // Parse response as json
+        const document = create(await rResponse.text()).end({ format: "object" }) as any;
+
+        // Get body
+        const body = document["S:Envelope"]["S:Body"];
+
+        // Check status
+        switch (response.status) {
+            // 500
+            case 500:
+                // Init fault
+                response.fault = {};
+
+                // Set values
+                response.fault.code = body["ns0:Fault"]["faultcode"];
+                response.fault.message = body["ns0:Fault"]["faultstring"];
+                break;
+        }
+
+        // Return response
+        return response;
     }
 }
