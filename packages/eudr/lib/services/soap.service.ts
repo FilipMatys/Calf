@@ -3,14 +3,16 @@ import fetch from "node-fetch";
 import { create } from "xmlbuilder2";
 
 // Interfaces
-import { Submission } from "../interfaces/submission.interface";
-import { Retrieval } from "../interfaces/retrieval.interface";
+import { Submit } from "../interfaces/submit.interface";
+import { Retract } from "../interfaces/retract.interface";
+import { Retrieve } from "../interfaces/retrieve.interface";
 import { IEUDRConfig } from "../interfaces/config.interface";
 
 // Classes
 import { SecureEnvelope } from "../classes/secure-envelope.class";
-import { SubmissionEnvelope } from "../classes/submission-envelope.class";
-import { RetrievalEnvelope } from "../classes/retrieval-envelope.class";
+import { SubmitEnvelope } from "../classes/submit-envelope.class";
+import { RetrieveEnvelope } from "../classes/retrieve-envelope.class";
+import { RetractEnvelope } from "../classes/retract-envelope.class";
 
 /**
  * Soap service
@@ -49,10 +51,11 @@ export class SoapService {
 
     /**
      * Send
-     * @param service
+     * @param service 
      * @param envelope 
+     * @returns 
      */
-    public async send<TEnvelope extends SecureEnvelope, TResponse>(service: string, envelope: TEnvelope): Promise<TResponse> {
+    public async send<TEnvelope extends SecureEnvelope>(service: string, envelope: TEnvelope): Promise<string> {
         // Set username and password
         envelope.setUsernameAndPassword(this.username, this.password);
 
@@ -76,8 +79,8 @@ export class SoapService {
 
         console.log(document.end({ prettyPrint: true }));
 
-        // TODO
-        return null
+        // Return result
+        return result
     }
 
     /**
@@ -85,17 +88,27 @@ export class SoapService {
      * @param envelope 
      * @returns 
      */
-    public async submit(envelope: SubmissionEnvelope): Promise<Submission.IResponseData> {
+    public async submit(envelope: SubmitEnvelope): Promise<Submit.IResponseData> {
         // Send submit request
-        return this.send("EUDRSubmissionServiceV1?wsdl", envelope);
+        return this.send("EUDRSubmissionServiceV1?wsdl", envelope) as any;
     }
 
     /**
      * Retrieve
      * @param envelope 
      */
-    public async retrieve(envelope: RetrievalEnvelope): Promise<Retrieval.IResponseData> {
+    public async retrieve(envelope: RetrieveEnvelope): Promise<Retrieve.IResponseData> {
         // Send retrieve request
-        return this.send("EUDRRetrievalServiceV1?wsdl", envelope);
+        return this.send("EUDRRetrievalServiceV1?wsdl", envelope) as any;
+    }
+
+    /**
+     * Retract
+     * @param envelope 
+     * @returns 
+     */
+    public async retract(envelope: RetractEnvelope): Promise<Retract.IRequestData> {
+        // Send retract request
+        return this.send("EUDRSubmissionServiceV1?wsdl", envelope) as any;
     }
 }

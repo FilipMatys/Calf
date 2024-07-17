@@ -1,20 +1,20 @@
 /**
- * Retrieval
- * @description Namespace for Retrieval
+ * Retrieve
+ * @description Namespace for Retrieve
  */
-export namespace Retrieval {
+export namespace Retrieve {
 
     /**
-     * Retrieval request data
-     * @description Interface for Retrieval request data
+     * Retrieve request data
+     * @description Interface for Retrieve request data
      */
     export interface IRequestData {
         identifiers?: string[];
     }
 
     /**
-     * Retrieval response data
-     * @description Interface for Retrieval response data
+     * Retrieve response data
+     * @description Interface for Retrieve response data
      */
     export interface IResponseData {
         identifier?: string;
