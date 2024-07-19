@@ -1,6 +1,6 @@
 // External modules
 import { Serializable, ISchema, PropertyType, IPropertyDefinition } from "@calf/serializable";
-import { IEntityDao, IQuery, IPopulate } from "@calf/common";
+import { IEntityDao, IListQuery, IRemoveQuery, IUpdateQuery, ICountQuery, IGetQuery } from "@calf/common";
 import * as ObjectId from "bson-objectid";
 
 // Database
@@ -142,16 +142,27 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
     }
 
     /**
-     * Get entity
+     * Archive
      * @param entity 
      * @param args 
      */
-    public async get(entity: T, populate: IPopulate[], ...args: any[]): Promise<T> {
+    public async archive(entity: T, ...args: any[]): Promise<any> {
+        throw Error("Not implemented");
+    }
+
+    /**
+     * Get entity
+     * @param entity 
+     * @param QueryBuilder
+     * @param args 
+     */
+    public async get(entity: T, query: IGetQuery, ...args: any[]): Promise<T> {
         // Wait for database to be ready
         await SQLiteDatabase.ready();
 
         // Get db query
         const dbQuery: string = this.builder.select(this.schema, {
+            select: query.select || [],
             filter: { [this.oid]: (entity as any)[this.oid] },
             limit: 1
         });
@@ -184,7 +195,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
      * @param query 
      * @param args 
      */
-    public async getList(query: IQuery, ...args: any[]): Promise<T[]> {
+    public async getList(query: IListQuery, ...args: any[]): Promise<T[]> {
         // Wait for database to be ready
         await SQLiteDatabase.ready();
 
@@ -218,7 +229,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
      * @param query 
      * @param args 
      */
-    public async remove(query: IQuery, ...args: any[]): Promise<any> {
+    public async remove(query: IRemoveQuery, ...args: any[]): Promise<any> {
         // Wait for database to be ready
         await SQLiteDatabase.ready();
 
@@ -244,7 +255,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
      * @param query 
      * @param args 
      */
-    public async update(query: IQuery, payload: T, ...args: any[]): Promise<any> {
+    public async update(query: IUpdateQuery, payload: T, ...args: any[]): Promise<any> {
         // Wait for database to be ready
         await SQLiteDatabase.ready();
 
@@ -276,7 +287,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
      * @param query 
      * @param args 
      */
-    public async count(query: IQuery, ...args: any[]): Promise<number> {
+    public async count(query: ICountQuery, ...args: any[]): Promise<number> {
         // Wait for database to be ready
         await SQLiteDatabase.ready();
 

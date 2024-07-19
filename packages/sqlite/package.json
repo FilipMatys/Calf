@@ -1,6 +1,6 @@
 {
   "name": "@calf/sqlite",
-  "version": "0.2.17",
+  "version": "0.4.0",
   "description": "SQLite module of Calf framework.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -23,7 +23,7 @@
     "bson-objectid": "^1.2.3"
   },
   "devDependencies": {
-    "@calf/common": "^0.3.2",
+    "@calf/common": "^0.4.0",
     "@calf/serializable": "^0.3.5",
     "@types/chai": "^4.1.3",
     "@types/mocha": "^5.2.1",
@@ -35,7 +35,7 @@
     "typescript": "^2.9.2"
   },
   "peerDependencies": {
-    "@calf/common": "^0.3.2",
-    "@calf/serializable": "^0.2.0"
+    "@calf/common": "^0.4.0",
+    "@calf/serializable": "^0.3.5"
   }
 }
