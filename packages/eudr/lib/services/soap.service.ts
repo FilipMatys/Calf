@@ -7,13 +7,13 @@ import { Submit } from "../interfaces/submit.interface";
 import { Retract } from "../interfaces/retract.interface";
 import { Retrieve } from "../interfaces/retrieve.interface";
 import { IEUDRConfig } from "../interfaces/config.interface";
+import { IResponse } from "../interfaces/response.interface";
 
 // Classes
 import { SecureEnvelope } from "../classes/secure-envelope.class";
 import { SubmitEnvelope } from "../classes/submit-envelope.class";
 import { RetrieveEnvelope } from "../classes/retrieve-envelope.class";
 import { RetractEnvelope } from "../classes/retract-envelope.class";
-import { IResponse } from "../interfaces/response.interface";
 
 /**
  * Soap service
@@ -83,7 +83,24 @@ export class SoapService {
      */
     public async submit(envelope: SubmitEnvelope): Promise<IResponse<Submit.IResponseData>> {
         // Send submit request
-        return this.send("EUDRSubmissionServiceV1?wsdl", envelope) as any;
+        const rResponse = await this.send("EUDRSubmissionServiceV1?wsdl", envelope);
+
+        // Init response
+        const response: IResponse<Submit.IResponseData> = {};
+
+        // Set status
+        response.status = rResponse.status;
+
+        // Parse response as json
+        const document = create(await rResponse.text()).end({ format: "object" }) as any;
+
+        // Get body
+        const body = document["S:Envelope"]["S:Body"];
+
+        console.log(JSON.stringify(body));
+
+        // Return response
+        return response;
     }
 
     /**

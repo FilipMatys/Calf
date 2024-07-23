@@ -1,3 +1,7 @@
+// Enums
+import { ActivityType } from "../enums/activity-type.enum";
+import { OperatorIdentifierType } from "../enums/operator-identifier-type.enum";
+
 /**
  * Submit
  * @description Namespace for Submit
@@ -26,11 +30,52 @@ export namespace Submit {
      */
     export interface IStatement {
         internalReferenceNumber?: string;
-        activityType?: string;
+        operator?: IOperator;
+        activityType?: ActivityType;
         countryOfActivity?: string;
         countryOfEntry?: string;
         commodities?: ICommodity[];
         geoLocationConfidential?: boolean;
+        associatedStatements?: IAssociatedStatement[];
+    }
+
+    /**
+     * Associated statement
+     * @description Interface for Associated statement
+     */
+    export interface IAssociatedStatement {
+        referenceNumber?: string;
+        verificationNumber?: string;
+    }
+
+    /**
+     * Operator
+     * @description Interface for Operator
+     */
+    export interface IOperator {
+        nameAndAddress?: INameAndAddress;
+        referenceNumber?: IReferenceNumber;
+        email?: string;
+        phone?: string;
+    }
+
+    /**
+     * Name and address
+     * @description Interface for Name and address
+     */
+    export interface INameAndAddress {
+        name?: string;
+        country?: string;
+        address?: string;
+    }
+
+    /**
+     * Reference number
+     * @description Interface for Reference number
+     */
+    export interface IReferenceNumber {
+        identifierType?: OperatorIdentifierType;
+        identifierValue?: string;
     }
 
     /**

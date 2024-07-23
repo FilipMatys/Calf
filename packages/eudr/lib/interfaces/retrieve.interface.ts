@@ -1,3 +1,6 @@
+// Enums
+import { DdsStatusType } from "../enums/dds-status-type.enum";
+
 /**
  * Retrieve
  * @description Namespace for Retrieve
@@ -20,6 +23,6 @@ export namespace Retrieve {
         identifier?: string;
         referenceNumber?: string;
         verificationNumber?: string;
-        status?: string;
+        status?: DdsStatusType;
     }
 }
