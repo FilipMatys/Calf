@@ -1,6 +1,9 @@
 // Interfaces
 import { Submit } from "../interfaces/submit.interface";
 
+// Enums
+import { OperatorType } from "../enums/operator-type.enum";
+
 // Classes
 import { SecureEnvelope } from "./secure-envelope.class";
 
@@ -27,7 +30,7 @@ export class SubmitEnvelope extends SecureEnvelope {
         const request = this.body.ele(null, "v1:SubmitStatementRequest");
 
         // Set operator type
-        request.ele(null, "v1:operatorType").txt("OPERATOR");
+        request.ele(null, "v1:operatorType").txt(data.operatorType || OperatorType.Operator);
 
         // Check if statement is set
         if (!data.statement) return;

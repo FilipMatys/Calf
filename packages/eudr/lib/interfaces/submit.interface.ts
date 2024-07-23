@@ -1,6 +1,7 @@
 // Enums
 import { ActivityType } from "../enums/activity-type.enum";
 import { OperatorIdentifierType } from "../enums/operator-identifier-type.enum";
+import { OperatorType } from "../enums/operator-type.enum";
 
 /**
  * Submit
@@ -13,6 +14,7 @@ export namespace Submit {
      * @description Interface for Submit request data
      */
     export interface IRequestData {
+        operatorType?: OperatorType;
         statement?: IStatement;
     }
 
