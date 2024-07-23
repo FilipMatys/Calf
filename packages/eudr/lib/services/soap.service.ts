@@ -214,6 +214,12 @@ export class SoapService {
 
         // Check status
         switch (response.status) {
+            // 200
+            case 200:
+                // Set response data
+                response.data = { status: body["ns6:RetractStatementResponse"]["ns6:status"] };
+                break;
+
             // 500
             case 500:
                 // Init fault

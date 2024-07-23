@@ -16,6 +16,6 @@ export namespace Retract {
      * Retract response data
      */
     export interface IResponseData {
-
+        status?: any;
     }
 }
