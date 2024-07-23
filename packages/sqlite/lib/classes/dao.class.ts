@@ -84,9 +84,6 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
             }
             catch (_) { }
         }
-
-        // Resolve
-        return Promise.resolve();
     }
 
     /**
