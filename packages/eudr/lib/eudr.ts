@@ -8,3 +8,6 @@ export * from "./interfaces/config.interface";
 export * from "./interfaces/retrieve.interface";
 export * from "./interfaces/submit.interface";
 export * from "./enums/error-code.enum";
+export * from "./enums/activity-type.enum";
+export * from "./enums/dds-status-type.enum";
+export * from "./enums/operator-identifier-type.enum";

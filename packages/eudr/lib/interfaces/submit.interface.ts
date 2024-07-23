@@ -54,7 +54,7 @@ export namespace Submit {
      */
     export interface IOperator {
         nameAndAddress?: INameAndAddress;
-        referenceNumber?: IReferenceNumber;
+        referenceNumbers?: IReferenceNumber[];
         email?: string;
         phone?: string;
     }
