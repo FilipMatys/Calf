@@ -8,12 +8,14 @@ import { Retract } from "../interfaces/retract.interface";
 import { Retrieve } from "../interfaces/retrieve.interface";
 import { IEUDRConfig } from "../interfaces/config.interface";
 import { IResponse } from "../interfaces/response.interface";
+import { Amend } from "../interfaces/amend.interface";
 
 // Classes
 import { SecureEnvelope } from "../classes/secure-envelope.class";
 import { SubmitEnvelope } from "../classes/submit-envelope.class";
 import { RetrieveEnvelope } from "../classes/retrieve-envelope.class";
 import { RetractEnvelope } from "../classes/retract-envelope.class";
+import { AmendEnvelope } from "../classes/amend-envelope.class";
 
 /**
  * Soap service
@@ -97,7 +99,18 @@ export class SoapService {
         // Get body
         const body = document["S:Envelope"]["S:Body"];
 
-        console.log(JSON.stringify(body));
+        // Check status
+        switch (response.status) {
+            // 500
+            case 500:
+                // Init fault
+                response.fault = {};
+
+                // Set values
+                response.fault.code = body["ns0:Fault"]["faultcode"];
+                response.fault.message = body["ns0:Fault"]["faultstring"];
+                break;
+        }
 
         // Return response
         return response;
@@ -123,7 +136,56 @@ export class SoapService {
         // Get body
         const body = document["S:Envelope"]["S:Body"];
 
-        console.log(JSON.stringify(body));
+        // Check status
+        switch (response.status) {
+            // 500
+            case 500:
+                // Init fault
+                response.fault = {};
+
+                // Set values
+                response.fault.code = body["ns0:Fault"]["faultcode"];
+                response.fault.message = body["ns0:Fault"]["faultstring"];
+                break;
+        }
+
+        // Return response
+        return response;
+    }
+
+    /**
+     * Amend
+     * @param envelope 
+     * @returns 
+     */
+    public async amend(envelope: AmendEnvelope): Promise<IResponse<Amend.IResponseData>> {
+        // Send request
+        const rResponse = await this.send("EUDRSubmissionServiceV1?wsdl", envelope);
+
+        // Init response
+        const response: IResponse<Amend.IResponseData> = {};
+
+        // Set status
+        response.status = rResponse.status;
+
+        // Parse response as json
+        const document = create(await rResponse.text()).end({ format: "object" }) as any;
+
+        // Get body
+        const body = document["S:Envelope"]["S:Body"];
+
+        // Check status
+        switch (response.status) {
+            // 500
+            case 500:
+                // Init fault
+                response.fault = {};
+
+                // Set values
+                response.fault.code = body["ns0:Fault"]["faultcode"];
+                response.fault.message = body["ns0:Fault"]["faultstring"];
+                break;
+        }
 
         // Return response
         return response;
