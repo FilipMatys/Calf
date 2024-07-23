@@ -85,6 +85,7 @@ export namespace Submit {
     export interface ICommodity {
         descriptor?: IDescriptor;
         hsHeading?: string;
+        speciesInfo?: ISpeciesInfo[];
         producers?: IProducer[];
     }
 
@@ -96,6 +97,15 @@ export namespace Submit {
         volume?: number;
         netWeight?: number;
         numberOfUnits?: number;
+    }
+
+    /**
+     * Species info
+     * @description Interface  for Species info
+     */
+    export interface ISpeciesInfo {
+        scientificName?: string;
+        commonName?: string;
     }
 
     /**

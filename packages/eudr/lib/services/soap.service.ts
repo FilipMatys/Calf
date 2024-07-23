@@ -109,7 +109,24 @@ export class SoapService {
      */
     public async retrieve(envelope: RetrieveEnvelope): Promise<IResponse<Retrieve.IResponseData>> {
         // Send retrieve request
-        return this.send("EUDRRetrievalServiceV1?wsdl", envelope) as any;
+        const rResponse = await this.send("EUDRRetrievalServiceV1?wsdl", envelope) as any;
+
+        // Init response
+        const response: IResponse<Retrieve.IResponseData> = {};
+
+        // Set status
+        response.status = rResponse.status;
+
+        // Parse response as json
+        const document = create(await rResponse.text()).end({ format: "object" }) as any;
+
+        // Get body
+        const body = document["S:Envelope"]["S:Body"];
+
+        console.log(JSON.stringify(body));
+
+        // Return response
+        return response;
     }
 
     /**

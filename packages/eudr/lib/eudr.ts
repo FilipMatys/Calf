@@ -4,6 +4,7 @@ export * from "./classes/echo-envelope.class";
 export * from "./classes/secure-envelope.class";
 export * from "./classes/retrieve-envelope.class";
 export * from "./classes/submit-envelope.class";
+export * from "./classes/retract-envelope.class";
 export * from "./interfaces/config.interface";
 export * from "./interfaces/retrieve.interface";
 export * from "./interfaces/submit.interface";

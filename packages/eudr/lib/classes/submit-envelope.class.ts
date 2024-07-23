@@ -108,6 +108,19 @@ export class SubmitEnvelope extends SecureEnvelope {
             // Set basic values
             commodity.hsHeading && (commoditiesEl.ele(null, "v11:hsHeading").txt(commodity.hsHeading));
 
+            // Set species info
+            for (let sIndex = 0; sIndex < (commodity.speciesInfo || []).length; sIndex++) {
+                // Get info
+                const info = commodity.speciesInfo[sIndex];
+
+                // Create info element
+                const infoEl = commoditiesEl.ele(null, "v11:speciesInfo");
+
+                // Set values
+                info.scientificName && (infoEl.ele(null, "v11:scientificName").txt(info.scientificName));
+                info.commonName && (infoEl.ele(null, "v11:commonName").txt(info.commonName));
+            }
+
             // Set producers
             for (let pIndex = 0; pIndex < (commodity.producers || []).length; pIndex++) {
                 // Get producer
