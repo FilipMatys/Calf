@@ -153,7 +153,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
      * @param QueryBuilder
      * @param args 
      */
-    public async get(entity: T, query: IGetQuery, ...args: any[]): Promise<T> {
+    public async get(entity: T, query: IGetQuery = {}, ...args: any[]): Promise<T> {
         // Wait for database to be ready
         await SQLiteDatabase.ready();
 
