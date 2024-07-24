@@ -102,9 +102,9 @@ export class SubmitEnvelope extends SecureEnvelope {
                     const measureEl = descriptorsEl.ele(null, "v11:goodsMeasure");
 
                     // Set values
-                    measureEl.ele(null, "v11:volume").txt(`${commodity.descriptor.goodsMeasure.volume || 0}`);
-                    measureEl.ele(null, "v11:netWeight").txt(`${commodity.descriptor.goodsMeasure.netWeight || 0}`);
-                    measureEl.ele(null, "v11:numberOfUnits").txt(`${commodity.descriptor.goodsMeasure.numberOfUnits || 0}`);
+                    (typeof commodity.descriptor.goodsMeasure.volume !== "undefined") && measureEl.ele(null, "v11:volume").txt(`${commodity.descriptor.goodsMeasure.volume}`);
+                    (typeof commodity.descriptor.goodsMeasure.netWeight !== "undefined") && measureEl.ele(null, "v11:netWeight").txt(`${commodity.descriptor.goodsMeasure.netWeight}`);
+                    (typeof commodity.descriptor.goodsMeasure.numberOfUnits !== "undefined") && measureEl.ele(null, "v11:numberOfUnits").txt(`${commodity.descriptor.goodsMeasure.numberOfUnits}`);
                 }
             }
 
