@@ -101,6 +101,18 @@ export class SoapService {
 
         // Check status
         switch (response.status) {
+            // 200
+            case 200:
+                // Check for response
+                if (!body["ns5:SubmitStatementResponse"]) {
+                    // Nothing to parse
+                    break;
+                }
+
+                // Init response data
+                response.data = { identifier: body["ns5:SubmitStatementResponse"]["ns5:ddsIdentifier"] };
+                break;
+
             // 500
             case 500:
                 // Init fault
@@ -138,6 +150,27 @@ export class SoapService {
 
         // Check status
         switch (response.status) {
+            // 200
+            case 200:
+                // Check if response data is present
+                if (!body["ns4:GetStatementInfoResponse"] || !body["ns4:GetStatementInfoResponse"]["ns4:statementInfo"]) {
+                    // Nothing to parse
+                    break;
+                }
+
+                // Get info
+                const info = body["ns4:GetStatementInfoResponse"]["ns4:statementInfo"];
+
+                // Init response data
+                response.data = {};
+
+                // Set values
+                response.data.identifier = info["ns4:identifier"];
+                response.data.referenceNumber = info["ns4:referenceNumber"];
+                response.data.verificationNumber = info["ns4:verificationNumber"];
+                response.data.status = info["ns4:status"];
+                break;
+
             // 500
             case 500:
                 // Init fault
