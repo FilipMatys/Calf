@@ -1,5 +1,6 @@
 // External modules
-import fetch, { Response } from "node-fetch";
+import fetch from "node-fetch";
+import { Observable, Subject } from "rxjs";
 import { create } from "xmlbuilder2";
 
 // Interfaces
@@ -8,6 +9,8 @@ import { Retract } from "../interfaces/retract.interface";
 import { Retrieve } from "../interfaces/retrieve.interface";
 import { IEUDRConfig } from "../interfaces/config.interface";
 import { IResponse } from "../interfaces/response.interface";
+import { ISoapExchange } from "../interfaces/soap-exchange.interface";
+import { ISoapResponse } from "../interfaces/soap-response.interface";
 import { IFault } from "../interfaces/fault.interface";
 import { Amend } from "../interfaces/amend.interface";
 
@@ -43,6 +46,18 @@ export class SoapService {
     private password: string;
 
     /**
+     * Exchange source
+     * @description Source for exchange
+     */
+    private readonly exchangeSource: Subject<ISoapExchange> = new Subject<ISoapExchange>();
+
+    /**
+     * Exchange
+     * @description Observable exchange
+     */
+    public readonly exchange$: Observable<ISoapExchange> = this.exchangeSource.asObservable();
+
+    /**
      * Constructor
      * @param config 
      */
@@ -59,22 +74,34 @@ export class SoapService {
      * @param envelope 
      * @returns 
      */
-    public async send<TEnvelope extends SecureEnvelope>(service: string, envelope: TEnvelope): Promise<Response> {
+    public async send<TEnvelope extends SecureEnvelope>(service: string, envelope: TEnvelope): Promise<ISoapResponse> {
         // Set username and password
         envelope.setUsernameAndPassword(this.username, this.password);
+
+        // Convert envelope to string
+        const body = envelope.toString();
 
         // Make post request
         const response = await fetch([this.host, service].join("/"), {
             // Set method
             method: "post",
             // Set body 
-            body: envelope.toString(),
+            body: body,
             // Set headers
             headers: { "Content-type": "text/xml" }
         });
 
+        // Init response
+        const sResponse: ISoapResponse = { status: response.status };
+
+        // Get data
+        sResponse.data = await response.text();
+
+        // Emit exchange
+        this.exchangeSource.next({ status: sResponse.status, request: body, response: sResponse.data });
+
         // Return result
-        return response as any;
+        return sResponse;
     }
 
     /**
@@ -93,7 +120,7 @@ export class SoapService {
         response.status = rResponse.status;
 
         // Parse response as json
-        const document = create(await rResponse.text()).end({ format: "object" }) as any;
+        const document = create(rResponse.data).end({ format: "object" }) as any;
 
         // Check for env response
         if (this.isEnvResponse(document)) {
@@ -142,7 +169,7 @@ export class SoapService {
      */
     public async retrieve(envelope: RetrieveEnvelope): Promise<IResponse<Retrieve.IResponseData>> {
         // Send retrieve request
-        const rResponse = await this.send("EUDRRetrievalServiceV1?wsdl", envelope) as any;
+        const rResponse = await this.send("EUDRRetrievalServiceV1?wsdl", envelope);
 
         // Init response
         const response: IResponse<Retrieve.IResponseData> = {};
@@ -151,7 +178,7 @@ export class SoapService {
         response.status = rResponse.status;
 
         // Parse response as json
-        const document = create(await rResponse.text()).end({ format: "object" }) as any;
+        const document = create(rResponse.data).end({ format: "object" }) as any;
 
         // Check for env response
         if (this.isEnvResponse(document)) {
@@ -219,7 +246,7 @@ export class SoapService {
         response.status = rResponse.status;
 
         // Parse response as json
-        const document = create(await rResponse.text()).end({ format: "object" }) as any;
+        const document = create(rResponse.data).end({ format: "object" }) as any;
 
         // Check for env response
         if (this.isEnvResponse(document)) {
@@ -266,7 +293,7 @@ export class SoapService {
         response.status = rResponse.status;
 
         // Parse response as json
-        const document = create(await rResponse.text()).end({ format: "object" }) as any;
+        const document = create(rResponse.data).end({ format: "object" }) as any;
 
         // Check for env response
         if (this.isEnvResponse(document)) {
