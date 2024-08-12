@@ -8,6 +8,7 @@ import { Retract } from "../interfaces/retract.interface";
 import { Retrieve } from "../interfaces/retrieve.interface";
 import { IEUDRConfig } from "../interfaces/config.interface";
 import { IResponse } from "../interfaces/response.interface";
+import { IFault } from "../interfaces/fault.interface";
 import { Amend } from "../interfaces/amend.interface";
 
 // Classes
@@ -62,8 +63,6 @@ export class SoapService {
         // Set username and password
         envelope.setUsernameAndPassword(this.username, this.password);
 
-        console.log(envelope.toPrettyString());
-
         // Make post request
         const response = await fetch([this.host, service].join("/"), {
             // Set method
@@ -95,6 +94,15 @@ export class SoapService {
 
         // Parse response as json
         const document = create(await rResponse.text()).end({ format: "object" }) as any;
+
+        // Check for env response
+        if (this.isEnvResponse(document)) {
+            // Parse env fault
+            response.fault = this.parseEnvFault(document);
+
+            // Return response
+            return response;
+        }
 
         // Get body
         const body = document["S:Envelope"]["S:Body"];
@@ -144,6 +152,15 @@ export class SoapService {
 
         // Parse response as json
         const document = create(await rResponse.text()).end({ format: "object" }) as any;
+
+        // Check for env response
+        if (this.isEnvResponse(document)) {
+            // Parse env fault
+            response.fault = this.parseEnvFault(document);
+
+            // Return response
+            return response;
+        }
 
         // Get body
         const body = document["S:Envelope"]["S:Body"];
@@ -204,6 +221,15 @@ export class SoapService {
         // Parse response as json
         const document = create(await rResponse.text()).end({ format: "object" }) as any;
 
+        // Check for env response
+        if (this.isEnvResponse(document)) {
+            // Parse env fault
+            response.fault = this.parseEnvFault(document);
+
+            // Return response
+            return response;
+        }
+
         // Get body
         const body = document["S:Envelope"]["S:Body"];
 
@@ -242,6 +268,15 @@ export class SoapService {
         // Parse response as json
         const document = create(await rResponse.text()).end({ format: "object" }) as any;
 
+        // Check for env response
+        if (this.isEnvResponse(document)) {
+            // Parse env fault
+            response.fault = this.parseEnvFault(document);
+
+            // Return response
+            return response;
+        }
+
         // Get body
         const body = document["S:Envelope"]["S:Body"];
 
@@ -266,5 +301,29 @@ export class SoapService {
 
         // Return response
         return response;
+    }
+
+    /**
+     * Is env response
+     * @param document
+     */
+    private isEnvResponse(document: any): boolean {
+        // Check for env
+        return document["env:Envelope"] && document["env:Envelope"]["env:Body"];
+    }
+
+    /**
+     * Parse env fault
+     * @param document 
+     */
+    private parseEnvFault(document: any): IFault {
+        // First get body
+        const body = document["env:Envelope"]["env:Body"];
+
+        // Now get fault
+        const fault = body["env:Fault"];
+
+        // Return fault
+        return { code: fault["faultcode"], message: fault["faultstring"] };
     }
 }
