@@ -1,6 +1,6 @@
 {
   "name": "@calf/abra",
-  "version": "0.30.25-alpha",
+  "version": "0.30.26-alpha",
   "description": "Abra module of Calf framework.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -31,7 +31,7 @@
     "mocha": "^5.2.0",
     "rxjs": "^6.6.7",
     "ts-node": "^6.2.0",
-    "typescript": "^2.9.2"
+    "typescript": "^3.9.7"
   },
   "dependencies": {
     "node-fetch": "^2.6.9"
