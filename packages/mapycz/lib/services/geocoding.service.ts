@@ -20,4 +20,14 @@ export class GeocodingService extends RequestService {
         // Make request to geocode
         return this.get(["v1", "geocode"], params, callback);
     }
+
+    /**
+     * Reverse
+     * @param params 
+     * @param callback 
+     */
+    public reverse(params: Geocoding.Reverse.IParams, callback?: ICallbackFn<Geocoding.Geocode.IResponse>): Promise<Geocoding.Reverse.IResponse> {
+        // Make request to reverse
+        return this.get(["v1", "rgeocode"], params, callback);
+    }
 }

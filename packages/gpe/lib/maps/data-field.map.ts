@@ -30,6 +30,7 @@ import { SequenceNumberField } from "../fields/data/sequence-number.field";
 import { TransactionIDField } from "../fields/data/transaction-id.field";
 import { ExtraTextField } from "../fields/data/extra-text.field";
 import { ClientIDField } from "../fields/data/client-id.field";
+import { TipAmountField } from "../fields/data/tip-amount.field";
 
 /**
  * Data field map
@@ -57,6 +58,7 @@ export const DataFieldMap: { [identifier: string]: new () => DataField<any> } = 
     "Z": IdentificationNumbersField,
     "a": ApplicationIDField,
     "b": CashbackAmountField,
+    "c": TipAmountField,
     "d": TransactionDataField,
     "f": CodePageField,
     "i": SequenceNumberField,

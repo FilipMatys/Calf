@@ -57,7 +57,7 @@ export class RequestService {
             url.searchParams.append("apiKey", this.key);
 
             // Make get request
-            const response = await fetch(url, {
+            const response = await fetch(url as any, {
                 // Set method
                 method: "get",
                 // Set headers

@@ -66,7 +66,7 @@ export abstract class DetailPage<TEntity extends Serializable, TMessage = string
      */
     protected async get(entity: TEntity): Promise<void> {
         // Get entity
-        const validation = await this.service.get({ _id: entity._id } as TEntity, []);
+        const validation = await this.service.get({ _id: entity._id } as TEntity);
 
         // Call on did get hook
         await this.onDidGet(validation);

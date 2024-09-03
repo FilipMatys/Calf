@@ -1,7 +1,7 @@
 // External modules
+import { ValidationResult, IListQueryResult, EntityService, IListQuery, IRemoveQuery } from "@calf/common";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Serializable } from "@calf/serializable";
-import { ValidationResult, IQueryResult, EntityService, IQuery } from "@calf/common";
 
 // Daos
 import { FakeDao } from "../daos/fake.dao";
@@ -63,21 +63,21 @@ export abstract class AngularService<TEntity extends Serializable, TMessage = st
             return this.handleSaveError(validation, error);
         }
     }
-    
+
     /**
     * Peri single hook
     * @param validation
     * @param query 
     * @param args 
     */
-    protected async periSingle(validation: ValidationResult<TEntity, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
+    protected async periSingle(validation: ValidationResult<TEntity, TMessage>, query: IListQuery, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
 
         // First alter headers
         const headers = await this.alterHeaders(this.httpOptions.headers);
 
         try {
             // Make request
-            const rValidation = await this.http.post<ValidationResult<IQueryResult<TEntity>, TMessage>>([...this.prefix, "single"].join("/"), query, {
+            const rValidation = await this.http.post<ValidationResult<TEntity, TMessage>>([...this.prefix, "single"].join("/"), query, {
                 headers: headers
             }).toPromise();
 
@@ -99,14 +99,14 @@ export abstract class AngularService<TEntity extends Serializable, TMessage = st
     * @param query 
     * @param args 
     */
-    protected async periGetList(validation: ValidationResult<IQueryResult<TEntity>, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<IQueryResult<TEntity>, TMessage>> {
+    protected async periGetList(validation: ValidationResult<IListQueryResult<TEntity>, TMessage>, query: IListQuery, ...args: any[]): Promise<ValidationResult<IListQueryResult<TEntity>, TMessage>> {
 
         // First alter headers
         const headers = await this.alterHeaders(this.httpOptions.headers);
 
         try {
             // Make request
-            const rValidation = await this.http.post<ValidationResult<IQueryResult<TEntity>, TMessage>>([...this.prefix, "list"].join("/"), query, {
+            const rValidation = await this.http.post<ValidationResult<IListQueryResult<TEntity>, TMessage>>([...this.prefix, "list"].join("/"), query, {
                 headers: headers
             }).toPromise();
 
@@ -127,7 +127,7 @@ export abstract class AngularService<TEntity extends Serializable, TMessage = st
      * @param entity 
      */
     public get(entity: TEntity): Promise<ValidationResult<TEntity, TMessage>> {
-        return super.get(entity, []);
+        return super.get(entity);
     }
 
     /**
@@ -165,14 +165,14 @@ export abstract class AngularService<TEntity extends Serializable, TMessage = st
      * @param query 
      * @param args 
      */
-    protected async periRemove(validation: ValidationResult<TEntity, TMessage>, query: IQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
+    protected async periRemove(validation: ValidationResult<TEntity, TMessage>, query: IRemoveQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
 
         // First alter headers
         const headers = await this.alterHeaders(this.httpOptions.headers);
 
         try {
             // Make request
-            const rValidation = await this.http.post<ValidationResult<IQueryResult<TEntity>, TMessage>>([...this.prefix, "remove"].join("/"), query, {
+            const rValidation = await this.http.post<ValidationResult<any, TMessage>>([...this.prefix, "remove"].join("/"), query, {
                 headers: headers
             }).toPromise();
 
@@ -264,7 +264,7 @@ export abstract class AngularService<TEntity extends Serializable, TMessage = st
      * @param validation 
      * @param error 
      */
-    protected handleGetListError<TError>(validation: ValidationResult<IQueryResult<TEntity>, TMessage>, error: TError): Promise<ValidationResult<IQueryResult<TEntity>, TMessage>> {
+    protected handleGetListError<TError>(validation: ValidationResult<IListQueryResult<TEntity>, TMessage>, error: TError): Promise<ValidationResult<IListQueryResult<TEntity>, TMessage>> {
         return this.handleHttpError<TError>(validation, error);
     }
 

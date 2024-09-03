@@ -1,3 +1,6 @@
+// Interfaces
+import { ICustomValidationFn } from "../interfaces/custom-validation-fn.interface";
+
 /**
  * Validation result
  * @description Object being handled between function calls
@@ -102,6 +105,18 @@ export class ValidationResult<TData, TMessage = string> {
 
         // Return current validation flag
         return this.isValid;
+    }
+
+    /**
+     * Validate
+     * @description Validate using custom validation function
+     * @param fn 
+     * @param error 
+     * @returns 
+     */
+    public validate(fn: ICustomValidationFn<TData>, error: TMessage): boolean {
+        // Process result from custom function
+        return this.processResult(fn(this.data as TData), error);
     }
 
     /**

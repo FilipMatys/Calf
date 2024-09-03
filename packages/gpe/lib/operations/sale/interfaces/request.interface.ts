@@ -6,9 +6,15 @@ export interface ISaleRequest {
 
     /**
      * Amount
-     * @description Amount to be paid
+     * @description Total amount including tip (if present)
      */
     amount: number;
+
+    /**
+     * Tip
+     * @description Tip amount
+     */
+    tip?: number;
 
     /**
      * Reference number

@@ -1,6 +1,6 @@
 // External modules
 import { ISchema, IPropertyDefinition } from "@calf/serializable";
-import { IQuery } from "@calf/common";
+import { IListQuery, IRemoveQuery, IUpdateQuery } from "@calf/common";
 
 // Parsers
 import { SQLiteParser } from "../parsers/sqlite.parser";
@@ -324,7 +324,7 @@ export class QueryBuilder<T> {
      * @param query 
      * @param payload 
      */
-    public update(schema: ISchema<IPropertyDefinition>, query: IQuery, payload: T): string {
+    public update(schema: ISchema<IPropertyDefinition>, query: IUpdateQuery, payload: T): string {
         // Init query
         const dbQuery: string[] = ["UPDATE", schema.entity.name, "SET"];
 
@@ -362,7 +362,7 @@ export class QueryBuilder<T> {
      * @param schema 
      * @param query 
      */
-    public delete(schema: ISchema<IPropertyDefinition>, query: IQuery): string {
+    public delete(schema: ISchema<IPropertyDefinition>, query: IRemoveQuery): string {
         // Init query
         const dbQuery: string[] = ["DELETE"];
 
@@ -383,7 +383,7 @@ export class QueryBuilder<T> {
      * @param schema 
      * @param query 
      */
-    public select(schema: ISchema<IPropertyDefinition>, query: IQuery): string {
+    public select(schema: ISchema<IPropertyDefinition>, query: IListQuery): string {
         // Init query
         const dbQuery: string[] = [];
 
@@ -421,7 +421,7 @@ export class QueryBuilder<T> {
      * @param schema 
      * @param query 
      */
-    public count(schema: ISchema<IPropertyDefinition>, query: IQuery): string {
+    public count(schema: ISchema<IPropertyDefinition>, query: IListQuery): string {
         // Call select with COUNT(*)
         return this.select(schema, {
             ...query,

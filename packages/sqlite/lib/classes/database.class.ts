@@ -25,8 +25,8 @@ export class SQLiteDatabase {
     public static async ready(): Promise<void> {
         // Check flag
         if (this.isReady) {
-            // Resolve
-            return Promise.resolve();
+            // Already ready
+            return;
         }
 
         // Create new promise
@@ -58,14 +58,14 @@ export class SQLiteDatabase {
         // Connect
         await this.connection.connect();
 
-        // Initialize daos
-        await this.initDaos();
+        // Check whether to update schema
+        if (await this.connection.isSchemaUpdateRequired()) {
+            // Initialize daos
+            await this.initDaos();
+        }
 
         // Set database as ready
         this.isReady = true;
-
-        // Resolve
-        return Promise.resolve();
     }
 
     /**
@@ -102,9 +102,10 @@ export class SQLiteDatabase {
      * @param dao 
      */
     public static async register<T>(name: string, dao: SQLiteDao<T>): Promise<void> {
-        // First check if is already registerd
+        // First check if is already registered
         if (this.isRegistered(name)) {
-            return Promise.resolve();
+            // Already registered
+            return;
         }
 
         // Assign dao
@@ -112,14 +113,18 @@ export class SQLiteDatabase {
 
         // Check for connection
         if (!this.connection || !this.connection.isConnected()) {
-            return Promise.resolve();
+            // No connection
+            return;
+        }
+
+        // Now check whether schema update is required
+        if (!(await this.connection.isSchemaUpdateRequired())) {
+            // No need to init
+            return;
         }
 
         // Initialize dao
         await dao.init();
-
-        // Resolve
-        return Promise.resolve();
     }
 
     /**
@@ -142,8 +147,5 @@ export class SQLiteDatabase {
             // Initialize dao
             await this.daos[keys[index]].init();
         }
-
-        // Return
-        return Promise.resolve();
     }
 }

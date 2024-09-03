@@ -19,4 +19,14 @@ export abstract class SQLiteConnection {
      * Check if is connected
      */
     public abstract isConnected(): boolean;
+
+    /**
+     * Is schema update required
+     * @description Check whether schema update is required.
+     * @returns
+     */
+    public async isSchemaUpdateRequired(): Promise<boolean> {
+        // Return true
+        return true;
+    }
 }
