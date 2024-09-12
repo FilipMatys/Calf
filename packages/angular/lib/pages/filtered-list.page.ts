@@ -1,7 +1,6 @@
 // External modules
-import { OnInit } from "@angular/core";
-import { Serializable } from "@calf/serializable";
 import { ActivatedRoute, Router, NavigationExtras } from "@angular/router";
+import { Serializable } from "@calf/serializable";
 
 // Utilities
 import { Filter } from "../utilities/filter/filter.utility";
@@ -13,7 +12,7 @@ import { ListPage } from "./list.page";
  * Filtered list page
  * @description List page with filtering ability
  */
-export abstract class FilteredListPage<TEntity extends Serializable, TMessage = string> extends ListPage<TEntity, TMessage> implements OnInit {
+export abstract class FilteredListPage<TEntity extends Serializable, TMessage = string> extends ListPage<TEntity, TMessage> {
 
     /**
      * Filter
@@ -36,11 +35,11 @@ export abstract class FilteredListPage<TEntity extends Serializable, TMessage = 
      */
     public ngOnInit(): void {
         // Subscribe to filter events
-        this.register("filterChange", this.filter.$change.subscribe((extras) => this.onFilterChange(extras)));
-        this.register("paramsChange", this.filter.$params.subscribe(() => this.onParamsChange()));
+        this.subscriber.register("filter:change", this.filter.$change.subscribe((extras) => this.onFilterChange(extras)));
+        this.subscriber.register("params:change", this.filter.$params.subscribe(() => this.onParamsChange()));
 
         // Subscribe to query params
-        this.register("queryParamsChange", this.route.queryParamMap.subscribe((params) => this.filter.params(params)));
+        this.subscriber.register("queryParams:change", this.route.queryParamMap.subscribe((params) => this.filter.params(params)));
     }
 
     /**
