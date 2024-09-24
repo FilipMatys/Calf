@@ -3066,9 +3066,7 @@ export interface IReceiveOrderRow extends IAbraModel {
     incometype_id?: string,
     splitintrastat?: boolean,
     demandstatus?: number,
-    externalnumber?: string,
-    X_Import?: number,
-    X_InitType?: string
+    externalnumber?: string
 }
 
 
@@ -3146,7 +3144,7 @@ export interface IReceiveOrder extends IAbraModel {
     x_descriptionint?: string,
     x_paletak?: boolean,
     X_Import?: number,
-    X_InitType?: string
+    X_IntType?: number
 }
 
 /**

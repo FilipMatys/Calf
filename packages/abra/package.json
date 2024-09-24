@@ -1,6 +1,6 @@
 {
   "name": "@calf/abra",
-  "version": "0.30.25-alpha",
+  "version": "0.30.29-alpha",
   "description": "Abra module of Calf framework.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/FilipMatys/Calf.git"
+    "url": "git+https://github.com/FilipMatys/Calf.git"
   },
   "keywords": [
     "calf",
