@@ -1,25 +1,27 @@
 // External modules
-import { OnInit } from "@angular/core";
-import { Serializable } from "@calf/serializable";
 import { ValidationResult, IListQueryResult, EntityService, IListQuery } from "@calf/common";
+import { Serializable } from "@calf/serializable";
+import { OnDestroy, OnInit } from "@angular/core";
 
-// Pages
-import { SubscriberPage } from "./subscriber.page";
+// Classes
+import { Subscriber } from "../classes/subscriber.class";
 
 /**
  * List page
  * @description List page loads list of entities
  */
-export abstract class ListPage<TEntity extends Serializable, TMessage = string> extends SubscriberPage implements OnInit {
+export abstract class ListPage<TEntity extends Serializable, TMessage = string> implements OnInit, OnDestroy {
+
+    /**
+     * Subscriber
+     */
+    protected readonly subscriber: Subscriber = new Subscriber();
 
     /**
      * Constructor
      * @param service 
      */
-    constructor(private service: EntityService<TEntity, TMessage>) {
-        // Call super
-        super();
-    }
+    constructor(private service: EntityService<TEntity, TMessage>) { }
 
     /**
      * On init hook
@@ -27,6 +29,14 @@ export abstract class ListPage<TEntity extends Serializable, TMessage = string> 
     public ngOnInit(): void {
         // Get list
         this.getList();
+    }
+
+    /**
+     * On destroy hook
+     */
+    public ngOnDestroy(): void {
+        // Clear subscriptions
+        this.subscriber.clear();
     }
 
     /**
