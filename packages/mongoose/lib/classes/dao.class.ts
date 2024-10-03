@@ -149,7 +149,7 @@ export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEn
         query = query || {};
 
         // Get count
-        return this.model.remove(query.filter || {}).exec();
+        return this.model.deleteMany(query.filter || {}).exec();
     }
 
     /**
