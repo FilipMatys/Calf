@@ -13,7 +13,7 @@ import { DeliveryType } from "../enums/delivery-type.enum";
 export interface IDelivery {
     status?: DeliveryStatus;
     type?: DeliveryType;
-    time?: any;
+    time?: string;
     fee?: IPrice;
     location?: ILocation;
     small_order_surcharge?: IPrice;

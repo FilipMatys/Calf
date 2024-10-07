@@ -3,5 +3,6 @@
  * @description Enum for Order type
  */
 export enum OrderType {
-    Instant = "instant"
+    Instant = "instant",
+    PreOrder = "preorder"
 }

@@ -1,4 +1,5 @@
 // Interfaces
+import { IDeposit } from "./deposit.interface";
 import { IIndexed } from "./indexed.interface";
 import { IPrice } from "./price.interface";
 
@@ -13,4 +14,5 @@ export interface IItemOption extends IIndexed {
     pos_id?: string;
     count?: number;
     value_pos_id?: string;
+    deposit?: IDeposit;
 }
