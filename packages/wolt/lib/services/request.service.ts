@@ -34,6 +34,48 @@ export abstract class RequestService {
     }
 
     /**
+     * Patch
+     * @param path 
+     * @param payload 
+     * @param callback 
+     */
+    protected async patch<TPayload, TResult>(path: string[], payload?: TPayload, callback?: ICallbackFn<TResult>): Promise<TResult> {
+        try {
+            // Create new url
+            const url = new URL([this.host, ...path].join("/"));
+
+            // Make get request
+            const response = await fetch(url, {
+                // Set method
+                method: "patch",
+                // Set headers
+                headers: {
+                    "Content-type": "application/json",
+                    "Authorization": `WOLT-API-KEY ${this.token}`
+                },
+                // Set body
+                body: payload as any
+            });
+
+            // Get result
+            const result = await response.json() as TResult;
+
+            // Check for callback
+            callback && callback(undefined, response, result);
+
+            // Return result
+            return result;
+        }
+        catch (error) {
+            // Check for callback
+            callback && callback(error, undefined, undefined);
+
+            // Rethrow error
+            throw error;
+        }
+    }
+
+    /**
      * Put
      * @param path 
      * @param payload 

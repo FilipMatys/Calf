@@ -1,6 +1,5 @@
 // Interfaces
 import { ICallbackFn } from "../interfaces/callback.interface";
-import { IOrder } from "../interfaces/order.interface";
 
 // Namespaces
 import { Order } from "../namespaces/order.namespace";
@@ -19,7 +18,7 @@ export class OrderService extends RequestService {
      * @param order
      * @param callback
      */
-    public detail(order: IOrder, callback?: ICallbackFn<IOrder>): Promise<IOrder> {
+    public detail(order: Order.Interfaces.IOrder, callback?: ICallbackFn<Order.Interfaces.IOrder>): Promise<Order.Interfaces.IOrder> {
         // Get order detail
         return this.get(["orders", `${order.id}`], null, callback);
     }
@@ -30,7 +29,7 @@ export class OrderService extends RequestService {
      * @param payload
      * @param callback 
      */
-    public accept(order: IOrder, payload: Order.Accept.IPayload, callback?: ICallbackFn<void>): Promise<void> {
+    public accept(order: Order.Interfaces.IOrder, payload: Order.Methods.Accept.IPayload, callback?: ICallbackFn<void>): Promise<void> {
         // Accept order
         return this.put(["orders", `${order.id}`, "accept"], payload, callback);
     }
@@ -41,7 +40,7 @@ export class OrderService extends RequestService {
      * @param payload
      * @param callback 
      */
-    public reject(order: IOrder, payload: Order.Reject.IPayload, callback?: ICallbackFn<void>): Promise<void> {
+    public reject(order: Order.Interfaces.IOrder, payload: Order.Methods.Reject.IPayload, callback?: ICallbackFn<void>): Promise<void> {
         // Reject order
         return this.put(["orders", `${order.id}`, "reject"], payload, callback);
     }
@@ -51,7 +50,7 @@ export class OrderService extends RequestService {
      * @param order 
      * @param callback 
      */
-    public ready(order: IOrder, callback?: ICallbackFn<void>): Promise<void> {
+    public ready(order: Order.Interfaces.IOrder, callback?: ICallbackFn<void>): Promise<void> {
         // Mark as ready
         return this.put(["orders", `${order.id}`, "ready"], null, callback);
     }
@@ -61,7 +60,7 @@ export class OrderService extends RequestService {
      * @param order 
      * @param callback 
      */
-    public delivered(order: IOrder, callback?: ICallbackFn<void>): Promise<void> {
+    public delivered(order: Order.Interfaces.IOrder, callback?: ICallbackFn<void>): Promise<void> {
         // Deliver
         return this.put(["orders", `${order.id}`, "delivered"], null, callback);
     }
@@ -71,7 +70,7 @@ export class OrderService extends RequestService {
      * @param order 
      * @param callback 
      */
-    public confirmPreOrder(order: IOrder, callback?: ICallbackFn<void>): Promise<void> {
+    public confirmPreOrder(order: Order.Interfaces.IOrder, callback?: ICallbackFn<void>): Promise<void> {
         // Confirm pre-order
         return this.put(["orders", `${order.id}`, "confirm-preorder"], null, callback);
     }
@@ -82,7 +81,7 @@ export class OrderService extends RequestService {
      * @param payload 
      * @param callback 
      */
-    public replaceItems(order: IOrder, payload: Order.ReplaceItems.IPayload, callback?: ICallbackFn<void>): Promise<void> {
+    public replaceItems(order: Order.Interfaces.IOrder, payload: Order.Methods.ReplaceItems.IPayload, callback?: ICallbackFn<void>): Promise<void> {
         // Replace items
         return this.put(["orders", `${order.id}`, "replace-items"], payload, callback);
     }
@@ -94,7 +93,7 @@ export class OrderService extends RequestService {
      * @param callback 
      * @returns 
      */
-    public acceptSelfDelivery(order: IOrder, payload: Order.AcceptSelfDelivery.IPayload, callback?: ICallbackFn<void>): Promise<void> {
+    public acceptSelfDelivery(order: Order.Interfaces.IOrder, payload: Order.Methods.AcceptSelfDelivery.IPayload, callback?: ICallbackFn<void>): Promise<void> {
         // Accept order
         return this.put(["orders", `${order.id}`, "self-delivery", "accept"], payload, callback);
     }
@@ -106,7 +105,7 @@ export class OrderService extends RequestService {
      * @param callback 
      * @returns 
      */
-    public sentToPos(order: IOrder, payload: Order.SentToPos.IPayload, callback?: ICallbackFn<void>): Promise<void> {
+    public sentToPos(order: Order.Interfaces.IOrder, payload: Order.Methods.SentToPos.IPayload, callback?: ICallbackFn<void>): Promise<void> {
         // Accept order
         return this.put(["orders", `${order.id}`, "sent-to-pos"], payload, callback);
     }
