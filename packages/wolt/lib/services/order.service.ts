@@ -3,6 +3,7 @@ import { ICallbackFn } from "../interfaces/callback.interface";
 
 // Namespaces
 import { Order } from "../namespaces/order.namespace";
+import { Authentication } from "../namespaces/authentication.namespace";
 
 // Services
 import { RequestService } from "./request.service";
@@ -14,99 +15,147 @@ import { RequestService } from "./request.service";
 export class OrderService extends RequestService {
 
     /**
-     * Get order
-     * @param order
-     * @param callback
+     * Get order detail
+     * @param authentication 
+     * @param order 
+     * @param callback 
+     * @returns 
      */
-    public detail(order: Order.Interfaces.IOrder, callback?: ICallbackFn<Order.Interfaces.IOrder>): Promise<Order.Interfaces.IOrder> {
+    public detail(authentication: Authentication.Interfaces.IApiKeyAuthentication, order: Order.Interfaces.IOrder, callback?: ICallbackFn<Order.Interfaces.IOrder>): Promise<Order.Interfaces.IOrder> {
         // Get order detail
-        return this.get(["orders", `${order.id}`], null, callback);
+        return this.get({
+            path: ["orders", `${order.id}`],
+            authentication: { ...authentication, type: Authentication.Enums.Type.ApiKey }
+        }, callback);
     }
 
     /**
      * Accept
+     * @param authentication 
      * @param order 
-     * @param payload
+     * @param payload 
      * @param callback 
+     * @returns 
      */
-    public accept(order: Order.Interfaces.IOrder, payload: Order.Methods.Accept.IPayload, callback?: ICallbackFn<void>): Promise<void> {
+    public accept(authentication: Authentication.Interfaces.IApiKeyAuthentication, order: Order.Interfaces.IOrder, payload: Order.Methods.Accept.IPayload, callback?: ICallbackFn<void>): Promise<void> {
         // Accept order
-        return this.put(["orders", `${order.id}`, "accept"], payload, callback);
+        return this.put({
+            path: ["orders", `${order.id}`, "accept"],
+            authentication: { ...authentication, type: Authentication.Enums.Type.ApiKey },
+            payload: payload
+        }, callback);
     }
 
     /**
      * Reject
+     * @param authentication 
      * @param order 
-     * @param payload
+     * @param payload 
      * @param callback 
+     * @returns 
      */
-    public reject(order: Order.Interfaces.IOrder, payload: Order.Methods.Reject.IPayload, callback?: ICallbackFn<void>): Promise<void> {
+    public reject(authentication: Authentication.Interfaces.IApiKeyAuthentication, order: Order.Interfaces.IOrder, payload: Order.Methods.Reject.IPayload, callback?: ICallbackFn<void>): Promise<void> {
         // Reject order
-        return this.put(["orders", `${order.id}`, "reject"], payload, callback);
+        return this.put({
+            path: ["orders", `${order.id}`, "reject"],
+            authentication: { ...authentication, type: Authentication.Enums.Type.ApiKey },
+            payload: payload
+        }, callback);
     }
 
     /**
      * Ready
+     * @param authentication 
      * @param order 
      * @param callback 
+     * @returns 
      */
-    public ready(order: Order.Interfaces.IOrder, callback?: ICallbackFn<void>): Promise<void> {
+    public ready(authentication: Authentication.Interfaces.IApiKeyAuthentication, order: Order.Interfaces.IOrder, callback?: ICallbackFn<void>): Promise<void> {
         // Mark as ready
-        return this.put(["orders", `${order.id}`, "ready"], null, callback);
+        return this.put({
+            path: ["orders", `${order.id}`, "ready"],
+            authentication: { ...authentication, type: Authentication.Enums.Type.ApiKey }
+        }, callback);
     }
 
     /**
      * Delivered
+     * @param authentication 
      * @param order 
      * @param callback 
+     * @returns 
      */
-    public delivered(order: Order.Interfaces.IOrder, callback?: ICallbackFn<void>): Promise<void> {
+    public delivered(authentication: Authentication.Interfaces.IApiKeyAuthentication, order: Order.Interfaces.IOrder, callback?: ICallbackFn<void>): Promise<void> {
         // Deliver
-        return this.put(["orders", `${order.id}`, "delivered"], null, callback);
+        return this.put({
+            path: ["orders", `${order.id}`, "delivered"],
+            authentication: { ...authentication, type: Authentication.Enums.Type.ApiKey }
+        }, callback);
     }
 
     /**
      * Confirm pre-order
+     * @param authentication 
      * @param order 
      * @param callback 
+     * @returns 
      */
-    public confirmPreOrder(order: Order.Interfaces.IOrder, callback?: ICallbackFn<void>): Promise<void> {
+    public confirmPreOrder(authentication: Authentication.Interfaces.IApiKeyAuthentication, order: Order.Interfaces.IOrder, callback?: ICallbackFn<void>): Promise<void> {
         // Confirm pre-order
-        return this.put(["orders", `${order.id}`, "confirm-preorder"], null, callback);
+        return this.put({
+            path: ["orders", `${order.id}`, "confirm-preorder"],
+            authentication: { ...authentication, type: Authentication.Enums.Type.ApiKey }
+        }, callback);
     }
 
     /**
      * Replace items
+     * @param authentication 
      * @param order 
      * @param payload 
      * @param callback 
+     * @returns 
      */
-    public replaceItems(order: Order.Interfaces.IOrder, payload: Order.Methods.ReplaceItems.IPayload, callback?: ICallbackFn<void>): Promise<void> {
+    public replaceItems(authentication: Authentication.Interfaces.IApiKeyAuthentication, order: Order.Interfaces.IOrder, payload: Order.Methods.ReplaceItems.IPayload, callback?: ICallbackFn<void>): Promise<void> {
         // Replace items
-        return this.put(["orders", `${order.id}`, "replace-items"], payload, callback);
+        return this.put({
+            path: ["orders", `${order.id}`, "replace-items"],
+            authentication: { ...authentication, type: Authentication.Enums.Type.ApiKey },
+            payload: payload
+        });
     }
 
     /**
      * Accept self delivery
-     * @param order
-     * @param payload 
-     * @param callback 
-     * @returns 
-     */
-    public acceptSelfDelivery(order: Order.Interfaces.IOrder, payload: Order.Methods.AcceptSelfDelivery.IPayload, callback?: ICallbackFn<void>): Promise<void> {
-        // Accept order
-        return this.put(["orders", `${order.id}`, "self-delivery", "accept"], payload, callback);
-    }
-
-    /**
-     * Sent to POS
+     * @param authentication 
      * @param order 
      * @param payload 
      * @param callback 
      * @returns 
      */
-    public sentToPos(order: Order.Interfaces.IOrder, payload: Order.Methods.SentToPos.IPayload, callback?: ICallbackFn<void>): Promise<void> {
+    public acceptSelfDelivery(authentication: Authentication.Interfaces.IApiKeyAuthentication, order: Order.Interfaces.IOrder, payload: Order.Methods.AcceptSelfDelivery.IPayload, callback?: ICallbackFn<void>): Promise<void> {
         // Accept order
-        return this.put(["orders", `${order.id}`, "sent-to-pos"], payload, callback);
+        return this.put({
+            path: ["orders", `${order.id}`, "self-delivery", "accept"],
+            authentication: { ...authentication, type: Authentication.Enums.Type.ApiKey },
+            payload: payload
+        }, callback);
+    }
+
+    /**
+     * Sent to POS
+     * @param authentication 
+     * @param order 
+     * @param payload 
+     * @param callback 
+     * @returns 
+     */
+    public sentToPos(authentication: Authentication.Interfaces.IApiKeyAuthentication, order: Order.Interfaces.IOrder, payload: Order.Methods.SentToPos.IPayload, callback?: ICallbackFn<void>): Promise<void> {
+        // Accept order
+        return this.put({
+            path: ["orders", `${order.id}`, "sent-to-pos"],
+            authentication: { ...authentication, type: Authentication.Enums.Type.ApiKey },
+            payload: payload
+        }, callback);
     }
 }

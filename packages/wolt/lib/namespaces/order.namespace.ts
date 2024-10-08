@@ -1,6 +1,6 @@
-// Interfaces
-import { ICoordinates } from "../interfaces/coordinates.interface";
-import { IIndexed } from "../interfaces/indexed.interface";
+// Namespaces
+import { Common } from "./common.namespace";
+
 
 /**
  * Order
@@ -102,7 +102,7 @@ export namespace Order {
          * Order
          * @description Interface for Order
          */
-        export interface IOrder extends IIndexed {
+        export interface IOrder extends Common.Interfaces.IIndexed {
             type?: Enums.OrderType;
             order_status?: Enums.OrderStatus;
             venue?: IVenue;
@@ -121,7 +121,7 @@ export namespace Order {
             company_tax_id?: string;
             loyalty_card_number?: string;
             cash_payment?: ICashPayment;
-            merchant?: IIndexed;
+            merchant?: Common.Interfaces.IIndexed;
             delivery_provider_type?: Enums.DeliveryProviderType;
         }
 
@@ -129,7 +129,7 @@ export namespace Order {
          * Category
          * @description Interface for Category
          */
-        export interface ICategory extends IIndexed {
+        export interface ICategory extends Common.Interfaces.IIndexed {
             name?: string;
         }
 
@@ -146,7 +146,7 @@ export namespace Order {
          * Item options
          * @description Interface for Item option
          */
-        export interface IItemOption extends IIndexed {
+        export interface IItemOption extends Common.Interfaces.IIndexed {
             name?: string;
             value?: string;
             price?: IPrice;
@@ -160,7 +160,7 @@ export namespace Order {
          * Item
          * @description Interface for Item
          */
-        export interface IItem extends IIndexed {
+        export interface IItem extends Common.Interfaces.IIndexed {
             name?: string;
             count?: number;
             pos_id?: string;
@@ -206,7 +206,7 @@ export namespace Order {
          * Venue
          * @description Interface for Venue
          */
-        export interface IVenue extends IIndexed {
+        export interface IVenue extends Common.Interfaces.IIndexed {
             name?: string;
         }
 
@@ -256,7 +256,7 @@ export namespace Order {
             city?: string;
             country?: string;
             formatted_address?: string;
-            coordinates?: ICoordinates;
+            coordinates?: Common.Interfaces.ICoordinates;
         }
     }
 

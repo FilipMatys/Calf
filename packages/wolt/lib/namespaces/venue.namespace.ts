@@ -1,6 +1,5 @@
-// Interfaces
-import { ICoordinates } from "../interfaces/coordinates.interface";
-import { IIndexed } from "../interfaces/indexed.interface";
+// Namespaces
+import { Common } from "./common.namespace";
 
 /**
  * Venue
@@ -13,20 +12,6 @@ export namespace Venue {
      * @description Namespace for Enums
      */
     export namespace Enums {
-
-        /**
-         * Day of the week
-         * @description Enum for Day of the week
-         */
-        export enum DayOfTheWeek {
-            Monday = "MONDAY",
-            Tuesday = "TUESDAY",
-            Wednesday = "WEDNESDAY",
-            Thursday = "THURSDAY",
-            Friday = "FRIDAY",
-            Saturday = "SATURDAY",
-            Sunday = "SUNDAY"
-        }
 
         /**
          * Status
@@ -48,12 +33,12 @@ export namespace Venue {
          * Venue
          * @description 
          */
-        export interface IVenue extends IIndexed {
+        export interface IVenue extends Common.Interfaces.IIndexed {
             status?: IStatus;
             contact_details?: IContactDetails;
-            opening_times?: IOpeningTime[];
-            special_times?: IOpeningTime[];
-            delivery_area?: ICoordinates[];
+            opening_times?: Common.Interfaces.IOpeningTime[];
+            special_times?: Common.Interfaces.IOpeningTime[];
+            delivery_area?: Common.Interfaces.ICoordinates[];
         }
 
         /**
@@ -73,17 +58,6 @@ export namespace Venue {
         export interface IContactDetails {
             address?: string;
             phone?: string;
-        }
-
-        /**
-         * Opening time
-         * @description Interface for Opening time
-         */
-        export interface IOpeningTime {
-            opening_day?: Enums.DayOfTheWeek;
-            opening_time?: string;
-            closing_day?: Enums.DayOfTheWeek;
-            closing_time?: string;
         }
     }
 
@@ -120,7 +94,7 @@ export namespace Venue {
              * @description Interface for Payload
              */
             export interface IPayload {
-                availability?: Interfaces.IOpeningTime[];
+                availability?: Common.Interfaces.IOpeningTime[];
             }
         }
     }

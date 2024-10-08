@@ -5,11 +5,6 @@
 export interface IWoltConfig {
 
     /**
-     * API token
-     */
-    token: string;
-
-    /**
      * API host
      */
     host: string;
