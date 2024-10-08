@@ -62,7 +62,9 @@ export class Wolt {
      * @param config 
      */
     public static initialize(config: IWoltConfig): void {
-
+        // Create services
+        this.orderService = new OrderService(config);
+        this.venueService = new VenueService(config);
+        this.menuService = new MenuService(config);
     }
-
 }
