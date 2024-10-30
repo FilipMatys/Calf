@@ -32,6 +32,21 @@ export namespace Payment {
     export namespace Interfaces {
 
         /**
+         * Operation data
+         * @description Interface for Operation data
+         */
+        export interface IOperationData {
+            Currency?: string;
+            Amount?: number;
+            AskForTip?: boolean;
+            EnterTipAsTargetAmount?: boolean;
+            VariableSymbol?: string;
+            CustomIdentifier?: string;
+            TimeStamp?: Date;
+            UUID?: string;
+        }
+
+        /**
          * Request
          * @description Interface for Request
          */

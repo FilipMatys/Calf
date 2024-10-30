@@ -75,6 +75,28 @@ export namespace Common {
     export namespace Interfaces {
 
         /**
+         * Http headers
+         * @description Interface for Http headers
+         */
+        export interface IHttpHeaders {
+            [key: string]: string | number;
+        }
+
+        /**
+         * Operation config
+         * @description Interface for Operation config
+         */
+        export interface IOperationConfig {
+            Token?: string;
+            ProtocolVersion?: string;
+            SaleID?: string;
+            ServiceID?: string;
+            POIID?: string;
+            Url?: string;
+            Port?: number;
+        }
+
+        /**
          * Message header
          * @description Interface for Message header
          */
