@@ -25,7 +25,7 @@ export class Wolt {
      * Venue
      * @description Access venue endpoints
      */
-    public static Venue(): VenueService {
+    public static get Venue(): VenueService {
         // Return venue service
         return this.venueService;
     }
@@ -34,7 +34,7 @@ export class Wolt {
      * Menu
      * @returns 
      */
-    public static Menu(): MenuService {
+    public static get Menu(): MenuService {
         // Return menu service
         return this.menuService;
     }

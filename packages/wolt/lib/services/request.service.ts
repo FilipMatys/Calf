@@ -58,13 +58,12 @@ export abstract class RequestService {
                     break;
             }
 
-
             // Make get request
-            const response = await fetch(url, {
+            const response = await fetch(url as any, {
                 // Set method
                 method: "post",
                 // Set headers
-                headers: headers,
+                headers: headers as any,
                 // Set body
                 body: options.payload as any
             });
@@ -73,7 +72,7 @@ export abstract class RequestService {
             const result = await response.json() as TResult;
 
             // Check for callback
-            callback && callback(undefined, response, result);
+            callback && callback(undefined, response as any, result);
 
             // Return result
             return result;
@@ -116,11 +115,11 @@ export abstract class RequestService {
 
 
             // Make get request
-            const response = await fetch(url, {
+            const response = await fetch(url as any, {
                 // Set method
                 method: "patch",
                 // Set headers
-                headers: headers,
+                headers: headers as any,
                 // Set body
                 body: options.payload as any
             });
@@ -129,7 +128,7 @@ export abstract class RequestService {
             const result = await response.json() as TResult;
 
             // Check for callback
-            callback && callback(undefined, response, result);
+            callback && callback(undefined, response as any, result);
 
             // Return result
             return result;
@@ -172,11 +171,11 @@ export abstract class RequestService {
 
 
             // Make get request
-            const response = await fetch(url, {
+            const response = await fetch(url as any, {
                 // Set method
                 method: "put",
                 // Set headers
-                headers: headers,
+                headers: headers as any,
                 // Set body
                 body: options.payload as any
             });
@@ -185,7 +184,7 @@ export abstract class RequestService {
             const result = await response.json() as TResult;
 
             // Check for callback
-            callback && callback(undefined, response, result);
+            callback && callback(undefined, response as any, result);
 
             // Return result
             return result;
@@ -237,18 +236,18 @@ export abstract class RequestService {
             }
 
             // Make get request
-            const response = await fetch(url, {
+            const response = await fetch(url as any, {
                 // Set method
                 method: "get",
                 // Set headers
-                headers: headers
+                headers: headers as any
             });
 
             // Get result
             const result = await response.json() as TResult;
 
             // Check for callback
-            callback && callback(undefined, response, result);
+            callback && callback(undefined, response as any, result);
 
             // Return result
             return result;

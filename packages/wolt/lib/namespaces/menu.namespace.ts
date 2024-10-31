@@ -190,6 +190,42 @@ export namespace Menu {
             chloride?: Common.Interfaces.IAmount;
             fluoride?: Common.Interfaces.IAmount;
         }
+
+        /**
+         * Inventory update item
+         * @description Interface for Inventory update item
+         */
+        export interface IInventoryUpdateItem {
+            external_id?: string;
+            gtin?: string;
+            sku?: string;
+            inventory?: number;
+        }
+
+        /**
+         * Menu update item
+         * @description Interface for Menu update item
+         */
+        export interface IMenuUpdateItem {
+            external_id?: string;
+            gtin?: string;
+            sku?: string;
+            price?: number;
+            discounted_price?: number;
+            enabled?: boolean;
+            in_stock?: boolean;
+            image_url?: string;
+        }
+
+        /**
+         * Option update item
+         * @description Interface for Option update item
+         */
+        export interface IOptionUpdateItem {
+            external_id?: string;
+            price?: number;
+            enabled?: boolean;
+        }
     }
 
     /**
@@ -209,7 +245,7 @@ export namespace Menu {
              * @description Interface for Payload
              */
             export interface IPayload {
-
+                data?: Interfaces.IInventoryUpdateItem[];
             }
         }
 
@@ -224,7 +260,7 @@ export namespace Menu {
              * @description Interface for Payload
              */
             export interface IPayload {
-
+                data: Interfaces.IMenuUpdateItem[];
             }
         }
 
@@ -239,7 +275,7 @@ export namespace Menu {
              * @description Interface for Payload
              */
             export interface IPayload {
-
+                data: Interfaces.IOptionUpdateItem[];
             }
         }
     }
