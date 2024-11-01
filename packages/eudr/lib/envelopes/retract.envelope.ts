@@ -1,8 +1,8 @@
 // Interfaces
-import { Retract } from "../interfaces/retract.interface";
+import { Retract } from "../namespaces/retract.namespace";
 
 // Classes
-import { SecureEnvelope } from "./secure-envelope.class";
+import { SecureEnvelope } from "./secure.envelope";
 
 /**
  * Retract envelope

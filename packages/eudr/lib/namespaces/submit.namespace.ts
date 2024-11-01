@@ -2,7 +2,7 @@
 import { OperatorType } from "../enums/operator-type.enum";
 
 // Interfaces
-import { IStatement } from "./statement.interface";
+import { IStatement } from "../interfaces/statement.interface";
 
 /**
  * Submit

@@ -3,13 +3,13 @@ import { XMLBuilder } from "xmlbuilder2/lib/interfaces";
 import { createHash, randomBytes } from "crypto";
 
 // Classes
-import { Envelope } from "./envelope.class";
+import { BaseEnvelope } from "./base.envelope";
 
 /**
  * Secure envelope
  * @description Envelope secured with WS
  */
-export class SecureEnvelope extends Envelope {
+export class SecureEnvelope extends BaseEnvelope {
 
     /**
      * Security

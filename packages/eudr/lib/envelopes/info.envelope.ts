@@ -1,20 +1,20 @@
 // Interfaces
-import { Retrieve } from "../interfaces/retrieve.interface";
+import { Info } from "../namespaces/info.namespace";
 
 // Classes
-import { SecureEnvelope } from "./secure-envelope.class";
+import { SecureEnvelope } from "./secure.envelope";
 
 /**
- * Retrieve envelope
- * @description Envelope for Retrieve service
+ * Info envelope
+ * @description Envelope for Info service
  */
-export class RetrieveEnvelope extends SecureEnvelope {
+export class InfoEnvelope extends SecureEnvelope {
 
     /**
      * Constructor
      * @param data 
      */
-    constructor(data: Retrieve.IRequestData) {
+    constructor(data: Info.IRequestData) {
         // Call super
         super();
 

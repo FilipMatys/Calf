@@ -6,7 +6,7 @@ import { XMLBuilder } from "xmlbuilder2/lib/interfaces";
  * Envelope
  * @description 
  */
-export class Envelope {
+export class BaseEnvelope {
 
     /**
      * Content

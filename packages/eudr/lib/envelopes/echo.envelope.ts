@@ -1,5 +1,5 @@
 // Classes
-import { SecureEnvelope } from "./secure-envelope.class";
+import { SecureEnvelope } from "./secure.envelope";
 
 /**
  * Echo envelope

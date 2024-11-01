@@ -1,20 +1,23 @@
 // Interfaces
-import { Amend } from "../interfaces/amend.interface";
+import { Submit } from "../namespaces/submit.namespace";
+
+// Enums
+import { OperatorType } from "../enums/operator-type.enum";
 
 // Classes
-import { SecureEnvelope } from "./secure-envelope.class";
+import { SecureEnvelope } from "./secure.envelope";
 
 /**
- * Amend envelope
- * @description Envelope for Amend service
+ * Submit envelope
+ * @description Envelope for Submit service
  */
-export class AmendEnvelope extends SecureEnvelope {
+export class SubmitEnvelope extends SecureEnvelope {
 
     /**
      * Constructor
      * @param data 
      */
-    constructor(data: Amend.IRequestData) {
+    constructor(data: Submit.IRequestData) {
         // Call super
         super();
 
@@ -24,10 +27,10 @@ export class AmendEnvelope extends SecureEnvelope {
         this.root.att("xmlns:v4", "http://ec.europa.eu/sanco/tracesnt/base/v4");
 
         // Build body by first creating request
-        const request = this.body.ele(null, "v1:AmendStatementRequest");
+        const request = this.body.ele(null, "v1:SubmitStatementRequest");
 
-        // Set identifier
-        request.ele(null, "v1:ddsIdentifier").txt(data.identifier);
+        // Set operator type
+        request.ele(null, "v1:operatorType").txt(data.operatorType || OperatorType.Operator);
 
         // Check if statement is set
         if (!data.statement) return;

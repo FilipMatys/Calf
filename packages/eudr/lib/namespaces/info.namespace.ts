@@ -2,22 +2,22 @@
 import { DdsStatusType } from "../enums/dds-status-type.enum";
 
 /**
- * Retrieve
- * @description Namespace for Retrieve
+ * Info
+ * @description Namespace for Info
  */
-export namespace Retrieve {
+export namespace Info {
 
     /**
-     * Retrieve request data
-     * @description Interface for Retrieve request data
+     * Info request data
+     * @description Interface for Info request data
      */
     export interface IRequestData {
         identifiers?: string[];
     }
 
     /**
-     * Retrieve response data
-     * @description Interface for Retrieve response data
+     * Info response data
+     * @description Interface for Info response data
      */
     export interface IResponseData {
         identifier?: string;

@@ -4,22 +4,27 @@ import { Observable, Subject } from "rxjs";
 import { create } from "xmlbuilder2";
 
 // Interfaces
-import { Submit } from "../interfaces/submit.interface";
-import { Retract } from "../interfaces/retract.interface";
-import { Retrieve } from "../interfaces/retrieve.interface";
 import { IEUDRConfig } from "../interfaces/config.interface";
 import { IResponse } from "../interfaces/response.interface";
 import { ISoapExchange } from "../interfaces/soap-exchange.interface";
 import { ISoapResponse } from "../interfaces/soap-response.interface";
 import { IFault } from "../interfaces/fault.interface";
-import { Amend } from "../interfaces/amend.interface";
 
-// Classes
-import { SecureEnvelope } from "../classes/secure-envelope.class";
-import { SubmitEnvelope } from "../classes/submit-envelope.class";
-import { RetrieveEnvelope } from "../classes/retrieve-envelope.class";
-import { RetractEnvelope } from "../classes/retract-envelope.class";
-import { AmendEnvelope } from "../classes/amend-envelope.class";
+// Namespaces
+import { Submit } from "../namespaces/submit.namespace";
+import { Retract } from "../namespaces/retract.namespace";
+import { Info } from "../namespaces/info.namespace";
+import { Amend } from "../namespaces/amend.namespace";
+import { Statement } from "../namespaces/statement.namespace";
+
+// Envelopes
+import { SecureEnvelope } from "../envelopes/secure.envelope";
+import { SubmitEnvelope } from "../envelopes/submit.envelope";
+import { InfoEnvelope } from "../envelopes/info.envelope";
+import { RetractEnvelope } from "../envelopes/retract.envelope";
+import { AmendEnvelope } from "../envelopes/amend.envelope";
+import { EchoEnvelope } from "../envelopes/echo.envelope";
+import { StatementEnvelope } from "../envelopes/statement.envelope";
 
 /**
  * Soap service
@@ -164,15 +169,66 @@ export class SoapService {
     }
 
     /**
-     * Retrieve
+     * Statement
      * @param envelope 
      */
-    public async retrieve(envelope: RetrieveEnvelope): Promise<IResponse<Retrieve.IResponseData>> {
+    public async statement(envelope: StatementEnvelope): Promise<IResponse<Statement.IResponseData>> {
         // Send retrieve request
         const rResponse = await this.send("EUDRRetrievalServiceV1?wsdl", envelope);
 
         // Init response
-        const response: IResponse<Retrieve.IResponseData> = {};
+        const response: IResponse<Statement.IResponseData> = {};
+
+        // Set status
+        response.status = rResponse.status;
+
+        // Parse response as json
+        const document = create(rResponse.data).end({ format: "object" }) as any;
+
+        // Check for env response
+        if (this.isEnvResponse(document)) {
+            // Parse env fault
+            response.fault = this.parseEnvFault(document);
+
+            // Return response
+            return response;
+        }
+
+        // Get body
+        const body = document["S:Envelope"]["S:Body"];
+
+        // Check status
+        switch (response.status) {
+            // 200
+            case 200:
+                // TODO
+                break;
+
+            // 500
+            case 500:
+                // Init fault
+                response.fault = {};
+
+                // Set values
+                response.fault.code = body["ns0:Fault"]["faultcode"];
+                response.fault.message = body["ns0:Fault"]["faultstring"];
+                break;
+        }
+
+        // Return response
+        return response;
+    }
+
+    /**
+     * Info
+     * @param envelope 
+     */
+    public async info(envelope: InfoEnvelope): Promise<IResponse<Info.IResponseData>> {
+        // Send retrieve request
+        const rResponse = await this.send("EUDRRetrievalServiceV1?wsdl", envelope);
+
+        // Init response
+        const response: IResponse<Info.IResponseData> = {};
 
         // Set status
         response.status = rResponse.status;

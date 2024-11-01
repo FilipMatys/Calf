@@ -1,5 +1,5 @@
 // Interfaces
-import { IStatement } from "./statement.interface";
+import { IStatement } from "../interfaces/statement.interface";
 
 /**
  * Amend
