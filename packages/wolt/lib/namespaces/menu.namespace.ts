@@ -87,10 +87,12 @@ export namespace Menu {
             enabled?: boolean;
             external_data?: string;
             quantity?: number;
+            product_information?: IProductInformation;
             deposit?: IDeposit;
             gtin_barcode?: string;
             merchant_sku?: string;
             bundle_offer?: boolean;
+            options?: IOption[];
         }
 
         /**
@@ -102,6 +104,7 @@ export namespace Menu {
             external_data?: string;
             type?: Enums.OptionType;
             selection_range?: Common.Interfaces.IRange;
+            values?: IOptionValue[];
         }
 
         /**
