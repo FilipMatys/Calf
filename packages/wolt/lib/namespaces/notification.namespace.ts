@@ -16,7 +16,8 @@ export namespace Notification {
          */
         export enum NotificationType {
             Order = "order.notification",
-            PickupCompleted = "pickup_completed.notification"
+            PickupCompleted = "pickup_completed.notification",
+            Courier = "courier.notification"
         }
 
         /**
