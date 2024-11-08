@@ -74,6 +74,8 @@ export namespace Notification {
             type?: Enums.NotificationType;
             created_at?: Date;
             order?: IOrder;
+            courier_details?: ICourierDetails;
+            details?: IDetails;
         }
     }
 
