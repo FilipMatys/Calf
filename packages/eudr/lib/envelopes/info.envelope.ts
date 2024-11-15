@@ -14,7 +14,7 @@ export class InfoEnvelope extends SecureEnvelope {
      * Constructor
      * @param data 
      */
-    constructor(data: Info.IRequestData) {
+    constructor(data: Info.Interfaces.IRequestData) {
         // Call super
         super();
 

@@ -14,7 +14,7 @@ export class StatementEnvelope extends SecureEnvelope {
      * Constructor
      * @param data 
      */
-    constructor(data: Statement.IRequestData) {
+    constructor(data: Statement.Interfaces.IRequestData) {
         // Call super
         super();
 

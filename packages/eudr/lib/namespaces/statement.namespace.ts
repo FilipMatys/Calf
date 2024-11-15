@@ -5,19 +5,26 @@
 export namespace Statement {
 
     /**
-     * Request data
-     * @description Interface for Statement request data
+     * Interfaces
+     * @description Namespace for Interfaces
      */
-    export interface IRequestData {
-        referenceNumber?: string;
-        verificationNumber?: string;
-    }
+    export namespace Interfaces {
 
-    /**
-     * Response data
-     * @description Interface for Response data
-     */
-    export interface IResponseData {
+        /**
+         * Request data
+         * @description Interface for Statement request data
+         */
+        export interface IRequestData {
+            referenceNumber?: string;
+            verificationNumber?: string;
+        }
 
+        /**
+         * Response data
+         * @description Interface for Response data
+         */
+        export interface IResponseData {
+
+        }
     }
 }

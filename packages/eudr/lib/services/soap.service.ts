@@ -16,6 +16,7 @@ import { Retract } from "../namespaces/retract.namespace";
 import { Info } from "../namespaces/info.namespace";
 import { Amend } from "../namespaces/amend.namespace";
 import { Statement } from "../namespaces/statement.namespace";
+import { Echo } from "../namespaces/echo.namespace";
 
 // Envelopes
 import { SecureEnvelope } from "../envelopes/secure.envelope";
@@ -110,16 +111,74 @@ export class SoapService {
     }
 
     /**
+     * Echo
+     * @param envelope 
+     */
+    public async echo(envelope: EchoEnvelope): Promise<IResponse<Echo.Interfaces.IResponseData>> {
+        // Send echo request
+        const rResponse = await this.send("EudrEchoService?wsdl", envelope);
+
+        // Init response
+        const response: IResponse<Echo.Interfaces.IResponseData> = {};
+
+        // Set status
+        response.status = rResponse.status;
+
+        // Parse response as json
+        const document = create(rResponse.data).end({ format: "object" }) as any;
+
+        // Check for env response
+        if (this.isEnvResponse(document)) {
+            // Parse env fault
+            response.fault = this.parseEnvFault(document);
+
+            // Return response
+            return response;
+        }
+
+        // Get body
+        const body = document["S:Envelope"]["S:Body"];
+
+        // Check status
+        switch (response.status) {
+            // 200
+            case 200:
+                // Check for response
+                if (!body["ns3:EudrEchoResponse"]) {
+                    // Nothing to parse
+                    break;
+                }
+
+                // Init response data
+                response.data = { status: body["ns3:EudrEchoResponse"]["ns3:status"] };
+                break;
+
+            // 500
+            case 500:
+                // Init fault
+                response.fault = {};
+
+                // Set values
+                response.fault.code = body["ns0:Fault"]["faultcode"];
+                response.fault.message = body["ns0:Fault"]["faultstring"];
+                break;
+        }
+
+        // Return response
+        return response;
+    }
+
+    /**
      * Submit
      * @param envelope 
      * @returns 
      */
-    public async submit(envelope: SubmitEnvelope): Promise<IResponse<Submit.IResponseData>> {
+    public async submit(envelope: SubmitEnvelope): Promise<IResponse<Submit.Interfaces.IResponseData>> {
         // Send submit request
         const rResponse = await this.send("EUDRSubmissionServiceV1?wsdl", envelope);
 
         // Init response
-        const response: IResponse<Submit.IResponseData> = {};
+        const response: IResponse<Submit.Interfaces.IResponseData> = {};
 
         // Set status
         response.status = rResponse.status;
@@ -172,12 +231,12 @@ export class SoapService {
      * Statement
      * @param envelope 
      */
-    public async statement(envelope: StatementEnvelope): Promise<IResponse<Statement.IResponseData>> {
+    public async statement(envelope: StatementEnvelope): Promise<IResponse<Statement.Interfaces.IResponseData>> {
         // Send retrieve request
         const rResponse = await this.send("EUDRRetrievalServiceV1?wsdl", envelope);
 
         // Init response
-        const response: IResponse<Statement.IResponseData> = {};
+        const response: IResponse<Statement.Interfaces.IResponseData> = {};
 
         // Set status
         response.status = rResponse.status;
@@ -223,12 +282,12 @@ export class SoapService {
      * Info
      * @param envelope 
      */
-    public async info(envelope: InfoEnvelope): Promise<IResponse<Info.IResponseData>> {
+    public async info(envelope: InfoEnvelope): Promise<IResponse<Info.Interfaces.IResponseData>> {
         // Send retrieve request
         const rResponse = await this.send("EUDRRetrievalServiceV1?wsdl", envelope);
 
         // Init response
-        const response: IResponse<Info.IResponseData> = {};
+        const response: IResponse<Info.Interfaces.IResponseData> = {};
 
         // Set status
         response.status = rResponse.status;
@@ -291,12 +350,12 @@ export class SoapService {
      * @param envelope 
      * @returns 
      */
-    public async amend(envelope: AmendEnvelope): Promise<IResponse<Amend.IResponseData>> {
+    public async amend(envelope: AmendEnvelope): Promise<IResponse<Amend.Interfaces.IResponseData>> {
         // Send request
         const rResponse = await this.send("EUDRSubmissionServiceV1?wsdl", envelope);
 
         // Init response
-        const response: IResponse<Amend.IResponseData> = {};
+        const response: IResponse<Amend.Interfaces.IResponseData> = {};
 
         // Set status
         response.status = rResponse.status;
@@ -338,12 +397,12 @@ export class SoapService {
      * @param envelope 
      * @returns 
      */
-    public async retract(envelope: RetractEnvelope): Promise<IResponse<Retract.IResponseData>> {
+    public async retract(envelope: RetractEnvelope): Promise<IResponse<Retract.Interfaces.IResponseData>> {
         // Send request
         const rResponse = await this.send("EUDRSubmissionServiceV1?wsdl", envelope);
 
         // Init response
-        const response: IResponse<Retract.IResponseData> = {};
+        const response: IResponse<Retract.Interfaces.IResponseData> = {};
 
         // Set status
         response.status = rResponse.status;

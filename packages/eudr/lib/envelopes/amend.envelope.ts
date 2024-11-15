@@ -14,7 +14,7 @@ export class AmendEnvelope extends SecureEnvelope {
      * Constructor
      * @param data 
      */
-    constructor(data: Amend.IRequestData) {
+    constructor(data: Amend.Interfaces.IRequestData) {
         // Call super
         super();
 

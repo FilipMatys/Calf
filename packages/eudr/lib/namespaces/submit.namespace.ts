@@ -11,19 +11,26 @@ import { IStatement } from "../interfaces/statement.interface";
 export namespace Submit {
 
     /**
-     * Submit request data
-     * @description Interface for Submit request data
+     * Interfaces
+     * @description Namespace for Interfaces
      */
-    export interface IRequestData {
-        operatorType?: OperatorType;
-        statement?: IStatement;
-    }
+    export namespace Interfaces {
 
-    /**
-     * Submit response data
-     * @description Interface for Submit response data
-     */
-    export interface IResponseData {
-        identifier?: string;
+        /**
+         * Submit request data
+         * @description Interface for Submit request data
+         */
+        export interface IRequestData {
+            operatorType?: OperatorType;
+            statement?: IStatement;
+        }
+
+        /**
+         * Submit response data
+         * @description Interface for Submit response data
+         */
+        export interface IResponseData {
+            identifier?: string;
+        }
     }
 }

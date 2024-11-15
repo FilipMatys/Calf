@@ -29,3 +29,4 @@ export * from "./envelopes/secure.envelope";
 export * from "./envelopes/info.envelope";
 export * from "./envelopes/amend.envelope";
 export * from "./envelopes/retract.envelope";
+export * from "./envelopes/echo.envelope";

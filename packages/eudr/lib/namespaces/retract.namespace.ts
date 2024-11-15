@@ -5,17 +5,24 @@
 export namespace Retract {
 
     /**
-     * Retract request data
-     * @description Interface for Retract request data
+     * Interfaces
+     * @description Namespace for Interfaces
      */
-    export interface IRequestData {
-        identifier?: string;
-    }
+    export namespace Interfaces {
 
-    /**
-     * Retract response data
-     */
-    export interface IResponseData {
-        status?: any;
+        /**
+         * Retract request data
+         * @description Interface for Retract request data
+         */
+        export interface IRequestData {
+            identifier?: string;
+        }
+
+        /**
+         * Retract response data
+         */
+        export interface IResponseData {
+            status?: any;
+        }
     }
 }

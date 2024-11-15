@@ -17,7 +17,7 @@ export class SubmitEnvelope extends SecureEnvelope {
      * Constructor
      * @param data 
      */
-    constructor(data: Submit.IRequestData) {
+    constructor(data: Submit.Interfaces.IRequestData) {
         // Call super
         super();
 

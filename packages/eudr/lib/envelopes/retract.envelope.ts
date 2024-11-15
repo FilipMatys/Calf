@@ -14,7 +14,7 @@ export class RetractEnvelope extends SecureEnvelope {
      * Constructor
      * @param data 
      */
-    constructor(data: Retract.IRequestData) {
+    constructor(data: Retract.Interfaces.IRequestData) {
         // Call super
         super();
 

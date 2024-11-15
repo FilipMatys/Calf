@@ -8,21 +8,28 @@ import { DdsStatusType } from "../enums/dds-status-type.enum";
 export namespace Info {
 
     /**
-     * Info request data
-     * @description Interface for Info request data
+     * Interfaces
+     * @description Namespace for Interfaces
      */
-    export interface IRequestData {
-        identifiers?: string[];
-    }
+    export namespace Interfaces {
 
-    /**
-     * Info response data
-     * @description Interface for Info response data
-     */
-    export interface IResponseData {
-        identifier?: string;
-        referenceNumber?: string;
-        verificationNumber?: string;
-        status?: DdsStatusType;
+        /**
+         * Info request data
+         * @description Interface for Info request data
+         */
+        export interface IRequestData {
+            identifiers?: string[];
+        }
+
+        /**
+         * Info response data
+         * @description Interface for Info response data
+         */
+        export interface IResponseData {
+            identifier?: string;
+            referenceNumber?: string;
+            verificationNumber?: string;
+            status?: DdsStatusType;
+        }
     }
 }
