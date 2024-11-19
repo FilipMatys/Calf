@@ -5,7 +5,7 @@ export abstract class StatService<TEnum> {
 
     // Enumeration
     protected enumeration: TEnum;
-    
+
     // Is constant flag
     private isConstant: boolean = false;
 
@@ -59,7 +59,21 @@ export abstract class StatService<TEnum> {
      * Get label of given value
      * @param value 
      */
-    public abstract getLabel<T>(value: T): string; 
+    public abstract getLabel<T>(value: T): string;
+
+    /**
+     * Get icon
+     * @param value 
+     * @returns 
+     */
+    public getIcon<T>(value: T): string { return ""; }
+
+    /**
+     * Get description
+     * @param value 
+     * @returns 
+     */
+    public getDescription<T>(value: T): string { return ""; }
 
     /**
      * Check if enumeration is constant
@@ -68,7 +82,7 @@ export abstract class StatService<TEnum> {
         // Need to find at least one number value and one
         // string value
         let hasString: boolean = false;
-        let hasNumber: boolean = false; 
+        let hasNumber: boolean = false;
 
         // Iterate through enum values
         for (var n in this.enumeration) {
