@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"target": "es5",
+		"experimentalDecorators": true,
+		"strictNullChecks": false,
+		"module": "commonjs",
+		"declaration": true,
+		"outDir": "./dist",
+		"strict": true,
+		"lib": [
+			"dom",
+			"es2017"
+		]
+	}
+}
