@@ -67,8 +67,6 @@ export class ParcelService extends RequestService {
      * @returns 
      */
     protected parseResponse<TResult>(response: Response): Promise<TResult> {
-        console.log(response);
-
         // Parse as json
         return response.json();
     }
