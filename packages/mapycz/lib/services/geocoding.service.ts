@@ -32,4 +32,14 @@ export class GeocodingService extends RequestService {
         // Make request to reverse
         return this.get(["v1", "rgeocode"], params, callback);
     }
+
+    /**
+     * Suggest
+     * @param params 
+     * @param callback 
+     */
+    public suggest(params: Geocoding.Interfaces.ISuggestParams, callback?: ICallbackFn<Geocoding.Interfaces.ISuggestResponse>): Promise<Geocoding.Interfaces.ISuggestResponse> {
+        // Make request to suggest
+        return this.get(["v1", "suggest"], params, callback);
+    }
 }

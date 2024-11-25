@@ -62,20 +62,36 @@ export namespace Geocoding {
         }
 
         /**
+         * Suggest params
+         * @description Interface for Suggest params
+         */
+        export interface ISuggestParams extends IGeocodeParams { }
+
+        /**
+         * Response
+         * @description Interface for Response
+         */
+        export interface IResponse {
+            items?: IItem[];
+        }
+
+        /**
          * Reverse response
          * @description Interface for Reverse response
          */
-        export interface IReverseResponse {
-            items?: IItem[];
-        }
+        export interface IReverseResponse extends IResponse { }
 
         /**
          * Geocode response
          * @description Interface for Geocode response
          */
-        export interface IGeocodeResponse {
-            items?: IItem[];
-        }
+        export interface IGeocodeResponse extends IResponse { }
+
+        /**
+         * Suggest response
+         * @description Interface for Suggest response
+         */
+        export interface ISuggestResponse extends IResponse { }
 
         /**
          * Item
