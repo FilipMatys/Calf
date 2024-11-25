@@ -1,6 +1,8 @@
 // Interfaces
 import { ICallbackFn } from "../interfaces/callback.interface";
-import { Geocoding } from "../interfaces/geocoding.interface";
+
+// Namespaces
+import { Geocoding } from "../namespaces/geocoding.namespace";
 
 // Services
 import { RequestService } from "./request.service";
@@ -16,7 +18,7 @@ export class GeocodingService extends RequestService {
      * @param params 
      * @param callback 
      */
-    public geocode(params: Geocoding.Geocode.IParams, callback?: ICallbackFn<Geocoding.Geocode.IResponse>): Promise<Geocoding.Geocode.IResponse> {
+    public geocode(params: Geocoding.Interfaces.IGeocodeParams, callback?: ICallbackFn<Geocoding.Interfaces.IGeocodeResponse>): Promise<Geocoding.Interfaces.IGeocodeResponse> {
         // Make request to geocode
         return this.get(["v1", "geocode"], params, callback);
     }
@@ -26,7 +28,7 @@ export class GeocodingService extends RequestService {
      * @param params 
      * @param callback 
      */
-    public reverse(params: Geocoding.Reverse.IParams, callback?: ICallbackFn<Geocoding.Geocode.IResponse>): Promise<Geocoding.Reverse.IResponse> {
+    public reverse(params: Geocoding.Interfaces.IReverseParams, callback?: ICallbackFn<Geocoding.Interfaces.IReverseResponse>): Promise<Geocoding.Interfaces.IReverseResponse> {
         // Make request to reverse
         return this.get(["v1", "rgeocode"], params, callback);
     }
