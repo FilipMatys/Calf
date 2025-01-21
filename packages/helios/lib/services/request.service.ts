@@ -17,7 +17,6 @@ import { HeliosRequestMethod } from "../constants/request-method.const";
 
 // Utilities
 import { Debug } from "../utilities/debug.utility";
-import { Queue } from "../utilities/queue.utility";
 
 /**
  * Request service
