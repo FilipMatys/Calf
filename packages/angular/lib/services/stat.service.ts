@@ -62,6 +62,13 @@ export abstract class StatService<TEnum> {
     public abstract getLabel<T>(value: T): string;
 
     /**
+     * Get color
+     * @param value 
+     * @returns 
+     */
+    public getColor<T>(value: T): string { return ""; }
+
+    /**
      * Get icon
      * @param value 
      * @returns 

@@ -1,6 +1,6 @@
 {
   "name": "@calf/angular",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Angular module of Calf framework.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
