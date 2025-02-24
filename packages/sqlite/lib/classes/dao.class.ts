@@ -16,10 +16,10 @@ import { SQLiteParser } from "../parsers/sqlite.parser";
 /**
  * SQLite dao
  */
-export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
+export class SQLiteDao<TEntity extends Serializable> implements IEntityDao<TEntity> {
 
     // Init query builder
-    protected builder: QueryBuilder<T> = new QueryBuilder<T>();
+    protected builder: QueryBuilder<TEntity> = new QueryBuilder<TEntity>();
 
     // Init sqlite parser
     protected sqLiteParser: SQLiteParser = new SQLiteParser();
@@ -34,7 +34,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
      * Constructor
      * @param entity 
      */
-    constructor(entity: new () => T, oid?: string) {
+    constructor(entity: new () => TEntity, oid?: string) {
         // Init parser
         const parser = new SchemaParser();
 
@@ -91,7 +91,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
      * @param entity 
      * @param args 
      */
-    public async save(entity: T, ...args: any[]): Promise<T> {
+    public async save(entity: TEntity, ...args: any[]): Promise<TEntity> {
         // Wait for database to be ready
         await SQLiteDatabase.ready();
 
@@ -143,7 +143,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
      * @param entity 
      * @param args 
      */
-    public async archive(entity: T, ...args: any[]): Promise<any> {
+    public async archive(entity: TEntity, ...args: any[]): Promise<any> {
         throw Error("Not implemented");
     }
 
@@ -153,7 +153,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
      * @param QueryBuilder
      * @param args 
      */
-    public async get(entity: T, query: IGetQuery = {}, ...args: any[]): Promise<T> {
+    public async get(entity: TEntity, query: IGetQuery = {}, ...args: any[]): Promise<TEntity> {
         // Wait for database to be ready
         await SQLiteDatabase.ready();
 
@@ -170,7 +170,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
             const result = await SQLiteDatabase.execute<any>(dbQuery);
 
             // Init rows
-            const rows: T[] = [];
+            const rows: TEntity[] = [];
 
             // Get rows
             for (let index = 0; index < result.rows.length; index++) {
@@ -192,7 +192,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
      * @param query 
      * @param args 
      */
-    public async getList(query: IListQuery, ...args: any[]): Promise<T[]> {
+    public async getList(query: IListQuery, ...args: any[]): Promise<TEntity[]> {
         // Wait for database to be ready
         await SQLiteDatabase.ready();
 
@@ -205,7 +205,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
             const result = await SQLiteDatabase.execute<any>(dbQuery);
 
             // Init rows
-            const rows: T[] = [];
+            const rows: TEntity[] = [];
 
             // Get rows
             for (let index = 0; index < result.rows.length; index++) {
@@ -226,9 +226,41 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
      * @param query 
      * @param args 
      */
-    public async remove(query: IRemoveQuery, ...args: any[]): Promise<any> {
+    public async removeList(query: IRemoveQuery, ...args: any[]): Promise<any> {
         // Wait for database to be ready
         await SQLiteDatabase.ready();
+
+        // Build query
+        const dbQuery: string = this.builder.delete(this.schema, query);
+
+        // Try to execute query
+        try {
+            // Execute query
+            let result = await SQLiteDatabase.execute(dbQuery);
+
+            // Process result
+            return Promise.resolve(result);
+        }
+        catch (e) {
+            // Reject error
+            return Promise.reject(e);
+        }
+    }
+
+    /**
+     * Remove
+     * @param query 
+     * @param args 
+     */
+    public async remove(entity: TEntity, ...args: any[]): Promise<any> {
+        // Wait for database to be ready
+        await SQLiteDatabase.ready();
+
+        // Init query
+        const query: IRemoveQuery = { filter: {} };
+
+        // Set oid filter
+        query.filter[this.oid] = ((entity as any)[this.oid]);
 
         // Build query
         const dbQuery: string = this.builder.delete(this.schema, query);
@@ -252,7 +284,7 @@ export class SQLiteDao<T extends Serializable> implements IEntityDao<T> {
      * @param query 
      * @param args 
      */
-    public async update(query: IUpdateQuery, payload: T, ...args: any[]): Promise<any> {
+    public async update(query: IUpdateQuery, payload: TEntity, ...args: any[]): Promise<any> {
         // Wait for database to be ready
         await SQLiteDatabase.ready();
 

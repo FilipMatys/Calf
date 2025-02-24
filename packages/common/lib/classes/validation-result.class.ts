@@ -1,6 +1,9 @@
 // Interfaces
 import { ICustomValidationFn } from "../interfaces/custom-validation-fn.interface";
 
+// Enums
+import { Boundaries } from "../enums/boundaries.enum";
+
 /**
  * Validation result
  * @description Object being handled between function calls
@@ -283,6 +286,31 @@ export class ValidationResult<TData, TMessage = string> {
      */
     public isGreater(selector: (d: TData) => number, value: number, error: TMessage): boolean {
         return this.processResult(selector(this.data as TData) > value, error);
+    }
+
+    /**
+     * Is between
+     * @param selector 
+     * @param start 
+     * @param boundaries
+     * @param end 
+     * @param error 
+     */
+    public isBetween(selector: (d: TData) => number, min: number, max: number, boundaries: Boundaries, error: TMessage): boolean {
+        // Get value
+        const lValue = selector(this.data as TData);
+
+        // Check boundaries
+        switch (boundaries) {
+            // Exclusive
+            case Boundaries.Exclusive:
+                return this.processResult(lValue > min && lValue < max, error);
+
+            // Inclusive/default
+            case Boundaries.Inclusive:
+            default:
+                return this.processResult(lValue >= min && lValue <= max, error);
+        }
     }
 
     /**

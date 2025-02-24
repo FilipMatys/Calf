@@ -59,8 +59,8 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
             return this.postSave(validation, ...args);
         }
         catch (validation) {
-            // Pass validation
-            return validation;
+            // Return validation
+            return validation as ValidationResult<any, any>;
         }
     }
 
@@ -140,8 +140,8 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
             return this.postCount(validation, query, ...args);
         }
         catch (validation) {
-            // Pass validation
-            return validation;
+            // Return validation
+            return validation as ValidationResult<any, any>;
         }
     }
 
@@ -224,8 +224,8 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
             return this.postGet(validation, query, ...args);
         }
         catch (validation) {
-            // Pass validation
-            return validation;
+            // Return validation
+            return validation as ValidationResult<any, any>;
         }
     }
 
@@ -309,7 +309,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
         }
         catch (validation) {
             // Return validation
-            return validation;
+            return validation as ValidationResult<any, any>;
         }
     }
 
@@ -407,7 +407,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
         }
         catch (validation) {
             // Return validation
-            return validation;
+            return validation as ValidationResult<any, any>;
         }
     }
 
@@ -467,16 +467,16 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
 
     /**
      * Remove
-     * @param query 
+     * @param entity 
      * @param args 
      */
-    public async remove(query: IRemoveQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
+    public async remove(entity: TEntity, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
         // Init validation
         const validation = new ValidationResult<any, TMessage>();
 
         try {
             // Call pre remove
-            await this.preRemove(validation, query, ...args);
+            await this.preRemove(validation, ...args);
 
             // Check validation
             if (!validation.isValid) {
@@ -485,7 +485,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
             }
 
             // Call peri remove
-            await this.periRemove(validation, query, ...args);
+            await this.periRemove(validation, ...args);
 
             // Check validation
             if (!validation.isValid) {
@@ -494,11 +494,48 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
             }
 
             // Call post remove
-            return this.postRemove(validation, query, ...args);
+            return this.postRemove(validation, ...args);
         }
         catch (validation) {
             // Return validation
-            return validation;
+            return validation as ValidationResult<any, any>;
+        }
+    }
+
+    /**
+     * Remove list
+     * @param query 
+     * @param args 
+     */
+    public async removeList(query: IRemoveQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
+        // Init validation
+        const validation = new ValidationResult<any, TMessage>();
+
+        try {
+            // Call pre remove
+            await this.preRemoveList(validation, query, ...args);
+
+            // Check validation
+            if (!validation.isValid) {
+                // Return validation
+                return validation;
+            }
+
+            // Call peri remove
+            await this.periRemoveList(validation, query, ...args);
+
+            // Check validation
+            if (!validation.isValid) {
+                // Return validation
+                return validation;
+            }
+
+            // Call post remove
+            return this.postRemoveList(validation, query, ...args);
+        }
+        catch (validation) {
+            // Return validation
+            return validation as ValidationResult<any, any>;
         }
     }
 
@@ -508,8 +545,8 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param query 
      * @param args 
      */
-    protected preRemove(validation: ValidationResult<any, TMessage>, query: IRemoveQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
-        return Promise.resolve(validation);
+    protected async preRemove(validation: ValidationResult<TEntity, TMessage>, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
+        return validation;
     }
 
     /**
@@ -518,35 +555,67 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param query 
      * @param args 
      */
-    protected periRemove(validation: ValidationResult<any, TMessage>, query: IRemoveQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
-        // Create new promise
-        return new Promise((resolve, reject) => {
-            // Remove 
-            this.dao.remove(query, ...args)
-                .then((result) => {
-                    // Assign Data
-                    validation.data = result;
+    protected async periRemove(validation: ValidationResult<TEntity, TMessage>, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
+        try {
+            // Remove entity
+            validation.data = await this.dao.remove(validation.data, ...args);
 
-                    // Resolve
-                    return resolve(validation);
-                })
-                .catch((error) => {
-                    // Handle error
-                    this.handleRemoveError(validation, error)
-                        .then((validation) => resolve(validation))
-                        .catch((validation) => reject(validation));
-                });
-        });
+            // Return validation
+            return validation;
+        }
+        catch (error) {
+            // Handle error
+            return this.handleRemoveError(validation, error);
+        }
     }
 
     /**
      * Post remove hook
      * @param validation 
+     * @param args 
+     */
+    protected async postRemove(validation: ValidationResult<TEntity, TMessage>, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
+        return validation;
+    }
+
+    /**
+     * Pre remove list hook
+     * @param validation 
      * @param query 
      * @param args 
      */
-    protected postRemove(validation: ValidationResult<any, TMessage>, query: IRemoveQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
-        return Promise.resolve(validation);
+    protected async preRemoveList(validation: ValidationResult<any, TMessage>, query: IRemoveQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
+        return validation;
+    }
+
+    /**
+     * Peri remove list hook
+     * @param validation 
+     * @param query 
+     * @param args 
+     */
+    protected async periRemoveList(validation: ValidationResult<any, TMessage>, query: IRemoveQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
+        try {
+            // Remove list
+            validation.data = await this.dao.removeList(query, ...args);
+
+            // Return validation
+            return validation;
+        }
+        catch (error) {
+            // Handle error
+            return this.handleRemoveListError(validation, error);
+        }
+    }
+
+    /**
+     * Post remove list hook
+     * @param validation 
+     * @param query 
+     * @param args 
+     */
+    protected async postRemoveList(validation: ValidationResult<any, TMessage>, query: IRemoveQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
+        return validation;
     }
 
     /**
@@ -583,7 +652,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
         }
         catch (validation) {
             // Return validation
-            return validation;
+            return validation as ValidationResult<any, any>;
         }
     }
 
@@ -648,7 +717,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
         }
         catch (validation) {
             // Return validation
-            return validation;
+            return validation as ValidationResult<any, any>;
         }
     }
 
@@ -761,6 +830,15 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      * @param error 
      */
     protected handleGetListError<TError>(validation: ValidationResult<IListQueryResult<TEntity>, TMessage>, error: TError): Promise<ValidationResult<IListQueryResult<TEntity>, TMessage>> {
+        return this.handleDaoError<TError>(validation, error);
+    }
+
+    /**
+     * Handle remove list error
+     * @param validation 
+     * @param error 
+     */
+    protected handleRemoveListError<TError>(validation: ValidationResult<any, TMessage>, error: TError): Promise<ValidationResult<any, TMessage>> {
         return this.handleDaoError<TError>(validation, error);
     }
 
