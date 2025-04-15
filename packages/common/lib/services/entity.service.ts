@@ -472,7 +472,7 @@ export abstract class EntityService<TEntity extends Serializable, TMessage = str
      */
     public async remove(entity: TEntity, ...args: any[]): Promise<ValidationResult<TEntity, TMessage>> {
         // Init validation
-        const validation = new ValidationResult<any, TMessage>();
+        const validation = new ValidationResult<TEntity, TMessage>(entity);
 
         try {
             // Call pre remove
