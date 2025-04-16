@@ -32,10 +32,10 @@ export namespace Sale {
     export namespace Interfaces {
 
         /**
-         * Operation data
-         * @description Interface for Operation data
+         * Request data
+         * @description Interface for Request data
          */
-        export interface IOperationData {
+        export interface IRequestData {
             Currency?: string;
             Amount?: number;
             AskForTip?: boolean;

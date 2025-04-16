@@ -1,4 +1,5 @@
 // Namespaces
+import { TransactionStatus } from "../namespaces/transaction-status.namespace";
 import { Common } from "../namespaces/common.namespace";
 import { Sale } from "../namespaces/sale.namespace";
 
@@ -12,10 +13,50 @@ import { BaseService } from "./base.service";
 export class TransactionService extends BaseService {
 
     /**
+     * Status
+     * @description Get transaction status
+     * @param data 
+     * @returns 
+     */
+    public async status<TBody>(data: TransactionStatus.Interfaces.IRequestData): Promise<TransactionStatus.Interfaces.IResponse<TBody>> {
+        // Init request
+        const request: TransactionStatus.Interfaces.IRequest = { MessageHeader: {}, TransactionStatusRequest: {} };
+
+        // Build header
+        request.MessageHeader.MessageCategory = Common.Enums.MessageCategory.TransactionStatus;
+        request.MessageHeader.MessageClass = Common.Enums.MessageClass.Service;
+        request.MessageHeader.MessageType = Common.Enums.MessageType.Request;
+        request.MessageHeader.POIID = this.config.POIID;
+        request.MessageHeader.ProtocolVersion = this.config.ProtocolVersion;
+        request.MessageHeader.SaleID = this.config.SaleID;
+        request.MessageHeader.ServiceID = data.ServiceID || await this.config.GenerateUuidFn();
+
+        // Init data
+        request.TransactionStatusRequest = { MessageReference: {} };
+
+        // Assign data
+        request.TransactionStatusRequest.MessageReference.MessageCategory = data.MessageCategory;
+        request.TransactionStatusRequest.MessageReference.SaleID = data.SaleID || this.config.SaleID;
+        request.TransactionStatusRequest.MessageReference.ServiceID = data.ServiceID || request.MessageHeader.ServiceID;
+
+        // Init headers
+        const headers: Common.Interfaces.IHttpHeaders = {};
+
+        // Set headers
+        headers["Authorization"] = `Bearer ${this.config.Token}`;
+        headers["Content-Type"] = "application/json";
+        headers["Content-Length"] = JSON.stringify(request).length;
+        headers["Connection"] = "keep-alive";
+
+        // Make request
+        return this.config.Service.post(`${this.host}`, headers, { SaleToPOIRequest: request });
+    }
+
+    /**
      * Sale
      * @param data 
      */
-    public async sale(data: Sale.Interfaces.IOperationData): Promise<Sale.Interfaces.IResponse> {
+    public async sale(data: Sale.Interfaces.IRequestData): Promise<Sale.Interfaces.IResponse> {
         // Init request
         const request: Sale.Interfaces.IRequest = { MessageHeader: {}, PaymentRequest: {} };
 

@@ -14,6 +14,16 @@ export namespace TransactionStatus {
     export namespace Interfaces {
 
         /**
+         * Request data
+         * @description Interface for Request data
+         */
+        export interface IRequestData {
+            MessageCategory?: Common.Enums.MessageCategory;
+            SaleID?: string;
+            ServiceID?: string;
+        }
+
+        /**
          * Request
          * @description Interface for Request
          */
