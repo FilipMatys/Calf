@@ -18,7 +18,10 @@ export namespace Reversal {
          * @description Enum for Reversal reason
          */
         export enum ReversalReason {
-            MerchantCancel = "MerchantCancel"
+            CustCancel = "CustCancel",
+            MerchantCancel = "MerchantCancel",
+            Malfunction = "Malfunction",
+            Unable2Compl = "Unable2Compl"
         }
     }
 
