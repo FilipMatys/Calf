@@ -2,10 +2,10 @@
 import { Common } from "./common.namespace";
 
 /**
- * Payment
- * @description Namespace for Payment
+ * Sale
+ * @description Namespace for Sale
  */
-export namespace Payment {
+export namespace Sale {
 
     /**
      * Enums

@@ -1,3 +1,6 @@
+// Services
+import { HttpService } from "../services/http.service";
+
 /**
  * Common
  * @description Namespace for Common
@@ -80,6 +83,22 @@ export namespace Common {
          */
         export interface IHttpHeaders {
             [key: string]: string | number;
+        }
+
+        /**
+         * Dotypay config
+         * @description Interface for Dotypay config
+         */
+        export interface IDotypayConfig {
+            Protocol?: string;
+            Token?: string;
+            IP?: string;
+            Port?: number;
+            Service: HttpService;
+            ProtocolVersion?: string;
+            POIID?: string;
+            SaleID?: string;
+            GenerateUuidFn?: () => Promise<string>;
         }
 
         /**
@@ -221,6 +240,34 @@ export namespace Common {
             SaleID?: string;
             ServiceID?: string;
             POIID?: string;
+        }
+
+        /**
+         * Terminal
+         * @description Interface for Terminal
+         */
+        export interface IPOITerminal {
+            POIID?: string;
+            BusinessId?: string;
+            MerchantName?: string;
+            Currency?: string;
+            SmartTipsAvailable?: boolean;
+            AdditionalData?: IPOITerminalAdditionalData;
+        }
+
+        /**
+         * Terminal additional data
+         * @description Interface for Terminal additional data
+         */
+        export interface IPOITerminalAdditionalData {
+            BranchId?: string;
+            CustomIdentifierCaption?: string;
+            CustomIdentifierForbiddenCharacters?: string;
+            DisplayName?: string;
+            MerchantId?: string;
+            ParserVariableSymbolFromCustomIdentifier?: boolean;
+            QrPaymentEnabled?: boolean;
+            VariableSymbolAllowed?: boolean;
         }
     }
 }

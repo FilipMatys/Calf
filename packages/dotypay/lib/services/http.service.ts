@@ -13,7 +13,7 @@ export abstract class HttpService {
      * @param headers 
      * @param payload 
      */
-    public abstract post<TPayload, TResponse>(target: string, headers: Common.Interfaces.IHttpHeaders, payload: TPayload): Promise<TResponse>;
+    public abstract post<TPayload extends Common.Interfaces.IMessageRequest<any>, TResponse>(target: string, headers: Common.Interfaces.IHttpHeaders, payload: TPayload): Promise<TResponse>;
 
     /**
      * Get
