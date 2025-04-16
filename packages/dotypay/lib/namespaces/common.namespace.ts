@@ -67,8 +67,42 @@ export namespace Common {
         export enum ResultCode {
             Undefined = -1,
             Ok = 0,
-            UNAUTHORIZED = 100
-        }
+            Unauthorized = 100,
+            InvalidContentType = 101,
+            InvalidJson = 102,
+            EmptyBody = 103,
+            UnknownRequest = 104,
+            MandatoryDataMissing = 105,
+            AnotherRequestBeingProcessed = 106,
+            HttpMethodNotAllowed = 107,
+            RequestTypeNotAllowed = 108,
+            WrongTID = 109,
+            CurrencyNotAllowed = 110,
+            InvalidAmount = 111,
+            Timeout = 200,
+            NotFound = 201,
+            NoReversibleTransactionFound = 202,
+            TransactionIsNotReversible = 203,
+            CanceledByUser = 204,
+            CardReadError = 205,
+            Aborted = 206,
+            CardReadTimeout = 207,
+            NoConnection = 208,
+            NotAbortable = 209,
+            PinTimeout = 210,
+            PinError = 211,
+            PinKeyNotSynchronized = 212,
+            HostRefusedGeneric = 300,
+            WrongPin = 301,
+            EmptyHostResponse = 302,
+            TechnicalReversal = 303,
+            PaymentSwitchCommunicationError = 304,
+            PlaceCall = 305,
+            SignatureNotVerified = 306,
+            CallSupport = 307,
+            EmvDeclined = 308,
+            SettlementError = 309
+        }   
     }
 
     /**
