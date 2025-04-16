@@ -53,6 +53,8 @@ export namespace Reversal {
          */
         export interface IReversalRequest {
             OriginalPOITransaction?: Common.Interfaces.IPOIData;
+            ReversalReason?: Enums.ReversalReason;
+            ProprietaryTags?: Common.Interfaces.IProprietaryTags;
         }
 
         /**
