@@ -1,13 +1,14 @@
 // Namespaces
 import { TransactionStatus } from "../namespaces/transaction-status.namespace";
+import { Reconciliation } from "../namespaces/reconciliation.namespace";
+import { Diagnosis } from "../namespaces/diagnosis.namespace";
 import { Reversal } from "../namespaces/reversal.namespace";
+import { Abort } from "../namespaces/abort.namespace";
 import { Common } from "../namespaces/common.namespace";
 import { Payment } from "../namespaces/payment.namespace";
 
 // Services
 import { BaseService } from "./base.service";
-import { Reconciliation } from "../dotypay";
-import { Diagnosis } from "../namespaces/diagnosis.namespace";
 
 /**
  * Transaction service
@@ -40,7 +41,7 @@ export class TransactionService extends BaseService {
         // Assign data
         request.TransactionStatusRequest.MessageReference.MessageCategory = data.MessageCategory;
         request.TransactionStatusRequest.MessageReference.SaleID = data.SaleID || this.config.SaleID;
-        request.TransactionStatusRequest.MessageReference.ServiceID = data.ServiceID || request.MessageHeader.ServiceID;
+        request.TransactionStatusRequest.MessageReference.ServiceID = data.ServiceID;
 
         // Init headers
         const headers: Common.Interfaces.IHttpHeaders = {};
@@ -210,6 +211,49 @@ export class TransactionService extends BaseService {
         // Set transaction id
         request.PaymentRequest.SaleData.SaleTransactionID.TimeStamp = new Date(data.TimeStamp).toISOString();
         request.PaymentRequest.SaleData.SaleTransactionID.TransactionID = data.TransactionID;
+
+        // Init headers
+        const headers: Common.Interfaces.IHttpHeaders = {};
+
+        // Set headers
+        headers["Authorization"] = `Bearer ${this.config.Token}`;
+        headers["Content-Type"] = "application/json";
+        headers["Content-Length"] = JSON.stringify(request).length;
+        headers["Connection"] = "keep-alive";
+
+        // Make request
+        return this.config.Service.post(`${this.host}`, headers, { SaleToPOIRequest: request });
+    }
+
+    /**
+     * Abort
+     * @param data 
+     * @returns 
+     */
+    public async abort(data: Abort.Interfaces.IRequestData): Promise<Abort.Interfaces.IResponse> {
+        // Init request
+        const request: Abort.Interfaces.IRequest = { MessageHeader: {}, AbortRequest: {} };
+
+        // Build header
+        request.MessageHeader.MessageCategory = Common.Enums.MessageCategory.Abort;
+        request.MessageHeader.MessageClass = Common.Enums.MessageClass.Service;
+        request.MessageHeader.MessageType = Common.Enums.MessageType.Request;
+        request.MessageHeader.POIID = this.config.POIID;
+        request.MessageHeader.ProtocolVersion = this.config.ProtocolVersion;
+        request.MessageHeader.SaleID = this.config.SaleID;
+        request.MessageHeader.ServiceID = await this.config.GenerateUuidFn();
+
+        // Init message reference
+        request.AbortRequest.MessageReference = {};
+
+        // Assign message reference
+        request.AbortRequest.MessageReference.MessageCategory = data.MessageCategory;
+        request.AbortRequest.MessageReference.SaleID = data.SaleID || this.config.SaleID;
+        request.AbortRequest.MessageReference.ServiceID = data.ServiceID;
+        request.AbortRequest.MessageReference.POIID = data.POIID || this.config.POIID;
+
+        // Set reason
+        request.AbortRequest.AbortReason = data.AbortReason;
 
         // Init headers
         const headers: Common.Interfaces.IHttpHeaders = {};
