@@ -18,7 +18,8 @@ export namespace Reconciliation {
          * @description Enum for Reconciliation type
          */
         export enum ReconciliationType {
-            AcquirerSynchronisation = "AcquirerSynchronisation"
+            AcquirerSynchronisation = "AcquirerSynchronisation",
+            SaleReconciliation = "SaleReconciliation",
         }
 
         /**
@@ -36,6 +37,15 @@ export namespace Reconciliation {
      * @description Namespace for Interfaces
      */
     export namespace Interfaces {
+
+        /**
+         * Request data
+         * @description Interface for Request data
+         */
+        export interface IRequestData {
+            ReconciliationType?: Enums.ReconciliationType;
+            Note?: string;
+        }
 
         /**
          * Request

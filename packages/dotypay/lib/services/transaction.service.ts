@@ -6,6 +6,8 @@ import { Payment } from "../namespaces/payment.namespace";
 
 // Services
 import { BaseService } from "./base.service";
+import { Reconciliation } from "../dotypay";
+import { Diagnosis } from "../namespaces/diagnosis.namespace";
 
 /**
  * Transaction service
@@ -82,6 +84,78 @@ export class TransactionService extends BaseService {
 
         // Init proprietary tags
         request.ReversalRequest.ProprietaryTags = {};
+
+        // Init headers
+        const headers: Common.Interfaces.IHttpHeaders = {};
+
+        // Set headers
+        headers["Authorization"] = `Bearer ${this.config.Token}`;
+        headers["Content-Type"] = "application/json";
+        headers["Content-Length"] = JSON.stringify(request).length;
+        headers["Connection"] = "keep-alive";
+
+        // Make request
+        return this.config.Service.post(`${this.host}`, headers, { SaleToPOIRequest: request });
+    }
+
+    /**
+     * Diagnosis
+     * @param data 
+     */
+    public async diagnosis(data: Diagnosis.Interfaces.IRequestData): Promise<Diagnosis.Interfaces.IResponse> {
+        // Init request
+        const request: Diagnosis.Interfaces.IRequest = { MessageHeader: {}, DiagnosisRequest: {} };
+
+        // Build header
+        request.MessageHeader.MessageCategory = Common.Enums.MessageCategory.Diagnosis;
+        request.MessageHeader.MessageClass = Common.Enums.MessageClass.Service;
+        request.MessageHeader.MessageType = Common.Enums.MessageType.Request;
+        request.MessageHeader.POIID = this.config.POIID;
+        request.MessageHeader.ProtocolVersion = this.config.ProtocolVersion;
+        request.MessageHeader.SaleID = this.config.SaleID;
+        request.MessageHeader.ServiceID = await this.config.GenerateUuidFn();
+
+        // Set request data
+        request.DiagnosisRequest.HostDiagnosisFlag = !!data.HostDiagnosisFlag;
+
+        // Init headers
+        const headers: Common.Interfaces.IHttpHeaders = {};
+
+        // Set headers
+        headers["Authorization"] = `Bearer ${this.config.Token}`;
+        headers["Content-Type"] = "application/json";
+        headers["Content-Length"] = JSON.stringify(request).length;
+        headers["Connection"] = "keep-alive";
+
+        // Make request
+        return this.config.Service.post(`${this.host}`, headers, { SaleToPOIRequest: request });
+    }
+
+    /**
+     * Reconciliation
+     * @param data 
+     */
+    public async reconciliation(data: Reconciliation.Interfaces.IRequestData): Promise<Reconciliation.Interfaces.IResponse> {
+        // Init request
+        const request: Reconciliation.Interfaces.IRequest = { MessageHeader: {}, ReconciliationRequest: {} };
+
+        // Build header
+        request.MessageHeader.MessageCategory = Common.Enums.MessageCategory.Reconciliation;
+        request.MessageHeader.MessageClass = Common.Enums.MessageClass.Service;
+        request.MessageHeader.MessageType = Common.Enums.MessageType.Request;
+        request.MessageHeader.POIID = this.config.POIID;
+        request.MessageHeader.ProtocolVersion = this.config.ProtocolVersion;
+        request.MessageHeader.SaleID = this.config.SaleID;
+        request.MessageHeader.ServiceID = await this.config.GenerateUuidFn();
+
+        // Set type
+        request.ReconciliationRequest.ReconciliationType = data.ReconciliationType;
+
+        // Init proprietary tags
+        request.ReconciliationRequest.ProprietaryTags = {};
+
+        // Set proprietary tags values (if any)
+        data.Note && (request.ReconciliationRequest.ProprietaryTags.Note = data.Note);
 
         // Init headers
         const headers: Common.Interfaces.IHttpHeaders = {};
