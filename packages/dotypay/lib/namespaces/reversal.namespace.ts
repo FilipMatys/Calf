@@ -32,6 +32,16 @@ export namespace Reversal {
     export namespace Interfaces {
 
         /**
+         * Request data
+         * @description Interface for Request data
+         */
+        export interface IRequestData {
+            TimeStamp?: Date;
+            TransactionID?: string;
+            ReversalReason?: Enums.ReversalReason;
+        }
+
+        /**
          * Request
          * @description Interface for Request
          */

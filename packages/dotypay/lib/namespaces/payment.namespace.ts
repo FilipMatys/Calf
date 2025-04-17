@@ -2,10 +2,10 @@
 import { Common } from "./common.namespace";
 
 /**
- * Sale
- * @description Namespace for Sale
+ * Payment
+ * @description Namespace for Payment
  */
-export namespace Sale {
+export namespace Payment {
 
     /**
      * Enums
@@ -43,7 +43,9 @@ export namespace Sale {
             VariableSymbol?: string;
             CustomIdentifier?: string;
             TimeStamp?: Date;
-            UUID?: string;
+            TransactionID?: string;
+            OriginalTransactionID?: string;
+            OriginalTransactionTimeStamp?: Date;
         }
 
         /**

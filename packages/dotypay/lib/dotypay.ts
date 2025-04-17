@@ -3,7 +3,7 @@ export * from "./services/http.service";
 
 // Namespaces
 export * from "./namespaces/common.namespace";
-export * from "./namespaces/sale.namespace";
+export * from "./namespaces/payment.namespace";
 export * from "./namespaces/abort.namespace";
 export * from "./namespaces/reconciliation.namespace";
 export * from "./namespaces/reversal.namespace";

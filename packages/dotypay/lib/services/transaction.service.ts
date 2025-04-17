@@ -1,7 +1,8 @@
 // Namespaces
 import { TransactionStatus } from "../namespaces/transaction-status.namespace";
+import { Reversal } from "../namespaces/reversal.namespace";
 import { Common } from "../namespaces/common.namespace";
-import { Sale } from "../namespaces/sale.namespace";
+import { Payment } from "../namespaces/payment.namespace";
 
 // Services
 import { BaseService } from "./base.service";
@@ -53,12 +54,55 @@ export class TransactionService extends BaseService {
     }
 
     /**
-     * Sale
+     * Reversal
      * @param data 
      */
-    public async sale(data: Sale.Interfaces.IRequestData): Promise<Sale.Interfaces.IResponse> {
+    public async reversal(data: Reversal.Interfaces.IRequestData): Promise<Reversal.Interfaces.IResponse> {
         // Init request
-        const request: Sale.Interfaces.IRequest = { MessageHeader: {}, PaymentRequest: {} };
+        const request: Reversal.Interfaces.IRequest = { MessageHeader: {}, ReversalRequest: {} };
+
+        // Build header
+        request.MessageHeader.MessageCategory = Common.Enums.MessageCategory.Reversal;
+        request.MessageHeader.MessageClass = Common.Enums.MessageClass.Service;
+        request.MessageHeader.MessageType = Common.Enums.MessageType.Request;
+        request.MessageHeader.POIID = this.config.POIID;
+        request.MessageHeader.ProtocolVersion = this.config.ProtocolVersion;
+        request.MessageHeader.SaleID = this.config.SaleID;
+        request.MessageHeader.ServiceID = await this.config.GenerateUuidFn();
+
+        // Init transaction information
+        request.ReversalRequest.OriginalPOITransaction = { POITransactionID: {} };
+
+        // Assign transaction information
+        request.ReversalRequest.OriginalPOITransaction.POITransactionID.TransactionID = data.TransactionID;
+        request.ReversalRequest.OriginalPOITransaction.POITransactionID.TimeStamp = new Date(data.TimeStamp).toISOString();
+
+        // Set reason
+        request.ReversalRequest.ReversalReason = data.ReversalReason;
+
+        // Init proprietary tags
+        request.ReversalRequest.ProprietaryTags = {};
+
+        // Init headers
+        const headers: Common.Interfaces.IHttpHeaders = {};
+
+        // Set headers
+        headers["Authorization"] = `Bearer ${this.config.Token}`;
+        headers["Content-Type"] = "application/json";
+        headers["Content-Length"] = JSON.stringify(request).length;
+        headers["Connection"] = "keep-alive";
+
+        // Make request
+        return this.config.Service.post(`${this.host}`, headers, { SaleToPOIRequest: request });
+    }
+
+    /**
+     * Refund
+     * @param data 
+     */
+    public async refund(data: Payment.Interfaces.IRequestData): Promise<Payment.Interfaces.IResponse> {
+        // Init request
+        const request: Payment.Interfaces.IRequest = { MessageHeader: {}, PaymentRequest: {} };
 
         // Build header
         request.MessageHeader.MessageCategory = Common.Enums.MessageCategory.Payment;
@@ -70,7 +114,61 @@ export class TransactionService extends BaseService {
         request.MessageHeader.ServiceID = await this.config.GenerateUuidFn();
 
         // Set payment data
-        request.PaymentRequest.PaymentData = { PaymentType: Sale.Enums.PaymentType.Normal };
+        request.PaymentRequest.PaymentData = { PaymentType: Payment.Enums.PaymentType.Refund };
+
+        // Init payment transaction
+        request.PaymentRequest.PaymentTransaction = { AmountsReq: {}, ProprietaryTags: {}, OriginalPOITransaction: { POITransactionID: {} } };
+
+        // Set amount
+        request.PaymentRequest.PaymentTransaction.AmountsReq.Currency = data.Currency;
+        request.PaymentRequest.PaymentTransaction.AmountsReq.RequestedAmount = data.Amount;
+
+        // Init transaction information
+        request.PaymentRequest.PaymentTransaction.OriginalPOITransaction = { POITransactionID: {} };
+
+        // Assign transaction information
+        request.PaymentRequest.PaymentTransaction.OriginalPOITransaction.POITransactionID.TransactionID = data.TransactionID;
+        request.PaymentRequest.PaymentTransaction.OriginalPOITransaction.POITransactionID.TimeStamp = new Date(data.TimeStamp).toISOString();
+
+        // Init sale data
+        request.PaymentRequest.SaleData = { SaleTransactionID: {} };
+
+        // Set transaction id
+        request.PaymentRequest.SaleData.SaleTransactionID.TimeStamp = new Date(data.TimeStamp).toISOString();
+        request.PaymentRequest.SaleData.SaleTransactionID.TransactionID = data.TransactionID;
+
+        // Init headers
+        const headers: Common.Interfaces.IHttpHeaders = {};
+
+        // Set headers
+        headers["Authorization"] = `Bearer ${this.config.Token}`;
+        headers["Content-Type"] = "application/json";
+        headers["Content-Length"] = JSON.stringify(request).length;
+        headers["Connection"] = "keep-alive";
+
+        // Make request
+        return this.config.Service.post(`${this.host}`, headers, { SaleToPOIRequest: request });
+    }
+
+    /**
+     * Sale
+     * @param data 
+     */
+    public async sale(data: Payment.Interfaces.IRequestData): Promise<Payment.Interfaces.IResponse> {
+        // Init request
+        const request: Payment.Interfaces.IRequest = { MessageHeader: {}, PaymentRequest: {} };
+
+        // Build header
+        request.MessageHeader.MessageCategory = Common.Enums.MessageCategory.Payment;
+        request.MessageHeader.MessageClass = Common.Enums.MessageClass.Service;
+        request.MessageHeader.MessageType = Common.Enums.MessageType.Request;
+        request.MessageHeader.POIID = this.config.POIID;
+        request.MessageHeader.ProtocolVersion = this.config.ProtocolVersion;
+        request.MessageHeader.SaleID = this.config.SaleID;
+        request.MessageHeader.ServiceID = await this.config.GenerateUuidFn();
+
+        // Set payment data
+        request.PaymentRequest.PaymentData = { PaymentType: Payment.Enums.PaymentType.Normal };
 
         // Init payment transaction
         request.PaymentRequest.PaymentTransaction = { AmountsReq: {}, ProprietaryTags: {} };
@@ -93,7 +191,7 @@ export class TransactionService extends BaseService {
 
         // Set transaction id
         request.PaymentRequest.SaleData.SaleTransactionID.TimeStamp = new Date(data.TimeStamp).toISOString();
-        request.PaymentRequest.SaleData.SaleTransactionID.TransactionID = data.UUID;
+        request.PaymentRequest.SaleData.SaleTransactionID.TransactionID = data.TransactionID;
 
         // Init headers
         const headers: Common.Interfaces.IHttpHeaders = {};
