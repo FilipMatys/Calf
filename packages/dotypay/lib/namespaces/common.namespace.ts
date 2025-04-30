@@ -1,6 +1,3 @@
-// Services
-import { HttpService } from "../services/http.service";
-
 /**
  * Common
  * @description Namespace for Common
@@ -110,44 +107,6 @@ export namespace Common {
      * @description Namespace for Interfaces
      */
     export namespace Interfaces {
-
-        /**
-         * Http headers
-         * @description Interface for Http headers
-         */
-        export interface IHttpHeaders {
-            [key: string]: string | number;
-        }
-
-        /**
-         * Dotypay config
-         * @description Interface for Dotypay config
-         */
-        export interface IDotypayConfig {
-            Protocol?: string;
-            Token?: string;
-            IP?: string;
-            Port?: number;
-            Service: HttpService;
-            ProtocolVersion?: string;
-            POIID?: string;
-            SaleID?: string;
-            GenerateUuidFn?: () => Promise<string>;
-        }
-
-        /**
-         * Operation config
-         * @description Interface for Operation config
-         */
-        export interface IOperationConfig {
-            Token?: string;
-            ProtocolVersion?: string;
-            SaleID?: string;
-            ServiceID?: string;
-            POIID?: string;
-            Url?: string;
-            Port?: number;
-        }
 
         /**
          * Message header
