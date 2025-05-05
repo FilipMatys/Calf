@@ -32,23 +32,6 @@ export namespace Payment {
     export namespace Interfaces {
 
         /**
-         * Request data
-         * @description Interface for Request data
-         */
-        export interface IRequestData {
-            Currency?: string;
-            Amount?: number;
-            AskForTip?: boolean;
-            EnterTipAsTargetAmount?: boolean;
-            VariableSymbol?: string;
-            CustomIdentifier?: string;
-            TimeStamp?: Date;
-            TransactionID?: string;
-            OriginalTransactionID?: string;
-            OriginalTransactionTimeStamp?: Date;
-        }
-
-        /**
          * Request
          * @description Interface for Request
          */
@@ -72,9 +55,6 @@ export namespace Payment {
             PaymentData?: IPaymentData;
             PaymentTransaction?: IPaymentTransaction;
             SaleData?: ISaleData;
-            PaymentResult?: IPaymentResult;
-            POIData?: Common.Interfaces.IPOIData;
-            Response?: Common.Interfaces.IResponse;
         }
 
         /**
@@ -83,6 +63,9 @@ export namespace Payment {
          */
         export interface IPaymentResponse {
             PaymentData?: IPaymentData;
+            PaymentResult?: IPaymentResult;
+            POIData?: Common.Interfaces.IPOIData;
+            Response?: Common.Interfaces.IResponse;
         }
 
         /**

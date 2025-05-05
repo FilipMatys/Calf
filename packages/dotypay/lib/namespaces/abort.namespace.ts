@@ -14,14 +14,6 @@ export namespace Abort {
     export namespace Interfaces {
 
         /**
-         * Request data
-         * @description Interface for Request data
-         */
-        export interface IRequestData extends Common.Interfaces.IMessageReference {
-            AbortReason?: string;
-        }
-
-        /**
          * Response
          * @description Interface for Response
          */

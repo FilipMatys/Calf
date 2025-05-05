@@ -39,15 +39,6 @@ export namespace Reconciliation {
     export namespace Interfaces {
 
         /**
-         * Request data
-         * @description Interface for Request data
-         */
-        export interface IRequestData {
-            ReconciliationType?: Enums.ReconciliationType;
-            Note?: string;
-        }
-
-        /**
          * Request
          * @description Interface for Request
          */

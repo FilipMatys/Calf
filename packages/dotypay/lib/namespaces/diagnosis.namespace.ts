@@ -44,14 +44,6 @@ export namespace Diagnosis {
     export namespace Interfaces {
 
         /**
-         * Request data
-         * @description Interface for Request data
-         */
-        export interface IRequestData {
-            HostDiagnosisFlag?: boolean;
-        }
-
-        /**
          * Request
          * @description Interface for Request
          */
