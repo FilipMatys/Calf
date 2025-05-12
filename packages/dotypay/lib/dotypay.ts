@@ -8,3 +8,4 @@ export * from "./namespaces/transaction-status.namespace";
 export * from "./namespaces/diagnosis.namespace";
 export * from "./namespaces/transaction-status.namespace";
 export * from "./namespaces/terminal-list.namespace";
+export * from "./namespaces/transaction-report.namespace";
