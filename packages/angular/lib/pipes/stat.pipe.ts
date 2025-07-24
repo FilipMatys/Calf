@@ -19,31 +19,32 @@ export abstract class StatPipe<T> implements PipeTransform {
      * Transform value
      * @param value 
      * @param mode 
+     * @param args
      * @returns 
      */
-    public transform(value: any, mode: StatPipeMode = "label"): string {
+    public transform(value: any, mode: StatPipeMode = "label", ...args: any[]): string {
         // Check mode
         switch (mode) {
             // Description
             case "description":
                 // Get description
-                return this.service.getDescription(value);
+                return this.service.getDescription(value, ...args);
 
             // Icon
             case "icon":
                 // Get icon
-                return this.service.getIcon(value);
+                return this.service.getIcon(value, ...args);
 
             // Color
             case "color":
                 // Get color
-                return this.service.getColor(value);
+                return this.service.getColor(value, ...args);
 
             // Label
             case "label":
             default:
                 // Get label
-                return this.service.getLabel(value);
+                return this.service.getLabel(value, ...args);
         }
     }
 }

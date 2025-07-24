@@ -58,29 +58,32 @@ export abstract class StatService<TEnum> {
     /**
      * Get label of given value
      * @param value 
+     * @param args
      */
-    public abstract getLabel<T>(value: T): string;
+    public abstract getLabel<T>(value: T, ...args: any[]): string;
 
     /**
      * Get color
      * @param value 
+     * @param args
      * @returns 
      */
-    public getColor<T>(value: T): string { return ""; }
+    public getColor<T>(value: T, ...args: any[]): string { return ""; }
 
     /**
      * Get icon
      * @param value 
+     * @param args
      * @returns 
      */
-    public getIcon<T>(value: T): string { return ""; }
+    public getIcon<T>(value: T, ...args: any[]): string { return ""; }
 
     /**
      * Get description
      * @param value 
      * @returns 
      */
-    public getDescription<T>(value: T): string { return ""; }
+    public getDescription<T>(value: T, ...args: any[]): string { return ""; }
 
     /**
      * Check if enumeration is constant
