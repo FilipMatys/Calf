@@ -165,14 +165,14 @@ export abstract class AngularService<TEntity extends Serializable, TMessage = st
      * @param query 
      * @param args 
      */
-    protected async periRemove(validation: ValidationResult<TEntity, TMessage>, query: IRemoveQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
+    protected async periRemove(validation: ValidationResult<TEntity, TMessage>, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
 
         // First alter headers
         const headers = await this.alterHeaders(this.httpOptions.headers);
 
         try {
             // Make request
-            const rValidation = await this.http.post<ValidationResult<any, TMessage>>([...this.prefix, "remove"].join("/"), query, {
+            const rValidation = await this.http.post<ValidationResult<any, TMessage>>([...this.prefix, "remove"].join("/"), validation.data, {
                 headers: headers
             }).toPromise();
 
@@ -185,6 +185,35 @@ export abstract class AngularService<TEntity extends Serializable, TMessage = st
         catch (error) {
             // Handle error
             return this.handleRemoveError(validation, error);
+        }
+    }
+
+
+    /**
+     * Peri remove hook
+     * @param validation 
+     * @param query 
+     * @param args 
+     */
+    protected async periRemoveList(validation: ValidationResult<TEntity, TMessage>, query: IRemoveQuery, ...args: any[]): Promise<ValidationResult<any, TMessage>> {
+        // First alter headers
+        const headers = await this.alterHeaders(this.httpOptions.headers);
+
+        try {
+            // Make request
+            const rValidation = await this.http.post<ValidationResult<any, TMessage>>([...this.prefix, "list", "remove"].join("/"), query, {
+                headers: headers
+            }).toPromise();
+
+            // Assign data to validation
+            Object.assign(validation, rValidation);
+
+            // Return validation
+            return validation;
+        }
+        catch (error) {
+            // Handle error
+            return this.handleRemoveListError(validation, error);
         }
     }
 
@@ -274,6 +303,15 @@ export abstract class AngularService<TEntity extends Serializable, TMessage = st
      * @param error 
      */
     protected handleRemoveError<TError>(validation: ValidationResult<any, TMessage>, error: TError): Promise<ValidationResult<any, TMessage>> {
+        return this.handleHttpError<TError>(validation, error);
+    }
+
+    /**
+     * Handle remove list error
+     * @param validation 
+     * @param error 
+     */
+    protected handleRemoveListError<TError>(validation: ValidationResult<any, TMessage>, error: TError): Promise<ValidationResult<any, TMessage>> {
         return this.handleHttpError<TError>(validation, error);
     }
 

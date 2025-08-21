@@ -1,6 +1,6 @@
 {
   "name": "@calf/angular",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "description": "Angular module of Calf framework.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -26,7 +26,7 @@
     "@angular/common": "^10.0.0",
     "@angular/core": "^10.0.0",
     "@angular/router": "^10.0.0",
-    "@calf/common": "^0.4.0",
+    "@calf/common": "^0.4.3",
     "@calf/serializable": "^0.3.0",
     "rxjs": "^6.5.0"
   },
@@ -34,7 +34,7 @@
     "@angular/common": "^10.0.0",
     "@angular/core": "^10.0.0",
     "@angular/router": "^10.0.0",
-    "@calf/common": "^0.4.1",
+    "@calf/common": "^0.4.3",
     "@calf/serializable": "^0.3.5",
     "@types/chai": "^4.1.4",
     "@types/mocha": "^5.2.5",
