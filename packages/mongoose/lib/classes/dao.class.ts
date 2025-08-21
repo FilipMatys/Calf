@@ -1,17 +1,30 @@
 // External modules
-import { Serializable } from "@calf/serializable";
 import { ICountQuery, IEntityDao, IGetQuery, IListQuery, IRemoveQuery, IUpdateQuery } from "@calf/common";
-import { Model, model, Schema, models } from "mongoose";
+import { Model, model, Schema, models, Aggregate } from "mongoose";
+import { Serializable } from "@calf/serializable";
 
 // Parsers
 import { SchemaParser } from "../parsers/schema.parser";
 
+/**
+ * Mongoose dao
+ * @description Data access object for Mongoose
+ */
 export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEntity> {
 
     /**
      * Database model
      */
-    protected model: Model<any>;
+    protected _model: Model<any>;
+
+    /**
+     * Model
+     * @description Mongoose model getter
+     */
+    public get model(): Model<any> {
+        // Return model
+        return this._model;
+    }
 
     /**
      * Constructor
@@ -38,7 +51,7 @@ export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEn
         }
 
         // Create model
-        this.model = models[schema.entity.name] || model(schema.entity.name, mSchema);
+        this._model = models[schema.entity.name] || model(schema.entity.name, mSchema);
     }
 
     /**
@@ -46,9 +59,9 @@ export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEn
      * @param pipeline 
      * @returns 
      */
-    public async aggregate<TResult>(pipeline: any[]): Promise<TResult[]> {
+    public aggregate<TResult>(pipeline: any[]): Aggregate<TResult[]> {
         // Call model aggregate
-        return this.model.aggregate(pipeline).exec();
+        return this.model.aggregate(pipeline);
     }
 
     /**
@@ -140,16 +153,27 @@ export class MongooseDao<TEntity extends Serializable> implements IEntityDao<TEn
     }
 
     /**
-     * Remove list
+     * Remove entity
      * @param query 
      * @param args 
      */
-    public async remove(query: IRemoveQuery, ...args: any[]): Promise<any> {
+    public async remove(entity: TEntity, ...args: any[]): Promise<any> {
+        // Get count
+        return this.model.deleteOne({ _id: entity._id }).exec();
+    }
+
+    /**
+     * Remove list
+     * @param query 
+     * @param args 
+     * @returns 
+     */
+    public async removeList(query: IRemoveQuery, ...args: any[]): Promise<any> {
         // Make sure query is set
         query = query || {};
 
-        // Get count
-        return this.model.deleteMany(query.filter || {}).exec();
+        // Remove many
+        return this.model.deleteMany(query.filter).exec();
     }
 
     /**
